@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'bem_vindo_screen.dart';
+
 class TelaPerfis extends StatelessWidget {
-  const TelaPerfis({Key? key, required this.mensagemSuperior, required this.typeUser})
+  const TelaPerfis(
+      {Key? key, required this.mensagemSuperior, required this.typeUser, required this.enderecoImagem})
       : super(key: key);
 
+  final String enderecoImagem;
   final String mensagemSuperior;
   final int typeUser;
 
@@ -39,7 +43,10 @@ class TelaPerfis extends StatelessWidget {
                     margin: EdgeInsets.symmetric(vertical: size.height * 0.01),
                     height: size.height * 0.3,
                     width: size.width * 1,
-                    color: Colors.redAccent,
+                    child: Image(
+                      image: AssetImage(enderecoImagem),
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Text(
                     'Veja o que você pode fazer nesse perfil',
@@ -94,7 +101,11 @@ class TelaPerfis extends StatelessWidget {
           bottom: size.height * 0.02,
           right: size.width * 0.02,
           child: GestureDetector(
-            onTap: null,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const Welcome(),
+              ),
+            ),
             child: const CircleAvatar(
               radius: 25,
               backgroundColor: Colors.white,

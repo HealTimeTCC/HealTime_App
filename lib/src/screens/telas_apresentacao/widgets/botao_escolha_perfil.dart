@@ -37,13 +37,16 @@ class EscolherPerfil {
     switch (type) {
       case 1:
         {
-          String mensagem = 'Você escolheu um perfil do tipo paciente autonomo, '
+          String mensagem =
+              'Você escolheu um perfil do tipo paciente autonomo, '
               'onde você mesmo irá gerenciar seus medicamentos!';
-
 
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TelaPerfis(mensagemSuperior: mensagem, typeUser: 1),
+              builder: (context) => TelaPerfis(
+                  enderecoImagem: 'assets/img/imagemCuidador.png',
+                  mensagemSuperior: mensagem,
+                  typeUser: 1),
             ),
           );
         }
@@ -55,7 +58,10 @@ class EscolherPerfil {
 
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TelaPerfis(mensagemSuperior: mensagem, typeUser: 2),
+              builder: (context) => TelaPerfis(
+                  enderecoImagem: 'assets/img/ImagemResponsavel.png',
+                  mensagemSuperior: mensagem,
+                  typeUser: 2),
             ),
           );
         }
@@ -67,7 +73,10 @@ class EscolherPerfil {
 
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TelaPerfis(mensagemSuperior: mensagem, typeUser: 3),
+              builder: (context) => TelaPerfis(
+                  enderecoImagem: 'assets/img/ImagemPaciente.png',
+                  mensagemSuperior: mensagem,
+                  typeUser: 3),
             ),
           );
         }
