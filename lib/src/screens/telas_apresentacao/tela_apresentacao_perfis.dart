@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'bem_vindo_screen.dart';
-
 class TelaPerfis extends StatelessWidget {
   const TelaPerfis(
       {Key? key, required this.mensagemSuperior, required this.typeUser, required this.enderecoImagem})
@@ -101,11 +99,7 @@ class TelaPerfis extends StatelessWidget {
           bottom: size.height * 0.02,
           right: size.width * 0.02,
           child: GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Welcome(),
-              ),
-            ),
+            onTap: null,
             child: const CircleAvatar(
               radius: 25,
               backgroundColor: Colors.white,

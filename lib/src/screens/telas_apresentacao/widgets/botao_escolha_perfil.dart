@@ -59,7 +59,7 @@ class EscolherPerfil {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => TelaPerfis(
-                  enderecoImagem: 'assets/img/ImagemResponsavel.png',
+                  enderecoImagem: 'assets/img/ImagemPaciente.png',
                   mensagemSuperior: mensagem,
                   typeUser: 2),
             ),
@@ -74,7 +74,7 @@ class EscolherPerfil {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => TelaPerfis(
-                  enderecoImagem: 'assets/img/ImagemPaciente.png',
+                  enderecoImagem: 'assets/img/ImagemResponsavel.png',
                   mensagemSuperior: mensagem,
                   typeUser: 3),
             ),
