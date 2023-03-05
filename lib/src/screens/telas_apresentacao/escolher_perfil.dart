@@ -48,21 +48,21 @@ class Apresentacao extends StatelessWidget {
                 ),
               ),
               SizedBox(height: size.height * 0.2),
-              EscolherPerfil.BotaoEscolha(
+              EscolherPerfil.botaoEscolha(
                   backgroundButton: const Color(0xff1AE8E4),
                   textButton: 'Cuidador',
                   colorFontText: Colors.black,
                   typeNavigator: 1,
                   context: context),
               SizedBox(height: size.height * 0.03),
-              EscolherPerfil.BotaoEscolha(
+              EscolherPerfil.botaoEscolha(
                   backgroundButton: const Color(0xff172331),
                   textButton: 'Paciente',
                   colorFontText: Colors.white,
                   context: context,
                   typeNavigator: 2),
               SizedBox(height: size.height * 0.03),
-              EscolherPerfil.BotaoEscolha(
+              EscolherPerfil.botaoEscolha(
                   backgroundButton: Colors.white,
                   textButton: 'Resposánvel',
                   colorFontText: Colors.black,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../tela_apresentacao_perfis.dart';
+
 class EscolherPerfil {
-  static ElevatedButton BotaoEscolha(
+  static ElevatedButton botaoEscolha(
       {required Color backgroundButton,
       required String textButton,
       required Color colorFontText,
@@ -34,13 +36,41 @@ class EscolherPerfil {
       {required int type, required BuildContext context}) {
     switch (type) {
       case 1:
-        {}
+        {
+          String mensagem = 'Você escolheu um perfil do tipo paciente autonomo, '
+              'onde você mesmo irá gerenciar seus medicamentos!';
+
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TelaPerfis(mensagemSuperior: mensagem, typeUser: 1),
+            ),
+          );
+        }
         break;
       case 2:
-        {}
+        {
+          String mensagem = 'Você escolheu um perfil do tipo responsável! '
+              'Nele você será a ponte entre o cuidador e o paciente!';
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TelaPerfis(mensagemSuperior: mensagem, typeUser: 2),
+            ),
+          );
+        }
         break;
       default:
-        {}
+        {
+          String mensagem = 'Você escolheu um perfil do tipo cuidador! '
+              'Nele você será responsavel pelo cuidador de outra pessoa!';
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TelaPerfis(mensagemSuperior: mensagem, typeUser: 3),
+            ),
+          );
+        }
     }
   }
 }
