@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../telas_login_register/tela_login_register.dart';
+
 class TelaPerfis extends StatelessWidget {
   const TelaPerfis(
-      {Key? key, required this.mensagemSuperior, required this.typeUser, required this.enderecoImagem})
+      {Key? key,
+      required this.mensagemSuperior,
+      required this.typeUser,
+      required this.enderecoImagem})
       : super(key: key);
 
   final String enderecoImagem;
@@ -99,7 +104,9 @@ class TelaPerfis extends StatelessWidget {
           bottom: size.height * 0.02,
           right: size.width * 0.02,
           child: GestureDetector(
-            onTap: null,
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const LoginRegister(),
+            )),
             child: const CircleAvatar(
               radius: 25,
               backgroundColor: Colors.white,

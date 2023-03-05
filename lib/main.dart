@@ -12,6 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: const Color(0xff1AE8E4),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/SplashScreen',
       routes: {
@@ -21,4 +26,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
