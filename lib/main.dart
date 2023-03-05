@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:healtime/src/screens/splash/splash_screen.dart';
-import 'package:healtime/src/screens/telas_apresentacao/apresentacao.dart';
+import 'package:healtime/src/screens/telas_apresentacao/escolher_perfil.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

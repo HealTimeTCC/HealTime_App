@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../telas_apresentacao/apresentacao.dart';
+import '../telas_apresentacao/escolher_perfil.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,10 +14,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    NavigatorSettings();
+    navigatorSettings();
   }
 
-  void NavigatorSettings() async {
+  void navigatorSettings() async {
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
@@ -33,8 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff18CDCA),
-      child: Center(
-        child: Image.asset('assets/img/splash.jpeg'),
+      child: const Center(
+        child: Image(
+          image: AssetImage('assets/img/logoHealTime.png'),
+        ),
       ),
     );
   }
