@@ -35,6 +35,12 @@ class TelaPerfis extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.w400),
                   ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: size.height * 0.01),
+                    height: size.height * 0.3,
+                    width: size.width * 1,
+                    color: Colors.redAccent,
+                  ),
                   Text(
                     'Veja o que você pode fazer nesse perfil',
                     style: GoogleFonts.getFont('Poppins',
