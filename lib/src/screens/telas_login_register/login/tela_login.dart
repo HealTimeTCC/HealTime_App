@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healtime/src/screens/telas_login_register/login/widgets/text_form_model.dart';
 
 import '../../../../shared/background/background_page.dart';
+import '../../telas_navegacao/home_page/home.dart';
 
 class ScreenLogin extends StatelessWidget {
   ScreenLogin({Key? key}) : super(key: key);
@@ -73,7 +74,11 @@ class ScreenLogin extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * .02),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () =>  Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                      ),
+                    ) ,
                       style: ElevatedButton.styleFrom(
                           padding:
                               EdgeInsets.symmetric(vertical: size.height * .02),
