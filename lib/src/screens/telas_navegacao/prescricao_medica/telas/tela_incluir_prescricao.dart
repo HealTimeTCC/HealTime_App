@@ -5,6 +5,8 @@ import 'package:healtime/shared/background/background_page.dart';
 import '../../../../../shared/models/medico.dart';
 import '../telas_auxiliares/tela_medico.dart';
 
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+
 class PrescricaoMedicamento extends StatefulWidget {
   const PrescricaoMedicamento({Key? key}) : super(key: key);
 
@@ -96,13 +98,11 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                               ),
                             );
 
-
                             if (dadosMedicos != null) {
                               setState(() {
                                 textButtonDoctor = dadosMedicos.NmMedico;
                               });
                             } else {
-
                               scaffold.clearSnackBars();
                               scaffold.showSnackBar(
                                 const SnackBar(
@@ -131,7 +131,15 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       SizedBox(width: size.width * 0.02),
                       Expanded(
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            CalendarDatePicker2(
+                              config: CalendarDatePicker2Config(),
+                              initialValue: [],
+                              onValueChanged: (date) {
+                                print(date);
+                              },
+                            );
+                          },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: const Color(0xff18CDCA),
                             shape: RoundedRectangleBorder(
@@ -149,7 +157,8 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+
                 ],
               ),
             ),
