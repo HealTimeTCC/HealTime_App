@@ -64,7 +64,7 @@ class Apresentacao extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               EscolherPerfil.botaoEscolha(
                   backgroundButton: Colors.white,
-                  textButton: 'Resposánvel',
+                  textButton: 'Responsável',
                   colorFontText: Colors.black,
                   context: context,
                   typeNavigator: 3)

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healtime/src/screens/telas_login_register/login/widgets/text_form_model.dart';
 
 import '../../../../shared/background/background_page.dart';
@@ -61,10 +60,12 @@ class ScreenLogin extends StatelessWidget {
                         ],
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {},
+                    SizedBox(height: size.height * .02),
+                    GestureDetector(
+                      onTap: (){},
                       child: Text(
                         'Esqueceu a senha?',
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.underline,
                             color: Colors.black45,
@@ -72,7 +73,7 @@ class ScreenLogin extends StatelessWidget {
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    SizedBox(height: size.height * .02),
+                    SizedBox(height: size.height * .06),
                     ElevatedButton(
                       onPressed: () =>  Navigator.of(context).push(
                         MaterialPageRoute(
@@ -94,31 +95,6 @@ class ScreenLogin extends StatelessWidget {
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
                       ),
-                    ),
-                    SizedBox(height: size.height * .07),
-                    Text(
-                      'Ou entre com',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.getFont('Poppins',
-                          decoration: TextDecoration.none,
-                          color: Colors.black45,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: size.width * .02,
-                      children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset('assets/svg/logoGoogle.svg'),
-                            padding: EdgeInsets.zero),
-                        IconButton(
-                            onPressed: () {},
-                            icon:
-                                SvgPicture.asset('assets/svg/logoFacebook.svg'),
-                            padding: EdgeInsets.zero),
-                      ],
                     ),
                   ],
                 ),

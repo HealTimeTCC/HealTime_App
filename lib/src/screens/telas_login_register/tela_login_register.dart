@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtime/src/screens/telas_login_register/register/tela_register.dart';
 
 import '../../../shared/background/background_page.dart';
 import 'login/tela_login.dart';
 
 class LoginRegister extends StatelessWidget {
-  const LoginRegister({Key? key}) : super(key: key);
+  const LoginRegister({Key? key, required this.typeUser}) : super(key: key);
+
+  final int typeUser;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,11 @@ class LoginRegister extends StatelessWidget {
                   children: [
                     Expanded(
                       child: GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => RegisterScreen(typeUser: typeUser),
+                          ),
+                        ),
                         child: Text(
                           'Cadastrar',
                           textAlign: TextAlign.center,

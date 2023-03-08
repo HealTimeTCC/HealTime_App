@@ -13,6 +13,8 @@ class TelaPerfis extends StatelessWidget {
 
   final String enderecoImagem;
   final String mensagemSuperior;
+
+  /* Tipo de usuário que foi selecionado */
   final int typeUser;
 
   @override
@@ -72,11 +74,11 @@ class TelaPerfis extends StatelessWidget {
                       textAcess: 'Gerenciar calendário',
                       context: context),
                   editRow(
-                      acess: typeUser == 3 || typeUser == 1 ? false : true,
+                      acess: typeUser == 2 || typeUser == 1 ? false : true,
                       textAcess: 'Adicionar/Remover cuidador',
                       context: context),
                   editRow(
-                      acess: typeUser == 3 || typeUser == 1 ? false : true,
+                      acess: typeUser == 2 || typeUser == 1 ? false : true,
                       textAcess: 'Vincular outros pacientes',
                       context: context),
                 ],
@@ -104,9 +106,11 @@ class TelaPerfis extends StatelessWidget {
           bottom: size.height * 0.02,
           right: size.width * 0.02,
           child: GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const LoginRegister(),
-            )),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => LoginRegister(typeUser: typeUser),
+              ),
+            ),
             child: const CircleAvatar(
               radius: 25,
               backgroundColor: Colors.white,

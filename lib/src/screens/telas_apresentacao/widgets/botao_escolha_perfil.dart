@@ -38,8 +38,8 @@ class EscolherPerfil {
       case 1:
         {
           String mensagem =
-              'Você escolheu um perfil do tipo paciente autonomo, '
-              'onde você mesmo irá gerenciar seus medicamentos!';
+              'Você escolheu um perfil do tipo cuidador! '
+              'Nele você será responsavel pelo cuidador de outra pessoa!';
 
           Navigator.of(context).push(
             MaterialPageRoute(
@@ -53,8 +53,8 @@ class EscolherPerfil {
         break;
       case 2:
         {
-          String mensagem = 'Você escolheu um perfil do tipo responsável! '
-              'Nele você será a ponte entre o cuidador e o paciente!';
+          String mensagem = 'Você escolheu um perfil do tipo paciente autonomo! '
+              'Onde você mesmo irá  gerenciar seus medicamentos!';
 
           Navigator.of(context).push(
             MaterialPageRoute(
@@ -68,8 +68,8 @@ class EscolherPerfil {
         break;
       default:
         {
-          String mensagem = 'Você escolheu um perfil do tipo cuidador! '
-              'Nele você será responsavel pelo cuidador de outra pessoa!';
+          String mensagem = 'Você escolheu um perfil do tipo responsável! '
+              'Nele você será a ponte entre o cuidador e o paciente!';
 
           Navigator.of(context).push(
             MaterialPageRoute(

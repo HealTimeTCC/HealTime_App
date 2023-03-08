@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/src/screens/splash/splash_screen.dart';
 import 'package:healtime/src/screens/telas_apresentacao/escolher_perfil.dart';
+import 'package:healtime/src/screens/telas_navegacao/prescricao_medica/telas/tela_incluir_prescricao.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +19,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/SplashScreen',
+      initialRoute: '/PrescricaoMedica',
       routes: {
         '/SplashScreen': (_) => const SplashScreen(),
         '/Apresentacao': (_) => Apresentacao(),
+        '/PrescricaoMedica': (_) => PrescricaoMedicamento()
       },
     );
   }
