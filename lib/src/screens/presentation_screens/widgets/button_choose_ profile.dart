@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../tela_apresentacao_perfis.dart';
+import '../profile_presentation_screen.dart';
 
 class EscolherPerfil {
   static ElevatedButton botaoEscolha(

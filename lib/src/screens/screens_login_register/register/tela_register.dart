@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healtime/shared/background/background_page.dart';
+import 'package:healtime/shared/background/screen_background.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key, required this.typeUser}) : super(key: key);

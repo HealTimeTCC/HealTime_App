@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../telas_apresentacao/escolher_perfil.dart';
+import '../presentation_screens/screen_choose_profile.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

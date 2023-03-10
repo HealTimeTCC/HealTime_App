@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/src/screens/splash/splash_screen.dart';
-import 'package:healtime/src/screens/telas_apresentacao/escolher_perfil.dart';
-import 'package:healtime/src/screens/telas_navegacao/prescricao_medica/telas/tela_incluir_prescricao.dart';
+import 'package:healtime/src/screens/presentation_screens/screen_choose_profile.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 
 void main() {
   runApp(const MyApp());

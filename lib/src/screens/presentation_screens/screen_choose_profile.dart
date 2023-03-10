@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/src/screens/telas_apresentacao/widgets/botao_escolha_perfil.dart';
+import 'package:healtime/src/screens/presentation_screens/widgets/button_choose_ profile.dart';
 
 class Apresentacao extends StatelessWidget {
   const Apresentacao({Key? key}) : super(key: key);

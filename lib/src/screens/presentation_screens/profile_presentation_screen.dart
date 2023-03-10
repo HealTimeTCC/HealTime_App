@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../telas_login_register/tela_login_register.dart';
+import '../screens_login_register/screen_login_register.dart';
 
 class TelaPerfis extends StatelessWidget {
   const TelaPerfis(

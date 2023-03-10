@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:healtime/shared/background/background_page.dart';
-import 'package:healtime/shared/models/medico.dart';
+import 'package:healtime/shared/background/screen_background.dart';
+import 'package:healtime/shared/models/model_doctor.dart';
 
-import '../../../../../services/api/medico.dart';
+import '../../../../../services/api/api_doctor.dart';
+
 
 class Medicos extends StatelessWidget {
   const Medicos({Key? key}) : super(key: key);

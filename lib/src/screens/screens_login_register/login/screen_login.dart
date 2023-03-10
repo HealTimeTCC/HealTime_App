@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/src/screens/telas_login_register/login/widgets/text_form_model.dart';
+import 'package:healtime/src/screens/screens_login_register/login/widgets/text_form_model.dart';
 
-import '../../../../shared/background/background_page.dart';
-import '../../telas_navegacao/home_page/home.dart';
+import '../../../../shared/background/screen_background.dart';
+import '../../screens_navigation/home_page/home.dart';
 
 class ScreenLogin extends StatelessWidget {
   ScreenLogin({Key? key}) : super(key: key);

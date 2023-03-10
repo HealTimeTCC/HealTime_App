@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/shared/background/background_page.dart';
+import 'package:healtime/shared/background/screen_background.dart';
 
-import '../../../../../shared/models/medico.dart';
-import '../telas_auxiliares/tela_medico.dart';
+import '../../../../../shared/models/model_doctor.dart';
+import '../screens_auxiliaries/screen_doctor.dart';
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 

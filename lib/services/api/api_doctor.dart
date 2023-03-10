@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:healtime/shared/models/medico.dart';
+import 'package:healtime/shared/models/model_doctor.dart';
 import 'package:http/http.dart' as http;
 
 class ApiMedico {
