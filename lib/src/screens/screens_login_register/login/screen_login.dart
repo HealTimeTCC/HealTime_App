@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/src/screens/screens_login_register/login/widgets/text_form_model.dart';
+import 'package:healtime/src/screens/screens_login_register/widgets/text_form_model.dart';
 
 import '../../../../shared/background/screen_background.dart';
-import '../../screens_navigation/home_page/home.dart';
 
-class ScreenLogin extends StatelessWidget {
-  ScreenLogin({Key? key}) : super(key: key);
+class ScreenLogin extends StatefulWidget {
+  const ScreenLogin({Key? key}) : super(key: key);
+
+  @override
+  State<ScreenLogin> createState() => _ScreenLoginState();
+}
+
+class _ScreenLoginState extends State<ScreenLogin> {
   final GlobalKey<FormState> keyForm = GlobalKey<FormState>();
+  IconData iconPassword = Icons.check_circle_rounded;
+  Color colorIconPassword = Colors.green;
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +52,29 @@ class ScreenLogin extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * .06),
                     Form(
+                      key: keyForm,
                       child: Column(
                         children: [
                           ModelTextForm.modelTextForm(
+                              validator: false,
                               textLabel: 'Nome usuário/e-mail',
                               typeKeyboard: TextInputType.emailAddress,
                               size: size,
                               obscure: false),
                           ModelTextForm.modelTextForm(
+                              validator: true,
                               textLabel: 'Senha',
                               typeKeyboard: TextInputType.text,
                               size: size,
+                              icon: iconPassword,
+                              iconColor: colorIconPassword,
                               obscure: true),
                         ],
                       ),
                     ),
                     SizedBox(height: size.height * .02),
                     GestureDetector(
-                      onTap: (){},
+                      onTap: () {},
                       child: Text(
                         'Esqueceu a senha?',
                         textAlign: TextAlign.center,
@@ -75,11 +87,7 @@ class ScreenLogin extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * .06),
                     ElevatedButton(
-                      onPressed: () =>  Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                      ),
-                    ) ,
+                      onPressed: _validateForm,
                       style: ElevatedButton.styleFrom(
                           padding:
                               EdgeInsets.symmetric(vertical: size.height * .02),
@@ -104,5 +112,34 @@ class ScreenLogin extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _validateForm() {
+    final FormState? formState = keyForm.currentState;
+
+    if (formState != null && formState.validate()) {
+      setState(() {
+        iconPassword = Icons.check_circle_rounded;
+        colorIconPassword = Colors.green;
+      });
+
+      /* Aqui vai ficar a validação do Login que vai verificar se está correto ou não */
+
+    } else {
+      setState(() {
+        iconPassword = Icons.cancel;
+        colorIconPassword = Colors.redAccent;
+      });
+
+      /* Dar um feedback para o usuário */
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.redAccent,
+          content: Text('Não foi possível realizar o login.'),
+        ),
+      );
+    }
   }
 }

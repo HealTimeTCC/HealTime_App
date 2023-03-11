@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/src/screens/screens_login_register/register/tela_register.dart';
+import 'package:healtime/src/screens/screens_login_register/register/screen_register_basic.dart';
 
 import '../../../shared/background/screen_background.dart';
 import 'login/screen_login.dart';
@@ -81,7 +81,7 @@ class LoginRegister extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ScreenLogin(),
+                          builder: (context) => const ScreenLogin(),
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
