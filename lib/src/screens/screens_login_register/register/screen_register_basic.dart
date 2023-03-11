@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/background/screen_background.dart';
+import 'package:healtime/src/screens/screens_login_register/register/screen_register_address.dart';
 
 import '../widgets/text_form_model.dart';
 
@@ -169,19 +170,19 @@ class RegisterScreen extends StatelessWidget {
 
     /* Se os registros estiverem 'Ok' */
     if (formState != null && formState.validate()) {
-
       /* Aqui vai ficar a parte de cadastro e as validações individuais de cada campo */
 
       /* Se a pessoa for diferente de paciente ela vai ser levada para cadastrar o endereço */
       if (typeUser != 2) {
-
-      }else {
-       /* Função para cadastrar o paciente capaz */
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => RegisterAddress(),
+          ),
+        );
+      } else {
+        /* Função para cadastrar o paciente capaz */
       }
-
-    }
-    else {
-
+    } else {
       /* Dar um feedback para o usuário */
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
