@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/PrescricaoMedica',
+      initialRoute: '/SplashScreen',
       routes: {
         '/SplashScreen': (_) => const SplashScreen(),
         '/Apresentacao': (_) => Apresentacao(),
