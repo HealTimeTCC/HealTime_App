@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/services/api/api_pessoa.dart';
-import 'package:healtime/shared/dto/dto_pessoa.dart';
+import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 
 import '../presentation_screens/screen_choose_profile.dart';

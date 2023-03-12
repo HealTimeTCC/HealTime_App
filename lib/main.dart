@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', 'US'), // Inglês
-        Locale('pt', 'BR'), // Português Brasileiro
+        Locale('en'), // Inglês
+        Locale('pt_BR'), // Português Brasileiro
       ],
       theme: ThemeData(
         primaryColor: const Color(0xff1AE8E4),

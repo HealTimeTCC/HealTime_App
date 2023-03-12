@@ -5,7 +5,7 @@ import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 
 import '../../../../services/api/api_pessoa.dart';
 import '../../../../shared/background/screen_background.dart';
-import '../../../../shared/dto/dto_pessoa.dart';
+import '../../../../shared/dto/dto_pessoa_auth.dart';
 import '../widgets/loading_sending_data.dart';
 
 class ScreenLogin extends StatefulWidget {

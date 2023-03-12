@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/background/screen_background.dart';
-import 'package:healtime/src/screens/screens_login_register/register/screen_register_address.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:healtime/src/screens/screens_login_register/register/screen_register_contact.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../shared/dto/dto_pessoa_register.dart';
+import '../../../../shared/models/model_pessoa.dart';
 import '../widgets/text_form_model.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key, required this.typeUser}) : super(key: key);
+  const RegisterScreen({Key? key, required this.typeUser}) : super(key: key);
 
   final int typeUser;
 
@@ -16,9 +18,12 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController cpfController = TextEditingController();
+
   /* Chave Global para o formulario para que seja possível realizar validações */
   final GlobalKey<FormState> keyForm = GlobalKey<FormState>();
-
   DateTime dtNascimento = DateTime.now();
 
   @override
@@ -35,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: EdgeInsets.symmetric(
                     horizontal: size.width * .05, vertical: size.height * .01),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
                       children: [
@@ -93,63 +99,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: size.height * .02,
                           ),
                           ModelTextForm.modelTextForm(
+                            textController: nameController,
                               validator: true,
                               size: size,
                               textLabel: 'Nome',
                               typeKeyboard: TextInputType.text,
                               obscure: false),
                           ModelTextForm.modelTextForm(
+                              textController: lastNameController,
                               validator: true,
                               size: size,
                               textLabel: 'Sobrenome',
                               typeKeyboard: TextInputType.text,
                               obscure: false),
                           ModelTextForm.modelTextForm(
+                              textController: cpfController,
                               validator: true,
                               size: size,
                               textLabel: 'Cpf',
                               typeKeyboard: TextInputType.text,
                               obscure: false),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Data de nascimento',
+                              style: GoogleFonts.getFont('Poppins',
+                                  decoration: TextDecoration.none,
+                                  color: const Color(0xff1c1c1c),
+                                  fontSize: 15,
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
                           GestureDetector(
                             onTap: () async => _selectDate(context),
                             child: Container(
+                              padding: const EdgeInsets.all(8.0),
                               margin:
                                   EdgeInsets.only(bottom: size.height * 0.04),
+                              height: size.height * .08,
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: const Color(0xff1c1c1c),
-                                      width: 1)),
-                              child: Text('Teste'),
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: const Color(0xff1c1c1c), width: 1.5),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.calendar_today_outlined),
+                                  SizedBox(width: size.width * .05),
+                                  Expanded(
+                                    child: Text(
+                                      DateFormat('dd/MM/yyyy')
+                                          .format(dtNascimento),
+                                      style: GoogleFonts.getFont('Poppins',
+                                          decoration: TextDecoration.none,
+                                          color: const Color(0xff1c1c1c),
+                                          fontSize: 15,
+                                          letterSpacing: 1,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          ModelTextForm.modelTextForm(
-                              validator: false,
-                              size: size,
-                              textLabel: 'E-Mail',
-                              typeKeyboard: TextInputType.emailAddress,
-                              obscure: false),
-                          ModelTextForm.modelTextForm(
-                              validator: true,
-                              size: size,
-                              textLabel: 'Telefone',
-                              typeKeyboard: TextInputType.phone,
-                              obscure: false),
-                          ModelTextForm.modelTextForm(
-                              validator: true,
-                              size: size,
-                              textLabel: 'Senha',
-                              typeKeyboard: TextInputType.text,
-                              obscure: true),
-                          ModelTextForm.modelTextForm(
-                              validator: true,
-                              size: size,
-                              textLabel: 'Confirmar senha',
-                              typeKeyboard: TextInputType.text,
-                              obscure: true),
                           Align(
                             alignment: Alignment.centerRight,
                             child: ElevatedButton(
-                              onPressed: () => _validateForm(context),
+                              onPressed: navigatorNextPage,
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
                                 backgroundColor: const Color(0xff5AECE9),
@@ -164,9 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    widget.typeUser == 2
-                                        ? 'Finalizar'
-                                        : 'Proximo',
+                                    'Proximo',
                                     style: GoogleFonts.getFont('Poppins',
                                         decoration: TextDecoration.none,
                                         color: const Color(0xff172331),
@@ -196,43 +211,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _validateForm(BuildContext context) {
-    final FormState? formState = keyForm.currentState;
-
-    /* Se os registros estiverem 'Ok' */
-    if (formState != null && formState.validate()) {
-      /* Aqui vai ficar a parte de cadastro e as validações individuais de cada campo */
-
-      /* Se a pessoa for diferente de paciente ela vai ser levada para cadastrar o endereço */
-      if (widget.typeUser != 2) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => RegisterAddress(),
-          ),
-        );
-      } else {
-        /* Função para cadastrar o paciente capaz */
-      }
-    } else {
-      /* Dar um feedback para o usuário */
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.redAccent,
-          content: Text('Não foi possível realizar o seu cadastro.'),
-        ),
-      );
-    }
-  }
-
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picker = await showDatePicker(
       cancelText: 'CANCELAR',
       confirmText: 'CONFIRMAR',
-      fieldHintText: 'Selecione a sua data de nascimento',
       context: context,
       initialDate: dtNascimento,
       firstDate: DateTime(1900, 01),
-      lastDate: dtNascimento,
+      lastDate: DateTime.now(),
       helpText: '',
       locale: const Locale('pt', 'BR'),
       builder: (context, child) {
@@ -240,29 +226,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
             data: ThemeData.light().copyWith(
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xff172331), // cor do texto dos botões
-                ),
+                    foregroundColor:
+                        const Color(0xff172331) // cor do texto dos botões
+                    ),
               ),
-              textTheme: TextTheme(
-                //caption: TextStyle(fontSize: 20.0),
-                //subtitle2: TextStyle(fontSize: 20.0),
-              ),
+
+              /* Alterar a estrutura do calendario */
               dialogTheme: DialogTheme(
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
               ),
+
+              /* Alterar a cor do cabeçario do calendario */
               colorScheme: const ColorScheme.light().copyWith(
-                primary: Color(0xff18CDCA),
+                primary: const Color(0xff18CDCA),
               ),
             ),
             child: child ?? Container());
       },
     );
 
-    // setState(() {
-    //   dtNascimento = picker!;
-    // });
+    if (picker != null) {
+      setState(() {
+        dtNascimento = picker;
+      });
+    }
+  }
+
+  void navigatorNextPage() {
+    DtoPessoaRegister pessoa = DtoPessoaRegister(
+        cpfPessoa: cpfController.text,
+        nomePessoa: nameController.text,
+        sobrenomePessoa: lastNameController.text,
+        dtNascPessoa: dtNascimento,
+        tipoPessoaId: widget.typeUser,
+        passwordString: '');
+
+    final FormState? formState = keyForm.currentState;
+
+    /* Se os registros estiverem 'Ok' */
+    if (formState != null && formState.validate()) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => RegisterContactScreen(pessoa: pessoa),
+        ),
+      );
+    }
   }
 }
