@@ -1,3 +1,3 @@
 class ConstsPreferences{
-  static const String keyToken = 'keyTokenPreferencesHealTimeSparrow';
+  static const String keyUser = 'keyDataUserPreferencesHealTimeSparrow';
 }

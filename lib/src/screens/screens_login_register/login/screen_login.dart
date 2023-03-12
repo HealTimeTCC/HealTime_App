@@ -130,6 +130,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
     ScaffoldMessenger.of(context).clearSnackBars();
 
     if (formState != null && formState.validate()) {
+
+      /* Exibir um alert informando que estamos processando os dados */
       showDialog(
           context: context,
           builder: (context) =>
@@ -143,11 +145,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
         iconPassword = Icons.check_circle_rounded;
         colorIconPassword = Colors.green;
       });
+
+      /* Montando o objeto para o envio */
       DtoPessoa dtoPessoa = DtoPessoa(
           nomePessoa: _textEmail.text, passwordString: _textPassword.text);
 
       int statusCode = await ApiPessoa.authUser(pessoa: dtoPessoa);
 
+      /*Verificando se a tela está montada */
       if (mounted) {
         Navigator.of(context).pop();
 

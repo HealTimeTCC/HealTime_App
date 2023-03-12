@@ -8,9 +8,9 @@ class DataPreferences {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static void savedDataString(String data) async{
+  static void savedDataString(String data, String key) async{
     await _initPreferences();
-    _sharedPreferences.setString(ConstsPreferences.keyToken, data);
+    _sharedPreferences.setString(key, data);
   }
 
   static Future<String> getString({required String key}) async{

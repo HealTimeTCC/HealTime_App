@@ -20,10 +20,16 @@ class ApiPessoa {
     if (response.statusCode == 200) {
       statusCode = response.statusCode;
 
-      Pessoa pessoa = Pessoa.fromJson(json.decode(response.body));
-      DataPreferences.savedDataString(pessoa.tokenUser);
-    }
+      /* Salvando a senha para depois enviar na autenticação*/
+      Pessoa pessoaData = Pessoa.fromJson(jsonDecode(response.body));
+      pessoaData.passwordString = pessoa.passwordString;
 
+      print(pessoa.passwordString);
+
+      String dataUser = jsonEncode(pessoaData);
+
+      DataPreferences.savedDataString(dataUser, ConstsPreferences.keyUser);
+    }
     return statusCode;
   }
 }
