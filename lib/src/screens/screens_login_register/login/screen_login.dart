@@ -150,25 +150,19 @@ class _ScreenLoginState extends State<ScreenLogin> {
       DtoPessoa dtoPessoa = DtoPessoa(
           nomePessoa: _textEmail.text, passwordString: _textPassword.text);
 
-      int statusCode = await ApiPessoa.authUser(pessoa: dtoPessoa);
+      Map<String, dynamic> mapResponseApi = await ApiPessoa.authUser(pessoa: dtoPessoa);
 
       /*Verificando se a tela está montada */
       if (mounted) {
         Navigator.of(context).pop();
 
-        if (statusCode == 200) {
+        if (mapResponseApi['statusCode'] == 200) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => HomePage()),
                   (route) => false);
-        }
-        else if (statusCode == 400) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Usuário/Senha inválidos'),
-                  elevation: 0,
-                  backgroundColor: Colors.redAccent));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Não foi possível realizar o login'),
+              SnackBar(content: Text(mapResponseApi['response'].toString()),
                   elevation: 0,
                   backgroundColor: Colors.redAccent));
         }

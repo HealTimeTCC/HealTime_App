@@ -33,13 +33,13 @@ class _SplashScreenState extends State<SplashScreen> {
             passwordString: dataUser.passwordString);
 
         /* Autenticar o usuário novamente */
-        int statusCode = await ApiPessoa.authUser(pessoa: dtoPessoa);
+        Map<String, dynamic> responseApi = await ApiPessoa.authUser(pessoa: dtoPessoa);
 
         if (mounted) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (context) =>
-                      statusCode == 200 ? HomePage() : const Apresentacao()),
+                  responseApi['statusCode'] == 200 ? HomePage() : const Apresentacao()),
               (route) => false);
         }
       } else {

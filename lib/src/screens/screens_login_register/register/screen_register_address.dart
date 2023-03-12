@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/background/screen_background.dart';
+import 'package:healtime/shared/dto/dto_pessoa_register.dart';
 import 'package:healtime/shared/models/model_uf.dart';
 
+import '../../../../services/api/api_pessoa.dart';
+import '../../screens_navigation/home_page/home.dart';
 import '../widgets/text_form_model.dart';
 
 class RegisterAddress extends StatefulWidget {
-  const RegisterAddress({Key? key}) : super(key: key);
+  const RegisterAddress({Key? key, required this.dtoPessoaRegister}) : super(key: key);
+
+  final DtoPessoaRegister dtoPessoaRegister;
 
   @override
   State<RegisterAddress> createState() => _RegisterAddressState();
@@ -266,12 +271,23 @@ class _RegisterAddressState extends State<RegisterAddress> {
     );
   }
 
-  void _validateForm(BuildContext context) {
+  void _validateForm(BuildContext context) async{
     final FormState? formState = keyForm.currentState;
 
     if (formState != null && formState.validate() ) {
 
-      /* Realizar o cadastramento do usuário */
+      final int statusCode =
+          await ApiPessoa.registerUser(pessoa: widget.dtoPessoaRegister);
+
+      if (statusCode == 200) {
+        if (mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        }
+      }
 
     } else {
       ScaffoldMessenger.of(context).clearSnackBars();

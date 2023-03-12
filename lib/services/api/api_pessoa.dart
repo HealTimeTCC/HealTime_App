@@ -11,7 +11,7 @@ import '../../shared/dto/dto_pessoa_register.dart';
 class ApiPessoa {
 
   /* Autenticar usuário */
-  static Future<int> authUser({required DtoPessoa pessoa}) async {
+  static Future<Map<String, dynamic>> authUser({required DtoPessoa pessoa}) async {
     int statusCode = 400;
 
     Uri uriApi =
@@ -32,7 +32,12 @@ class ApiPessoa {
 
       DataPreferences.savedDataString(dataUser, ConstsPreferences.keyUser);
     }
-    return statusCode;
+    Map<String, dynamic> responseApi = {
+      'statusCode': statusCode,
+      'response': response.body,
+    };
+
+    return responseApi;
   }
 
   /* Registrar usuário */
@@ -49,7 +54,7 @@ class ApiPessoa {
             nomePessoa: pessoa.nomePessoa,
             passwordString: pessoa.passwordString);
 
-        authUser(pessoa: dtoPessoa);
+        await authUser(pessoa: dtoPessoa);
 
         return 200;
       }else {

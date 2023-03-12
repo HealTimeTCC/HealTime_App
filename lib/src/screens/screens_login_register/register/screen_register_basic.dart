@@ -5,7 +5,6 @@ import 'package:healtime/src/screens/screens_login_register/register/screen_regi
 import 'package:intl/intl.dart';
 
 import '../../../../shared/dto/dto_pessoa_register.dart';
-import '../../../../shared/models/model_pessoa.dart';
 import '../widgets/text_form_model.dart';
 
 class RegisterScreen extends StatefulWidget {

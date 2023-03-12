@@ -5,7 +5,6 @@ import 'package:healtime/src/screens/screens_login_register/register/screen_regi
 
 import '../../../../services/api/api_pessoa.dart';
 import '../../../../shared/dto/dto_pessoa_register.dart';
-import '../../../../shared/models/model_pessoa.dart';
 import '../../screens_navigation/home_page/home.dart';
 import '../widgets/text_form_model.dart';
 
@@ -70,6 +69,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                         )
                       ],
                     ),
+                    SizedBox(height: size.height * .04),
                     Text(
                       'Crie sua conta de forma rápida e fácil agora mesmo!',
                       style: GoogleFonts.getFont('Poppins',
@@ -78,7 +78,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(height: size.height * .02),
+                    SizedBox(height: size.height * .03),
                     Form(
                       key: keyForm,
                       child: Column(
@@ -167,11 +167,12 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
     /* Se os registros estiverem 'Ok' */
     if (formState != null && formState.validate()) {
       if (validateData()) {
+
         /* Se a pessoa for diferente de paciente ela vai ser levada para cadastrar o endereço */
         if (widget.pessoa.tipoPessoaId != 2) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => RegisterAddress(),
+              builder: (context) => RegisterAddress(dtoPessoaRegister: widget.pessoa),
             ),
           );
         } else {
@@ -206,6 +207,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
     }
   }
 
+  /* Validar os campos de texto */
   bool validateData() {
     ScaffoldMessenger.of(context).clearSnackBars();
 
@@ -224,6 +226,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
     return true;
   }
 
+  /* Função para exibir as mensagens de erro */
   messageError({required String text, required BuildContext context}) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
