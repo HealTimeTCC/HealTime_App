@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/services/data_locale/data_preferences.dart';
+import 'package:healtime/shared/consts/consts_key_preferences.dart';
+
+import '../../splash/splash_screen.dart';
 
 class HomePage extends StatefulWidget {
-   const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -44,10 +48,17 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Color(0xff18CDCA),
         ),
-        drawer: Drawer(),
+        drawer: Drawer(
+          child: ElevatedButton(onPressed: () {
+            DataPreferences.removeData(key: ConstsPreferences.keyUser);
+
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => SplashScreen()), (route) => false);
+          }, child: Text('Sair')),
+        ),
         body: Container(),
 
-        ),
-      );
+      ),
+    );
   }
 }
