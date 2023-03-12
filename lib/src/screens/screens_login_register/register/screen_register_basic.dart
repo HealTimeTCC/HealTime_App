@@ -21,145 +21,133 @@ class RegisterScreen extends StatelessWidget {
       body: Stack(
         children: [
           const BackgroundPage(),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
+          SingleChildScrollView(
             child: SafeArea(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                child: Row(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * .05, vertical: size.height * .01),
+                child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: const CircleAvatar(
-                        backgroundColor: Color(0xff25D8D5),
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 35,
-                          color: Colors.white,
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: const CircleAvatar(
+                            backgroundColor: Color(0xff25D8D5),
+                            child: Icon(
+                              Icons.arrow_back,
+                              size: 35,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
+                        Expanded(
+                          child: Text(
+                            'HealTime',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.getFont('Poppins',
+                                decoration: TextDecoration.none,
+                                color: const Color(0xff1c1c1c),
+                                letterSpacing: 1,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      ],
+                    ),
+                    Text(
+                      'Ainda não tem uma conta cadastrada?',
+                      style: GoogleFonts.getFont('Poppins',
+                          decoration: TextDecoration.none,
+                          color: const Color(0xff1c1c1c),
+                          letterSpacing: 1,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: size.height * .02),
+                    Text(
+                      'Crie sua conta de forma rápida e fácil agora mesmo!',
+                      style: GoogleFonts.getFont('Poppins',
+                          decoration: TextDecoration.none,
+                          color: const Color(0xff706F6F),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: size.height * .02),
+                    Form(
+                      key: keyForm,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * .02,
+                          ),
+                          ModelTextForm.modelTextForm(
+                              validator: true,
+                              size: size,
+                              textLabel: 'Nome',
+                              typeKeyboard: TextInputType.text,
+                              obscure: false),
+                          ModelTextForm.modelTextForm(
+                              validator: false,
+                              size: size,
+                              textLabel: 'E-Mail',
+                              typeKeyboard: TextInputType.text,
+                              obscure: false),
+                          ModelTextForm.modelTextForm(
+                              validator: true,
+                              size: size,
+                              textLabel: 'Telefone',
+                              typeKeyboard: TextInputType.text,
+                              obscure: false),
+                          ModelTextForm.modelTextForm(
+                              validator: true,
+                              size: size,
+                              textLabel: 'Senha',
+                              typeKeyboard: TextInputType.text,
+                              obscure: true),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: ElevatedButton(
+                              onPressed: () => _validateForm(context),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                backgroundColor: const Color(0xff5AECE9),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(45)),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * .08,
+                                    vertical: size.height * .02),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    typeUser == 2 ? 'Finalizar' : 'Proximo',
+                                    style: GoogleFonts.getFont('Poppins',
+                                        decoration: TextDecoration.none,
+                                        color: const Color(0xff172331),
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  SizedBox(width: size.width * .01),
+                                  const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 15,
+                                    color: Color(0xff172331),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: Text(
-                        'HealTime',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.getFont('Poppins',
-                            decoration: TextDecoration.none,
-                            color: const Color(0xff1c1c1c),
-                            letterSpacing: 1,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            top: size.height * .11,
-            right: 0,
-            left: 0,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.width * .07, vertical: size.height * .01),
-              child: Column(
-                children: [
-                  Text(
-                    'Ainda não tem uma conta cadastrada?',
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: const Color(0xff1c1c1c),
-                        letterSpacing: 1,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: size.height * .02),
-                  Text(
-                    'Crie sua conta de forma rápida e fácil agora mesmo!',
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: const Color(0xff706F6F),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: size.height * .02),
-                  Form(
-                    key: keyForm,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: size.height * .02,
-                        ),
-                        ModelTextForm.modelTextForm(
-                            validator: true,
-                            size: size,
-                            textLabel: 'Nome',
-                            typeKeyboard: TextInputType.text,
-                            obscure: false),
-                        ModelTextForm.modelTextForm(
-                            validator: false,
-                            size: size,
-                            textLabel: 'E-Mail',
-                            typeKeyboard: TextInputType.text,
-                            obscure: false),
-                        ModelTextForm.modelTextForm(
-                            validator: true,
-                            size: size,
-                            textLabel: 'Telefone',
-                            typeKeyboard: TextInputType.text,
-                            obscure: false),
-                        ModelTextForm.modelTextForm(
-                            validator: true,
-                            size: size,
-                            textLabel: 'Senha',
-                            typeKeyboard: TextInputType.text,
-                            obscure: true),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: ElevatedButton(
-                            onPressed: () => _validateForm(context),
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: const Color(0xff5AECE9),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(45)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * .08,
-                                  vertical: size.height * .02),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  typeUser == 2 ? 'Finalizar' : 'Proximo',
-                                  style: GoogleFonts.getFont('Poppins',
-                                      decoration: TextDecoration.none,
-                                      color: const Color(0xff172331),
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                SizedBox(width: size.width * .01),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 15,
-                                  color: Color(0xff172331),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
         ],
       ),
     );

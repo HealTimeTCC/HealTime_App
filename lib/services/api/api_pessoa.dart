@@ -7,7 +7,8 @@ import 'package:healtime/shared/dto/dto_pessoa.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
 class ApiPessoa {
-  static Future<void> authUser({required DtoPessoa pessoa}) async {
+  static Future<int> authUser({required DtoPessoa pessoa}) async {
+    int statusCode = 400;
 
     Uri uriApi =
         Uri.parse('http://healtime.somee.com/healtime/Pessoa/Autenticar');
@@ -17,9 +18,12 @@ class ApiPessoa {
         headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
-      Pessoa pessoa = Pessoa.fromJson(json.decode(response.body));
+      statusCode = response.statusCode;
 
+      Pessoa pessoa = Pessoa.fromJson(json.decode(response.body));
       DataPreferences.savedDataString(pessoa.tokenUser);
     }
+
+    return statusCode;
   }
 }
