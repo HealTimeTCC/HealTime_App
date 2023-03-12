@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_login_register/widgets/text_form_model.dart';
 
+import '../../../../services/api/api_pessoa.dart';
 import '../../../../shared/background/screen_background.dart';
+import '../../../../shared/dto/dto_pessoa.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({Key? key}) : super(key: key);
@@ -12,6 +14,8 @@ class ScreenLogin extends StatefulWidget {
 }
 
 class _ScreenLoginState extends State<ScreenLogin> {
+  final TextEditingController _textEmail = TextEditingController();
+  final TextEditingController _textPassword = TextEditingController();
   final GlobalKey<FormState> keyForm = GlobalKey<FormState>();
   IconData iconPassword = Icons.check_circle_rounded;
   Color colorIconPassword = Colors.green;
@@ -56,12 +60,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       child: Column(
                         children: [
                           ModelTextForm.modelTextForm(
+                              textController: _textEmail,
                               validator: false,
                               textLabel: 'Nome usuário/e-mail',
                               typeKeyboard: TextInputType.emailAddress,
                               size: size,
                               obscure: false),
                           ModelTextForm.modelTextForm(
+                              textController: _textPassword,
                               validator: true,
                               textLabel: 'Senha',
                               typeKeyboard: TextInputType.text,
@@ -123,8 +129,11 @@ class _ScreenLoginState extends State<ScreenLogin> {
         colorIconPassword = Colors.green;
       });
 
-      /* Aqui vai ficar a validação do Login que vai verificar se está correto ou não */
+      DtoPessoa dtoPessoa = DtoPessoa(
+          nomePessoa: _textEmail.text, passwordString: _textPassword.text);
 
+      /* Aqui vai ficar a validação do Login que vai verificar se está correto ou não */
+      ApiPessoa.authUser(pessoa: dtoPessoa);
     } else {
       setState(() {
         iconPassword = Icons.cancel;

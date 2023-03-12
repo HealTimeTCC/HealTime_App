@@ -8,11 +8,13 @@ class ModelTextForm {
       required TextInputType typeKeyboard,
       required bool obscure,
       IconData? icon,
-      Color? iconColor, required bool validator}) {
+      Color? iconColor,
+      required bool validator, TextEditingController? textController}) {
 
     return Container(
       margin: EdgeInsets.only(bottom: size.height * 0.04),
       child: TextFormField(
+        controller: textController,
         obscureText: obscure,
         keyboardType: typeKeyboard,
         style: const TextStyle(
@@ -23,9 +25,13 @@ class ModelTextForm {
         cursorColor: const Color(0xff1c1c1c),
         autofocus: true,
         validator: (text) {
-          if ((text == null || text.isEmpty || text.length <= 2) && obscure && validator == true) {
+          if ((text == null || text.isEmpty || text.length <= 2) &&
+              obscure &&
+              validator == true) {
             return 'Senha inválida.';
-          }else if (!obscure && validator == true && (text == null || text.isEmpty )) {
+          } else if (!obscure &&
+              validator == true &&
+              (text == null || text.isEmpty)) {
             return 'Campo obrigatório';
           }
           return null;

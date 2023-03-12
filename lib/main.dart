@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/services/data_locale/data_preferences.dart';
 import 'package:healtime/src/screens/splash/splash_screen.dart';
 import 'package:healtime/src/screens/presentation_screens/screen_choose_profile.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
