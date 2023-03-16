@@ -1,0 +1,4 @@
+enum StatusMedicacao {
+  inativo,
+  ativo
+}

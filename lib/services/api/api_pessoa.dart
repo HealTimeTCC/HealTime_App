@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:healtime/services/data_locale/data_preferences.dart';
@@ -24,14 +25,16 @@ class ApiPessoa {
     if (response.statusCode == 200) {
       statusCode = response.statusCode;
 
-      /* Salvando a senha para depois enviar na autenticação*/
+      /* Pegar os dados que chegam e converte para o objeto Pessoa*/
       Pessoa pessoaData = Pessoa.fromJson(jsonDecode(response.body));
-      pessoaData.passwordString = pessoa.passwordString;
 
+      /* Adicionar a senha do usuario para salvar todos os dados do usuario de uma vez */
+      pessoaData.passwordString = pessoa.passwordString;
       String dataUser = jsonEncode(pessoaData);
 
       DataPreferences.savedDataString(dataUser, ConstsPreferences.keyUser);
     }
+
     Map<String, dynamic> responseApi = {
       'statusCode': statusCode,
       'response': response.body,
@@ -47,7 +50,7 @@ class ApiPessoa {
 
       http.Response response = await http.post(uriApi,
           body: json.encode(pessoa),
-          headers: {'Content-Type': 'application/json'});
+          headers: {'Content-Type': 'application/json'}).timeout(const Duration(seconds: 15));
 
       if (response.statusCode == 200) {
         DtoPessoa dtoPessoa = DtoPessoa(
@@ -60,8 +63,10 @@ class ApiPessoa {
       }else {
         return response.statusCode;
       }
-    } catch (e) {
-      print(e);
+    } on TimeoutException catch(_) {
+      return 501;
+    }
+    catch (e) {
       return 400;
     }
   }

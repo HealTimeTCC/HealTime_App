@@ -19,10 +19,13 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+
+      /* Linguagens suportadas pelo app, usado apenas no calendario */
       supportedLocales: const [
         Locale('en'), // Inglês
         Locale('pt_BR'), // Português Brasileiro
       ],
+
       theme: ThemeData(
         primaryColor: const Color(0xff1AE8E4),
         colorScheme: ColorScheme.fromSwatch().copyWith(

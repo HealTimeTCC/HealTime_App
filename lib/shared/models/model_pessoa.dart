@@ -1,8 +1,13 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'json_serializable/model_pessoa.g.dart';
+
+@JsonSerializable()
 class Pessoa {
   Pessoa(
       {required this.cpfPessoa,
       required this.nomePessoa,
-      required this.sobrenomePessoa,
+      required this.sobreNomePessoa,
       required this.dtNascPessoa,
       required this.tipoPessoaId,
       required this.passwordString});
@@ -11,33 +16,11 @@ class Pessoa {
   int tipoPessoaId = 1;
   String cpfPessoa = '';
   String nomePessoa = '';
-  String sobrenomePessoa = '';
+  String sobreNomePessoa = '';
   DateTime dtNascPessoa = DateTime.now();
   String passwordString = '';
   String tokenUser = '';
 
-  /* Des. dados */
-  Pessoa.fromJson(Map<String, dynamic> json)
-      : pessoaId = json['pessoaId'],
-        tipoPessoaId = json['tipoPessoaId'] ?? 1,
-        cpfPessoa = json['cpfPessoa'],
-        nomePessoa = json['nomePessoa'],
-        sobrenomePessoa = json['sobrenomePessoa'] ?? '',
-        dtNascPessoa = DateTime.parse(json['dtNascPessoa']),
-        passwordString = json['passwordString'] ?? '',
-        tokenUser = json['tokenJwt'];
-
-  /* Serializar dados */
-  Map<String, dynamic> toJson() {
-    return {
-      'pessoaId': pessoaId,
-      'tipoPessoaId': tipoPessoaId,
-      'cpfPessoa': cpfPessoa,
-      'nomePessoa': nomePessoa,
-      'sobrenomePessoa': sobrenomePessoa,
-      'dtNascPessoa': dtNascPessoa.toIso8601String(),
-      'passwordString': passwordString,
-      'tokenJwt': tokenUser,
-    };
-  }
+  factory Pessoa.fromJson(Map<String, dynamic> json) => _$PessoaFromJson(json);
+  Map<String, dynamic> toJson() => _$PessoaToJson(this);
 }

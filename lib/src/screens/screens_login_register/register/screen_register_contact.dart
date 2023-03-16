@@ -6,6 +6,7 @@ import 'package:healtime/src/screens/screens_login_register/register/screen_regi
 import '../../../../services/api/api_pessoa.dart';
 import '../../../../shared/dto/dto_pessoa_register.dart';
 import '../../screens_navigation/home_page/home.dart';
+import '../widgets/loading_sending_data.dart';
 import '../widgets/text_form_model.dart';
 
 class RegisterContactScreen extends StatefulWidget {
@@ -85,6 +86,8 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                         children: [
                           ModelTextForm.modelTextForm(
                               textController: emailController,
+
+                              /* Flag para verificar se é para validar o TExtField */
                               validator: false,
                               size: size,
                               textLabel: 'E-Mail',
@@ -176,6 +179,15 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
             ),
           );
         } else {
+          showDialog(
+            context: context,
+            builder: (context) => const AlertDialog(
+              content: LoadingSendingData(),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+          );
+
           /* Função para cadastrar o paciente capaz */
           widget.pessoa.passwordString = passwordController.text;
 
