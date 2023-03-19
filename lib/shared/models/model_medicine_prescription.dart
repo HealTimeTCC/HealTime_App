@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:healtime/shared/models/model_doctor.dart';
-import 'package:healtime/shared/models/model_pessoa.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'model_prescricao_medicacao.dart';
 
-part 'model_medicine_prescription.g.dart';
+part 'json_serializable/model_medicine_prescription.g.dart';
 
 @JsonSerializable()
 class PrescricaoPaciente {

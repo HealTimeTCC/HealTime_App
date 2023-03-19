@@ -3,6 +3,7 @@ import 'package:healtime/services/data_locale/data_preferences.dart';
 import 'package:healtime/shared/consts/consts_key_preferences.dart';
 
 import '../../splash/splash_screen.dart';
+import '../screens_queries/screens/screen_list_queries.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,15 +49,15 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Color(0xff18CDCA),
         ),
-        drawer: Drawer(
-          child: ElevatedButton(onPressed: () {
-            DataPreferences.removeData(key: ConstsPreferences.keyUser);
-
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => SplashScreen()), (route) => false);
-          }, child: Text('Sair')),
+        drawer: Drawer(),
+        body: Align(
+          alignment: Alignment.center,
+          child: Container(
+            child: ElevatedButton(onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ListQueries()));
+            }, child: Text('Ir para a tela de listar as consultas')),
+          ),
         ),
-        body: Container(),
 
       ),
     );

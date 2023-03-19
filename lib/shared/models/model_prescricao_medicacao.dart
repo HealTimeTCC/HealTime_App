@@ -2,7 +2,7 @@ import 'package:healtime/shared/models/model_medicacao.dart';
 import 'package:healtime/shared/models/model_medicine_prescription.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'model_prescricao_medicacao.g.dart';
+part 'json_serializable/model_prescricao_medicacao.g.dart';
 
 @JsonSerializable()
 class PrescricaoMedicacao {
