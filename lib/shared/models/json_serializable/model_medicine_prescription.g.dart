@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../model_medicine_prescription.dart';
+part of 'model_medicine_prescription.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -15,22 +15,17 @@ PrescricaoPaciente _$PrescricaoPacienteFromJson(Map<String, dynamic> json) =>
       Emissao: json['Emissao'] == null
           ? null
           : DateTime.parse(json['Emissao'] as String),
-
-      /* Pegar os dados do médico e serializar */
       MedicoId: json['MedicoId'] == null
           ? null
           : Medico.fromJson(json['MedicoId'] as Map<String, dynamic>),
-
-      /* Pegar os dados do paciente e serializar */
-      Paciente: json['Paciente'] == null
-          ? null
-          : Pessoa.fromJson(json['Paciente'] as Map<String, dynamic>),
-
+      Paciente: json['Paciente'] as int?,
       PrescricaoPacienteId: json['PrescricaoPacienteId'] as int?,
       Validade: json['Validade'] == null
           ? null
           : DateTime.parse(json['Validade'] as String),
-    );
+    )..prescricaoMedicacao = (json['prescricaoMedicacao'] as List<dynamic>?)
+        ?.map((e) => PrescricaoMedicacao.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$PrescricaoPacienteToJson(PrescricaoPaciente instance) =>
     <String, dynamic>{
@@ -41,4 +36,5 @@ Map<String, dynamic> _$PrescricaoPacienteToJson(PrescricaoPaciente instance) =>
       'Emissao': instance.Emissao?.toIso8601String(),
       'Validade': instance.Validade?.toIso8601String(),
       'DescFichaPessoa': instance.DescFichaPessoa,
+      'prescricaoMedicacao': instance.prescricaoMedicacao,
     };

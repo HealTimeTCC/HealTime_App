@@ -2,7 +2,7 @@ import 'package:healtime/shared/models/model_medicacao.dart';
 import 'package:healtime/shared/models/model_medicine_prescription.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'json_serializable/model_prescricao_medicacao.g.dart';
+part 'model_prescricao_medicacao.g.dart';
 
 @JsonSerializable()
 class PrescricaoMedicacao {
@@ -14,7 +14,7 @@ class PrescricaoMedicacao {
     required this.qtde});
 
   PrescricaoPaciente? prescricaoPaciente;
-  List<ModelMedicacao>? medicacao;
+  ModelMedicacao medicacao;
   int qtde = 0;
   int intervalo = 0;
   int duracao = 0;

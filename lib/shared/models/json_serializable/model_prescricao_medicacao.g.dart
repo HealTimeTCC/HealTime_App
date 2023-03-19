@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../model_prescricao_medicacao.dart';
+part of 'model_prescricao_medicacao.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -10,9 +10,8 @@ PrescricaoMedicacao _$PrescricaoMedicacaoFromJson(Map<String, dynamic> json) =>
     PrescricaoMedicacao(
       duracao: json['duracao'] as int,
       intervalo: json['intervalo'] as int,
-      medicacao: (json['medicacao'] as List<dynamic>?)
-          ?.map((e) => ModelMedicacao.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      medicacao:
+          ModelMedicacao.fromJson(json['medicacao'] as Map<String, dynamic>),
       prescricaoPaciente: json['prescricaoPaciente'] == null
           ? null
           : PrescricaoPaciente.fromJson(
