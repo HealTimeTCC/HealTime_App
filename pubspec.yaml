@@ -46,6 +46,7 @@ dependencies:
   intl: any
   url_launcher: ^6.1.10
   json_annotation: ^4.8.0
+  auto_size_text_field: ^2.2.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/typeUser.dart';
 import 'package:healtime/services/data_locale/data_preferences.dart';
 import 'package:healtime/shared/consts/consts_key_preferences.dart';
 
@@ -50,10 +51,7 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.center,
           child: Container(
             child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ListQueries()));
-                },
+                onPressed: () => TypeUser.typeUserNavigator(context),
                 child: Text('Ir para a tela de listar as consultas')),
           ),
         ),

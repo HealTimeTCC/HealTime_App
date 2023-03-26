@@ -11,7 +11,7 @@ class CardListQueries {
     return Container(
       margin: EdgeInsets.only(bottom: size.width * .05),
       decoration: BoxDecoration(
-        color: const Color(0xff128F8D),
+        color: const Color(0xff278F8E),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
 
@@ -26,13 +26,24 @@ class CardListQueries {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Área de especialização',
-              style: GoogleFonts.getFont('Poppins',
-                  decoration: TextDecoration.none,
-                  color: const Color(0xff1c1c1c),
-                  fontSize: size.width * .04,
-                  fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Área de especialização',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.getFont('Poppins',
+                        decoration: TextDecoration.none,
+                        color: const Color(0xff1c1c1c),
+                        fontSize: size.width * .04,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                const Icon(
+                  Icons.people_outline,
+                  color: Color(0xff278F8E),
+                ),
+              ],
             ),
             Text(
               '${DateFormat('dd/MM/yyyy').format(DateTime.now())} - '
@@ -44,7 +55,6 @@ class CardListQueries {
                   fontSize: size.width * .03,
                   fontWeight: FontWeight.w600),
             ),
-
             SizedBox(height: size.height * .03),
             Text(
               'Tipo de Local',
@@ -63,7 +73,6 @@ class CardListQueries {
                   fontSize: size.width * .04,
                   fontWeight: FontWeight.w400),
             ),
-
             SizedBox(height: size.height * .03),
             Text(
               'Status',

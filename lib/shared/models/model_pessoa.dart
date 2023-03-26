@@ -9,11 +9,11 @@ class Pessoa {
       required this.nomePessoa,
       required this.sobreNomePessoa,
       required this.dtNascPessoa,
-      required this.tipoPessoaId,
+      required this.tipoPessoa,
       required this.passwordString});
 
   int pessoaId = 0;
-  int tipoPessoaId = 1;
+  int tipoPessoa = 1;
   String cpfPessoa = '';
   String nomePessoa = '';
   String sobreNomePessoa = '';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/screen_list_queries.dart';
 import 'package:healtime/src/screens/splash/splash_screen.dart';
 import 'package:healtime/src/screens/presentation_screens/screen_choose_profile.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/Medico',
+      initialRoute: '/SplashScreen',
       routes: {
         '/SplashScreen': (_) => const SplashScreen(),
         '/Apresentacao': (_) => Apresentacao(),
