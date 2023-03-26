@@ -24,9 +24,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
@@ -51,7 +49,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                     SizedBox(height: size.height * .02),
                     Text(
                       'Não se preocupe! Seus dados estão completamente seguros com a '
-                          'equipe do HealTime.',
+                      'equipe do HealTime.',
                       style: GoogleFonts.getFont('Poppins',
                           decoration: TextDecoration.none,
                           color: Colors.black45,
@@ -100,7 +98,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       onPressed: _validateForm,
                       style: ElevatedButton.styleFrom(
                           padding:
-                          EdgeInsets.symmetric(vertical: size.height * .02),
+                              EdgeInsets.symmetric(vertical: size.height * .02),
                           backgroundColor: const Color(0xff1AE8E4),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
@@ -130,16 +128,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
     ScaffoldMessenger.of(context).clearSnackBars();
 
     if (formState != null && formState.validate()) {
-
       /* Exibir um alert informando que estamos processando os dados */
       showDialog(
           context: context,
-          builder: (context) =>
-          const AlertDialog(
-            content: LoadingSendingData(),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ));
+          builder: (context) => const AlertDialog(
+                content: LoadingSendingData(),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ));
 
       setState(() {
         iconPassword = Icons.check_circle_rounded;
@@ -150,7 +146,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
       DtoPessoa dtoPessoa = DtoPessoa(
           nomePessoa: _textEmail.text, passwordString: _textPassword.text);
 
-      Map<String, dynamic> mapResponseApi = await ApiPessoa.authUser(pessoa: dtoPessoa);
+      Map<String, dynamic> mapResponseApi =
+          await ApiPessoa.authUser(pessoa: dtoPessoa);
 
       /*Verificando se a tela está montada */
       if (mounted) {
@@ -159,12 +156,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
         if (mapResponseApi['statusCode'] == 200) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => HomePage()),
-                  (route) => false);
+              (route) => false);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(mapResponseApi['response'].toString()),
-                  elevation: 0,
-                  backgroundColor: Colors.redAccent));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(mapResponseApi['response'].toString()),
+              elevation: 0,
+              backgroundColor: Colors.redAccent));
         }
       }
     } else {

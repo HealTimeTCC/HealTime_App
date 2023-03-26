@@ -7,15 +7,15 @@ part of '../model_doctor.dart';
 // **************************************************************************
 
 Medico _$MedicoFromJson(Map<String, dynamic> json) => Medico(
-      CrmMedico: json['CrmMedico'] as int,
-      MedicoId: json['MedicoId'] as int,
-      NmMedico: json['NmMedico'] as String,
-      UfCrmMedico: json['UfCrmMedico'] as String,
+      CrmMedico: json['crmMedico'],
+      MedicoId: json['medicoId'] as int,
+      NmMedico: json['nmMedico'] as String,
+      UfCrmMedico: json['ufCrmMedico'] as String,
     );
 
 Map<String, dynamic> _$MedicoToJson(Medico instance) => <String, dynamic>{
-      'MedicoId': instance.MedicoId,
-      'NmMedico': instance.NmMedico,
-      'CrmMedico': instance.CrmMedico,
-      'UfCrmMedico': instance.UfCrmMedico,
+      'medicoId': instance.MedicoId,
+      'nmMedico': instance.NmMedico,
+      'crmMedico': instance.CrmMedico,
+      'ufCrmMedico': instance.UfCrmMedico,
     };

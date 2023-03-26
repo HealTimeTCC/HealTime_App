@@ -14,9 +14,11 @@ class ApiPaciente {
       List<dynamic> listaPaciente = jsonDecode(response.body) as List<dynamic>;
 
       return listaPaciente.map((p) => Pessoa.fromJson(p)).toList();
-    } 
-    else {
-      throw Exception(" ");
+    } else {
+      throw Exception(AlertDialog(
+        title: Text('Aviso!'),
+        content: Text('Erro: Pacientes não encontrados'),
+      ));
     }
   }
 }

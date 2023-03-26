@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/background/screen_background.dart';
 
 import '../../../../../shared/models/model_doctor.dart';
+import '../../screens_medical/screen_doctor/screen_list_doctor.dart';
 import '../screens_auxiliaries/screen_doctor.dart';
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
@@ -94,7 +95,7 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                             Medico? dadosMedicos =
                                 await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const Medicos(),
+                                builder: (context) =>  ListarMedico() /*Medicos*/ ,
                               ),
                             );
 
