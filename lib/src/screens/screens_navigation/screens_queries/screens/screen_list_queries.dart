@@ -3,10 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/screen_register_queries.dart';
 
 import '../../../../../shared/background/screen_background.dart';
+import '../../../../../shared/models/model_pessoa.dart';
 import '../widgets/card_list_queries.dart';
 
 class ListQueries extends StatelessWidget {
-  const ListQueries({Key? key}) : super(key: key);
+  const ListQueries({Key? key, required this.pessoa}) : super(key: key);
+
+  final Pessoa pessoa;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class ListQueries extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => RegisterQueries(),
+            builder: (context) => RegisterQueries(dataPessoa: pessoa),
           ),
         ),
         shape: RoundedRectangleBorder(

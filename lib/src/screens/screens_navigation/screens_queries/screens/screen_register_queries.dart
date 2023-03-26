@@ -3,10 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../shared/background/screen_background.dart';
+import '../../../../../shared/models/model_pessoa.dart';
 import '../logics/post_query.dart';
 
 class RegisterQueries extends StatefulWidget {
-  const RegisterQueries({Key? key}) : super(key: key);
+  const RegisterQueries({Key? key, required this.dataPessoa}) : super(key: key);
+
+  final Pessoa dataPessoa;
 
   @override
   State<RegisterQueries> createState() => _RegisterQueriesState();
@@ -414,6 +417,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     ElevatedButton(
                       onPressed: () async {
                         await PostQuery.modelPostQuery(
+                          context: context,
+                          dataPessoa: widget.dataPessoa,
                             especialidadeId: 1,
                             medicoId: 1,
                             dateAgendamento: dtAgendamento!,

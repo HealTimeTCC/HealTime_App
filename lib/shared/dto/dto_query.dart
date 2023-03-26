@@ -4,7 +4,7 @@ class DtoQuery {
     required this.encaminhamento,
     required this.especialidadeId,
     required this.medicoId,
-    this.motivoConsulta,
+    required this.motivoConsulta,
     required this.pacienteId,
     required this.statusConsultaId});
 
@@ -12,9 +12,9 @@ class DtoQuery {
   int especialidadeId = 0;
   int pacienteId = 0;
   int medicoId = 0;
-  DateTime dataSolicitacaoConsulta = DateTime.now();
-  DateTime dataConsulta = DateTime.now();
-  String? motivoConsulta;
+  String dataSolicitacaoConsulta = '';
+  String dataConsulta = '';
+  String motivoConsulta = '';
   String encaminhamento = "N";
 
   DtoQuery.fromJson(Map<String, dynamic> json)
@@ -22,8 +22,8 @@ class DtoQuery {
         especialidadeId =           int.parse(json['especialidadeId']),
         pacienteId =                int.parse(json['pacienteId']),
         medicoId =                  int.parse(json['medicoId']),
-        dataSolicitacaoConsulta =   DateTime.parse(json['dataSolicitacaoConsulta']),
-        dataConsulta =              DateTime.parse(json['dataConsulta']),
+        dataSolicitacaoConsulta =   json['dataSolicitacaoConsulta'],
+        dataConsulta =              json['dataConsulta'],
         motivoConsulta =            json['motivoConsulta'],
         encaminhamento =            json['encaminhamento'];
 
