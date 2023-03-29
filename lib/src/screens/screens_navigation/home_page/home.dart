@@ -4,7 +4,7 @@ import 'package:healtime/services/data_locale/data_preferences.dart';
 import 'package:healtime/shared/consts/consts_key_preferences.dart';
 
 import '../../splash/splash_screen.dart';
-import '../screens_queries/screens/screen_list_queries.dart';
+import '../screens_queries/screens/list_queries/screen_list_queries.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

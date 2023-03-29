@@ -172,7 +172,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
       if (validateData()) {
 
         /* Se a pessoa for diferente de paciente ela vai ser levada para cadastrar o endereço */
-        if (widget.pessoa.tipoPessoaId != 2) {
+        if (widget.pessoa.tipoPessoaId != 1) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => RegisterAddress(dtoPessoaRegister: widget.pessoa),

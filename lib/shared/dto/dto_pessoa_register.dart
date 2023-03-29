@@ -16,7 +16,7 @@ class DtoPessoaRegister {
 
   /* Des. dados */
   DtoPessoaRegister.fromJson(Map<String, dynamic> json)
-      : tipoPessoaId = json['tipoPessoaId'] ?? 1,
+      : tipoPessoaId = json['tipoPessoa'] ?? 1,
         cpfPessoa = json['cpfPessoa'],
         nomePessoa = json['nomePessoa'],
         sobrenomePessoa = json['sobrenomePessoa'] ?? '',
@@ -26,7 +26,7 @@ class DtoPessoaRegister {
   /* Serializar dados */
   Map<String, dynamic> toJson() {
     return {
-      'tipoPessoaId': tipoPessoaId,
+      'tipoPessoa': tipoPessoaId,
       'cpfPessoa': cpfPessoa,
       'nomePessoa': nomePessoa,
       'sobrenomePessoa': sobrenomePessoa,

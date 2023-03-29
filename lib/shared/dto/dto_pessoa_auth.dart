@@ -6,7 +6,7 @@ class DtoPessoa {
 
   Map<String, dynamic> toJson(){
     return {
-      'nomePessoa': nomePessoa,
+      'Email': nomePessoa,
       'passwordString': passwordString,
     };
   }

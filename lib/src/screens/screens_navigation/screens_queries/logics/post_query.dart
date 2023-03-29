@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/format_date.dart';
 
 import '../../../../../services/api/api_queries.dart';
 import '../../../../../shared/dto/dto_query.dart';
 import '../../../../../shared/loading/alert_loading.dart';
 import '../../../../../shared/models/model_pessoa.dart';
+import '../screens/list_queries/screen_list_queries.dart';
 
 class PostQuery {
   static Future<void> modelPostQuery(
@@ -18,12 +20,17 @@ class PostQuery {
       required String motivoConsulta,
       required Pessoa dataPessoa,
       required BuildContext context}) async {
+
+    final navigator = Navigator.of(context);
+    final scaffold = ScaffoldMessenger.of(context);
+    final Size size = MediaQuery.of(context).size;
+
     /* Exibir mensagem para o usuário */
     showDialog(
       context: context,
       builder: (context) => const AlertDialog(
         backgroundColor: Colors.transparent,
-        content: LoadingData(textLoading: 'Cadastrando agendamento...'),
+        content: LoadingData(textLoading: 'Cadastrando agendamento...', permissCircula: true),
       ),
     );
 
@@ -49,23 +56,33 @@ class PostQuery {
 
     Map<String, dynamic> response = await ApiQueries.postQuery(query: dtoQuery);
 
-    if (context.mounted) {
-      Navigator.of(context).pop();
+    navigator.pop();
 
-      ScaffoldMessenger.of(context).clearSnackBars();
-      if (response['statusCode'] == 200) {
+    scaffold.clearSnackBars();
+    if (response['statusCode'] == 200) {
+      showDialog(
+      context: context,
+      builder: (context) => const AlertDialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        content: LoadingData(textLoading: 'Agendamento cadastrado com sucesso!', permissCircula: false),
+        ),
+      );
 
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            duration: const Duration(seconds: 2),
-            content: Text(
-              response['body'],
-            ),
+      await Future.delayed(const Duration(seconds: 3));
+
+      navigator.pop();
+
+    } else {
+      scaffold.showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.redAccent,
+          duration: const Duration(seconds: 2),
+          content: Text(
+            response['body'],
           ),
-        );
-      }
+        ),
+      );
     }
   }
 }

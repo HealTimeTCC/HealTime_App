@@ -15,4 +15,16 @@ class ApiQueries {
       'body': response.body
     };
   }
+
+  /* BUSCAR AS INFORMAÇÕES PRIMARIAS DA CONSULTA */
+  static Future<Map<String, dynamic>> getInfoQueries() async {
+    Uri uriApi = Uri.parse('http://www.healtime.somee.com/healtime/ConsultaMedica/ConsultaPorPaciente');
+
+    http.Response response = await http.get(uriApi);
+
+    return {
+      'statusCode': response.statusCode,
+      'body': response.body
+    };
+  }
 }

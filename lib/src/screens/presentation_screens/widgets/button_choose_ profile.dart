@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../shared/models/enuns/enum_tipo_pessoa.dart';
 import '../profile_presentation_screen.dart';
 
 class EscolherPerfil {
@@ -46,7 +47,7 @@ class EscolherPerfil {
               builder: (context) => TelaPerfis(
                   enderecoImagem: 'assets/img/imagemCuidador.png',
                   mensagemSuperior: mensagem,
-                  typeUser: 1),
+                  typeUser: TipoPessoa.cuidador.index),
             ),
           );
         }
@@ -61,7 +62,7 @@ class EscolherPerfil {
               builder: (context) => TelaPerfis(
                   enderecoImagem: 'assets/img/ImagemPaciente.png',
                   mensagemSuperior: mensagem,
-                  typeUser: 2),
+                  typeUser: TipoPessoa.paciente.index),
             ),
           );
         }
@@ -76,7 +77,7 @@ class EscolherPerfil {
               builder: (context) => TelaPerfis(
                   enderecoImagem: 'assets/img/ImagemResponsavel.png',
                   mensagemSuperior: mensagem,
-                  typeUser: 3),
+                  typeUser: TipoPessoa.responsavel.index),
             ),
           );
         }
