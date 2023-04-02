@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:healtime/shared/models/model_doctor.dart';
 import 'package:http/http.dart' as http;
 
+import '../../core/consts_required.dart';
+
 class ApiMedico {
   static Future<List<Medico>> obterMedicosAsync() async {
     final Uri uriApi =
-        Uri.parse('http://healtime.somee.com/healtime/Medico/GetAll');
+        Uri.parse('${ConstsRequired.urlBaseApi}Medico/GetAll');
 
     http.Response response = await http.get(uriApi);
 
@@ -24,7 +26,7 @@ class ApiMedico {
 
   static Future<int> incluirMedico(Medico medico) async {
     final Uri uriApi = Uri.parse(
-        'http://www.healtime.somee.com/healtime/ConsultaMedica/IncluiMedico');
+        '${ConstsRequired.urlBaseApi}ConsultaMedica/IncluiMedico');
 
     http.Response response = await http.post(uriApi,
         body: json.encode(medico),

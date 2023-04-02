@@ -170,12 +170,17 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
     /* Se os registros estiverem 'Ok' */
     if (formState != null && formState.validate()) {
       if (validateData()) {
+        /* Função para cadastrar o paciente capaz */
+        widget.pessoa.passwordString = passwordController.text;
+        widget.pessoa.contatoCelular = phoneController.text;
+        widget.pessoa.contatoEmail = emailController.text;
 
         /* Se a pessoa for diferente de paciente ela vai ser levada para cadastrar o endereço */
         if (widget.pessoa.tipoPessoaId != 1) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => RegisterAddress(dtoPessoaRegister: widget.pessoa),
+              builder: (context) =>
+                  RegisterAddress(dtoPessoaRegister: widget.pessoa),
             ),
           );
         } else {
@@ -188,9 +193,6 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
             ),
           );
 
-          /* Função para cadastrar o paciente capaz */
-          widget.pessoa.passwordString = passwordController.text;
-
           final int statusCode =
               await ApiPessoa.registerUser(pessoa: widget.pessoa);
 
@@ -198,7 +200,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
             if (mounted) {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const HomePage(),
                 ),
               );
             }

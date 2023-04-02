@@ -23,32 +23,45 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigatorSettings() async {
-    Pessoa? dataUser = await DataPreferencesPessoa.getDataUser();
+    try {
+      Pessoa? dataUser = await DataPreferencesPessoa.getDataUser();
 
-    if (mounted) {
-      /* Verificando se o usuário está logado */
-      if (dataUser != null) {
-        DtoPessoa dtoPessoa = DtoPessoa(
-            nomePessoa: dataUser.nomePessoa,
-            passwordString: dataUser.passwordString);
+      if (mounted) {
+        /* Verificando se o usuário está logado */
+        if (dataUser != null) {
 
-        /* Autenticar o usuário novamente */
-        Map<String, dynamic> responseApi = await ApiPessoa.authUser(pessoa: dtoPessoa);
+          DtoPessoa dtoPessoa = DtoPessoa(
+              emailContato: dataUser.contact!.email,
+              passwordString: dataUser.passwordString);
 
-        if (mounted) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) =>
-                  responseApi['statusCode'] == 200 ? HomePage() : const Apresentacao()),
-              (route) => false);
+          /* Autenticar o usuário novamente */
+          Map<String, dynamic> responseApi =
+              await ApiPessoa.authUser(pessoa: dtoPessoa);
+
+          if (mounted) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => responseApi['statusCode'] == 200
+                        ? HomePage()
+                        : const Apresentacao()),
+                (route) => false);
+          }
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const Apresentacao(),
+            ),
+          );
         }
-      } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const Apresentacao(),
-          ),
-        );
       }
+    } catch (ex) {
+      print('Entrou Aqui');
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const Apresentacao(),
+        ),
+      );
     }
   }
 

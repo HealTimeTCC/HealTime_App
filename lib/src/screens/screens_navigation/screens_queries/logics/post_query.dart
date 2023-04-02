@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/format_date.dart';
 
 import '../../../../../services/api/api_queries.dart';
 import '../../../../../shared/dto/dto_query.dart';
 import '../../../../../shared/loading/alert_loading.dart';
 import '../../../../../shared/models/model_pessoa.dart';
-import '../screens/list_queries/screen_list_queries.dart';
 
 class PostQuery {
   static Future<void> modelPostQuery(
@@ -72,7 +70,6 @@ class PostQuery {
       await Future.delayed(const Duration(seconds: 3));
 
       navigator.pop();
-
     } else {
       scaffold.showSnackBar(
         SnackBar(
