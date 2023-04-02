@@ -20,12 +20,13 @@ class DataPreferencesPessoa {
       if (data != null) {
         Map<String, dynamic> mapDataUser = jsonDecode(data);
 
+        Pessoa.fromJson(mapDataUser);
+
         return Pessoa.fromJson(mapDataUser);
       }else {
         return null;
       }
     }catch (e)  {
-      print(e);
       return null;
     }
   }

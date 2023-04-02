@@ -133,12 +133,12 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () {
-                            CalendarDatePicker2(
-                              config: CalendarDatePicker2Config(),
-                              onValueChanged: (date) {
-                                print(date);
-                              }, value: [],
-                            );
+                            // CalendarDatePicker2(
+                            //   config: CalendarDatePicker2Config(),
+                            //   onValueChanged: (date) {
+                            //     print(date);
+                            //   }, value: [],
+                            // );
                           },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: const Color(0xff18CDCA),

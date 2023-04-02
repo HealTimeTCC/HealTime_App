@@ -7,16 +7,16 @@ import 'package:http/http.dart' as http;
 import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
+import '../../core/consts_required.dart';
 import '../../shared/dto/dto_pessoa_register.dart';
 
 class ApiPessoa {
-
   /* Autenticar usuário */
-  static Future<Map<String, dynamic>> authUser({required DtoPessoa pessoa}) async {
+  static Future<Map<String, dynamic>> authUser(
+      {required DtoPessoa pessoa}) async {
     int statusCode = 400;
 
-    Uri uriApi =
-        Uri.parse('http://healtime.somee.com/healtime/Pessoa/Autenticar');
+    Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}Pessoa/Autenticar');
 
     http.Response response = await http.post(uriApi,
         body: json.encode(pessoa),
@@ -46,27 +46,28 @@ class ApiPessoa {
   /* Registrar usuário */
   static Future<int> registerUser({required DtoPessoaRegister pessoa}) async {
     try {
-      Uri uriApi = Uri.parse('http://healtime.somee.com/healtime/Pessoa/Registro');
+      Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}Pessoa/Registro');
 
       http.Response response = await http.post(uriApi,
           body: json.encode(pessoa),
-          headers: {'Content-Type': 'application/json'}).timeout(const Duration(seconds: 15));
+          headers: {
+            'Content-Type': 'application/json'
+          }).timeout(const Duration(seconds: 15));
 
       if (response.statusCode == 200) {
         DtoPessoa dtoPessoa = DtoPessoa(
-            nomePessoa: pessoa.nomePessoa,
+            emailContato: pessoa.contatoEmail,
             passwordString: pessoa.passwordString);
 
         await authUser(pessoa: dtoPessoa);
 
         return 200;
-      }else {
+      } else {
         return response.statusCode;
       }
-    } on TimeoutException catch(_) {
+    } on TimeoutException catch (_) {
       return 501;
-    }
-    catch (e) {
+    } catch (e) {
       return 400;
     }
   }

@@ -256,6 +256,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void navigatorNextPage() {
     DtoPessoaRegister pessoa = DtoPessoaRegister(
+      contatoCelular: '',
+      contatoEmail: '',
         cpfPessoa: cpfController.text,
         nomePessoa: nameController.text,
         sobrenomePessoa: lastNameController.text,

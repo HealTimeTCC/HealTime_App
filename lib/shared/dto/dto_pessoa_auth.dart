@@ -1,12 +1,12 @@
 class DtoPessoa {
-  DtoPessoa({required this.nomePessoa, required this.passwordString});
+  DtoPessoa({required this.emailContato, required this.passwordString});
 
-  String nomePessoa = '';
+  String emailContato = '';
   String passwordString = '';
 
   Map<String, dynamic> toJson(){
     return {
-      'Email': nomePessoa,
+      'email': emailContato,
       'passwordString': passwordString,
     };
   }

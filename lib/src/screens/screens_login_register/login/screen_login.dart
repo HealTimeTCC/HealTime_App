@@ -144,7 +144,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
       /* Montando o objeto para o envio */
       DtoPessoa dtoPessoa = DtoPessoa(
-          nomePessoa: _textEmail.text, passwordString: _textPassword.text);
+          emailContato: _textEmail.text, passwordString: _textPassword.text);
 
       Map<String, dynamic> mapResponseApi =
           await ApiPessoa.authUser(pessoa: dtoPessoa);

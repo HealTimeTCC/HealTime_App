@@ -10,7 +10,6 @@ class TypeUser {
     Pessoa? pessoa = await DataPreferencesPessoa.getDataUser();
 
     if (pessoa != null) {
-
       if (pessoa.tipoPessoa == 1) {
         navigador.push(
           MaterialPageRoute(
