@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../shared/background/screen_background.dart';
+import '../../../../../shared/models/model_especialidades.dart';
 import '../../../../../shared/models/model_pessoa.dart';
-import '../logics/post_query.dart';
 
 class RegisterQueries extends StatefulWidget {
-  const RegisterQueries({Key? key, required this.dataPessoa}) : super(key: key);
+  const RegisterQueries(
+      {Key? key, required this.dataPessoa, required this.listEspecialidades})
+      : super(key: key);
 
   final Pessoa dataPessoa;
+  final List<ModelEspecialidades> listEspecialidades;
 
   @override
   State<RegisterQueries> createState() => _RegisterQueriesState();
@@ -19,15 +24,9 @@ class _RegisterQueriesState extends State<RegisterQueries> {
   final GlobalKey<FormState> keyForm = GlobalKey<FormState>();
   final GlobalKey<State> dropdownKey = GlobalKey();
 
-  final List<String> listEspecialidades = [
-    'Teste01',
-    'Teste02',
-    'Teste03',
-    'Teste04',
-    'Teste05',
-  ];
+  String? valueSelect = '';
 
-  String? valueSelect = 'Teste01';
+  List<String> listEspecialidadesString = [];
 
   /* Variavel para adicionar a observação */
   TextEditingController textObsController = TextEditingController();
@@ -44,7 +43,19 @@ class _RegisterQueriesState extends State<RegisterQueries> {
   int? flagEncaminhado;
 
   @override
+  void initState() {
+    for (ModelEspecialidades model in widget.listEspecialidades) {
+      listEspecialidadesString.add(model.descEspecialidade);
+
+      valueSelect = model.descEspecialidade;
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ProviderQueries>(context);
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -124,7 +135,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   size: size.width * .08,
                                 ),
                                 underline: Container(),
-                                items: listEspecialidades
+                                items: listEspecialidadesString
                                     .map(
                                       (String e) => DropdownMenuItem<String>(
                                         value: e,
@@ -170,7 +181,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              '${DateFormat('dd/MM/yyyy').format(dtAgendamento!)}',
+                                              DateFormat('dd/MM/yyyy')
+                                                  .format(dtAgendamento!),
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.getFont(
                                                   'Poppins',
@@ -207,7 +219,12 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          '${DateFormat('HH:mm').format(DateTime(0, 0, 0, timeAgendamento!.hour, timeAgendamento!.minute))}',
+                                          DateFormat('HH:mm').format(DateTime(
+                                              0,
+                                              0,
+                                              0,
+                                              timeAgendamento!.hour,
+                                              timeAgendamento!.minute)),
                                           style: GoogleFonts.getFont('Poppins',
                                               decoration: TextDecoration.none,
                                               color: const Color(0xff6A6A6A),
@@ -416,10 +433,14 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     SizedBox(height: size.height * .05),
                     ElevatedButton(
                       onPressed: () async {
-                        await PostQuery.modelPostQuery(
-                          context: context,
-                          dataPessoa: widget.dataPessoa,
-                            especialidadeId: 1,
+                        Iterable<ModelEspecialidades> selectEspecialidade =
+                            widget.listEspecialidades.where((element) =>
+                                element.descEspecialidade == valueSelect);
+
+                        await provider.postQuerie(
+                            context: context,
+                            dataPessoa: widget.dataPessoa,
+                            especialidadeId: selectEspecialidade.first.especialidadeId,
                             medicoId: 1,
                             dateAgendamento: dtAgendamento!,
                             timeAgendamento: timeAgendamento!,

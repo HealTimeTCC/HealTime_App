@@ -1,6 +1,6 @@
 import 'package:healtime/shared/models/model_pessoa.dart';
 
-import '../services/data_locale/data_preferences_pessoa.dart';
+import '../../services/data_locale/data_preferences_pessoa.dart';
 
 class ConstsRequired {
   static Future<Map<String, String>?> headRequisit() async {
@@ -15,9 +15,8 @@ class ConstsRequired {
   }
 
   /* URL DO SOMEE */
-  //static const String urlBaseApi = 'http://healtime.somee.com/healtime/';
+  static const String urlBaseApi = 'http://healtime.somee.com/healtime/';
 
-  /* URL DO LOCALTUNEL */
-  static const String urlBaseApi =
-      'https://5d12-189-102-96-21.sa.ngrok.io/';
+  /* URL DO LOCALTUNEL OU NGROK */
+  //static const String urlBaseApi = 'https://5d12-189-102-96-21.sa.ngrok.io/';
 }

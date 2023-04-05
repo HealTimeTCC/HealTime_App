@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
-import '../../core/consts_required.dart';
+import '../../shared/consts/consts_required.dart';
 import '../../shared/dto/dto_pessoa_register.dart';
 
 class ApiPessoa {
@@ -49,7 +49,7 @@ class ApiPessoa {
       Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}Pessoa/Registro');
 
       http.Response response = await http.post(uriApi,
-          body: json.encode(pessoa),
+          body: jsonEncode(pessoa),
           headers: {
             'Content-Type': 'application/json'
           }).timeout(const Duration(seconds: 15));
@@ -68,6 +68,7 @@ class ApiPessoa {
     } on TimeoutException catch (_) {
       return 501;
     } catch (e) {
+      print(e);
       return 400;
     }
   }

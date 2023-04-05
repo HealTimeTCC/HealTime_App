@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:healtime/shared/models/model_doctor.dart';
 import 'package:http/http.dart' as http;
 
-import '../../core/consts_required.dart';
+import '../../shared/consts/consts_required.dart';
 
 class ApiMedico {
   static Future<List<Medico>> obterMedicosAsync() async {

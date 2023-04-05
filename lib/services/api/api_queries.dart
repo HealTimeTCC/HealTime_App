@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import '../../core/consts_required.dart';
+import '../../shared/consts/consts_required.dart';
 import '../../shared/dto/dto_query.dart';
 import 'package:http/http.dart' as http;
+
+import '../../shared/models/model_especialidades.dart';
 
 class ApiQueries {
   static Future<Map<String, dynamic>> postQuery(
@@ -40,5 +42,17 @@ class ApiQueries {
       print(ex);
       return {'statusCode': 0, 'body': ex};
     }
+  }
+
+  static Future<Map<String, dynamic>> getEspecialidades() async{
+    Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}ConsultaMedica/Especialidades');
+    http.Response response = await http.get(uriApi);
+
+    List listResponse = jsonDecode(response. body) as List<dynamic>;
+
+    return {
+      'statusCode': response.statusCode,
+      'body':  listResponse.map((value) => ModelEspecialidades.fromJson(value)).toList()
+    };
   }
 }

@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import '../../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../../shared/background/screen_background.dart';
 import '../../../../../../../shared/dto/dto_info_basic_queries.dart';
-import '../../../widgets/card_list_queries.dart';
+import '../../../../../../../shared/models/model_especialidades.dart';
+import 'card_list_queries.dart';
 
 class ListContentQueries extends StatelessWidget {
   const ListContentQueries({super.key});
@@ -14,6 +15,8 @@ class ListContentQueries extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final provider = Provider.of<ProviderQueries>(context, listen: false);
+    final List<ModelEspecialidades> listEspecialidades =
+        provider.mapEspecialidades['body'];
 
     return Stack(
       children: [
@@ -59,22 +62,30 @@ class ListContentQueries extends StatelessWidget {
             ),
           ),
         ),
-        
         Container(
           margin: EdgeInsets.only(top: size.height * .07),
           padding: const EdgeInsets.all(16.0),
           child: Consumer<ProviderQueries>(
             builder: (context, value, child) {
               return ListView.builder(
-                shrinkWrap: true,
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
                 itemCount: provider.listQueries.length,
                 itemBuilder: (context, index) {
-                  DtoInfoBasicQueries infoBasicQueries = provider.listQueries[index]; 
+                  /* MODELO DE CARD PARA EXIBIR AS INFORMAÇÕES */
+                  DtoInfoBasicQueries infoBasicQueries =
+                      provider.listQueries[index];
 
-                  return CardListQueries.modelCardList(context: context);
+                  final Iterable<ModelEspecialidades> especialidade =
+                      listEspecialidades.where((element) =>
+                          element.especialidadeId ==
+                          infoBasicQueries.especialidadeId);
+
+                  return CardListQueries.modelCardList(
+                      context: context,
+                      infoBasic: infoBasicQueries,
+                      especialidade: especialidade);
                 },
               );
             },

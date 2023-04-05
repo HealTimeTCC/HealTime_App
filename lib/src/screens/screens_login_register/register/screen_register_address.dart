@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/background/screen_background.dart';
 import 'package:healtime/shared/dto/dto_pessoa_register.dart';
-import 'package:healtime/shared/models/model_uf.dart';
+import 'package:healtime/shared/models/maps/model_uf.dart';
 
 import '../../../../services/api/api_pessoa.dart';
 import '../../screens_navigation/home_page/home.dart';

@@ -196,17 +196,20 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
           final int statusCode =
               await ApiPessoa.registerUser(pessoa: widget.pessoa);
 
-          if (statusCode == 200) {
-            if (mounted) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-              );
+          if (mounted) {
+            Navigator.of(context).pop();
+            if (statusCode == 200) {
+              if (mounted) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ),
+                );
+              }
+            } else {
+              messageError(
+                  context: context, text: 'Não foi possível realizar o cadastro');
             }
-          } else {
-            messageError(
-                context: context, text: 'Não foi possível realizar o cadastro');
           }
         }
       }

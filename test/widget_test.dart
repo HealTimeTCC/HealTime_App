@@ -8,22 +8,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:healtime/core/myApp.dart';
+import 'package:healtime/services/api/api_doctor.dart';
+import 'package:healtime/services/api/api_queries.dart';
+import 'package:healtime/shared/consts/consts_required.dart';
+import 'package:healtime/shared/models/model_doctor.dart';
+import 'package:http/http.dart' as http;
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+void main() async {
+  testWidgets('Obter médicos', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    List<Medico> doctor = await ApiMedico.obterMedicosAsync();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(doctor, isNotNull);
+    expect(doctor, isNot(Exception()));
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Obter especialidades', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}ConsultaMedica/Especialidades');
+
+    await http.get(uriApi). then((value) {
+      expect(value, isNot(Exception));
+      expect(value.body, isNotNull);
+      expect(value.statusCode, isNot(200));
+    });
   });
 }

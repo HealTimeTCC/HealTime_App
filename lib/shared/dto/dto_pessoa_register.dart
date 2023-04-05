@@ -31,17 +31,16 @@ class DtoPessoaRegister {
         contatoCelular = json['contatoCelular'];
 
   /* Serializar dados */
-  Map<String, dynamic> toJson() {
-    return {
-      'tipoPessoa': tipoPessoaId,
-      'cpfPessoa': cpfPessoa,
-      'nomePessoa': nomePessoa,
-      'sobrenomePessoa': sobrenomePessoa,
-      'dtNascPessoa': dtNascPessoa.toIso8601String(),
-      'passwordString': passwordString,
-      'contatoCelular': contatoCelular,
-      'contatoEmail': contatoEmail,
-      'contatoCriadoEm': contatoCriadoEm
-    };
-  }
+  Map<String, dynamic> toJson() =>
+      {
+        'tipoPessoa':       tipoPessoaId,
+        'cpfPessoa':        cpfPessoa,
+        'nomePessoa':       nomePessoa,
+        'sobreNomePessoa':  sobrenomePessoa,
+        'passwordString':   passwordString,
+        'dtNascPessoa':     dtNascPessoa.toIso8601String(),
+        'contatoCelular':   contatoCelular,
+        'contatoEmail':     contatoEmail,
+        'contatoCriadoEm':  contatoCriadoEm.toIso8601String()
+      };
 }

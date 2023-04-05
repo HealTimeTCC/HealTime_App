@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../../../shared/dto/dto_info_basic_queries.dart';
+import '../../../../../../../shared/models/maps/enum_status_consulta.dart';
+import '../../../../../../../shared/models/model_especialidades.dart';
+
 class CardListQueries {
-  static Container modelCardList({required BuildContext context}) {
+  static Container modelCardList(
+      {required BuildContext context,
+      required DtoInfoBasicQueries infoBasic,
+      required Iterable<ModelEspecialidades> especialidade}) {
     final Size size = MediaQuery.of(context).size;
     double borderRadius = 10.0;
 
@@ -30,7 +37,7 @@ class CardListQueries {
               children: [
                 Expanded(
                   child: Text(
-                    'Área de especialização',
+                    especialidade.first.descEspecialidade,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.getFont('Poppins',
                         decoration: TextDecoration.none,
@@ -39,16 +46,18 @@ class CardListQueries {
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                const Icon(
-                  Icons.people_outline,
-                  color: Color(0xff278F8E),
+                Icon(
+                  infoBasic.encaminhamento == 'S'
+                      ? Icons.people_outline
+                      : Icons.person_outline,
+                  color: const Color(0xff278F8E),
                 ),
               ],
             ),
             Text(
-              '${DateFormat('dd/MM/yyyy').format(DateTime.now())} - '
-              '${DateFormat('HH').format(DateTime.now())}h'
-              '${DateFormat('mm').format(DateTime.now())}',
+              '${DateFormat('dd/MM/yyyy').format(infoBasic.dataConsulta)} - '
+              '${DateFormat('HH').format(infoBasic.dataConsulta)}h'
+              '${DateFormat('mm').format(infoBasic.dataConsulta)}',
               style: GoogleFonts.getFont('Poppins',
                   decoration: TextDecoration.none,
                   color: const Color(0xff1c1c1c),
@@ -57,7 +66,7 @@ class CardListQueries {
             ),
             SizedBox(height: size.height * .03),
             Text(
-              'Tipo de Local',
+              infoBasic.motivoConsulta,
               style: GoogleFonts.getFont('Poppins',
                   decoration: TextDecoration.none,
                   color: const Color(0xff1c1c1c),
@@ -65,17 +74,9 @@ class CardListQueries {
                   letterSpacing: 1,
                   fontWeight: FontWeight.w400),
             ),
-            Text(
-              'Endereço',
-              style: GoogleFonts.getFont('Poppins',
-                  decoration: TextDecoration.none,
-                  color: const Color(0xff1c1c1c),
-                  fontSize: size.width * .04,
-                  fontWeight: FontWeight.w400),
-            ),
             SizedBox(height: size.height * .03),
             Text(
-              'Status',
+              StatusConsulta[infoBasic.statusConsultaId],
               style: GoogleFonts.getFont('Poppins',
                   decoration: TextDecoration.none,
                   color: const Color(0xff1c1c1c),

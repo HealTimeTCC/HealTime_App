@@ -4,8 +4,8 @@ import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/screen_register_queries.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../services/provider/queries/provider_queries.dart';
+import '../../../../../../shared/background/screen_background.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 
 class ListQueries extends StatelessWidget {
@@ -24,7 +24,7 @@ class ListQueries extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             {
-              return Container();
+              return const BackgroundPage();
             }
           default:
             {
@@ -33,7 +33,7 @@ class ListQueries extends StatelessWidget {
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              RegisterQueries(dataPessoa: pessoa),
+                              RegisterQueries(dataPessoa: pessoa, listEspecialidades: provider.mapEspecialidades['body']),
                         ),
                       ),
                       shape: RoundedRectangleBorder(
