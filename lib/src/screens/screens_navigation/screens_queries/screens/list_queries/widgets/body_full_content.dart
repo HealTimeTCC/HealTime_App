@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -67,26 +68,37 @@ class ListContentQueries extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Consumer<ProviderQueries>(
             builder: (context, value, child) {
-              return ListView.builder(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
+              return AnimationLimiter(
+                child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  itemCount: provider.listQueries.length,
+                  itemBuilder: (context, index) {
+                    /* MODELO DE CARD PARA EXIBIR AS INFORMAÇÕES */
+                    DtoInfoBasicQueries infoBasicQueries =
+                        provider.listQueries[index];
+
+                    final Iterable<ModelEspecialidades> especialidade =
+                        listEspecialidades.where((element) =>
+                            element.especialidadeId ==
+                            infoBasicQueries.especialidadeId);
+
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                        verticalOffset: 50.0,
+                        child: FadeInAnimation(
+                          child: CardListQueries.modelCardList(
+                              context: context,
+                              infoBasic: infoBasicQueries,
+                              especialidade: especialidade),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                itemCount: provider.listQueries.length,
-                itemBuilder: (context, index) {
-                  /* MODELO DE CARD PARA EXIBIR AS INFORMAÇÕES */
-                  DtoInfoBasicQueries infoBasicQueries =
-                      provider.listQueries[index];
-
-                  final Iterable<ModelEspecialidades> especialidade =
-                      listEspecialidades.where((element) =>
-                          element.especialidadeId ==
-                          infoBasicQueries.especialidadeId);
-
-                  return CardListQueries.modelCardList(
-                      context: context,
-                      infoBasic: infoBasicQueries,
-                      especialidade: especialidade);
-                },
               );
             },
           ),

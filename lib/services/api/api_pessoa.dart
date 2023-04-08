@@ -68,7 +68,6 @@ class ApiPessoa {
     } on TimeoutException catch (_) {
       return 501;
     } catch (e) {
-      print(e);
       return 400;
     }
   }

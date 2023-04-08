@@ -39,7 +39,6 @@ class ApiQueries {
         'body': jsonDecode(response.body)
       };
     } catch (ex) {
-      print(ex);
       return {'statusCode': 0, 'body': ex};
     }
   }

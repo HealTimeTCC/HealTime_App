@@ -65,7 +65,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * .03),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .06),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -124,10 +124,15 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                               padding: const EdgeInsets.all(6.0),
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(
-                                      color: const Color(0xffEBEBEB)),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 1,
+                                        offset: Offset(1, 2))
+                                  ],
                                   borderRadius: BorderRadius.circular(10)),
                               child: DropdownButton(
+                                borderRadius: BorderRadius.circular(15),
                                 isExpanded: true,
                                 icon: Icon(
                                   Icons.arrow_drop_down_sharp,
@@ -139,7 +144,14 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     .map(
                                       (String e) => DropdownMenuItem<String>(
                                         value: e,
-                                        child: Text(e),
+                                        child: Text(
+                                          e,
+                                          style: GoogleFonts.getFont('Poppins',
+                                              decoration: TextDecoration.none,
+                                              color: const Color(0xff1c1c1c),
+                                              fontSize: size.width * .05,
+                                              fontWeight: FontWeight.w400),
+                                        ),
                                       ),
                                     )
                                     .toList(),
@@ -360,6 +372,9 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             Row(
                               children: [
                                 Checkbox(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
                                     value: flagEncaminhado == 0,
                                     onChanged: (value) {
                                       setState(() {
@@ -380,6 +395,9 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             Row(
                               children: [
                                 Checkbox(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
                                     value: flagEncaminhado == 1,
                                     onChanged: (value) {
                                       setState(() {
@@ -410,18 +428,26 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             ),
                             SizedBox(height: size.height * .005),
                             Container(
-                              color: Colors.white,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 1,
+                                        offset: Offset(1, 2))
+                                  ]),
                               child: TextFormField(
                                 controller: textObsController,
                                 cursorColor: const Color(0xffEBEBEB),
-                                decoration: const InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffEBEBEB))),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffEBEBEB))),
-                                ),
+                                decoration: InputDecoration(
+                                    hintText: 'Digite aqui',
+                                    hintStyle:
+                                        const TextStyle(color: Colors.black12),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: size.width * .05),
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none),
                               ),
                             )
                           ],
@@ -433,6 +459,17 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     SizedBox(height: size.height * .05),
                     ElevatedButton(
                       onPressed: () async {
+                        if (flagEncaminhado == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('É obrigatório a informação do encaminhamento.'),
+                              closeIconColor: Colors.white,
+                              backgroundColor: Colors.redAccent,
+                            ),
+                          );
+                          return;
+                        }
+
                         Iterable<ModelEspecialidades> selectEspecialidade =
                             widget.listEspecialidades.where((element) =>
                                 element.descEspecialidade == valueSelect);
@@ -440,7 +477,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                         await provider.postQuerie(
                             context: context,
                             dataPessoa: widget.dataPessoa,
-                            especialidadeId: selectEspecialidade.first.especialidadeId,
+                            especialidadeId:
+                                selectEspecialidade.first.especialidadeId,
                             medicoId: 1,
                             dateAgendamento: dtAgendamento!,
                             timeAgendamento: timeAgendamento!,
@@ -450,11 +488,13 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             motivoConsulta: textObsController.text);
                       },
                       style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          backgroundColor: const Color(0xff1AE8E4),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(45))),
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: const Color(0xff1AE8E4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(45),
+                        ),
+                      ),
                       child: Text(
                         'Adicionar consulta',
                         style: GoogleFonts.getFont('Poppins',

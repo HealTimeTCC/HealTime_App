@@ -8,7 +8,6 @@ import '../../../src/screens/screens_navigation/screens_queries/logics/format_da
 import '../../api/api_queries.dart';
 
 class ProviderQueries extends ChangeNotifier {
-
   int _statusCode = 0;
   int get statusCode => _statusCode;
 
@@ -19,15 +18,22 @@ class ProviderQueries extends ChangeNotifier {
   Map<String, dynamic> get mapEspecialidades => _mapEspecialidades;
 
   Future<void> initialValues({required int id}) async {
+    //LIMPANDO LISTAS PARA RECEBER OS VALORES ATUALIZADOS DA API
+    _listQueries.clear();
+    _mapEspecialidades.clear();
 
     /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
     Map<String, dynamic> mapData =
-    await ApiQueries.getInfoQueries(status: 1, id: id);
+        await ApiQueries.getInfoQueries(status: 1, id: id);
 
-    List<dynamic> listd = mapData['body'];
+    if (mapData['statusCode'] != 0) {
+      List<dynamic> listd = mapData['body'];
 
-    _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
-    _statusCode = mapData['statusCode'];
+      _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
+      _statusCode = mapData['statusCode'];
+    }else {
+      _statusCode = 0;
+    }
     /*=========================================================================*/
 
     /* PRÉ-CARREGAR AS ESPECIALIDADES PARA O ENVIO */
@@ -37,19 +43,17 @@ class ProviderQueries extends ChangeNotifier {
     /*=========================================================================*/
   }
 
-  Future<void> postQuerie({
-    required int especialidadeId,
-    required int medicoId,
-    required DateTime dateAgendamento,
-    required TimeOfDay timeAgendamento,
-    required DateTime dateConsulta,
-    required TimeOfDay timeConsulta,
-    required int flagEncaminhamento,
-    required String motivoConsulta,
-    required Pessoa dataPessoa,
-    required BuildContext context
-  }) async
-  {
+  Future<void> postQuerie(
+      {required int especialidadeId,
+      required int medicoId,
+      required DateTime dateAgendamento,
+      required TimeOfDay timeAgendamento,
+      required DateTime dateConsulta,
+      required TimeOfDay timeConsulta,
+      required int flagEncaminhamento,
+      required String motivoConsulta,
+      required Pessoa dataPessoa,
+      required BuildContext context}) async {
     final navigator = Navigator.of(context);
     final scaffold = ScaffoldMessenger.of(context);
 
@@ -58,7 +62,8 @@ class ProviderQueries extends ChangeNotifier {
       context: context,
       builder: (context) => const AlertDialog(
         backgroundColor: Colors.transparent,
-        content: LoadingData(textLoading: 'Cadastrando agendamento...', permissCircula: true),
+        content: LoadingData(
+            textLoading: 'Cadastrando agendamento...', permissCircula: true),
       ),
     );
 
@@ -89,14 +94,18 @@ class ProviderQueries extends ChangeNotifier {
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
       notifyListeners();
-      showDialog(
+      if (context.mounted) {
+        showDialog(
         context: context,
         builder: (context) => const AlertDialog(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          content: LoadingData(textLoading: 'Agendamento cadastrado com sucesso!', permissCircula: false),
+          content: LoadingData(
+              textLoading: 'Agendamento cadastrado com sucesso!',
+              permissCircula: false),
         ),
       );
+      }
 
       await Future.delayed(const Duration(seconds: 3));
 
