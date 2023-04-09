@@ -84,7 +84,7 @@ class ProviderQueries extends ChangeNotifier {
         encaminhamento: flagEncaminhamento == 0 ? "S" : "N",
         especialidadeId: especialidadeId,
         medicoId: medicoId,
-        pacienteId: dataPessoa.pessoaId,
+        pacienteId: dataPessoa.pessoaId!,
         statusConsultaId: 1);
 
     Map<String, dynamic> response = await ApiQueries.postQuery(query: dtoQuery);

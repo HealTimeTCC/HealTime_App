@@ -15,9 +15,9 @@ class PrescricaoMedicacao {
 
   PrescricaoPaciente? prescricaoPaciente;
   ModelMedicacao medicacao;
-  int qtde = 0;
-  int intervalo = 0;
-  int duracao = 0;
+  int qtde;
+  int intervalo;
+  int duracao;
 
   factory PrescricaoMedicacao.fromJson(Map<String, dynamic> json) => _$PrescricaoMedicacaoFromJson(json);
   Map<String, dynamic> toJson() => _$PrescricaoMedicacaoToJson(this);

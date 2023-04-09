@@ -14,13 +14,13 @@ class Pessoa {
       required this.tipoPessoa,
       required this.passwordString, this.contact});
 
-  int pessoaId = 0;
-  int tipoPessoa = 1;
-  String cpfPessoa = '';
-  String nomePessoa = '';
-  String sobreNomePessoa = '';
-  DateTime dtNascPessoa = DateTime.now();
-  String passwordString = '';
+  int? pessoaId;
+  int tipoPessoa;
+  String cpfPessoa;
+  String nomePessoa;
+  String sobreNomePessoa;
+  DateTime dtNascPessoa;
+  String passwordString;
   String tokenUser = '';
   ContactPessoa? contact;
 

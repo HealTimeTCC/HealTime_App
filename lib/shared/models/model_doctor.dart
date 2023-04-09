@@ -10,10 +10,10 @@ class Medico {
       required this.NmMedico,
       required this.UfCrmMedico});
 
-  int? MedicoId = 0;
-  String NmMedico = '';
-  String CrmMedico = '';
-  String UfCrmMedico = '';
+  int? MedicoId;
+  String NmMedico;
+  String CrmMedico;
+  String UfCrmMedico;
 
   factory Medico.fromJson(Map<String, dynamic> json) => _$MedicoFromJson(json);
   Map<String, dynamic> toJson() => _$MedicoToJson(this);

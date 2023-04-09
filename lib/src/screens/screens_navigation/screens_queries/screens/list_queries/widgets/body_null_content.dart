@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../../../../shared/background/screen_background.dart';
+import '../../../../../../../shared/decorations/screen_background.dart';
 
 class NullContentQueries extends StatelessWidget {
   const NullContentQueries({super.key});

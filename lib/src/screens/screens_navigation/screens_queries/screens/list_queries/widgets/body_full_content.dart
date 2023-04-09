@@ -4,10 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../services/provider/queries/provider_queries.dart';
-import '../../../../../../../shared/background/screen_background.dart';
+import '../../../../../../../shared/decorations/fonts_google.dart';
+import '../../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../../shared/dto/dto_info_basic_queries.dart';
 import '../../../../../../../shared/models/model_especialidades.dart';
 import 'card_list_queries.dart';
+import 'details_query.dart';
 
 class ListContentQueries extends StatelessWidget {
   const ListContentQueries({super.key});
@@ -45,14 +47,11 @@ class ListContentQueries extends StatelessWidget {
                             color: const Color(0xff1AE8E4),
                           ),
                         ),
+                        SizedBox(width: size.width * .02),
                         Expanded(
                           child: Text(
                             'Minhas consultas',
-                            style: GoogleFonts.getFont('Poppins',
-                                decoration: TextDecoration.none,
-                                color: const Color(0xff1c1c1c),
-                                fontSize: size.width * .05,
-                                fontWeight: FontWeight.w400),
+                            style: FontGoogle.textTitleGoogle(size: size),
                           ),
                         )
                       ],
@@ -90,10 +89,20 @@ class ListContentQueries extends StatelessWidget {
                       child: SlideAnimation(
                         verticalOffset: 50.0,
                         child: FadeInAnimation(
-                          child: CardListQueries.modelCardList(
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => DetailsQuery(
+                                    queryId:
+                                        infoBasicQueries.consultasAgendadasId),
+                              ),
+                            ),
+                            child: CardListQueries.modelCardList(
                               context: context,
                               infoBasic: infoBasicQueries,
-                              especialidade: especialidade),
+                              especialidade: especialidade,
+                            ),
+                          ),
                         ),
                       ),
                     );
