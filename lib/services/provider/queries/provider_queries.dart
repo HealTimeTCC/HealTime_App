@@ -37,6 +37,7 @@ class ProviderQueries extends ChangeNotifier {
     /*=========================================================================*/
   }
 
+
   Future<void> postQuerie({
     required int especialidadeId,
     required int medicoId,
@@ -88,7 +89,9 @@ class ProviderQueries extends ChangeNotifier {
 
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
+
       notifyListeners();
+
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
