@@ -31,7 +31,7 @@ class ProviderQueries extends ChangeNotifier {
 
       _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
       _statusCode = mapData['statusCode'];
-    }else {
+    } else {
       _statusCode = 0;
     }
     /*=========================================================================*/
@@ -98,7 +98,6 @@ class ProviderQueries extends ChangeNotifier {
     if (response['statusCode'] == 200) {
 
       notifyListeners();
-
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
