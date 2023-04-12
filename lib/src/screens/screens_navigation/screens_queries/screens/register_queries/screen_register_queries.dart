@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/register_queries/widgets/app_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../services/provider/queries/provider_queries.dart';
-import '../../../../../shared/background/screen_background.dart';
-import '../../../../../shared/models/model_especialidades.dart';
-import '../../../../../shared/models/model_pessoa.dart';
+import '../../../../../../services/provider/queries/provider_queries.dart';
+import '../../../../../../shared/decorations/fonts_google.dart';
+import '../../../../../../shared/decorations/screen_background.dart';
+import '../../../../../../shared/models/model_especialidades.dart';
+import '../../../../../../shared/models/model_pessoa.dart';
 
 class RegisterQueries extends StatefulWidget {
   const RegisterQueries(
@@ -54,6 +56,13 @@ class _RegisterQueriesState extends State<RegisterQueries> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    textObsController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProviderQueries>(context);
     final Size size = MediaQuery.of(context).size;
@@ -65,44 +74,12 @@ class _RegisterQueriesState extends State<RegisterQueries> {
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * .03),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .06),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: Icon(
-                            Icons.arrow_back_ios,
-                            size: size.width * .08,
-                            color: const Color(0xff1AE8E4),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Agendar consulta',
-                            style: GoogleFonts.getFont('Poppins',
-                                decoration: TextDecoration.none,
-                                color: const Color(0xff1c1c1c),
-                                fontSize: size.width * .05,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        )
-                      ],
-                    ),
+                    const AppBarQueries(),
                     SizedBox(height: size.height * .02),
-                    Text(
-                      'Agendamento',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.getFont('Poppins',
-                          decoration: TextDecoration.none,
-                          color: const Color(0xff1c1c1c),
-                          fontSize: size.width * .06,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Divider(color: Color(0xffEBEBEB)),
                     Form(
                       child: Padding(
                         padding:
@@ -113,21 +90,26 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             /* Selecionar especialidade */
                             Text(
                               'Selecione a especialidade',
-                              style: GoogleFonts.getFont('Poppins',
-                                  decoration: TextDecoration.none,
-                                  color: const Color(0xff1c1c1c),
-                                  fontSize: size.width * .05,
-                                  fontWeight: FontWeight.w500),
+                              style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
                             Container(
-                              padding: const EdgeInsets.all(6.0),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: size.height * .01,
+                                  horizontal: size.width * .04),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                      color: const Color(0xffEBEBEB)),
-                                  borderRadius: BorderRadius.circular(10)),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 2),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               child: DropdownButton(
+                                borderRadius: BorderRadius.circular(15),
                                 isExpanded: true,
                                 icon: Icon(
                                   Icons.arrow_drop_down_sharp,
@@ -139,7 +121,11 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     .map(
                                       (String e) => DropdownMenuItem<String>(
                                         value: e,
-                                        child: Text(e),
+                                        child: Text(
+                                          e,
+                                          style: FontGoogle.textNormaleGoogle(
+                                              size: size),
+                                        ),
                                       ),
                                     )
                                     .toList(),
@@ -156,11 +142,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             SizedBox(height: size.height * .03),
                             Text(
                               'Data agendamento',
-                              style: GoogleFonts.getFont('Poppins',
-                                  decoration: TextDecoration.none,
-                                  color: const Color(0xff1c1c1c),
-                                  fontSize: size.width * .05,
-                                  fontWeight: FontWeight.w500),
+                              style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
                             Row(
@@ -240,11 +222,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             SizedBox(height: size.height * .03),
                             Text(
                               'Data consulta',
-                              style: GoogleFonts.getFont('Poppins',
-                                  decoration: TextDecoration.none,
-                                  color: const Color(0xff1c1c1c),
-                                  fontSize: size.width * .05,
-                                  fontWeight: FontWeight.w500),
+                              style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
                             Row(
@@ -325,6 +303,10 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             /* Selecionar o médico */
                             SizedBox(height: size.height * .04),
                             GestureDetector(
+                              onTap: () async {
+                                await Navigator.of(context)
+                                    .pushNamed('/ListDoctors');
+                              },
                               child: Container(
                                 padding: const EdgeInsets.all(8.0),
                                 height: size.height * .07,
@@ -350,16 +332,15 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             SizedBox(height: size.height * .04),
                             Text(
                               'Encaminhamento',
-                              style: GoogleFonts.getFont('Poppins',
-                                  decoration: TextDecoration.none,
-                                  color: const Color(0xff1c1c1c),
-                                  fontSize: size.width * .05,
-                                  fontWeight: FontWeight.w500),
+                              style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
                             Row(
                               children: [
                                 Checkbox(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
                                     value: flagEncaminhado == 0,
                                     onChanged: (value) {
                                       setState(() {
@@ -367,19 +348,20 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       });
                                     }),
                                 Expanded(
-                                    child: Text(
-                                  'Sim',
-                                  style: GoogleFonts.getFont('Poppins',
-                                      decoration: TextDecoration.none,
-                                      color: const Color(0xff1c1c1c),
-                                      fontSize: size.width * .05,
-                                      fontWeight: FontWeight.w400),
-                                ))
+                                  child: Text(
+                                    'Sim',
+                                    style: FontGoogle.textNormaleGoogle(
+                                        size: size),
+                                  ),
+                                )
                               ],
                             ),
                             Row(
                               children: [
                                 Checkbox(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
                                     value: flagEncaminhado == 1,
                                     onChanged: (value) {
                                       setState(() {
@@ -389,11 +371,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                 Expanded(
                                     child: Text(
                                   'Não',
-                                  style: GoogleFonts.getFont('Poppins',
-                                      decoration: TextDecoration.none,
-                                      color: const Color(0xff1c1c1c),
-                                      fontSize: size.width * .05,
-                                      fontWeight: FontWeight.w400),
+                                  style:
+                                      FontGoogle.textNormaleGoogle(size: size),
                                 ))
                               ],
                             ),
@@ -402,26 +381,30 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             SizedBox(height: size.height * .04),
                             Text(
                               'Observações',
-                              style: GoogleFonts.getFont('Poppins',
-                                  decoration: TextDecoration.none,
-                                  color: const Color(0xff1c1c1c),
-                                  fontSize: size.width * .05,
-                                  fontWeight: FontWeight.w500),
+                              style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
                             Container(
-                              color: Colors.white,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 1,
+                                        offset: Offset(1, 2))
+                                  ]),
                               child: TextFormField(
                                 controller: textObsController,
                                 cursorColor: const Color(0xffEBEBEB),
-                                decoration: const InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffEBEBEB))),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffEBEBEB))),
-                                ),
+                                decoration: InputDecoration(
+                                    hintText: 'Digite aqui',
+                                    hintStyle: FontGoogle.textNormaleGoogle(
+                                        size: size, colorText: Colors.black12),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: size.width * .05),
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none),
                               ),
                             )
                           ],
@@ -433,6 +416,17 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     SizedBox(height: size.height * .05),
                     ElevatedButton(
                       onPressed: () async {
+                        if (flagEncaminhado == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'É obrigatório a informação do encaminhamento.'),
+                              backgroundColor: Colors.redAccent,
+                            ),
+                          );
+                          return;
+                        }
+
                         Iterable<ModelEspecialidades> selectEspecialidade =
                             widget.listEspecialidades.where((element) =>
                                 element.descEspecialidade == valueSelect);
@@ -440,7 +434,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                         await provider.postQuerie(
                             context: context,
                             dataPessoa: widget.dataPessoa,
-                            especialidadeId: selectEspecialidade.first.especialidadeId,
+                            especialidadeId:
+                                selectEspecialidade.first.especialidadeId,
                             medicoId: 1,
                             dateAgendamento: dtAgendamento!,
                             timeAgendamento: timeAgendamento!,
@@ -450,11 +445,13 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             motivoConsulta: textObsController.text);
                       },
                       style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          backgroundColor: const Color(0xff1AE8E4),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(45))),
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: const Color(0xff1AE8E4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(45),
+                        ),
+                      ),
                       child: Text(
                         'Adicionar consulta',
                         style: GoogleFonts.getFont('Poppins',

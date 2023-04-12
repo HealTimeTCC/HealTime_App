@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 import '../../shared/consts/consts_required.dart';
 
 class ApiMedico {
+  //MÉTODO QUE SERÁ REFORMULADO NA API, NO MOMENTO(09042023) NÃO FOI ALTERADO
   static Future<List<Medico>> obterMedicosAsync() async {
-    final Uri uriApi =
-        Uri.parse('${ConstsRequired.urlBaseApi}Medico/GetAll');
+    final Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}Medico/GetAll');
 
     http.Response response = await http.get(uriApi);
 
@@ -25,8 +25,8 @@ class ApiMedico {
   /*Incluir Medico*/
 
   static Future<int> incluirMedico(Medico medico) async {
-    final Uri uriApi = Uri.parse(
-        '${ConstsRequired.urlBaseApi}ConsultaMedica/IncluiMedico');
+    final Uri uriApi =
+        Uri.parse('${ConstsRequired.urlBaseApi}ConsultaMedica/IncluiMedico');
 
     http.Response response = await http.post(uriApi,
         body: json.encode(medico),

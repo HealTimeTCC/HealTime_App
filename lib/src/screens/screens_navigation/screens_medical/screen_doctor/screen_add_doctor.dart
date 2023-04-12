@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/shared/background/screen_background.dart';
+import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 
 import '../../../../../services/api/api_doctor.dart';
@@ -90,7 +90,7 @@ class _IncluirMedicoState extends State<IncluirMedico> {
                           )),
                       SizedBox(width: size.width * 0.10),
                       SizedBox(
-                          width: 150,
+                          width: size.width * .29,
                           child: CustomField(
                               label: 'UF CRM',
                               textController: textUfController,

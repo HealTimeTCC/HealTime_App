@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/shared/background/screen_background.dart';
+import 'package:healtime/shared/decorations/screen_background.dart';
 
 import '../../../../../shared/models/model_doctor.dart';
 import '../../screens_medical/screen_doctor/screen_list_doctor.dart';

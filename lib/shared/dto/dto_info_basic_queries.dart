@@ -27,24 +27,23 @@ class DtoInfoBasicQueries {
         especialidadeId = json['especialidadeId'],
         pacienteId = json['pacienteId'],
         medicoId = json['medicoId'],
-        dataSolicitacaoConsulta = DateTime.parse(json['dataSolicitacaoConsulta']),
+        dataSolicitacaoConsulta =
+            DateTime.parse(json['dataSolicitacaoConsulta']),
         dataConsulta = DateTime.parse(json['dataConsulta']),
         motivoConsulta = json['motivoConsulta'],
         encaminhamento = json['encaminhamento'],
         consultaCancelada = json['consultaCancelada'];
 
-  Map<String, dynamic> toJson() {
-    return {
-      "consultasAgendadasId": consultasAgendadasId,
-      "statusConsultaId": statusConsultaId,
-      "especialidadeId": especialidadeId,
-      "pacienteId": pacienteId,
-      "medicoId": medicoId,
-      "dataSolicitacaoConsulta": dataSolicitacaoConsulta,
-      "dataConsulta": dataConsulta,
-      "motivoConsulta": motivoConsulta,
-      "encaminhamento": encaminhamento,
-      "consultaCancelada": consultaCancelada
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "consultasAgendadasId": consultasAgendadasId,
+        "statusConsultaId": statusConsultaId,
+        "especialidadeId": especialidadeId,
+        "pacienteId": pacienteId,
+        "medicoId": medicoId,
+        "dataSolicitacaoConsulta": dataSolicitacaoConsulta,
+        "dataConsulta": dataConsulta,
+        "motivoConsulta": motivoConsulta,
+        "encaminhamento": encaminhamento,
+        "consultaCancelada": consultaCancelada
+      };
 }

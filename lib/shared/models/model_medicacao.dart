@@ -14,13 +14,13 @@ class ModelMedicacao {
       required this.statusMedicacaoId,
       required this.tipoMedicacaoId});
 
-  int medicacaoId = 0;
-  StatusMedicacao statusMedicacaoId = StatusMedicacao.ativo;
-  int tipoMedicacaoId = 0;
-  String nomeMedicacao = '';
-  String compostoAtivoMedicacao = '';
-  String laboratorioMedicacao = '';
-  String generico = '';
+  int medicacaoId;
+  StatusMedicacao statusMedicacaoId;
+  int tipoMedicacaoId;
+  String nomeMedicacao;
+  String compostoAtivoMedicacao;
+  String laboratorioMedicacao;
+  String generico;
 
   factory ModelMedicacao.fromJson(Map<String, dynamic> json) => _$ModelMedicacaoFromJson(json);
   Map<String, dynamic> toJson() => _$ModelMedicacaoToJson(this);

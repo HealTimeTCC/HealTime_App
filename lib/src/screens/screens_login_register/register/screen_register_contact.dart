@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtime/shared/background/screen_background.dart';
+import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/src/screens/screens_login_register/register/screen_register_address.dart';
 
 import '../../../../services/api/api_pessoa.dart';
