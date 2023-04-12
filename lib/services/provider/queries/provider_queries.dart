@@ -31,7 +31,7 @@ class ProviderQueries extends ChangeNotifier {
 
       _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
       _statusCode = mapData['statusCode'];
-    }else {
+    } else {
       _statusCode = 0;
     }
     /*=========================================================================*/
@@ -94,8 +94,7 @@ class ProviderQueries extends ChangeNotifier {
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
       notifyListeners();
-      if (context.mounted) {
-        showDialog(
+      showDialog(
         context: context,
         builder: (context) => const AlertDialog(
           elevation: 0,
@@ -105,7 +104,6 @@ class ProviderQueries extends ChangeNotifier {
               permissCircula: false),
         ),
       );
-      }
 
       await Future.delayed(const Duration(seconds: 3));
 

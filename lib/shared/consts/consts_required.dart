@@ -15,8 +15,8 @@ class ConstsRequired {
   }
 
   /* URL DO SOMEE */
-  static const String urlBaseApi = 'http://healtime.somee.com/healtime/';
+  //static const String urlBaseApi = 'http://healtime.somee.com/healtime/';
 
   /* URL DO LOCALTUNEL OU NGROK */
-  //static const String urlBaseApi = 'https://5d12-189-102-96-21.sa.ngrok.io/';
+  static const String urlBaseApi = 'https://e577-2804-14c-ba-91ba-dd2d-3be9-804a-db34.sa.ngrok.io/';
 }

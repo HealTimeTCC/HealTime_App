@@ -421,7 +421,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             const SnackBar(
                               content: Text(
                                   'É obrigatório a informação do encaminhamento.'),
-                              closeIconColor: Colors.white,
+                              
                               backgroundColor: Colors.redAccent,
                             ),
                           );
