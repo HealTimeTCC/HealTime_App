@@ -17,67 +17,73 @@ class ListQueries extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final provider = Provider.of<ProviderQueries>(context);
 
-    return FutureBuilder(
-      future: provider.initialValues(id: pessoa.pessoaId!, context: context),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            {
-              return Stack(
-                children: [
-                  const BackgroundPage(),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const CircularProgressIndicator(
-                          color: Color(0xff18CDCA),
+    return Consumer<ProviderQueries>(
+      builder: (context, value, child) => FutureBuilder(
+        future: value.initialValues(
+          id: pessoa.pessoaId!,
+          context: context,
+          status: value.statusQuery,
+        ),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              {
+                return Stack(
+                  children: [
+                    const BackgroundPage(),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const CircularProgressIndicator(
+                            color: Color(0xff18CDCA),
+                          ),
+                          SizedBox(height: size.height * .05),
+                          Text(
+                            'Obtendo os dados necessários',
+                            style: FontGoogle.textNormaleGoogle(size: size),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              }
+            default:
+              {
+                return Scaffold(
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => RegisterQueries(
+                          dataPessoa: pessoa,
+                          listEspecialidades:
+                          value.mapEspecialidades['body'],
                         ),
-                        SizedBox(height: size.height * .05),
-                        Text(
-                          'Obtendo os dados necessários',
-                          style: FontGoogle.textNormaleGoogle(size: size),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              );
-            }
-          default:
-            {
-              return Scaffold(
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RegisterQueries(
-                        dataPessoa: pessoa,
-                        listEspecialidades: provider.mapEspecialidades['body'],
                       ),
                     ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(size.width * .05),
+                    ),
+                    foregroundColor: const Color(0xff1AE8E4),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: size.width * .09,
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(size.width * .05),
-                  ),
-                  foregroundColor: const Color(0xff1AE8E4),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: size.width * .09,
-                  ),
-                ),
 
-                //EXIBIR A VIEW DE ACORDO COM O CONTEUDO QUE CHEGAR DA API
-                body: provider.statusCode != 200
-                    ? const NullContentQueries()
-                    : const ListContentQueries(),
-              );
-            }
-        }
-      },
+                  //EXIBIR A VIEW DE ACORDO COM O CONTEUDO QUE CHEGAR DA API
+                  body: value.statusCode != 200
+                      ? const NullContentQueries()
+                      : ListContentQueries(idPerson: pessoa.pessoaId!),
+                );
+              }
+          }
+        },
+      ),
     );
   }
 }

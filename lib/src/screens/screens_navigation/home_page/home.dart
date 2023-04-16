@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:healtime/services/provider/queries/provider_navbar.dart';
 import 'package:provider/provider.dart';
 
+import '../screens_queries/logics/logic_type_user.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -50,14 +52,18 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff18CDCA),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ElevatedButton(
+          onPressed: () => TypeUser.typeUserNavigator(context),
+          child: Text('Ir para a tela de consulta'),
+        ),
+      ),
       body: mp.indexSelecionado == 0
           ? Container()
           : mp.items[mp.indexSelecionado].widget,
     );
   }
 }
-
 
 /*Align(
             alignment: Alignment.center,

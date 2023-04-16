@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../../shared/dto/dto_info_basic_queries.dart';
+import '../../../../../../../shared/models/maps/enum_status_consulta.dart';
 import '../../../../../../../shared/models/model_especialidades.dart';
 import 'card_list_queries.dart';
 import 'details_query.dart';
 
 class ListContentQueries extends StatelessWidget {
-  const ListContentQueries({super.key});
+  const ListContentQueries({super.key, required this.idPerson});
+
+  final int idPerson;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final provider = Provider.of<ProviderQueries>(context, listen: false);
+    final provider = Provider.of<ProviderQueries>(context);
     final List<ModelEspecialidades> listEspecialidades =
         provider.mapEspecialidades['body'];
 
@@ -53,6 +55,27 @@ class ListContentQueries extends StatelessWidget {
                             'Minhas consultas',
                             style: FontGoogle.textTitleGoogle(size: size),
                           ),
+                        ),
+                        PopupMenuButton(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)
+                          ),
+                          itemBuilder: (context) =>
+                              StatusConsulta.keys.map((int value) {
+                            return PopupMenuItem(
+                              value: value,
+                              onTap: () => provider.alterListQueries(
+                                  status: value,
+                                  context: context,
+                                  id: idPerson),
+                              child: Text(
+                                StatusConsulta[value],
+                                style: FontGoogle.textNormaleGoogle(size: size),
+                              ),
+                            );
+                          }).toList(),
+                          child: const Icon(Icons.more_horiz),
                         )
                       ],
                     ),
