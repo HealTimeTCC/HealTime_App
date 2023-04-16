@@ -1,16 +1,25 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+
 import '../../shared/consts/consts_required.dart';
 import '../../shared/dto/dto_query.dart';
 import 'package:http/http.dart' as http;
 
 import '../../shared/models/model_especialidades.dart';
+import '../provider/login/provider_login.dart';
 
 class ApiQueries {
+  static String get uriApiBase => ConstsRequired.urlBaseApi;
+
   static Future<Map<String, dynamic>> postQuery(
-      {required DtoQuery query}) async {
+      {required DtoQuery query, required BuildContext context}) async {
+
+    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+
     Uri uriApi =
-        Uri.parse('${ConstsRequired.urlBaseApi}ConsultaMedica/AgendarConsulta');
+        Uri.parse('${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/AgendarConsulta');
 
     print(query.pacienteId.toString());
 
@@ -22,10 +31,13 @@ class ApiQueries {
 
   /* BUSCAR AS INFORMAÇÕES PRIMARIAS DA CONSULTA */
   static Future<Map<String, dynamic>> getInfoQueries(
-      {required int status, required int id}) async {
+      {required int status, required int id, required BuildContext context}) async {
     try {
+
+      final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+
       Uri uriApi = Uri.parse(
-          '${ConstsRequired.urlBaseApi}ConsultaMedica/ConsultaPorPaciente');
+          '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/ConsultaPorPaciente');
 
       Map<String, dynamic> data = {"pacienteId": id, "statusConsulta": status};
 
@@ -43,8 +55,11 @@ class ApiQueries {
     }
   }
 
-  static Future<Map<String, dynamic>> getEspecialidades() async{
-    Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}ConsultaMedica/Especialidades');
+  static Future<Map<String, dynamic>> getEspecialidades(BuildContext context) async{
+
+    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+
+    Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/Especialidades');
     http.Response response = await http.get(uriApi);
 
     List listResponse = jsonDecode(response. body) as List<dynamic>;

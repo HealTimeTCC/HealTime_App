@@ -5,7 +5,11 @@ import 'package:healtime/shared/models/model_pessoa.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../../shared/consts/consts_required.dart';
+
 class ApiPaciente {
+  static String get uriApiBase => ConstsRequired.urlBaseApi;
+
   static Future<List<Pessoa>> listarPaciente() async {
     final Uri urlPaciente = Uri.parse('');
     http.Response response = await http.get(urlPaciente);

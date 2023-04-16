@@ -4,7 +4,7 @@ import '../../../shared/dto/dto_info_basic_queries.dart';
 import '../../../shared/dto/dto_query.dart';
 import '../../../shared/loading/alert_loading.dart';
 import '../../../shared/models/model_pessoa.dart';
-import '../../../src/screens/screens_navigation/screens_queries/logics/format_date.dart';
+import '../../../src/screens/screens_navigation/screens_queries/logics/logic_format_date.dart';
 import '../../api/api_queries.dart';
 
 class ProviderQueries extends ChangeNotifier {
@@ -17,14 +17,14 @@ class ProviderQueries extends ChangeNotifier {
   Map<String, dynamic> _mapEspecialidades = {};
   Map<String, dynamic> get mapEspecialidades => _mapEspecialidades;
 
-  Future<void> initialValues({required int id}) async {
+  Future<void> initialValues({required int id, required BuildContext context}) async {
     //LIMPANDO LISTAS PARA RECEBER OS VALORES ATUALIZADOS DA API
     _listQueries.clear();
     _mapEspecialidades.clear();
 
     /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
     Map<String, dynamic> mapData =
-        await ApiQueries.getInfoQueries(status: 1, id: id);
+        await ApiQueries.getInfoQueries(status: 1, id: id, context: context);
 
     if (mapData['statusCode'] != 0) {
       List<dynamic> listd = mapData['body'];
@@ -38,7 +38,7 @@ class ProviderQueries extends ChangeNotifier {
 
     /* PRÉ-CARREGAR AS ESPECIALIDADES PARA O ENVIO */
 
-    _mapEspecialidades = await ApiQueries.getEspecialidades();
+    _mapEspecialidades = await ApiQueries.getEspecialidades(context);
 
     /*=========================================================================*/
   }
@@ -90,7 +90,7 @@ class ProviderQueries extends ChangeNotifier {
         pacienteId: dataPessoa.pessoaId!,
         statusConsultaId: 1);
 
-    Map<String, dynamic> response = await ApiQueries.postQuery(query: dtoQuery);
+    Map<String, dynamic> response = await ApiQueries.postQuery(query: dtoQuery, context: context);
 
     navigator.pop();
 

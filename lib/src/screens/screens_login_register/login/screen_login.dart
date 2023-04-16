@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_login_register/widgets/text_form_model.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../services/api/api_pessoa.dart';
+import '../../../../services/provider/login/provider_login.dart';
 import '../../../../shared/decorations/screen_background.dart';
 import '../../../../shared/dto/dto_pessoa_auth.dart';
 import '../widgets/loading_sending_data.dart';
@@ -24,6 +26,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
   @override
   Widget build(BuildContext context) {
+    final providerLogin = Provider.of<ProviderLogin>(context);
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -38,13 +41,16 @@ class _ScreenLoginState extends State<ScreenLogin> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      'Entre com a sua conta',
-                      style: GoogleFonts.getFont('Poppins',
-                          decoration: TextDecoration.none,
-                          color: const Color(0xff1c1c1c),
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500),
+                    GestureDetector(
+                      onTap: () => providerLogin.incrementScreen(context),
+                      child: Text(
+                        'Entre com a sua conta',
+                        style: GoogleFonts.getFont('Poppins',
+                            decoration: TextDecoration.none,
+                            color: const Color(0xff1c1c1c),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
                     SizedBox(height: size.height * .02),
                     Text(
@@ -147,7 +153,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
           emailContato: _textEmail.text, passwordString: _textPassword.text);
 
       Map<String, dynamic> mapResponseApi =
-          await ApiPessoa.authUser(pessoa: dtoPessoa);
+          await ApiPessoa.authUser(pessoa: dtoPessoa, context: context);
 
       /*Verificando se a tela está montada */
       if (mounted) {

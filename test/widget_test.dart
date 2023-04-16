@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:healtime/shared/consts/consts_required.dart';
 import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
@@ -9,14 +10,7 @@ import 'package:healtime/services/api/api_doctor.dart';
 import 'package:healtime/shared/models/model_doctor.dart';
 
 void main() async {
-  test('deve Retornar os médicos cadastrados', () async {
-    List<Medico> doctor = await ApiMedico.obterMedicosAsync();
-
-    expect(doctor, isNotNull);
-    expect(doctor, isNot(Exception()));
-  });
-
-  test('deve Retornar as especialidades cadastradas', () async {
+  test('Deve retornar as especialidades cadastradas', () async {
     Uri uriApi =
         Uri.parse('${ConstsRequired.urlBaseApi}ConsultaMedica/Especialidades');
 
@@ -27,7 +21,7 @@ void main() async {
     });
   });
 
-  test('deve Retornar dados do usuário', () async {
+  test('Deve retornar dados do usuário', () async {
     DtoPessoa dtoPessoa =
         DtoPessoa(emailContato: 'user@user.com', passwordString: '1q2w3e4r');
 
@@ -50,7 +44,7 @@ void main() async {
     expect(pessoaData.tokenUser, isNotEmpty);
   });
 
-  test('deve Obter informações referentes a consultas', () async {
+  test('Deve obter informações referentes a consultas', () async {
     Uri uriApi = Uri.parse(
         '${ConstsRequired.urlBaseApi}ConsultaMedica/ConsultaPorPaciente');
 

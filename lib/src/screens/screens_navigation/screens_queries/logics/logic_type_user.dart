@@ -6,16 +6,17 @@ import '../screens/list_queries/screen_list_queries.dart';
 
 class TypeUser {
   static typeUserNavigator(BuildContext context) async {
-    final navigador = Navigator.of(context);
     Pessoa? pessoa = await DataPreferencesPessoa.getDataUser();
 
     if (pessoa != null) {
       if (pessoa.tipoPessoa == 1) {
-        navigador.push(
-          MaterialPageRoute(
-            builder: (context) => ListQueries(pessoa: pessoa),
-          ),
-        );
+        if (context.mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ListQueries(pessoa: pessoa),
+            ),
+          );
+        }
       } else {
 
         /* Tela para selecionar o paciente que está associado a ele */

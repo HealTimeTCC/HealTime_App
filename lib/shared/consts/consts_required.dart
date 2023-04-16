@@ -1,6 +1,7 @@
 import 'package:healtime/shared/models/model_pessoa.dart';
 
 import '../../services/data_locale/data_preferences_pessoa.dart';
+import '../../services/provider/login/provider_login.dart';
 
 class ConstsRequired {
   static Future<Map<String, String>?> headRequisit() async {

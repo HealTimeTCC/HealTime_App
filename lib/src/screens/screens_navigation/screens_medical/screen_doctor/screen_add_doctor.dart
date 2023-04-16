@@ -106,7 +106,7 @@ class _IncluirMedicoState extends State<IncluirMedico> {
                           NmMedico: textNameController.text,
                           UfCrmMedico: textUfController.text);
 
-                      int statusCode = await ApiMedico.incluirMedico(doctor);
+                      int statusCode = await ApiMedico.incluirMedico(doctor, context);
                       if (statusCode == 200) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => HomePage()));

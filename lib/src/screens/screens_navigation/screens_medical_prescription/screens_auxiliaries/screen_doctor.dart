@@ -15,7 +15,7 @@ class Medicos extends StatelessWidget {
       children: [
         const BackgroundPage(),
         FutureBuilder<List<Medico>>(
-          future: ApiMedico.obterMedicosAsync(),
+          future: ApiMedico.obterMedicosAsync(context),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:

@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
           /* Autenticar o usuário novamente */
           Map<String, dynamic> responseApi =
-              await ApiPessoa.authUser(pessoa: dtoPessoa);
+              await ApiPessoa.authUser(pessoa: dtoPessoa, context: context);
 
           if (mounted) {
             Navigator.of(context).pushAndRemoveUntil(

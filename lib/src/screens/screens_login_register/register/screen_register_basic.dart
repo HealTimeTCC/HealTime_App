@@ -115,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textController: cpfController,
                               validator: true,
                               size: size,
-                              textLabel: 'Cpf',
+                              textLabel: 'CPF',
                               typeKeyboard: TextInputType.number,
                               obscure: false),
                           Align(

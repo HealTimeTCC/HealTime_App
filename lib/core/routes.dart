@@ -10,12 +10,12 @@ import '../src/screens/splash/splash_screen.dart';
 class Routes {
   static Map<String, Widget Function(BuildContext)> mapRoutes() {
     return {
-      '/SplashScreen':      (_) => const SplashScreen(),
-      '/Apresentacao':      (_) => const Apresentacao(),
-      '/PrescricaoMedica':  (_) => const PrescricaoMedicamento(),
-      '/PaginaInicial':     (_) => const HomePage(),
-      '/AddDoctor':            (_) => const IncluirMedico(),
-      '/ListDoctors':       (_) => const ListarMedico(),
+      '/SplashScreen':        (_) => const SplashScreen(),
+      '/Apresentacao':        (_) => const Apresentacao(),
+      '/PrescricaoMedica':    (_) => const PrescricaoMedicamento(),
+      '/PaginaInicial':       (_) => const HomePage(),
+      '/AddDoctor':           (_) => const IncluirMedico(),
+      '/ListDoctors':         (_) => const ListarMedico(),
     };
   }
 }

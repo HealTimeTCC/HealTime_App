@@ -282,7 +282,7 @@ class _RegisterAddressState extends State<RegisterAddress> {
     scaffoldContext.clearSnackBars();
     if (formState != null && formState.validate()) {
       final int statusCode =
-          await ApiPessoa.registerUser(pessoa: widget.dtoPessoaRegister);
+          await ApiPessoa.registerUser(pessoa: widget.dtoPessoaRegister, context: context);
 
       if (statusCode == 200) {
         if (mounted) {

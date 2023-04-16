@@ -194,7 +194,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
           );
 
           final int statusCode =
-              await ApiPessoa.registerUser(pessoa: widget.pessoa);
+              await ApiPessoa.registerUser(pessoa: widget.pessoa, context: context);
 
           if (mounted) {
             Navigator.of(context).pop();

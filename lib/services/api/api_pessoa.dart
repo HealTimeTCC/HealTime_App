@@ -1,22 +1,28 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:healtime/services/data_locale/data_preferences.dart';
 import 'package:healtime/shared/consts/consts_key_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
+import 'package:provider/provider.dart';
 
 import '../../shared/consts/consts_required.dart';
 import '../../shared/dto/dto_pessoa_register.dart';
+import '../provider/login/provider_login.dart';
 
 class ApiPessoa {
+  static String get uriApiBase => ConstsRequired.urlBaseApi;
+
   /* Autenticar usuário */
   static Future<Map<String, dynamic>> authUser(
-      {required DtoPessoa pessoa}) async {
+      {required DtoPessoa pessoa, required BuildContext context}) async {
+    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
     int statusCode = 400;
 
-    Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}Pessoa/Autenticar');
+    Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
     http.Response response = await http.post(uriApi,
         body: json.encode(pessoa),
@@ -44,9 +50,11 @@ class ApiPessoa {
   }
 
   /* Registrar usuário */
-  static Future<int> registerUser({required DtoPessoaRegister pessoa}) async {
+  static Future<int> registerUser({required DtoPessoaRegister pessoa, required BuildContext context}) async {
     try {
-      Uri uriApi = Uri.parse('${ConstsRequired.urlBaseApi}Pessoa/Registro');
+      final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+
+      Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}Pessoa/Registro');
 
       http.Response response = await http.post(uriApi,
           body: jsonEncode(pessoa),
@@ -59,7 +67,7 @@ class ApiPessoa {
             emailContato: pessoa.contatoEmail,
             passwordString: pessoa.passwordString);
 
-        await authUser(pessoa: dtoPessoa);
+        if (context.mounted) await authUser(pessoa: dtoPessoa, context: context);
 
         return 200;
       } else {

@@ -20,7 +20,7 @@ class ListQueries extends StatelessWidget {
     final provider = Provider.of<ProviderQueries>(context);
 
     return FutureBuilder(
-      future: provider.initialValues(id: pessoa.pessoaId!),
+      future: provider.initialValues(id: pessoa.pessoaId!, context: context),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
