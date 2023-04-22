@@ -20,8 +20,6 @@ class ListContentQueries extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final provider = Provider.of<ProviderQueries>(context);
-    final List<ModelEspecialidades> listEspecialidades =
-        provider.mapEspecialidades['body'];
 
     return Stack(
       children: [
@@ -101,8 +99,8 @@ class ListContentQueries extends StatelessWidget {
                     DtoInfoBasicQueries infoBasicQueries =
                         provider.listQueries[index];
 
-                    final Iterable<ModelEspecialidades> especialidade =
-                        listEspecialidades.where((element) =>
+                    final Iterable<ModelEspecialidades> specialties =
+                        value.listSpecialties.where((element) =>
                             element.especialidadeId ==
                             infoBasicQueries.especialidadeId);
 
@@ -123,7 +121,7 @@ class ListContentQueries extends StatelessWidget {
                             child: CardListQueries.modelCardList(
                               context: context,
                               infoBasic: infoBasicQueries,
-                              especialidade: especialidade,
+                              especialidade: specialties,
                             ),
                           ),
                         ),

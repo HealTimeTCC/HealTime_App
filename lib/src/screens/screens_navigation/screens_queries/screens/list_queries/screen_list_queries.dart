@@ -58,9 +58,7 @@ class ListQueries extends StatelessWidget {
                     onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => RegisterQueries(
-                          dataPessoa: pessoa,
-                          listEspecialidades:
-                          value.mapEspecialidades['body'],
+                          dataPessoa: pessoa
                         ),
                       ),
                     ),
