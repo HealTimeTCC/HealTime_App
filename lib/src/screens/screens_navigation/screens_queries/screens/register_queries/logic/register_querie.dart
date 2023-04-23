@@ -10,7 +10,7 @@ class LogicQueries {
     required BuildContext context,
     required PostQuery postQuery,
   }) async {
-    final provider = Provider.of<ProviderQueries>(context, listen: false);
+    final providerQuery = Provider.of<ProviderQueries>(context, listen: false);
     final Size size = MediaQuery.of(context).size;
 
     if (postQuery.flagForwarding == null) {
@@ -32,6 +32,6 @@ class LogicQueries {
       return;
     }
 
-    await provider.postQuery(context: context, postQuery: postQuery);
+    await providerQuery.postQuery(context: context, postQuery: postQuery);
   }
 }

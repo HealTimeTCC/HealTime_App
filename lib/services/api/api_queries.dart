@@ -21,8 +21,6 @@ class ApiQueries {
     Uri uriApi =
         Uri.parse('${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/AgendarConsulta');
 
-    print(query.pacienteId.toString());
-
     http.Response response = await http.post(uriApi,
         body: jsonEncode(query), headers: {'Content-Type': 'application/json'});
 
@@ -37,9 +35,7 @@ class ApiQueries {
       final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
       Uri uriApi = Uri.parse(
-          '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/ConsultaPorPaciente');
-
-        print('Esse é o status: $status');
+          '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/ListaAgendamentosPacientes');
 
       Map<String, dynamic> data = {"pacienteId": id, "statusConsulta": status};
 
@@ -58,17 +54,20 @@ class ApiQueries {
   }
 
   static Future<Map<String, dynamic>> getEspecialidades(BuildContext context) async{
+    try {
+      final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
-    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+      Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/GetEspecialidades');
+      http.Response response = await http.get(uriApi);
 
-    Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/Especialidades');
-    http.Response response = await http.get(uriApi);
+      List listResponse = jsonDecode(response. body) as List<dynamic>;
 
-    List listResponse = jsonDecode(response. body) as List<dynamic>;
-
-    return {
-      'statusCode': response.statusCode,
-      'body':  listResponse.map((value) => ModelEspecialidades.fromJson(value)).toList()
-    };
+      return {
+        'statusCode': response.statusCode,
+        'body':  listResponse.map((value) => ModelEspecialidades.fromJson(value)).toList()
+      };
+    }catch (ex) {
+      return {};
+    }
   }
 }

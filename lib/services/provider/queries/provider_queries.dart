@@ -36,7 +36,6 @@ class ProviderQueries extends ChangeNotifier {
     //LIMPANDO LISTAS PARA RECEBER OS VALORES ATUALIZADOS DA API
     _listQueries.clear();
     _listSpecialties.clear();
-    _flagEncaminhado = null;
 
     /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
     Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
@@ -52,7 +51,10 @@ class ProviderQueries extends ChangeNotifier {
     }
     /*=========================================================================*/
 
-    if (context.mounted) await getSpecialties(context);
+
+    if (context.mounted) {
+      await getSpecialties(context);
+    }
   }
 
   Future<void> getSpecialties(BuildContext context) async {
@@ -187,8 +189,12 @@ class ProviderQueries extends ChangeNotifier {
 
   void addEncaminhamento(int? value) {
     _flagEncaminhado = value;
-    print('Olha o valor: $value');
     notifyListeners();
+  }
+
+  void disposeEncaminhamento() {
+   _flagEncaminhado = null;
+   notifyListeners();
   }
   //endregion
 

@@ -18,7 +18,6 @@ class TypeUser {
           );
         }
       } else {
-
         /* Tela para selecionar o paciente que está associado a ele */
         /* Enviar os dados do perfil da pessoa */
       }

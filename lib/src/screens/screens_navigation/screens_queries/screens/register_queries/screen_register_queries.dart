@@ -312,8 +312,11 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     borderRadius: BorderRadius.circular(100),
                                   ),
                                   value: providerQuery.flagEncaminhado == 0,
-                                  onChanged: (value) => providerQuery
-                                      .addEncaminhamento(value! ? 0 : null),
+                                  onChanged: (value) {
+                                    int? valueInt = value! ? 0 : null;
+                                    providerQuery
+                                        .addEncaminhamento(valueInt);
+                                  },
                                 ),
                                 Expanded(
                                   child: Text(
@@ -331,8 +334,12 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     borderRadius: BorderRadius.circular(100),
                                   ),
                                   value: providerQuery.flagEncaminhado == 1,
-                                  onChanged: (value) => providerQuery
-                                      .addEncaminhamento(value! ? 1 : null),
+                                  onChanged: (value) {
+                                    int? valueInt = value! ? 1 : null;
+
+                                    providerQuery
+                                        .addEncaminhamento(valueInt);
+                                  },
                                 ),
                                 Expanded(
                                     child: Text(
@@ -364,19 +371,22 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       offset: Offset(1, 2),
                                     )
                                   ]),
-                              child: TextFormField(
-                                controller: _textObsController,
-                                cursorColor: const Color(0xffEBEBEB),
-                                maxLines: null,
-                                keyboardType: TextInputType.multiline,
-                                decoration: InputDecoration(
-                                    hintText: 'Digite aqui',
-                                    hintStyle: FontGoogle.textNormaleGoogle(
-                                        size: size, colorText: Colors.black12),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: size.width * .05),
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: TextFormField(
+                                  controller: _textObsController,
+                                  cursorColor: const Color(0xffEBEBEB),
+                                  maxLines: null,
+                                  keyboardType: TextInputType.multiline,
+                                  decoration: InputDecoration(
+                                      hintText: 'Digite aqui',
+                                      hintStyle: FontGoogle.textNormaleGoogle(
+                                          size: size, colorText: Colors.black12),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: size.width * .05),
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none),
+                                ),
                               ),
                             )
                             //#endregion
@@ -395,6 +405,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                         PostQuery postQuery = PostQuery(
                             dataPerson: widget.dataPessoa,
                             doctorId: 1,
+                            flagForwarding: providerQuery.flagEncaminhado,
                             reasonConsultation: _textObsController.text,
                             specialtyId: selectSpecialty.first.especialidadeId);
 

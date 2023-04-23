@@ -24,7 +24,7 @@ class CardListQueries {
 
       /* Container que vai ficar na frente, responsavel pelo conteúdo do card */
       child: Container(
-        padding: EdgeInsets.all(size.width * .03),
+        padding: EdgeInsets.all(size.width * .04),
         margin: EdgeInsets.only(bottom: size.width * .01),
         decoration: BoxDecoration(
           color: Colors.white,

@@ -55,13 +55,18 @@ class ListQueries extends StatelessWidget {
               {
                 return Scaffold(
                   floatingActionButton: FloatingActionButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => RegisterQueries(
-                          dataPessoa: pessoa
+                    elevation: 1,
+                    onPressed: () {
+                      value.disposeEncaminhamento();
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => RegisterQueries(
+                              dataPessoa: pessoa
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(size.width * .05),
                     ),
@@ -72,7 +77,6 @@ class ListQueries extends StatelessWidget {
                       size: size.width * .09,
                     ),
                   ),
-
                   //EXIBIR A VIEW DE ACORDO COM O CONTEUDO QUE CHEGAR DA API
                   body: value.statusCode != 200
                       ? const NullContentQueries()
