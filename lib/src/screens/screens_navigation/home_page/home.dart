@@ -1,8 +1,7 @@
+// home page
 import 'package:flutter/material.dart';
-import 'package:healtime/services/provider/queries/provider_navbar.dart';
-import 'package:provider/provider.dart';
-
-import '../screens_queries/logics/logic_type_user.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'home_appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,55 +11,163 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
+  //final providerLogin = ProviderLogin();
 
-    /*
-      Aqui você coloca para iniciar os valores do usuário
-      Provider.of<NavbarProvider>(context).<Metodo que vai inicializar>();
-    */
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final usuarioProvider = Provider.of<ProviderLogin>(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final mp = Provider.of<NavbarProvider>(context);
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Color.fromARGB(255, 20, 216, 213),
+      body: Stack(children: [
+        HomeAppBar(),
+        Positioned(
+          top: 110,
+          left: 30, //ALTERAR DEPOIS
+          child: Container(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                        margin: EdgeInsets.only(bottom: 14.20),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 245, 245, 245),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(33, 15, 0, 0),
+                              spreadRadius: .1,
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        width: 327,
+                        height: 130,
+                        child: Row(
+                          children: [
+                            SizedBox(width: size.width * .03),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: size.height * .02),
+                                Text(
+                                  "Seg",
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.getFont('Poppins',
+                                      decoration: TextDecoration.none,
+                                      color: const Color(0xff1c1c1c),
+                                      fontSize: size.width * .08,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Abril, 2023",
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.getFont('Poppins',
+                                      decoration: TextDecoration.none,
+                                      color: const Color(0xff1c1c1c),
+                                      fontSize: size.width * .05,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(height: size.height * .01),
+                                Text(
+                                  "Ultima dose aplicada às 00h00",
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.getFont('Poppins',
+                                      decoration: TextDecoration.none,
+                                      color: const Color(0xff1c1c1c),
+                                      fontSize: size.width * .03,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: size.width * .08),
+                            Image.asset(
+                              'assets/img/ImagemRemedio.png',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          SizedBox(width: size.width * .03),
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: size.height * .009),
+                                Text(
+                                  "Próxima dose",
+                                  style: GoogleFonts.getFont('Poppins',
+                                      decoration: TextDecoration.none,
+                                      color: const Color(0xff1c1c1c),
+                                      fontSize: size.width * .04,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Remédio: lalalala 5g",
+                                  style: GoogleFonts.getFont('Poppins',
+                                      decoration: TextDecoration.none,
+                                      color: const Color(0xff1c1c1c),
+                                      fontSize: size.width * .03,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "00/00/00 às 00h00",
+                                  style: GoogleFonts.getFont('Poppins',
+                                      decoration: TextDecoration.none,
+                                      color: const Color(0xff1c1c1c),
+                                      fontSize: size.width * .03,
+                                      fontWeight: FontWeight.w400),
+                                )
+                              ]),
+                        ],
+                      ),
+                      margin: EdgeInsets.only(right: 19),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(117, 24, 205, 202),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      width: 154,
+                      height: 71,
+                    ),
+                    Container(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(24, 28, 28, 28),
+                          elevation: 0,
+                          fixedSize: Size(154, 71),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        onPressed: () {},
+                        child: Icon(Icons.add),
+                      ),
+                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       color: Color.fromARGB(104, 140, 140, 140),
+                    //       borderRadius: BorderRadius.all(Radius.circular(10))),
+                    //   width: 154,
+                    //   height: 71,
+                    // )
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
-        child: BottomNavigationBar(
-          currentIndex: mp.indexSelecionado,
-          onTap: (opcao) {
-            mp.indexSelecionado = opcao;
-          },
-          elevation: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(0, 24, 205, 202),
-          unselectedItemColor: Color(0xffFBF8F8),
-          fixedColor: Color(0xffFBF8F8),
-          items: mp.items
-              .map((e) => BottomNavigationBarItem(
-                  icon: Icon(e.iconData), label: e.label))
-              .toList(),
-        ),
-      ),
-      appBar: AppBar(
-        backgroundColor: Color(0xff18CDCA),
-      ),
-      drawer: Drawer(
-        child: ElevatedButton(
-          onPressed: () => TypeUser.typeUserNavigator(context),
-          child: Text('Ir para a tela de consulta'),
-        ),
-      ),
-      body: mp.indexSelecionado == 0
-          ? Container()
-          : mp.items[mp.indexSelecionado].widget,
+      ]),
     );
   }
 }
@@ -74,21 +181,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),*/
 
-/*const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.medication_rounded),
-                label: 'Remedios',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.queue_play_next_rounded),
-                label: 'Consulta',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Perfil',
-              ),
-            ], */
+
+
+
