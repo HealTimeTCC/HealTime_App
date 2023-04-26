@@ -1,7 +1,9 @@
 // home page
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../screens_queries/logics/logic_type_user.dart';
 import 'home_appbar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         HomeAppBar(),
         Positioned(
           top: 110,
-          left: 30, //ALTERAR DEPOIS
+          left: size.width * .05,
           child: Container(
             child: Column(
               children: [
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        width: 327,
+                        width: size.width * .9,
                         height: 130,
                         child: Row(
                           children: [
@@ -100,6 +102,12 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Container(
+                      margin: EdgeInsets.only(right: 18),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(117, 24, 205, 202),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      width: MediaQuery.of(context).size.width / 2.3,
+                      height: 71,
                       child: Row(
                         children: [
                           SizedBox(width: size.width * .03),
@@ -134,19 +142,13 @@ class _HomePageState extends State<HomePage> {
                               ]),
                         ],
                       ),
-                      margin: EdgeInsets.only(right: 19),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(117, 24, 205, 202),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 154,
-                      height: 71,
                     ),
                     Container(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(24, 28, 28, 28),
                           elevation: 0,
-                          fixedSize: Size(154, 71),
+                          fixedSize: Size(MediaQuery.of(context).size.width / 2.3, 71),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
