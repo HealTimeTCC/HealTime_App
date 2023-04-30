@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
+import '../../../../../../shared/models/maps/enum_status_consulta.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 import '../register_queries/screen_register_queries.dart';
 
@@ -17,6 +18,7 @@ class ListQueries extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final provider = Provider.of<ProviderQueries>(context);
 
     return Consumer<ProviderQueries>(
       builder: (context, value, child) => FutureBuilder(
@@ -61,9 +63,8 @@ class ListQueries extends StatelessWidget {
 
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => RegisterQueries(
-                              dataPessoa: pessoa
-                          ),
+                          builder: (context) =>
+                              RegisterQueries(dataPessoa: pessoa),
                         ),
                       );
                     },
@@ -71,6 +72,7 @@ class ListQueries extends StatelessWidget {
                       borderRadius: BorderRadius.circular(size.width * .05),
                     ),
                     foregroundColor: const Color(0xff1AE8E4),
+                    backgroundColor: const Color(0xff1AE8E4),
                     child: Icon(
                       Icons.add,
                       color: Colors.white,
@@ -78,9 +80,85 @@ class ListQueries extends StatelessWidget {
                     ),
                   ),
                   //EXIBIR A VIEW DE ACORDO COM O CONTEUDO QUE CHEGAR DA API
-                  body: value.statusCode != 200
-                      ? const NullContentQueries()
-                      : ListContentQueries(idPerson: pessoa.pessoaId!),
+                  body: Stack(
+                    children: [
+                      const BackgroundPage(),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                /* AppBar personalizada */
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * .03),
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                        icon: Icon(
+                                          Icons.arrow_back_ios,
+                                          size: size.width * .08,
+                                          color: const Color(0xff1AE8E4),
+                                        ),
+                                      ),
+                                      SizedBox(width: size.width * .02),
+                                      Expanded(
+                                        child: Text(
+                                          'Minhas consultas',
+                                          style: FontGoogle.textTitleGoogle(
+                                              size: size),
+                                        ),
+                                      ),
+                                      PopupMenuButton(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        itemBuilder: (context) => StatusConsulta
+                                            .keys
+                                            .map((int value) {
+                                          return PopupMenuItem(
+                                            value: value,
+                                            onTap: () {
+                                              provider.alterListQueries(
+                                                  status: value,
+                                                  context: context,
+                                                  id: pessoa.pessoaId!);
+                                            },
+                                            child: Text(
+                                              StatusConsulta[value],
+                                              style:
+                                                  FontGoogle.textNormaleGoogle(
+                                                      size: size),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        child: Icon(
+                                          Icons.filter_alt_outlined,
+                                          color: const Color(0xff1AE8E4),
+                                          size: size.width * .08,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      value.statusCode != 200
+                          ? const NullContentQueries()
+                          : ListContentQueries(idPerson: pessoa.pessoaId!),
+                    ],
+                  ),
                 );
               }
           }

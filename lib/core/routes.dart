@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../src/screens/presentation_screens/screen_choose_profile.dart';
-import '../src/screens/screens_navigation/home_page/home.dart';
 import '../src/screens/screens_navigation/navbar/screen_default.dart';
 import '../src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import '../src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';

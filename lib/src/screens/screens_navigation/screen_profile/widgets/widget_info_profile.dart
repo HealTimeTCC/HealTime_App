@@ -23,6 +23,8 @@ class InfoProfile extends StatelessWidget {
             }
           default:
             {
+              if (snapshot.data == null) return Container();
+
               Pessoa person = snapshot.data!;
 
               return Container(

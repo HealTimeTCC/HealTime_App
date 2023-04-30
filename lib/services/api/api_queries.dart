@@ -37,7 +37,7 @@ class ApiQueries {
       Uri uriApi = Uri.parse(
           '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/ListaAgendamentosPacientes');
 
-      Map<String, dynamic> data = {"pacienteId": id, "statusConsulta": status};
+      Map<String, dynamic> data = {"pacienteId": id, "StatusConsultaId": status};
 
       final Map<String, String>? head = await ConstsRequired.headRequisit();
 

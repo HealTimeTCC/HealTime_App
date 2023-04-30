@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../services/data_locale/data_preferences.dart';
+import '../../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../../../../../shared/consts/consts_key_preferences.dart';
 
 class OptionsProfile extends StatelessWidget {
@@ -63,17 +64,20 @@ class OptionsProfile extends StatelessWidget {
               DataPreferences.removeData(key: ConstsPreferences.keyUser);
               Navigator.of(context).pushNamedAndRemoveUntil('/SplashScreen', (route) => false);
             },
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.exit_to_app_rounded,
-                  color: Color(0xff494949),
-                ),
-                SizedBox(width: size.width * .02),
-                const Expanded(
-                  child: Text('Sair'),
-                )
-              ],
+            child: GestureDetector(
+              onTap: () async => await DataPreferencesPessoa.removeUser(context),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.exit_to_app_rounded,
+                    color: Color(0xff494949),
+                  ),
+                  SizedBox(width: size.width * .02),
+                  const Expanded(
+                    child: Text('Sair'),
+                  )
+                ],
+              ),
             ),
           ),
         ],

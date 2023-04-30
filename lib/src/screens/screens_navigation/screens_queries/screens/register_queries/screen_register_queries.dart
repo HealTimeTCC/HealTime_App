@@ -126,7 +126,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                          color: const Color(0xffEBEBF0),
+                                          color: Colors.grey.shade200,
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       child: Row(
@@ -161,7 +161,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xffEBEBF0),
+                                        color: Colors.grey.shade200,
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Align(
@@ -206,7 +206,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                          color: const Color(0xffEBEBF0),
+                                          color: Colors.grey.shade200,
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       child: Row(
@@ -241,7 +241,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xffEBEBF0),
+                                        color: Colors.grey.shade200,
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Align(
@@ -280,10 +280,10 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     horizontal: size.width * .05),
                                 height: size.height * .07,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xffEBEBF0),
+                                  color: Colors.grey.shade200,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: const Color(0xffD9D9D9),
+                                    color: Colors.grey.shade100,
                                   ),
                                 ),
                                 child: Align(
@@ -311,6 +311,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
+                                  activeColor: const Color(0xff1AE8E4),
                                   value: providerQuery.flagEncaminhado == 0,
                                   onChanged: (value) {
                                     int? valueInt = value! ? 0 : null;
@@ -333,6 +334,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
+                                  activeColor: const Color(0xff1AE8E4),
                                   value: providerQuery.flagEncaminhado == 1,
                                   onChanged: (value) {
                                     int? valueInt = value! ? 1 : null;

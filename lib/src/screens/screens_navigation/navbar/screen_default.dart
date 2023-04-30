@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/routes.dart';
 import 'navbar_screen.dart';
 
 class DefaultScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _DefaultScreenState extends State<DefaultScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: NavBarScreen(),
+      routes: Routes.mapRoutes(),
     );
   }
 }

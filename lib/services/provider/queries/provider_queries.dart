@@ -79,7 +79,7 @@ class ProviderQueries extends ChangeNotifier {
       ),
     );
 
-    String dateTimeAgendamento = FormatDate.formaDate(
+    String dateTimeAgendamento =  FormatDate.formaDate(
         date: _dtAgendamento!, time: _timeAgendamento!);
     String dateTimeConsulta = FormatDate.formaDate(
         date: _dtConsulta!, time: _timeConsulta!);
@@ -98,12 +98,8 @@ class ProviderQueries extends ChangeNotifier {
     Map<String, dynamic> response =
         await ApiQueries.postQuery(query: dtoQuery, context: context);
 
-    navigator.pop();
-
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
-      notifyListeners();
-
       if (context.mounted) {
         showDialog(
           context: context,
@@ -128,6 +124,9 @@ class ProviderQueries extends ChangeNotifier {
           closeIconColor: Colors.white,
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ),
           duration: const Duration(seconds: 2),
           content: Text(
             response['body'],
