@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/services/api/api_doctor.dart';
+import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/shared/models/model_doctor.dart';
 
@@ -24,6 +25,7 @@ class _ListarMedicoState extends State<ListarMedico> {
           borderRadius: BorderRadius.circular(size.width * .05),
         ),
         foregroundColor: const Color(0xff1AE8E4),
+        backgroundColor: const Color(0xff18CDCA),
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -39,29 +41,68 @@ class _ListarMedicoState extends State<ListarMedico> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                case ConnectionState.none:
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const CircularProgressIndicator(
+                          color: Color(0xff18CDCA),
+                        ),
+                        SizedBox(height: size.height * .02),
+                        Text(
+                          'Preparando a lista de médicos, já voltamos!',
+                          style:
+                              FontGoogle.textSubTitleGoogle(size: size * .85),
+                        )
+                      ],
+                    ),
                   );
                 default:
                   List<Medico> listMedico = snapshot.data ?? [];
+
                   return ListView.builder(
                     itemCount: listMedico.length,
                     itemBuilder: (context, index) {
-                      Medico medico = snapshot.data![index];
+                      Medico doctor = snapshot.data![index];
                       return GestureDetector(
-                        onTap: () {
-                          setState(() {});
-                        },
+                        onTap: () => Navigator.of(context).pop(doctor),
                         child: Card(
-                          color: Color.fromARGB(229, 206, 206, 206),
-                          margin: EdgeInsets.all(12),
-                          child: ListTile(
-                            title: Text(
-                              medico.NmMedico.toString(),
-                            ),
-                            subtitle: Text(
-                              medico.CrmMedico.toString(),
+                          color: const Color.fromARGB(229, 206, 206, 206),
+                          margin: const EdgeInsets.all(12),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: size.height * .01,
+                                      horizontal: size.width * .03),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(
+                                        'Socorroe',
+                                        textAlign: TextAlign.right,
+                                        style: FontGoogle.textNormaleGoogle(
+                                            size: size * .7),
+                                      ),
+                                      const Divider(color: Colors.white),
+                                      Text(
+                                        'Socorroe',
+                                        style: FontGoogle.textNormaleGoogle(
+                                            size: size * .9),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),

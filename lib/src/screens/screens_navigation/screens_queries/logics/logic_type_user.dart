@@ -3,6 +3,7 @@ import '../../../../../shared/models/model_pessoa.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/list_queries/screen_list_queries.dart';
+import '../screens/select_pacient/screen_select_patient.dart';
 
 class TypeUser {
   static typeUserNavigator(BuildContext context) async {
@@ -18,8 +19,13 @@ class TypeUser {
           );
         }
       } else {
-        /* Tela para selecionar o paciente que está associado a ele */
-        /* Enviar os dados do perfil da pessoa */
+        if (context.mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SelectPatient(personId: pessoa.pessoaId!),
+            ),
+          );
+        }
       }
     }
   }

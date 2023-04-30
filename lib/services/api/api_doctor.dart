@@ -17,7 +17,7 @@ class ApiMedico {
 
     final Uri uriApi = Uri.parse(
         '${providerLogin.addressServer ?? uriApiBase}'
-            'Medico/GetAll');
+            'Medicacoes/ListarMedicos');
 
     http.Response response = await http.get(uriApi);
 

@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/consts/consts_required.dart';
+import '../../shared/dto/dto_patient.dart';
 import '../../shared/dto/dto_query.dart';
 import 'package:http/http.dart' as http;
 
 import '../../shared/models/model_especialidades.dart';
+import '../../shared/models/model_pessoa.dart';
 import '../provider/login/provider_login.dart';
 
 class ApiQueries {
@@ -68,6 +70,22 @@ class ApiQueries {
       };
     }catch (ex) {
       return {};
+    }
+  }
+
+  static Future<List<Pessoa>?> getPatient(int idResponsibleCarer) async {
+    try {
+      final Uri uriApi = Uri.parse('${uriApiBase}Paciente/PacienteByCodRespOrCuidador/$idResponsibleCarer');
+      
+      http.Response response = await http.get(uriApi);
+
+      List<dynamic> listResponse = jsonDecode(response.body) as dynamic;
+
+      print(listResponse.map((element) => Pessoa.fromJson(element)).toList().first.nomePessoa);
+      return listResponse.map((element) => Pessoa.fromJson(element)).toList();
+    }catch (ex) {
+      print(ex);
+      return null;
     }
   }
 }

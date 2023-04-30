@@ -4,6 +4,7 @@ import '../../../shared/dto/dto_info_basic_queries.dart';
 import '../../../shared/dto/dto_post_query.dart';
 import '../../../shared/dto/dto_query.dart';
 import '../../../shared/loading/alert_loading.dart';
+import '../../../shared/models/model_doctor.dart';
 import '../../../shared/models/model_especialidades.dart';
 import '../../../src/screens/screens_navigation/screens_queries/logics/logic_format_date.dart';
 import '../../api/api_queries.dart';
@@ -20,6 +21,14 @@ class ProviderQueries extends ChangeNotifier {
 
   List<ModelEspecialidades> _listSpecialties = [];
   List<ModelEspecialidades> get listSpecialties => _listSpecialties;
+
+  Medico? _doctor;
+  Medico? get doctor => _doctor;
+
+  void addDoctor(Medico newDoctor) {
+    _doctor = newDoctor;
+    notifyListeners();
+  }
 
   //ALTERAR O STATUS DA CONSULTA E OBTER NOVOS VALORES DE ACORDO COM STATUS ESCOLHIDO
   void alterListQueries(

@@ -8,8 +8,10 @@ import '../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../shared/dto/dto_post_query.dart';
+import '../../../../../../shared/models/model_doctor.dart';
 import '../../../../../../shared/models/model_especialidades.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
+import '../../../screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'logic/date_time_query.dart';
 import 'logic/register_querie.dart';
 
@@ -268,13 +270,20 @@ class _RegisterQueriesState extends State<RegisterQueries> {
 
                             //#region Selecionar o médico
                             SizedBox(height: size.height * .04),
-                            Text(
-                              'Escolha um médico',
+                            Text('Selecione o médico',
                               style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             GestureDetector(
-                              onTap: () async => await Navigator.of(context)
-                                  .pushNamed('/ListDoctors'),
+                              onTap: () async {
+                                Medico doctor =
+                                    await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const ListarMedico(),
+                                  ),
+                                );
+
+                                providerQuery.addDoctor(doctor);
+                              },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * .05),
@@ -288,10 +297,12 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Selecione...',
-                                    style: FontGoogle.textNormalGreyGoogle(
-                                        size: size),
+                                  child:
+                                  Text(
+                                    (providerQuery.doctor == null)
+                                        ? 'Selecione o médico'
+                                        : providerQuery.doctor!.NmMedico,
+                                    style: FontGoogle.textNormalGreyGoogle(size: size),
                                   ),
                                 ),
                               ),
@@ -315,8 +326,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   value: providerQuery.flagEncaminhado == 0,
                                   onChanged: (value) {
                                     int? valueInt = value! ? 0 : null;
-                                    providerQuery
-                                        .addEncaminhamento(valueInt);
+                                    providerQuery.addEncaminhamento(valueInt);
                                   },
                                 ),
                                 Expanded(
@@ -339,8 +349,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   onChanged: (value) {
                                     int? valueInt = value! ? 1 : null;
 
-                                    providerQuery
-                                        .addEncaminhamento(valueInt);
+                                    providerQuery.addEncaminhamento(valueInt);
                                   },
                                 ),
                                 Expanded(
@@ -383,7 +392,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   decoration: InputDecoration(
                                       hintText: 'Digite aqui',
                                       hintStyle: FontGoogle.textNormaleGoogle(
-                                          size: size, colorText: Colors.black12),
+                                          size: size,
+                                          colorText: Colors.black12),
                                       contentPadding: EdgeInsets.symmetric(
                                           horizontal: size.width * .05),
                                       focusedBorder: InputBorder.none,
@@ -401,8 +411,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     ElevatedButton(
                       onPressed: () async {
                         Iterable<ModelEspecialidades> selectSpecialty =
-                        providerQuery.listSpecialties.where((element) =>
-                        element.descEspecialidade == valueSelect);
+                            providerQuery.listSpecialties.where((element) =>
+                                element.descEspecialidade == valueSelect);
 
                         PostQuery postQuery = PostQuery(
                             dataPerson: widget.dataPessoa,

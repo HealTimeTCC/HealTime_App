@@ -12,13 +12,13 @@ Pessoa _$PessoaFromJson(Map<String, dynamic> json) => Pessoa(
       sobreNomePessoa: json['sobreNomePessoa'] as String,
       dtNascPessoa: DateTime.parse(json['dtNascPessoa'] as String),
       tipoPessoa: json['tipoPessoa'] as int,
-      passwordString: json['passwordString'] as String,
+      passwordString: json['passwordString'] ?? '',
       contact: json['contatoPessoa'] == null
           ? null
           : ContactPessoa.fromJson(json['contatoPessoa'] as Map<String, dynamic>),
     )
       ..pessoaId = json['pessoaId'] as int
-      ..tokenUser = json['tokenJwt'] as String;
+      ..tokenUser = json['tokenJwt'] ?? '';
 
 Map<String, dynamic> _$PessoaToJson(Pessoa instance) => <String, dynamic>{
       'pessoaId': instance.pessoaId,
