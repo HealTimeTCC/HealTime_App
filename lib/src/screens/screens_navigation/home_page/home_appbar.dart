@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens_medical/screen_doctor/screen_list_doctor.dart';
+import '../screens_medical/screen_medicine/screen_include_medicine.dart';
 import '../screens_queries/logics/logic_type_user.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -26,9 +27,9 @@ class HomeAppBar extends StatelessWidget {
             onTap: () => TypeUser.typeUserNavigator(context),
           ),
           ListTile(
-            title: Text('Cosultas'),
+            title: Text('Medicamentos'),
             trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () => Navigator.of(context),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => IncluirMedicamento())),
           ),
           ListTile(
             title: Text('Cosultas'),
