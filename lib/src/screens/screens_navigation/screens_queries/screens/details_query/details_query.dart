@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
+import 'logic/details_query.dart';
 
 class DetailsQuery extends StatelessWidget {
-  const DetailsQuery({super.key, required this.queryId});
+  const DetailsQuery(
+      {super.key, required this.queryId, required this.personId, required this.statusQuery});
 
   final int queryId;
+  final int personId;
+  final int statusQuery;
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +45,25 @@ class DetailsQuery extends StatelessWidget {
                           style: FontGoogle.textTitleGoogle(size: size),
                         ),
                       ),
-                      PopupMenuButton(
-                        elevation: 1,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        itemBuilder: (context) => [
-                          PopupMenuItem(
-                            child: Text('Encerrar agendamento'),
-                          ),
-                          PopupMenuItem(
-                            child: Text('Excluir agendamento'),
-                          )
-                        ],
-                      )
+                      if (statusQuery == 1) ... [
+                        PopupMenuButton(
+                          elevation: 1,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              onTap: () async => await LogicDetailsQuery.removeQuery(
+                                  context: context,
+                                  personId: personId,
+                                  queryId: queryId),
+                              child: Text('Encerrar agendamento'),
+                            ),
+                            PopupMenuItem(
+                              child: Text('Cancelar agendamento'),
+                            )
+                          ],
+                        )
+                      ],
                     ],
                   ),
                 ),

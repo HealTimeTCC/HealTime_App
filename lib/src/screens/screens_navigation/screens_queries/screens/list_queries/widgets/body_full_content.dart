@@ -52,6 +52,8 @@ class ListContentQueries extends StatelessWidget {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => DetailsQuery(
+                              personId: idPerson,
+                                statusQuery: infoBasicQueries.statusConsultaId,
                                 queryId:
                                     infoBasicQueries.consultasAgendadasId),
                           ),
