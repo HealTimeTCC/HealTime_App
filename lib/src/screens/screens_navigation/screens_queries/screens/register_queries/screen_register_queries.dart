@@ -416,7 +416,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
 
                         PostQuery postQuery = PostQuery(
                             dataPerson: widget.dataPessoa,
-                            doctorId: 1,
+                            doctorId: providerQuery.doctor?.MedicoId ?? 1,
                             flagForwarding: providerQuery.flagEncaminhado,
                             reasonConsultation: _textObsController.text,
                             specialtyId: selectSpecialty.first.especialidadeId);

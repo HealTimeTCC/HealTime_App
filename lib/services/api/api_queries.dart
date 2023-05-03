@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/consts/consts_required.dart';
@@ -117,6 +118,16 @@ class ApiQueries {
 
     } catch (ex) {
       return 501;
+    }
+  }
+
+  static Future<void> detailsQuery() async {
+    try {
+
+    }catch (ex) {
+      if (kDebugMode) {
+        print(ex);
+      }
     }
   }
 }
