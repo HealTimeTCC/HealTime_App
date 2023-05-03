@@ -13,10 +13,8 @@ class DefaultScreen extends StatefulWidget {
 class _DefaultScreenState extends State<DefaultScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: NavBarScreen(),
-      routes: Routes.mapRoutes(),
-    );
+    return NavBarScreen();
+     // routes: Routes.mapRoutes(),
+    
   }
 }

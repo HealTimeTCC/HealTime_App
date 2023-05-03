@@ -28,6 +28,20 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Stack(children: [
         HomeAppBar(),
+        // Positioned(
+        //           top: 0,
+        //           left: 0,
+        //           right: 0,
+        //           child: ClipRect(
+        //            // clipper: WaveClipperOne(),
+        //             child: Container(
+        //               height: size.height * .2,
+        //               decoration: BoxDecoration(
+        //                 color: Color(0xFF14D8D5),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
         Positioned(
           top: 110,
           left: size.width * .05,

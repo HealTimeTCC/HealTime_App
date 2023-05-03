@@ -7,6 +7,8 @@ import '../presentation_screens/screen_choose_profile.dart';
 import 'package:healtime/services/data_locale/data_preferences_pessoa.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
+import '../screens_navigation/navbar/screen_default.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -42,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (context) => responseApi['statusCode'] == 200
-                        ? HomePage()
+                        ? DefaultScreen()
                         : const Apresentacao()),
                 (route) => false);
           }
