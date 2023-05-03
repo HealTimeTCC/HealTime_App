@@ -61,6 +61,8 @@ class ApiPessoa {
           headers: {
             'Content-Type': 'application/json'
           }).timeout(const Duration(seconds: 15));
+          print(response.body);
+          print(response.statusCode);
 
       if (response.statusCode == 200) {
         DtoPessoa dtoPessoa = DtoPessoa(
