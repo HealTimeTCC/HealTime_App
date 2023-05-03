@@ -6,7 +6,10 @@ import 'logic/details_query.dart';
 
 class DetailsQuery extends StatelessWidget {
   const DetailsQuery(
-      {super.key, required this.queryId, required this.personId, required this.statusQuery});
+      {super.key,
+      required this.queryId,
+      required this.personId,
+      required this.statusQuery});
 
   final int queryId;
   final int personId;
@@ -45,21 +48,38 @@ class DetailsQuery extends StatelessWidget {
                           style: FontGoogle.textTitleGoogle(size: size),
                         ),
                       ),
-                      if (statusQuery == 1) ... [
+                      if (statusQuery == 1) ...[
                         PopupMenuButton(
                           elevation: 1,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           itemBuilder: (context) => [
                             PopupMenuItem(
-                              onTap: () async => await LogicDetailsQuery.removeQuery(
-                                  context: context,
-                                  personId: personId,
-                                  queryId: queryId),
-                              child: Text('Encerrar agendamento'),
+                              onTap: () async =>
+                                  await LogicDetailsQuery.alterStatusQuery(
+                                      context: context,
+                                      statusId: 2,
+                                      personId: personId,
+                                      queryId: queryId),
+                              child: Text(
+                                'Encerrar agendamento',
+                                style: FontGoogle.textNormaleGoogle(
+                                    size: size * .8),
+                              ),
                             ),
                             PopupMenuItem(
-                              child: Text('Cancelar agendamento'),
+                              onTap: () async =>
+                                  await LogicDetailsQuery.alterStatusQuery(
+                                      context: context,
+                                      statusId: 3,
+                                      personId: personId,
+                                      queryId: queryId),
+                              child: Text(
+                                'Cancelar agendamento',
+                                style: FontGoogle.textNormaleGoogle(
+                                    size: size * .8),
+                              ),
                             )
                           ],
                         )

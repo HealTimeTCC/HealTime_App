@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../shared/dto/dto_info_basic_queries.dart';
 import '../../../shared/dto/dto_post_query.dart';
@@ -11,22 +12,36 @@ import '../../api/api_queries.dart';
 
 class ProviderQueries extends ChangeNotifier {
   int _statusCode = 0;
+
   int get statusCode => _statusCode;
 
   int _statusQuery = 1;
+
   int get statusQuery => _statusQuery;
 
   List<DtoInfoBasicQueries> _listQueries = [];
+
   List<DtoInfoBasicQueries> get listQueries => _listQueries;
 
   List<ModelEspecialidades> _listSpecialties = [];
+
   List<ModelEspecialidades> get listSpecialties => _listSpecialties;
 
   Medico? _doctor;
+
   Medico? get doctor => _doctor;
 
   void addDoctor(Medico newDoctor) {
     _doctor = newDoctor;
+    notifyListeners();
+  }
+
+  void alterStatusQuery(int queryId, int statusId) {
+    _listQueries
+        .where((element) => element.consultasAgendadasId == queryId)
+        .first
+        .statusConsultaId = statusId;
+
     notifyListeners();
   }
 
@@ -60,7 +75,6 @@ class ProviderQueries extends ChangeNotifier {
     }
     /*=========================================================================*/
 
-
     if (context.mounted) {
       await getSpecialties(context);
     }
@@ -75,7 +89,7 @@ class ProviderQueries extends ChangeNotifier {
   Future<void> postQuery(
       {required PostQuery postQuery, required BuildContext context}) async {
     final scaffold = ScaffoldMessenger.of(context);
-    final navigator = Navigator.of(context);
+    final Size size = MediaQuery.of(context).size;
 
     /* Exibir mensagem para o usuário */
     showDialog(
@@ -88,10 +102,10 @@ class ProviderQueries extends ChangeNotifier {
       ),
     );
 
-    String dateTimeAgendamento =  FormatDate.formaDate(
-        date: _dtAgendamento!, time: _timeAgendamento!);
-    String dateTimeConsulta = FormatDate.formaDate(
-        date: _dtConsulta!, time: _timeConsulta!);
+    String dateTimeAgendamento =
+        FormatDate.formaDate(date: _dtAgendamento!, time: _timeAgendamento!);
+    String dateTimeConsulta =
+        FormatDate.formaDate(date: _dtConsulta!, time: _timeConsulta!);
 
     /* Montando o objeto */
     DtoQuery dtoQuery = DtoQuery(
@@ -110,22 +124,45 @@ class ProviderQueries extends ChangeNotifier {
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
       if (context.mounted) {
+        Navigator.of(context).pop();
         showDialog(
           context: context,
-          builder: (context) => const AlertDialog(
+          builder: (context) => AlertDialog(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            content: LoadingData(
+            content: const LoadingData(
                 textLoading: 'Agendamento cadastrado com sucesso!',
                 permissCircula: false),
+            actions: [
+              Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 1,
+                      padding: EdgeInsets.symmetric(
+                          vertical: size.height * .02, horizontal: size.width * .2),
+                      backgroundColor: const Color(0xff1AE8E4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45),
+                      ),
+                    ),
+                    child: Text(
+                      'Ok!',
+                      style: GoogleFonts.getFont('Poppins',
+                          decoration: TextDecoration.none,
+                          color: const Color(0xff172331),
+                          fontSize: size.width * .05,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ))
+            ],
           ),
         );
       }
-
-      await Future.delayed(const Duration(seconds: 3));
-
-      navigator.pop();
-      navigator.pop();
     } else {
       scaffold.showSnackBar(
         SnackBar(
@@ -133,9 +170,8 @@ class ProviderQueries extends ChangeNotifier {
           closeIconColor: Colors.white,
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           duration: const Duration(seconds: 2),
           content: Text(
             response['body'],
@@ -147,6 +183,7 @@ class ProviderQueries extends ChangeNotifier {
 
   //#region Data e hora da consulta e agendamento
   DateTime? _dtAgendamento = DateTime.now();
+
   DateTime? get dtAgendamento => _dtAgendamento;
 
   void addDtAgendamento(DateTime date) {
@@ -155,6 +192,7 @@ class ProviderQueries extends ChangeNotifier {
   }
 
   TimeOfDay? _timeAgendamento = TimeOfDay.now();
+
   TimeOfDay? get timeAgendamento => _timeAgendamento;
 
   void addTimeAgendamento(TimeOfDay time) {
@@ -164,6 +202,7 @@ class ProviderQueries extends ChangeNotifier {
 
   /* Variaveis para a data consulta*/
   DateTime? _dtConsulta = DateTime.now();
+
   DateTime? get dtConsulta => _dtConsulta;
 
   void addDateConsulta(DateTime date) {
@@ -172,6 +211,7 @@ class ProviderQueries extends ChangeNotifier {
   }
 
   TimeOfDay? _timeConsulta = TimeOfDay.now();
+
   TimeOfDay? get timeConsulta => _timeConsulta;
 
   void addTimeConsulta(TimeOfDay time) {
@@ -183,16 +223,19 @@ class ProviderQueries extends ChangeNotifier {
 
   //#region Selecionar especialidade
   String? _valueSelect = 'Cardiologia';
+
   String? get valueSelect => _valueSelect;
 
   void select(String? value) {
     _valueSelect = value;
     notifyListeners();
   }
+
   //#endregion
 
   //#region Opção de encaminhamento
   int? _flagEncaminhado;
+
   int? get flagEncaminhado => _flagEncaminhado;
 
   void addEncaminhamento(int? value) {
@@ -201,9 +244,8 @@ class ProviderQueries extends ChangeNotifier {
   }
 
   void disposeEncaminhamento() {
-   _flagEncaminhado = null;
-   notifyListeners();
+    _flagEncaminhado = null;
+    notifyListeners();
   }
-  //endregion
-
+//endregion
 }
