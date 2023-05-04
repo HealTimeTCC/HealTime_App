@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/shared/dto/dto_query.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
 import 'logic/details_query.dart';
@@ -89,110 +93,142 @@ class DetailsQuery extends StatelessWidget {
                 ),
                 //#endregion
 
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width * .1, vertical: size.height * .02),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        'Nome do paciente',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: FontGoogle.textSubTitleGoogle(size: size),
-                      ),
-                      SizedBox(height: size.height * .02),
-                      Text(
-                        'Data da consulta',
-                        textAlign: TextAlign.center,
-                        style: FontGoogle.textSubTitleGoogle(size: size),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: size.width * .02),
-                        child: Text(
-                          '2023-10-02 11:15',
-                          style: FontGoogle.textNormaleGoogle(size: size * .8),
-                        ),
-                      ),
-                      SizedBox(height: size.height * .02),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            'Conheça o médico',
-                            textAlign: TextAlign.center,
-                            style: FontGoogle.textSubTitleGoogle(size: size),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: size.width * .02),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Nome do médico',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: FontGoogle.textNormaleGoogle(
-                                        size: size * .8),
-                                  ),
+                FutureBuilder(
+                  future: LogicDetailsQuery.initialDetailsQuery(
+                      context: context, personId: personId, queryId: queryId),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        {
+                          return Container();
+                        }
+                      default:
+                        {
+                          return Consumer<ProviderQueries>(
+                            builder: (context, value, child) {
+                              DtoQuery detailsQuery = value.detailsQuery!;
+
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * .1,
+                                    vertical: size.height * .02),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(
+                                      'Nome do paciente',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: FontGoogle.textSubTitleGoogle(
+                                          size: size),
+                                    ),
+                                    SizedBox(height: size.height * .02),
+                                    Text(
+                                      'Data da consulta',
+                                      textAlign: TextAlign.center,
+                                      style: FontGoogle.textSubTitleGoogle(
+                                          size: size),
+                                    ),
+                                    Container(
+                                      margin:
+                                      EdgeInsets.only(left: size.width * .02),
+                                      child: Text(
+                                        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(detailsQuery.dataConsulta)),
+                                        style: FontGoogle.textNormaleGoogle(
+                                            size: size * .8),
+                                      ),
+                                    ),
+                                    SizedBox(height: size.height * .02),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text(
+                                          'Conheça o médico',
+                                          textAlign: TextAlign.center,
+                                          style: FontGoogle.textSubTitleGoogle(
+                                              size: size),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: size.width * .02),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  'Nome do médico',
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: FontGoogle
+                                                      .textNormaleGoogle(
+                                                      size: size * .8),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: size.width * .02,
+                                              ),
+                                              Text(
+                                                'Especialidade',
+                                                style:
+                                                FontGoogle.textNormaleGoogle(
+                                                    size: size * .8),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: size.height * .03),
+                                    Text(
+                                      'Detalhes da consulta',
+                                      textAlign: TextAlign.center,
+                                      style: FontGoogle.textSubTitleGoogle(
+                                          size: size),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: size.width * .02),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                        children: [
+                                          SizedBox(height: size.height * .02),
+                                          Text(
+                                            _messageStatusQuery(1),
+                                            style: FontGoogle.textNormaleGoogle(
+                                                size: size * .8),
+                                          ),
+                                          SizedBox(height: size.height * .02),
+                                          Text(
+                                            _messageEncaminhamento(1),
+                                            style: FontGoogle.textNormaleGoogle(
+                                                size: size * .8),
+                                          ),
+                                          SizedBox(height: size.height * .02),
+                                          Text(
+                                            'Motivo da consulta',
+                                            style: FontGoogle.textSubTitleGoogle(
+                                                size: size * .9),
+                                          ),
+                                          Text(
+                                            _messageEncaminhamento(1),
+                                            style: FontGoogle.textNormaleGoogle(
+                                                size: size * .8),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: size.width * .02,
-                                ),
-                                Text(
-                                  'Especialidade',
-                                  style: FontGoogle.textNormaleGoogle(
-                                      size: size * .8),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: size.height * .03),
-                      Text(
-                        'Detalhes da consulta',
-                        textAlign: TextAlign.center,
-                        style: FontGoogle.textSubTitleGoogle(size: size),
-                      ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: size.width * .02),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            SizedBox(height: size.height * .02),
-                            Text(
-                              _messageStatusQuery(1),
-                              style:
-                                  FontGoogle.textNormaleGoogle(size: size * .8),
-                            ),
-                            SizedBox(height: size.height * .02),
-                            Text(
-                              _messageEncaminhamento(1),
-                              style:
-                                  FontGoogle.textNormaleGoogle(size: size * .8),
-                            ),
-                            SizedBox(height: size.height * .02),
-                            Text(
-                              'Motivo da consulta',
-                              style: FontGoogle.textSubTitleGoogle(
-                                  size: size * .9),
-                            ),
-                            Text(
-                              _messageEncaminhamento(1),
-                              style:
-                                  FontGoogle.textNormaleGoogle(size: size * .8),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                              );
+                            }
+                          );
+                        }
+                    }
+                  },
                 )
               ],
             ),

@@ -53,6 +53,18 @@ class ProviderQueries extends ChangeNotifier {
     notifyListeners();
   }
 
+  DtoQuery? _detailsQuery;
+  DtoQuery? get detailsQuery => _detailsQuery;
+
+  Future<void> addDetailsQuery(DtoQuery newDetailsQuery) async {
+     _detailsQuery = newDetailsQuery;
+  }
+
+  void disposeDetailsQuery() {
+    _detailsQuery = null;
+    notifyListeners();
+  }
+
   Future<void> initialValues(
       {required int id,
       required BuildContext context,
@@ -144,7 +156,8 @@ class ProviderQueries extends ChangeNotifier {
                     style: ElevatedButton.styleFrom(
                       elevation: 1,
                       padding: EdgeInsets.symmetric(
-                          vertical: size.height * .02, horizontal: size.width * .2),
+                          vertical: size.height * .02,
+                          horizontal: size.width * .2),
                       backgroundColor: const Color(0xff1AE8E4),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(45),

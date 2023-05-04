@@ -121,13 +121,26 @@ class ApiQueries {
     }
   }
 
-  static Future<void> detailsQuery() async {
+  static Future<DtoQuery?> detailsQuery({required int personId, required int queryId}) async {
     try {
+      Uri uriApi = Uri.parse('${uriApiBase}ConsultaMedica/ConsultaByCodPessoaCod/$personId/$queryId');
 
+      final http.Response response = await http.get(uriApi);
+      print('A');
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> mapResponse = jsonDecode(response.body);
+
+        final DtoQuery detailsQuery = DtoQuery.fromJson(mapResponse);
+        return detailsQuery;
+      }
+
+      return null;
     }catch (ex) {
       if (kDebugMode) {
         print(ex);
       }
+      return null;
     }
   }
 }
