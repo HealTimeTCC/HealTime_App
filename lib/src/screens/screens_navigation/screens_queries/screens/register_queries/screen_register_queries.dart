@@ -270,19 +270,48 @@ class _RegisterQueriesState extends State<RegisterQueries> {
 
                             //#region Selecionar o médico
                             SizedBox(height: size.height * .04),
-                            Text('Selecione o médico',
+                            Text(
+                              'Selecione o médico',
                               style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             GestureDetector(
                               onTap: () async {
-                                Medico doctor =
+                                Medico? doctor =
                                     await Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => const ListarMedico(),
                                   ),
                                 );
 
-                                providerQuery.addDoctor(doctor);
+                                if (doctor == null) {
+                                  if (mounted) {
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor:
+                                            const Color(0xff18CDCA),
+                                        elevation: 1,
+                                        behavior: SnackBarBehavior.floating,
+                                        showCloseIcon: true,
+                                        closeIconColor: const Color(0xff172331),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        content: Text(
+                                          'Ação cancelada',
+                                          style: FontGoogle.textNormaleGoogle(
+                                            size: size * .7,
+                                            colorText: const Color(0xff172331),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  providerQuery.addDoctor(doctor);
+                                }
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -297,12 +326,12 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child:
-                                  Text(
+                                  child: Text(
                                     (providerQuery.doctor == null)
                                         ? 'Selecione o médico'
                                         : providerQuery.doctor!.NmMedico,
-                                    style: FontGoogle.textNormalGreyGoogle(size: size),
+                                    style: FontGoogle.textNormalGreyGoogle(
+                                        size: size),
                                   ),
                                 ),
                               ),

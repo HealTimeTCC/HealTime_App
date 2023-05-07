@@ -24,7 +24,8 @@ class CardListQueries {
 
       /* Container que vai ficar na frente, responsavel pelo conteúdo do card */
       child: Container(
-        padding: EdgeInsets.all(size.width * .04),
+        padding: EdgeInsets.symmetric(
+            vertical: size.height * .01, horizontal: size.width * .07),
         margin: EdgeInsets.only(bottom: size.width * .01),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -67,6 +68,8 @@ class CardListQueries {
             SizedBox(height: size.height * .03),
             Text(
               infoBasic.motivoConsulta,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.getFont('Poppins',
                   decoration: TextDecoration.none,
                   color: const Color(0xff1c1c1c),

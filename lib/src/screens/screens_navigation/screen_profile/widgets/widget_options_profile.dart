@@ -44,17 +44,20 @@ class OptionsProfile extends StatelessWidget {
           const Divider(
             color: Color(0xffE3DDDD),
           ),
-          Row(
-            children: [
-              const Icon(
-                Icons.password_rounded,
-                color: Color(0xff494949),
-              ),
-              SizedBox(width: size.width * .02),
-              const Expanded(
-                child: Text('Alterar senha'),
-              )
-            ],
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed('/AlterPassword'),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.password_rounded,
+                  color: Color(0xff494949),
+                ),
+                SizedBox(width: size.width * .02),
+                const Expanded(
+                  child: Text('Alterar senha'),
+                )
+              ],
+            ),
           ),
           const Divider(
             color: Color(0xffE3DDDD),

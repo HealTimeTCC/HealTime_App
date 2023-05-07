@@ -54,11 +54,23 @@ class ProviderQueries extends ChangeNotifier {
   }
 
   DtoQuery? _detailsQuery;
-  DtoQuery? get detailsQuery => _detailsQuery;
 
-  Future<void> addDetailsQuery(DtoQuery newDetailsQuery) async {
-     _detailsQuery = newDetailsQuery;
-  }
+  DtoQuery? get detailsQueryGet => _detailsQuery;
+
+  String _nameEspecialidadeGet = '';
+  String get nameEspecialidadeGet => _nameEspecialidadeGet;
+
+  String? _namePersonGet;
+  String? get namePersonGet => _namePersonGet;
+
+  String? _nameDoctorGet;
+  String? get nameDoctorGet => _nameDoctorGet;
+
+  Future<void> addDetailsQuery(DtoQuery newDetailsQuery) async => _detailsQuery = newDetailsQuery;
+
+  Future<void> addSpecialty(String specialty)     async => _nameEspecialidadeGet = specialty;
+  Future<void> addPerson(String namePerson)       async  => _namePersonGet = namePerson;
+  Future<void> addNameDoctor(String nameDoctor)   async => _nameDoctorGet = nameDoctor;
 
   void disposeDetailsQuery() {
     _detailsQuery = null;
@@ -87,9 +99,7 @@ class ProviderQueries extends ChangeNotifier {
     }
     /*=========================================================================*/
 
-    if (context.mounted) {
-      await getSpecialties(context);
-    }
+    await getSpecialties(context);
   }
 
   Future<void> getSpecialties(BuildContext context) async {

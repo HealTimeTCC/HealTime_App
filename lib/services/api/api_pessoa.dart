@@ -28,6 +28,9 @@ class ApiPessoa {
         body: json.encode(pessoa),
         headers: {'Content-Type': 'application/json'});
 
+    print(response.statusCode);
+    print(response.body);
+
     if (response.statusCode == 200) {
       statusCode = response.statusCode;
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/dto/dto_query.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/details_query/widgets/alert_cancel_close_query.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/details_query/widgets/model_cart.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -48,41 +50,71 @@ class DetailsQuery extends StatelessWidget {
                       SizedBox(width: size.width * .02),
                       Expanded(
                         child: Text(
-                          'Detalhes',
-                          style: FontGoogle.textTitleGoogle(size: size),
+                          'Status da Consulta',
+                          style: FontGoogle.textTitleGoogle(size: size * .8),
                         ),
                       ),
                       if (statusQuery == 1) ...[
                         PopupMenuButton(
                           elevation: 1,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           itemBuilder: (context) => [
                             PopupMenuItem(
-                              onTap: () async =>
-                                  await LogicDetailsQuery.alterStatusQuery(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  AlertCancelCloseQuery.alertCancelCloneQuery(
                                       context: context,
-                                      statusId: 2,
                                       personId: personId,
-                                      queryId: queryId),
-                              child: Text(
-                                'Encerrar agendamento',
-                                style: FontGoogle.textNormaleGoogle(
-                                    size: size * .8),
+                                      queryId: queryId,
+                                      status: 2);
+                                },
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.close_outlined,
+                                      color: Color(0xff1AE8E4),
+                                    ),
+                                    SizedBox(width: size.width * .02),
+                                    Expanded(
+                                      child: Text(
+                                        'Encerrar agendamento',
+                                        style: FontGoogle.textNormaleGoogle(
+                                            size: size * .8),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             PopupMenuItem(
-                              onTap: () async =>
-                                  await LogicDetailsQuery.alterStatusQuery(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  AlertCancelCloseQuery.alertCancelCloneQuery(
                                       context: context,
-                                      statusId: 3,
                                       personId: personId,
-                                      queryId: queryId),
-                              child: Text(
-                                'Cancelar agendamento',
-                                style: FontGoogle.textNormaleGoogle(
-                                    size: size * .8),
+                                      queryId: queryId,
+                                      status: 3);
+                                },
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.delete,
+                                      color: Color(0xff1AE8E4),
+                                    ),
+                                    SizedBox(width: size.width * .02),
+                                    Expanded(
+                                      child: Text(
+                                        'Cancelar agendamento',
+                                        style: FontGoogle.textNormaleGoogle(
+                                            size: size * .8),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -106,7 +138,10 @@ class DetailsQuery extends StatelessWidget {
                         {
                           return Consumer<ProviderQueries>(
                             builder: (context, value, child) {
-                              DtoQuery detailsQuery = value.detailsQuery!;
+                              DtoQuery detailsQuery = value.detailsQueryGet!;
+                              String nameSpecialty = value.nameEspecialidadeGet;
+                              String namePerson = value.namePersonGet!;
+                              String nameDoctor = value.nameDoctorGet!;
 
                               return Padding(
                                 padding: EdgeInsets.symmetric(
@@ -114,117 +149,47 @@ class DetailsQuery extends StatelessWidget {
                                     vertical: size.height * .02),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      'Nome do paciente',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    SizedBox(height: size.height * .02),
-                                    Text(
-                                      'Data da consulta',
-                                      textAlign: TextAlign.center,
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    Container(
-                                      margin:
-                                      EdgeInsets.only(left: size.width * .02),
-                                      child: Text(
-                                        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(detailsQuery.dataConsulta)),
-                                        style: FontGoogle.textNormaleGoogle(
-                                            size: size * .8),
-                                      ),
-                                    ),
-                                    SizedBox(height: size.height * .02),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
+                                  crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
-                                      children: [
-                                        Text(
-                                          'Conheça o médico',
-                                          textAlign: TextAlign.center,
-                                          style: FontGoogle.textSubTitleGoogle(
-                                              size: size),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: size.width * .02),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  'Nome do médico',
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: FontGoogle
-                                                      .textNormaleGoogle(
-                                                      size: size * .8),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: size.width * .02,
-                                              ),
-                                              Text(
-                                                'Especialidade',
-                                                style:
-                                                FontGoogle.textNormaleGoogle(
-                                                    size: size * .8),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: size.height * .03),
-                                    Text(
-                                      'Detalhes da consulta',
-                                      textAlign: TextAlign.center,
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: size.width * .02),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                        children: [
-                                          SizedBox(height: size.height * .02),
-                                          Text(
-                                            _messageStatusQuery(1),
-                                            style: FontGoogle.textNormaleGoogle(
-                                                size: size * .8),
-                                          ),
-                                          SizedBox(height: size.height * .02),
-                                          Text(
-                                            _messageEncaminhamento(1),
-                                            style: FontGoogle.textNormaleGoogle(
-                                                size: size * .8),
-                                          ),
-                                          SizedBox(height: size.height * .02),
-                                          Text(
-                                            'Motivo da consulta',
-                                            style: FontGoogle.textSubTitleGoogle(
-                                                size: size * .9),
-                                          ),
-                                          Text(
-                                            _messageEncaminhamento(1),
-                                            style: FontGoogle.textNormaleGoogle(
-                                                size: size * .8),
-                                          ),
-                                        ],
+                                  children: [
+                                    ModelCartSingle(
+                                        colorContainer: const Color(0xff18CDCA),
+                                        subTitleText: nameSpecialty,
+                                        titleText: 'Especialidade: '),
+                                    SizedBox(height: size.height * .04),
+                                    ModelCartTwo(
+                                      colorContainerPrimary:
+                                          const Color(0xffD0D0D0),
+                                      subTitleTextPrimary:
+                                          DateFormat('dd/MM/yyyy').format(
+                                        DateTime.parse(detailsQuery
+                                            .dataSolicitacaoConsulta),
                                       ),
+                                      titleTextPrimary: 'Data de Agendamento:',
+                                      subTitleTextSecondary:
+                                          DateFormat('dd/MM/yyyy HH:mm').format(
+                                        DateTime.parse(
+                                            detailsQuery.dataConsulta),
+                                      ),
+                                      titleTextSecondary: 'Data da Consulta:',
+                                      colorContainerSecondary:
+                                          const Color(0xffFFB963),
+                                    ),
+                                    SizedBox(height: size.height * .04),
+                                    ModelCartTwo(
+                                      colorContainerPrimary:
+                                          const Color(0xffFFCC8C),
+                                      subTitleTextPrimary: nameDoctor,
+                                      titleTextPrimary: 'Seu médico:',
+                                      subTitleTextSecondary: namePerson,
+                                      titleTextSecondary: 'Paciente:',
+                                      colorContainerSecondary:
+                                          const Color(0xffE0DFDF),
                                     ),
                                   ],
                                 ),
                               );
-                            }
+                            },
                           );
                         }
                     }

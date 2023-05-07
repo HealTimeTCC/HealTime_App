@@ -3,6 +3,7 @@ import 'package:healtime/services/api/api_doctor.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/shared/models/model_doctor.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/widget/model_doctor_list.dart';
 
 class ListarMedico extends StatefulWidget {
   const ListarMedico({super.key});
@@ -66,46 +67,7 @@ class _ListarMedicoState extends State<ListarMedico> {
                       Medico doctor = snapshot.data![index];
                       return GestureDetector(
                         onTap: () => Navigator.of(context).pop(doctor),
-                        child: Card(
-                          color: const Color.fromARGB(229, 206, 206, 206),
-                          margin: const EdgeInsets.all(12),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: size.height * .01,
-                                      horizontal: size.width * .03),
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey.shade200,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text(
-                                        'Socorroe',
-                                        textAlign: TextAlign.right,
-                                        style: FontGoogle.textNormaleGoogle(
-                                            size: size * .7),
-                                      ),
-                                      const Divider(color: Colors.white),
-                                      Text(
-                                        'Socorroe',
-                                        style: FontGoogle.textNormaleGoogle(
-                                            size: size * .9),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: ModelDoctorList(doctor: doctor)
                       );
                     },
                   );

@@ -1,14 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '../../shared/consts/consts_required.dart';
 import '../../shared/dto/dto_encerrar_query.dart';
 import '../../shared/dto/dto_query.dart';
-import 'package:http/http.dart' as http;
-
+import '../../shared/models/model_doctor.dart';
 import '../../shared/models/model_especialidades.dart';
 import '../../shared/models/model_pessoa.dart';
 import '../provider/login/provider_login.dart';
@@ -68,7 +67,7 @@ class ApiQueries {
           '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/GetEspecialidades');
       http.Response response = await http.get(uriApi);
 
-      List listResponse = jsonDecode(response.body) as List<dynamic>;
+      List<dynamic> listResponse = jsonDecode(response.body) as List<dynamic>;
 
       return {
         'statusCode': response.statusCode,
@@ -86,47 +85,43 @@ class ApiQueries {
       final Uri uriApi = Uri.parse(
           '${uriApiBase}Paciente/PacienteByCodRespOrCuidador/$idResponsibleCarer');
 
+      print(uriApi);
       http.Response response = await http.get(uriApi);
 
       List<dynamic> listResponse = jsonDecode(response.body) as dynamic;
 
-      print(listResponse
-          .map((element) => Pessoa.fromJson(element))
-          .toList()
-          .first
-          .nomePessoa);
       return listResponse.map((element) => Pessoa.fromJson(element)).toList();
     } catch (ex) {
-      print(ex);
       return null;
     }
   }
 
   static Future<int> encerrarQuery(EncerrarQuery query) async {
     try {
-      final Uri uriAPi = Uri.parse('${uriApiBase}ConsultaMedica/AtualizarConsulta');
+      final Uri uriAPi =
+          Uri.parse('${uriApiBase}ConsultaMedica/AtualizarConsulta');
 
       final Map<String, String>? header = await ConstsRequired.headRequisit();
 
-      http.Response response = await http.patch(
+      http.Response response = await http.put(
         uriAPi,
         body: jsonEncode(query),
         headers: header,
       );
 
       return response.statusCode;
-
     } catch (ex) {
       return 501;
     }
   }
 
-  static Future<DtoQuery?> detailsQuery({required int personId, required int queryId}) async {
+  static Future<DtoQuery?> detailsQuery(
+      {required int personId, required int queryId}) async {
     try {
-      Uri uriApi = Uri.parse('${uriApiBase}ConsultaMedica/ConsultaByCodPessoaCod/$personId/$queryId');
+      Uri uriApi = Uri.parse(
+          '${uriApiBase}ConsultaMedica/ConsultaAgendadaConsultaCodPessoaCod/$personId/$queryId');
 
       final http.Response response = await http.get(uriApi);
-      print('A');
 
       if (response.statusCode == 200) {
         Map<String, dynamic> mapResponse = jsonDecode(response.body);
@@ -136,10 +131,77 @@ class ApiQueries {
       }
 
       return null;
-    }catch (ex) {
-      if (kDebugMode) {
-        print(ex);
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  static Future<Medico?> getDetailsDoctor(int doctorId) async {
+    try {
+      Uri uriApi = Uri.parse(
+          '${uriApiBase}ConsultaMedica/ConsultarMedicoById/$doctorId');
+
+      Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      final http.Response response = await http.get(uriApi, headers: header);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> mapResponse = jsonDecode(response.body);
+
+        final Medico detailsQuery = Medico.fromJson(mapResponse);
+        return detailsQuery;
       }
+
+      return null;
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  static Future<ModelEspecialidades> getDetailsSpecialty(
+      int specialtyId) async {
+    try {
+      Uri uriApi = Uri.parse(
+          '${uriApiBase}ConsultaMedica/EspecialidadeByCod/$specialtyId');
+
+      Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      final http.Response response = await http.get(uriApi, headers: header);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> mapResponse = jsonDecode(response.body);
+
+        final ModelEspecialidades detailsQuery =
+            ModelEspecialidades.fromJson(mapResponse);
+        return detailsQuery;
+      }
+      return ModelEspecialidades(
+          descEspecialidade: 'Não informado', especialidadeId: 0);
+    } catch (ex) {
+      return ModelEspecialidades(
+          descEspecialidade: 'Não informado', especialidadeId: 0);
+    }
+  }
+
+  static Future<Pessoa?> getDetailsPerson(int personId) async {
+    final Pessoa person;
+
+    try {
+      Uri uriApi = Uri.parse('${uriApiBase}Pessoa/PessoaById/$personId');
+
+      Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      final http.Response response = await http.get(
+        uriApi,
+        headers: header,
+      );
+
+      Map<String, dynamic> mapResponse = jsonDecode(response.body);
+
+      person = Pessoa.fromJson(mapResponse);
+      return person;
+    } catch (ex) {
+      print(ex);
       return null;
     }
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/widget/model_patient.dart';
 
 import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
@@ -15,6 +16,15 @@ class SelectPatient extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color(0xff18CDCA),
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: const Icon(Icons.add_rounded, color: Colors.white),
+      ),
       body: Stack(
         children: [
           const BackgroundPage(),
@@ -31,8 +41,8 @@ class SelectPatient extends StatelessWidget {
                     List<Pessoa> listPatient = snapshot.data ?? [];
                     return SafeArea(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.width * .02),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * .02),
                         child: Column(
                           children: [
                             SizedBox(height: size.height * .01),
@@ -47,68 +57,30 @@ class SelectPatient extends StatelessWidget {
                                 ),
                                 SizedBox(width: size.width * .03),
                                 Text(
-                                  'Selecione o paciente',
+                                  'Lista de paciente',
                                   style: FontGoogle.textTitleGoogle(
                                       size: size * .8),
-                                )
+                                ),
                               ],
                             ),
-                            SizedBox(height: size.height * .02),
-
-
+                            SizedBox(height: size.height * .04),
                             Flexible(
                               child: ListView.builder(
                                 physics: const AlwaysScrollableScrollPhysics(
-                                  parent: BouncingScrollPhysics()
-                                ),
+                                    parent: BouncingScrollPhysics()),
                                 itemCount: listPatient.length,
                                 itemBuilder: (context, index) {
                                   Pessoa patient = listPatient[index];
 
                                   return GestureDetector(
-                                      onTap: () => Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ListQueries(pessoa: patient),
-                                            ),
-                                          ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: size.width * .1),
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: size.height * .01,
-                                                horizontal: size.width * .03),
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey.shade200,
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              children: [
-                                                Text(
-                                                  patient.cpfPessoa,
-                                                  textAlign: TextAlign.right,
-                                                  style: FontGoogle.textNormaleGoogle(
-                                                      size: size * .75),
-                                                ),
-                                                const Divider(color: Colors.white),
-                                                Text(
-                                                  '${patient.nomePessoa} ${patient.sobreNomePessoa}',
-                                                  style: FontGoogle.textNormaleGoogle(
-                                                      size: size * .8),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ));
+                                    onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ListQueries(pessoa: patient),
+                                      ),
+                                    ),
+                                    child: ModelPatient(person: patient),
+                                  );
                                 },
                               ),
                             ),

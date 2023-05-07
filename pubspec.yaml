@@ -52,6 +52,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   carousel_slider: ^4.2.1
   flutter_custom_clippers: ^2.1.0
+  brasil_fields: ^1.9.1
 
 dev_dependencies:
   flutter_test:
