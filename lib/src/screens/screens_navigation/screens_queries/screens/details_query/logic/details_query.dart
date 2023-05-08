@@ -48,13 +48,13 @@ class LogicDetailsQuery {
       int specialtyId = dtoQuery.especialidadeId;
 
       ModelEspecialidades specialty =
-          await ApiQueries.getDetailsSpecialty(doctorId);
+          await ApiQueries.getDetailsSpecialty(specialtyId);
       await providerQueries.addSpecialty(specialty.descEspecialidade);
 
       Pessoa? person = await ApiQueries.getDetailsPerson(personId);
       await providerQueries.addPerson('${person!.nomePessoa} ${person.sobreNomePessoa}');
 
-      Medico? doctor = await ApiQueries.getDetailsDoctor(specialtyId);
+      Medico? doctor = await ApiQueries.getDetailsDoctor(doctorId);
       await providerQueries.addNameDoctor(doctor!.NmMedico);
 
       await providerQueries.addDetailsQuery(dtoQuery);
