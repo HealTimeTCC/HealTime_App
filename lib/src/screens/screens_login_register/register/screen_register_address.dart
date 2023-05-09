@@ -31,7 +31,6 @@ class _RegisterAddressState extends State<RegisterAddress> {
     return Scaffold(
       body: Stack(
         children: [
-          const BackgroundPage(),
           SingleChildScrollView(
             child: SafeArea(
               child: Column(
@@ -44,13 +43,11 @@ class _RegisterAddressState extends State<RegisterAddress> {
                       children: [
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
-                          child: const CircleAvatar(
-                            backgroundColor: Color(0xff25D8D5),
                             child: Icon(
-                              Icons.arrow_back,
-                              size: 35,
-                              color: Colors.white,
-                            ),
+                               Icons.arrow_back_ios_new,
+                            size: 35,
+                            color: Colors.white,
+                            
                           ),
                         ),
                         Expanded(

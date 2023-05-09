@@ -49,15 +49,15 @@ class LoginRegister extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: size.height * 0.05,
+              bottom: size.height * 0.06,
               right: 0,
               left: 0,
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                 decoration: BoxDecoration(
                     color: const Color(0xffCACACA),
-                    borderRadius: BorderRadius.circular(45)),
-                height: size.height * 0.09,
+                    borderRadius: BorderRadius.circular(25)),
+                height: size.height * 0.07,
                 child: Row(
                   children: [
                     Expanded(
@@ -87,11 +87,11 @@ class LoginRegister extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff172331),
                         padding: EdgeInsets.symmetric(
-                            vertical: size.height * .03,
-                            horizontal: size.width * .18),
+                            vertical: size.height * .02,
+                            horizontal: size.width * .17),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
+                          borderRadius: BorderRadius.circular(26),
                         ),
                       ),
                       child: Text(

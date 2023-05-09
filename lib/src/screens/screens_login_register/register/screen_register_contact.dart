@@ -34,7 +34,15 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          const BackgroundPage(),
+          const BackgroundPageV2(),
+          Container(
+            margin: EdgeInsets.only(top: size.height * .2 - 60),
+           
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft : Radius.circular(30), topRight: Radius.circular(30)),
+               color: Colors.white,
+            ),
+          ),
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
@@ -48,9 +56,9 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
                           child: const CircleAvatar(
-                            backgroundColor: Color(0xff25D8D5),
+                            backgroundColor: Color.fromARGB(0, 37, 216, 213),
                             child: Icon(
-                              Icons.arrow_back,
+                              Icons.arrow_back_ios_new,
                               size: 35,
                               color: Colors.white,
                             ),
@@ -62,7 +70,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.getFont('Poppins',
                                 decoration: TextDecoration.none,
-                                color: const Color(0xff1c1c1c),
+                                color: Color(0xFFFFFFFF),
                                 letterSpacing: 1,
                                 fontSize: 30,
                                 fontWeight: FontWeight.w500),
@@ -70,7 +78,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                         )
                       ],
                     ),
-                    SizedBox(height: size.height * .04),
+                    SizedBox(height: size.height * .05 ),
                     Text(
                       'Crie sua conta de forma rápida e fácil agora mesmo!',
                       style: GoogleFonts.getFont('Poppins',
@@ -120,7 +128,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                               onPressed: () => _validateForm(context),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
-                                backgroundColor: const Color(0xff5AECE9),
+                                backgroundColor: Color.fromARGB(255, 51, 51, 51),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(45)),
                                 padding: EdgeInsets.symmetric(
@@ -137,7 +145,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                                         : 'Proximo',
                                     style: GoogleFonts.getFont('Poppins',
                                         decoration: TextDecoration.none,
-                                        color: const Color(0xff172331),
+                                        color: Color.fromARGB(255, 255, 255, 255),
                                         fontSize: 17,
                                         fontWeight: FontWeight.w400),
                                   ),
@@ -145,7 +153,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                                   const Icon(
                                     Icons.arrow_forward_ios,
                                     size: 15,
-                                    color: Color(0xff172331),
+                                    color: Color.fromARGB(255, 255, 255, 255),
                                   )
                                 ],
                               ),
@@ -193,8 +201,8 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
             ),
           );
 
-          final int statusCode =
-              await ApiPessoa.registerUser(pessoa: widget.pessoa, context: context);
+          final int statusCode = await ApiPessoa.registerUser(
+              pessoa: widget.pessoa, context: context);
 
           if (mounted) {
             Navigator.of(context).pop();
@@ -208,7 +216,8 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
               }
             } else {
               messageError(
-                  context: context, text: 'Não foi possível realizar o cadastro');
+                  context: context,
+                  text: 'Não foi possível realizar o cadastro');
             }
           }
         }

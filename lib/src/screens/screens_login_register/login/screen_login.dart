@@ -32,7 +32,15 @@ class _ScreenLoginState extends State<ScreenLogin> {
     return Scaffold(
       body: Stack(
         children: [
-          const BackgroundPage(),
+          const BackgroundPageV2 (),
+          Container(
+            margin: EdgeInsets.only(top: size.height * .2 - 60),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              color: Colors.white,
+            ),
+          ),
           SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -47,12 +55,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
                         'Entre com a sua conta',
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.none,
-                            color: const Color(0xff1c1c1c),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500),
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 26,
+                            fontWeight: FontWeight.w400),
                       ),
                     ),
-                    SizedBox(height: size.height * .02),
+                    SizedBox(height: size.height * .04 ),
                     Text(
                       'Não se preocupe! Seus dados estão completamente seguros com a '
                       'equipe do HealTime.',
@@ -105,15 +113,15 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       style: ElevatedButton.styleFrom(
                           padding:
                               EdgeInsets.symmetric(vertical: size.height * .02),
-                          backgroundColor: const Color(0xff1AE8E4),
+                          backgroundColor: Color(0xFF333333),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(45))),
+                              borderRadius: BorderRadius.circular(10))),
                       child: Text(
                         'Entrar',
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.none,
-                            color: Colors.black45,
+                            color: Color(0xFFFFFFFF),
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
                       ),

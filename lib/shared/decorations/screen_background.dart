@@ -38,3 +38,18 @@ class BackgroundPage extends StatelessWidget {
     );
   }
 }
+
+class BackgroundPageV2 extends StatelessWidget {
+  const BackgroundPageV2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          color: Color.fromRGBO(10, 228, 224, 1),
+        )
+      ],
+    );
+  }
+}

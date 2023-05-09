@@ -9,34 +9,22 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(140),
-          child: AppBar(
-            elevation: 0,
-            backgroundColor: Color(0xFF14D8D5),
-          )),
-
-
-      drawer: Drawer(
-        child: ListView(
-          children: [
-          ListTile(
-            title: Text('Cosultas'),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () => TypeUser.typeUserNavigator(context),
+      // appBar: PreferredSize(
+      //     preferredSize: Size.fromHeight(140),
+      //     child: AppBar(
+      //       elevation: 0,
+      //       backgroundColor: Color(0xFF14D8D5),
+      //     )),
+      body: Column(
+        children: [
+          Container(
+            height: size.height * .1,
+            color: Color(0xFF14D8D5),
           ),
-          ListTile(
-            title: Text('Medicamentos'),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => IncluirMedicamento())),
-          ),
-          ListTile(
-            title: Text('Cosultas'),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () => TypeUser.typeUserNavigator(context),
-          ),
-      ]),
-    ));
+        ],
+      ),
+    );
   }
 }

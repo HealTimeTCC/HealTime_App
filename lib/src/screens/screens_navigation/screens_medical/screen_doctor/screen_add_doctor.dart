@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 
 import '../../../../../services/api/api_doctor.dart';
 import '../../../../../shared/models/model_doctor.dart';
@@ -36,7 +37,8 @@ class _IncluirMedicoState extends State<IncluirMedico> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () => Navigator.of(context).pop,
+                  onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ListarMedico())),
                   icon: Icon(Icons.arrow_back_ios_new,
                       color: Color(0xff18CDCA), size: 35),
                 ),
@@ -63,12 +65,9 @@ class _IncluirMedicoState extends State<IncluirMedico> {
           child: Container(
             margin: EdgeInsets.all(7),
             decoration: BoxDecoration(
-                border: Border.all(
-                  color: Color(0xff1c1c1c),
-                ),
                 borderRadius: BorderRadius.all(
-                  Radius.circular(7),
-                )),
+              Radius.circular(7),
+            )),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -105,10 +104,10 @@ class _IncluirMedicoState extends State<IncluirMedico> {
                           NmMedico: textNameController.text,
                           UfCrmMedico: textUfController.text);
 
-                      int statusCode = await ApiMedico.incluirMedico(doctor, context);
+                      int statusCode =
+                          await ApiMedico.incluirMedico(doctor, context);
                       if (statusCode == 200) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => HomePage()));
+                        Navigator.of(context).pop();
                       }
                     },
                     style: ElevatedButton.styleFrom(

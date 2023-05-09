@@ -9,8 +9,8 @@ class ModelTextForm {
       required bool obscure,
       IconData? icon,
       Color? iconColor,
-      required bool validator, TextEditingController? textController}) {
-
+      required bool validator,
+      TextEditingController? textController}) {
     return Container(
       margin: EdgeInsets.only(bottom: size.height * 0.04),
       child: TextFormField(
@@ -38,13 +38,20 @@ class ModelTextForm {
         },
         decoration: InputDecoration(
           suffixIcon: !obscure ? null : Icon(icon, color: iconColor),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: const Color(0xff1c1c1c), width: size.width * 0.004)),
-          border: const OutlineInputBorder(),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: const Color(0xff1c1c1c), width: size.width * 0.004)),
+          // focusedBorder: OutlineInputBorder(
+          //     borderSide: BorderSide(
+          //         color: const Color(0xff1c1c1c), width: size.width * 0.004)),
+          // border: const OutlineInputBorder(),
+          // enabledBorder: OutlineInputBorder(
+          //     borderSide: BorderSide(
+          //         color: const Color(0xff1c1c1c), width: size.width * 0.004)),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          filled: true,
+          fillColor: Color(0x394EE1E1),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none,
+          ),
           labelText: textLabel,
           labelStyle: GoogleFonts.getFont('Poppins',
               decoration: TextDecoration.none,
