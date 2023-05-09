@@ -72,7 +72,7 @@ class ApiPessoa {
             emailContato: pessoa.contatoEmail,
             passwordString: pessoa.passwordString);
 
-        if (context.mounted) await authUser(pessoa: dtoPessoa, context: context);
+        await authUser(pessoa: dtoPessoa, context: context);
 
         return 200;
       } else {

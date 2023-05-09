@@ -293,8 +293,6 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                             const Color(0xff18CDCA),
                                         elevation: 1,
                                         behavior: SnackBarBehavior.floating,
-                                        showCloseIcon: true,
-                                        closeIconColor: const Color(0xff172331),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15),

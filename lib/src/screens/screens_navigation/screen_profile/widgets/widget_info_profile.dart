@@ -51,7 +51,7 @@ class InfoProfile extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Icon(
-                              Icons.person_2_rounded,
+                              Icons.person,
                               color: const Color(0xff6A6A6A),
                               size: size.width * .25,
                             ),

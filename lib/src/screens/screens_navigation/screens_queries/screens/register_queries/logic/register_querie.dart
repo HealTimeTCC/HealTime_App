@@ -16,8 +16,6 @@ class LogicQueries {
     if (postQuery.flagForwarding == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          showCloseIcon: true,
-          closeIconColor: Colors.white,
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 3),

@@ -37,12 +37,10 @@ class DataPreferencesPessoa {
 
     await _sharedPreferences.remove(ConstsPreferences.keyUser);
 
-    if (context.mounted) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const SplashScreen(),
-          ),
-          (route) => false);
-    }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+        ),
+            (route) => false);
   }
 }

@@ -11,21 +11,17 @@ class TypeUser {
 
     if (pessoa != null) {
       if (pessoa.tipoPessoa == 1) {
-        if (context.mounted) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ListQueries(pessoa: pessoa),
-            ),
-          );
-        }
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ListQueries(pessoa: pessoa),
+          ),
+        );
       } else {
-        if (context.mounted) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => SelectPatient(personId: pessoa.pessoaId!),
-            ),
-          );
-        }
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => SelectPatient(personId: pessoa.pessoaId!),
+          ),
+        );
       }
     }
   }

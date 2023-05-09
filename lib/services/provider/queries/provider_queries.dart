@@ -91,18 +91,16 @@ class ProviderQueries extends ChangeNotifier {
     }
 
     /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
-    if (context.mounted) {
-      Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
-          status: status, id: id, context: context);
+    Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
+        status: status, id: id, context: context);
 
-      if (mapData['statusCode'] != 0) {
-        List<dynamic> listd = mapData['body'];
+    if (mapData['statusCode'] != 0) {
+      List<dynamic> listd = mapData['body'];
 
-        _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
-        _statusCode = mapData['statusCode'];
-      } else {
-        _statusCode = 0;
-      }
+      _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
+      _statusCode = mapData['statusCode'];
+    } else {
+      _statusCode = 0;
     }
     /*=========================================================================*/
   }
@@ -149,52 +147,48 @@ class ProviderQueries extends ChangeNotifier {
 
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
-      if (context.mounted) {
-        Navigator.of(context).pop();
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            content: const LoadingData(
-                textLoading: 'Agendamento cadastrado com sucesso!',
-                permissCircula: false),
-            actions: [
-              Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 1,
-                      padding: EdgeInsets.symmetric(
-                          vertical: size.height * .02,
-                          horizontal: size.width * .2),
-                      backgroundColor: const Color(0xff1AE8E4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(45),
-                      ),
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          content: const LoadingData(
+              textLoading: 'Agendamento cadastrado com sucesso!',
+              permissCircula: false),
+          actions: [
+            Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 1,
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.height * .02,
+                        horizontal: size.width * .2),
+                    backgroundColor: const Color(0xff1AE8E4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(45),
                     ),
-                    child: Text(
-                      'Ok!',
-                      style: GoogleFonts.getFont('Poppins',
-                          decoration: TextDecoration.none,
-                          color: const Color(0xff172331),
-                          fontSize: size.width * .05,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ))
-            ],
-          ),
-        );
-      }
+                  ),
+                  child: Text(
+                    'Ok!',
+                    style: GoogleFonts.getFont('Poppins',
+                        decoration: TextDecoration.none,
+                        color: const Color(0xff172331),
+                        fontSize: size.width * .05,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ))
+          ],
+        ),
+      );
     } else {
       scaffold.showSnackBar(
         SnackBar(
-          showCloseIcon: true,
-          closeIconColor: Colors.white,
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
           shape:
