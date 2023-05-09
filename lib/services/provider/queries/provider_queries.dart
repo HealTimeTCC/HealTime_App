@@ -83,28 +83,32 @@ class ProviderQueries extends ChangeNotifier {
       required int status}) async {
     //LIMPANDO LISTAS PARA RECEBER OS VALORES ATUALIZADOS DA API
     _listQueries.clear();
-    _listSpecialties.clear();
+    if (_listSpecialties.isEmpty) {
+      await getSpecialties(context);
+    }else {
+      _listSpecialties.clear();
+      await getSpecialties(context);
+    }
 
     /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
-    Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
-        status: status, id: id, context: context);
+    if (context.mounted) {
+      Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
+          status: status, id: id, context: context);
 
-    if (mapData['statusCode'] != 0) {
-      List<dynamic> listd = mapData['body'];
+      if (mapData['statusCode'] != 0) {
+        List<dynamic> listd = mapData['body'];
 
-      _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
-      _statusCode = mapData['statusCode'];
-    } else {
-      _statusCode = 0;
+        _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
+        _statusCode = mapData['statusCode'];
+      } else {
+        _statusCode = 0;
+      }
     }
     /*=========================================================================*/
-
-    await getSpecialties(context);
   }
 
   Future<void> getSpecialties(BuildContext context) async {
     Map<String, dynamic> response = await ApiQueries.getEspecialidades(context);
-    _listSpecialties.clear();
     _listSpecialties.addAll(response['body']);
   }
 

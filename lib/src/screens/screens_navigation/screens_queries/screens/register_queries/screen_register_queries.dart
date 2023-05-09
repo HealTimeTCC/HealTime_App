@@ -441,7 +441,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                       onPressed: () async {
                         Iterable<ModelEspecialidades> selectSpecialty =
                             providerQuery.listSpecialties.where((element) =>
-                                element.descEspecialidade == valueSelect);
+                                element.descEspecialidade == providerQuery.valueSelect);
 
                         PostQuery postQuery = PostQuery(
                             dataPerson: widget.dataPessoa,
