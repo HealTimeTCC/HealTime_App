@@ -63,13 +63,14 @@ class DetailsQuery extends StatelessWidget {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  AlertCancelCloseQuery.alertCancelCloneQuery(
+                                onTap: () async {
+                                  await LogicDetailsQuery.alterStatusQuery(
                                       context: context,
+                                      statusId: 2,
+                                      motivo: 'Encerramento de consulta.',
                                       personId: personId,
-                                      queryId: queryId,
-                                      status: 2);
+                                      queryId: queryId);
+                                  if (context.mounted) Navigator.of(context).pop();
                                 },
                                 child: Row(
                                   children: [

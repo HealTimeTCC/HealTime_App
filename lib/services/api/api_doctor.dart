@@ -43,6 +43,10 @@ class ApiMedico {
         body: json.encode(medico),
         headers: {'Content-Type': 'application/json'});
 
+    print(response.statusCode);
+    print(response.body);
+    print(uriApi);
+
     return response.statusCode;
   }
 }

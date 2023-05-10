@@ -73,7 +73,7 @@ class AlertCancelCloseQuery {
                     personId: personId,
                     queryId: queryId);
 
-                Navigator.of(context).pop();
+                if (context.mounted) Navigator.of(context).pop();
               }
             },
             style: TextButton.styleFrom(foregroundColor: Colors.white),

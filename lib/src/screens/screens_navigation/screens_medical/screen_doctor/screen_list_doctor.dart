@@ -21,13 +21,10 @@ class _ListarMedicoState extends State<ListarMedico> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.of(context).pushNamed('/AddDoctor');
-        },
+        onPressed: ()  => Navigator.of(context).pushNamed('/AddDoctor'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(size.width * .05),
         ),
-        foregroundColor: const Color(0xff1AE8E4),
         backgroundColor: const Color(0xff18CDCA),
         child: Icon(
           Icons.add,
@@ -36,39 +33,8 @@ class _ListarMedicoState extends State<ListarMedico> {
         ),
       ),
       body: Stack(
-        // ignore: prefer_const_literals_to_create_immutables
         children: [
           const BackgroundPage(),
-Positioned(
-          top: 0,
-          right: 0,
-          left: 0,
-          child: SafeArea(
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomePage())),
-                  icon: Icon(Icons.arrow_back_ios_new,
-                      color: Color(0xff18CDCA), size: 35),
-                ),
-                Expanded(
-                  child: Text(
-                    'Lista de Médicos',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: Color(0xff1c1c1c),
-                        fontSize: 20,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-
           FutureBuilder<List<Medico>>(
             future: ApiMedico.obterMedicosAsync(context),
             builder: (context, snapshot) {
@@ -93,15 +59,50 @@ Positioned(
                 default:
                   List<Medico> listMedico = snapshot.data ?? [];
 
-                  return ListView.builder(
-                    itemCount: listMedico.length,
-                    itemBuilder: (context, index) {
-                      Medico doctor = snapshot.data![index];
-                      return GestureDetector(
-                        onTap: () => Navigator.of(context).pop(doctor),
-                        child: ModelDoctorList(doctor: doctor)
-                      );
-                    },
+                  return SafeArea(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                ),
+                              ),
+                              icon: Icon(Icons.arrow_back_ios_new,
+                                  color: const Color(0xff18CDCA),
+                                  size: size.width * .07),
+                            ),
+                            SizedBox(width: size.width * .04),
+                            Expanded(
+                              child: Text(
+                                'Lista de Médicos',
+                                style: GoogleFonts.getFont('Poppins',
+                                    decoration: TextDecoration.none,
+                                    color: const Color(0xff1c1c1c),
+                                    fontSize: 20,
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: size.height * .02),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: listMedico.length,
+                          itemBuilder: (context, index) {
+                            Medico doctor = snapshot.data![index];
+                            return GestureDetector(
+                              onTap: () => Navigator.of(context).pop(doctor),
+                              child: ModelDoctorList(doctor: doctor),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   );
               }
             },

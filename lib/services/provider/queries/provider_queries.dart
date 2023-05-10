@@ -82,7 +82,6 @@ class ProviderQueries extends ChangeNotifier {
       required BuildContext context,
       required int status}) async {
     //LIMPANDO LISTAS PARA RECEBER OS VALORES ATUALIZADOS DA API
-    _listQueries.clear();
     if (_listSpecialties.isEmpty) {
       await getSpecialties(context);
     }else {
@@ -91,18 +90,19 @@ class ProviderQueries extends ChangeNotifier {
     }
 
     /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
-    Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
-        status: status, id: id, context: context);
+    if (context.mounted) {
+      Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
+          status: status, id: id, context: context);
 
-    if (mapData['statusCode'] != 0) {
-      List<dynamic> listd = mapData['body'];
+      if (mapData['statusCode'] != 0) {
+        List<dynamic> listd = mapData['body'];
 
-      _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
-      _statusCode = mapData['statusCode'];
-    } else {
-      _statusCode = 0;
+        _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
+        _statusCode = mapData['statusCode'];
+      } else {
+        _statusCode = 0;
+      }
     }
-    /*=========================================================================*/
   }
 
   Future<void> getSpecialties(BuildContext context) async {

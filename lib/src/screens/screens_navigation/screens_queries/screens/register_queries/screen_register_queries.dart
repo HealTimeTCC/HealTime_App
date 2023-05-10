@@ -57,135 +57,48 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     Form(
                       child: Padding(
                         padding:
-                            EdgeInsets.symmetric(vertical: size.width * .05),
+                            EdgeInsets.symmetric(vertical: size.width * .01),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            //#region Selecionar especialidade
-                            Text(
-                              'Selecione a especialidade',
-                              style: FontGoogle.textSubTitleGoogle(size: size),
-                            ),
-                            SizedBox(height: size.height * .005),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: size.height * .01,
-                                  horizontal: size.width * .04),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 1,
-                                    offset: Offset(1, 2),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: DropdownButton(
-                                borderRadius: BorderRadius.circular(15),
-                                isExpanded: true,
-                                icon: Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  color: Colors.grey,
-                                  size: size.width * .08,
-                                ),
-                                underline: Container(),
-                                items: providerQuery.listSpecialties
-                                    .map((ModelEspecialidades element) {
-                                  return DropdownMenuItem<String>(
-                                    value: element.descEspecialidade,
-                                    child: Text(
-                                      element.descEspecialidade,
-                                      style: FontGoogle.textNormaleGoogle(
-                                          size: size),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (valueChanged) =>
-                                    providerQuery.select(valueChanged),
-                                value: providerQuery.valueSelect,
-                              ),
-                            ),
-                            //#endregion
-
                             //#region Data e hora do agendamento
-                            SizedBox(height: size.height * .03),
                             Text(
                               'Data agendamento',
                               style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: GestureDetector(
-                                    onTap: () async =>
-                                        await DateTimeQuery.selectDate(
-                                            context, true),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      height: size.height * .07,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey.shade200,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              DateFormat('dd/MM/yyyy').format(
-                                                  providerQuery.dtAgendamento!),
-                                              textAlign: TextAlign.center,
-                                              style: FontGoogle
-                                                  .textNormalGreyGoogle(
-                                                      size: size),
-                                            ),
-                                          ),
-                                          const Icon(
-                                            Icons.calendar_month_outlined,
-                                            color: Color(0xff1c1c1c),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                            GestureDetector(
+                              onTap: () async =>
+                                  await DateTimeQuery.selectDate(context, true),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * .05),
+                                height: size.height * .07,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: const Color(0xff333333),
                                   ),
                                 ),
-                                SizedBox(width: size.width * .04),
-                                Expanded(
-                                  flex: 1,
-                                  child: GestureDetector(
-                                    onTap: () async =>
-                                        await DateTimeQuery.selectTime(
-                                            context, true),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      height: size.height * .07,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          DateFormat('HH:mm').format(DateTime(
-                                              0,
-                                              0,
-                                              0,
-                                              providerQuery
-                                                  .timeAgendamento!.hour,
-                                              providerQuery
-                                                  .timeAgendamento!.minute)),
-                                          style:
-                                              FontGoogle.textNormalGreyGoogle(
-                                                  size: size),
-                                        ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        DateFormat('dd/MM/yyyy').format(
+                                            providerQuery.dtAgendamento!),
+                                        textAlign: TextAlign.left,
+                                        style: FontGoogle.textNormalGreyGoogle(
+                                            size: size),
                                       ),
                                     ),
-                                  ),
+                                    const Icon(
+                                      Icons.calendar_month_rounded,
+                                      color: Color(0xff1c1c1c),
+                                    )
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                             //#endregion
 
@@ -208,9 +121,12 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                          color: Colors.grey.shade200,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
+                                        color: Colors.grey.shade200,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color: const Color(0xff333333),
+                                        ),
+                                      ),
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -245,17 +161,23 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       decoration: BoxDecoration(
                                         color: Colors.grey.shade200,
                                         borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color: const Color(0xff333333),
+                                        ),
                                       ),
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          DateFormat('HH:mm').format(DateTime(
-                                              0,
-                                              0,
-                                              0,
-                                              providerQuery.timeConsulta!.hour,
-                                              providerQuery
-                                                  .timeConsulta!.minute)),
+                                          DateFormat('HH:mm').format(
+                                            DateTime(
+                                                0,
+                                                0,
+                                                0,
+                                                providerQuery
+                                                    .timeConsulta!.hour,
+                                                providerQuery
+                                                    .timeConsulta!.minute),
+                                          ),
                                           style:
                                               FontGoogle.textNormalGreyGoogle(
                                                   size: size),
@@ -332,6 +254,56 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                         size: size),
                                   ),
                                 ),
+                              ),
+                            ),
+                            //#endregion
+
+                            //#region Selecionar especialidade
+                            SizedBox(height: size.height * .03),
+                            Text(
+                              'Selecione a especialidade',
+                              style: FontGoogle.textSubTitleGoogle(size: size),
+                            ),
+                            SizedBox(height: size.height * .005),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: size.height * .01,
+                                  horizontal: size.width * .04),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 2),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: DropdownButton(
+                                borderRadius: BorderRadius.circular(15),
+                                isExpanded: true,
+                                icon: Icon(
+                                  Icons.arrow_drop_down_sharp,
+                                  color: Colors.grey,
+                                  size: size.width * .08,
+                                ),
+                                underline: Container(),
+                                items: providerQuery.listSpecialties
+                                    .map((ModelEspecialidades element) {
+                                  return DropdownMenuItem<String>(
+                                    value: element.descEspecialidade,
+                                    child: Text(
+                                      element.descEspecialidade,
+                                      style: FontGoogle.textNormaleGoogle(
+                                          size: size),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (valueChanged) {
+                                  providerQuery.select(valueChanged);
+                                },
+                                value: providerQuery.valueSelect,
                               ),
                             ),
                             //#endregion
@@ -439,7 +411,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                       onPressed: () async {
                         Iterable<ModelEspecialidades> selectSpecialty =
                             providerQuery.listSpecialties.where((element) =>
-                                element.descEspecialidade == providerQuery.valueSelect);
+                                element.descEspecialidade ==
+                                providerQuery.valueSelect);
 
                         PostQuery postQuery = PostQuery(
                             dataPerson: widget.dataPessoa,
@@ -454,7 +427,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: const Color(0xff1AE8E4),
+                        backgroundColor: const Color(0xff333333),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(45),
                         ),
@@ -463,7 +436,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                         'Adicionar consulta',
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.none,
-                            color: const Color(0xff172331),
+                            color: Colors.white,
                             fontSize: size.width * .04,
                             fontWeight: FontWeight.w400),
                       ),
