@@ -4,9 +4,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
+import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/apresentation_initial_details.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/buttom_gesture_detector.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
 
+import '../../../../services/data_locale/data_preferences_pessoa.dart';
+import '../../../../shared/models/model_pessoa.dart';
 import '../screens_medical/screen_doctor/screen_add_doctor.dart';
 import '../screens_medical/screen_doctor/screen_list_doctor.dart';
 import '../screens_queries/logics/logic_type_user.dart';
@@ -20,6 +23,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Pessoa? pessoa;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -75,10 +85,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           //#endregion
-
           ListView(
             physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
+              parent: BouncingScrollPhysics(),
+            ),
             children: [
               Padding(
                 padding:
@@ -86,82 +96,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     //#region Widget superior
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.9,
-                          child: Text(
-                            "Olá [Usuario]",
-                            style: FontGoogle.textNormaleGoogle(
-                                size: size, colorText: Colors.white),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          //height: size.height * .25,
-                          width: size.width * 0.9,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(.2),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  width: size.width * .5,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Paciente 1',
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFF14D8D5),
-                                        ),
-                                      ),
-                                      Text('Seg [Static]',
-                                          style: FontGoogle.textSubTitleGoogle(
-                                              size: size,
-                                              colorText: Colors.black)),
-                                      Text('Mes, ano',
-                                          style: FontGoogle.textSubTitleGoogle(
-                                              size: size,
-                                              colorText: Colors.black)),
-                                      Text(
-                                        'Ultima dose sendo aplicada em [Static] ',
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Image.asset(
-                                  'assets/img/ImagemRemedio.png',
-                                  width: size.width * .25,
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                     IntialDetails(),
                     //#endregion
                     const SizedBox(
                       height: 10,
