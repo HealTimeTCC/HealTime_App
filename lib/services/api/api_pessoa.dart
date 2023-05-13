@@ -10,6 +10,7 @@ import 'package:healtime/shared/models/model_pessoa.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/consts/consts_required.dart';
+import '../../shared/dto/dto_alter_password.dart';
 import '../../shared/dto/dto_pessoa_register.dart';
 import '../provider/login/provider_login.dart';
 
@@ -22,14 +23,12 @@ class ApiPessoa {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
     int statusCode = 400;
 
-    Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
+    Uri uriApi = Uri.parse(
+        '${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
     http.Response response = await http.post(uriApi,
         body: json.encode(pessoa),
         headers: {'Content-Type': 'application/json'});
-
-    print(response.statusCode);
-    print(response.body);
 
     if (response.statusCode == 200) {
       statusCode = response.statusCode;
@@ -53,26 +52,29 @@ class ApiPessoa {
   }
 
   /* Registrar usuário */
-  static Future<int> registerUser({required DtoPessoaRegister pessoa, required BuildContext context}) async {
+  static Future<int> registerUser(
+      {required DtoPessoaRegister pessoa,
+      required BuildContext context}) async {
     try {
       final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
-      Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}Pessoa/Registro');
+      Uri uriApi = Uri.parse(
+          '${providerLogin.addressServer ?? uriApiBase}Pessoa/Registro');
 
       http.Response response = await http.post(uriApi,
           body: jsonEncode(pessoa),
           headers: {
             'Content-Type': 'application/json'
           }).timeout(const Duration(seconds: 15));
-          print(response.body);
-          print(response.statusCode);
 
       if (response.statusCode == 200) {
         DtoPessoa dtoPessoa = DtoPessoa(
             emailContato: pessoa.contatoEmail,
             passwordString: pessoa.passwordString);
 
-        await authUser(pessoa: dtoPessoa, context: context);
+        if (context.mounted) {
+          await authUser(pessoa: dtoPessoa, context: context);
+        }
 
         return 200;
       } else {
@@ -82,6 +84,26 @@ class ApiPessoa {
       return 501;
     } catch (e) {
       return 400;
+    }
+  }
+
+  static Future<int> alterPassword(
+      {required DtoAlterPassword newPassword,
+      required String addressServer}) async {
+    try {
+      Uri uriApi = Uri.parse('${addressServer}Pessoa/AlteraSenha');
+
+      http.Response response = await http.put(uriApi,
+          body: jsonEncode(newPassword.toJson()),
+          headers: {
+            'Content-Type': 'application/json'
+          }).timeout(const Duration(seconds: 15));
+
+      return response.statusCode;
+    } on TimeoutException catch (_) {
+      return 1;
+    } catch (ex) {
+      return 0;
     }
   }
 }
