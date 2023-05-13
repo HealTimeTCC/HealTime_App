@@ -8,7 +8,7 @@ part of '../model_doctor.dart';
 
 Medico _$MedicoFromJson(Map<String, dynamic> json) => Medico(
       CrmMedico: json['CrmMedico'],
-      MedicoId: json['medicoId'] as int,cls
+      MedicoId: json['medicoId'] as int,
 
       NmMedico: json['nmMedico'] as String,
       UfCrmMedico: json['CodigoIgbeUfCrmMedico'] as String,
