@@ -25,6 +25,8 @@ class ApiMedico {
       List<dynamic> listDynamicDoctor =
           jsonDecode(response.body) as List<dynamic>;
 
+      print(listDynamicDoctor[0]);
+
       return listDynamicDoctor.map((e) => Medico.fromJson(e)).toList();
     } else {
       return [];

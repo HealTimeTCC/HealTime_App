@@ -429,7 +429,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         backgroundColor: const Color(0xff333333),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(45),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                       child: Text(

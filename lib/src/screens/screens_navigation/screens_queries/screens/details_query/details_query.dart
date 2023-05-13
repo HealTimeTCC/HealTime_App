@@ -50,7 +50,7 @@ class DetailsQuery extends StatelessWidget {
                       SizedBox(width: size.width * .02),
                       Expanded(
                         child: Text(
-                          'Status da Consulta',
+                          'Detalhes da Consulta',
                           style: FontGoogle.textTitleGoogle(size: size * .8),
                         ),
                       ),

@@ -2,13 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/screen_select_patient.dart';
+
 import '../screens_medical/screen_doctor/screen_add_doctor.dart';
 import '../screens_medical/screen_doctor/screen_list_doctor.dart';
-import '../screens_medical/screen_medicine/screen_include_medicine.dart';
 import '../screens_queries/logics/logic_type_user.dart';
 import 'home_appbar.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,13 +29,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    var personId;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xFF14D8D5),
       ),
       drawer: Drawer(
+        elevation: 0,
         child: ListView(children: [
           ListTile(
             title: Text('Consultas'),
