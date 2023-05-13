@@ -23,6 +23,7 @@ class DetailsQuery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final ProviderQueries providerQueries = Provider.of<ProviderQueries>(context, listen: false);
 
     return Scaffold(
       body: Stack(
@@ -142,110 +143,106 @@ class DetailsQuery extends StatelessWidget {
                         }
                       default:
                         {
-                          return Consumer<ProviderQueries>(
-                            builder: (context, value, child) {
-                              DtoQuery detailsQuery = value.detailsQueryGet!;
-                              String nameSpecialty = value.nameEspecialidadeGet;
-                              String namePerson = value.namePersonGet!;
-                              String nameDoctor = value.nameDoctorGet!;
+                          String nameSpecialty = providerQueries.nameEspecialidadeGet;
+                          DtoQuery detailsQuery = providerQueries.detailsQueryGet!;
+                          String namePerson = providerQueries.namePersonGet!;
+                          String nameDoctor = providerQueries.nameDoctorGet!;
 
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * .1,
-                                    vertical: size.height * .02),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      'Paciente ',
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: size.width * .02),
-                                      child: Text(
-                                        namePerson,
-                                        style: FontGoogle.textNormaleGoogle(
-                                            size: size * .85),
-                                      ),
-                                    ),
-                                    SizedBox(height: size.height * .03),
-                                    Text(
-                                      'Informações da consulta',
-                                      textAlign: TextAlign.center,
-                                      style: FontGoogle.textTitleGoogle(
-                                          size: size * .85),
-                                    ),
-                                    SizedBox(height: size.height * .02),
-                                    Text(
-                                      'Seu médico ',
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: size.width * .02),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              nameDoctor,
-                                              style:
-                                                  FontGoogle.textNormaleGoogle(
-                                                      size: size * .85),
-                                            ),
-                                          ),
-                                          Text(
-                                            nameSpecialty,
-                                            style: FontGoogle.textNormaleGoogle(
-                                                size: size * .85),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(height: size.height * .02),
-                                    Text(
-                                      'Data da consulta ',
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: size.width * .02),
-                                      child: Text(
-                                        DateFormat('dd/MM/yyyy HH:mm').format(
-                                          DateTime.parse(
-                                              detailsQuery.dataConsulta),
-                                        ),
-                                        style: FontGoogle.textNormaleGoogle(
-                                            size: size * .85),
-                                      ),
-                                    ),
-                                    SizedBox(height: size.height * .02),
-                                    Text(
-                                      'Data da solicitação ',
-                                      style: FontGoogle.textSubTitleGoogle(
-                                          size: size),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: size.width * .02),
-                                      child: Text(
-                                        DateFormat('dd/MM/yyyy').format(
-                                          DateTime.parse(detailsQuery
-                                              .dataSolicitacaoConsulta),
-                                        ),
-                                        style: FontGoogle.textNormaleGoogle(
-                                            size: size * .85),
-                                      ),
-                                    ),
-                                  ],
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * .1,
+                                vertical: size.height * .02),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  'Paciente ',
+                                  style: FontGoogle.textSubTitleGoogle(
+                                      size: size),
                                 ),
-                              );
-                            },
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * .02),
+                                  child: Text(
+                                    namePerson,
+                                    style: FontGoogle.textNormaleGoogle(
+                                        size: size * .85),
+                                  ),
+                                ),
+                                SizedBox(height: size.height * .03),
+                                Text(
+                                  'Informações da consulta',
+                                  textAlign: TextAlign.center,
+                                  style: FontGoogle.textTitleGoogle(
+                                      size: size * .85),
+                                ),
+                                SizedBox(height: size.height * .02),
+                                Text(
+                                  'Seu médico ',
+                                  style: FontGoogle.textSubTitleGoogle(
+                                      size: size),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * .02),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          nameDoctor,
+                                          style:
+                                          FontGoogle.textNormaleGoogle(
+                                              size: size * .85),
+                                        ),
+                                      ),
+                                      Text(
+                                        nameSpecialty,
+                                        style: FontGoogle.textNormaleGoogle(
+                                            size: size * .85),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: size.height * .02),
+                                Text(
+                                  'Data da consulta ',
+                                  style: FontGoogle.textSubTitleGoogle(
+                                      size: size),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * .02),
+                                  child: Text(
+                                    DateFormat('dd/MM/yyyy HH:mm').format(
+                                      DateTime.parse(
+                                          detailsQuery.dataConsulta),
+                                    ),
+                                    style: FontGoogle.textNormaleGoogle(
+                                        size: size * .85),
+                                  ),
+                                ),
+                                SizedBox(height: size.height * .02),
+                                Text(
+                                  'Data da solicitação ',
+                                  style: FontGoogle.textSubTitleGoogle(
+                                      size: size),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * .02),
+                                  child: Text(
+                                    DateFormat('dd/MM/yyyy').format(
+                                      DateTime.parse(detailsQuery
+                                          .dataSolicitacaoConsulta),
+                                    ),
+                                    style: FontGoogle.textNormaleGoogle(
+                                        size: size * .85),
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         }
                     }

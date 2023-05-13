@@ -10,7 +10,6 @@ class AlertCancelCloseQuery {
       required int queryId,
       required int status}) {
     final Size size = MediaQuery.of(context).size;
-
     final TextEditingController textController = TextEditingController();
 
     showDialog(

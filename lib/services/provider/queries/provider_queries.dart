@@ -36,9 +36,12 @@ class ProviderQueries extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> alterStatusQuery(int queryId, int statusId, int personId, String address) async {
+  Future<void> alterStatusQuery(
+      int queryId, int statusId, int personId, String address) async {
     _listQueries
-        .where((element) => element.consultasAgendadasId == queryId).first.statusConsultaId = statusId;
+        .where((element) => element.consultasAgendadasId == queryId)
+        .first
+        .statusConsultaId = statusId;
     _statusQuery = statusId;
     initialValues(id: personId, address: address);
   }
@@ -144,17 +147,18 @@ class ProviderQueries extends ChangeNotifier {
 
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
-      Navigator.of(context).pop();
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          content: const LoadingData(
-              textLoading: 'Agendamento cadastrado com sucesso!',
-              permissCircula: false),
-          actions: [
-            Align(
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            content: const LoadingData(
+                textLoading: 'Agendamento cadastrado com sucesso!',
+                permissCircula: false),
+            actions: [
+              Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: () {
@@ -179,23 +183,28 @@ class ProviderQueries extends ChangeNotifier {
                         fontSize: size.width * .05,
                         fontWeight: FontWeight.w400),
                   ),
-                ))
-          ],
-        ),
-      );
-    } else {
-      scaffold.showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.redAccent,
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          duration: const Duration(seconds: 2),
-          content: Text(
-            response['body'],
+                ),
+              )
+            ],
           ),
-        ),
-      );
+        );
+      }
+    } else {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        scaffold.showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            duration: const Duration(seconds: 2),
+            content: Text(
+              response['body'],
+            ),
+          ),
+        );
+      }
     }
   }
 
