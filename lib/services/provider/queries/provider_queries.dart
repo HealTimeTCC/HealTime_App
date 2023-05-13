@@ -36,13 +36,11 @@ class ProviderQueries extends ChangeNotifier {
     notifyListeners();
   }
 
-  void alterStatusQuery(int queryId, int statusId) {
+  Future<void> alterStatusQuery(int queryId, int statusId, int personId, String address) async {
     _listQueries
-        .where((element) => element.consultasAgendadasId == queryId)
-        .first
-        .statusConsultaId = statusId;
-
-    notifyListeners();
+        .where((element) => element.consultasAgendadasId == queryId).first.statusConsultaId = statusId;
+    _statusQuery = statusId;
+    initialValues(id: personId, address: address);
   }
 
   //ALTERAR O STATUS DA CONSULTA E OBTER NOVOS VALORES DE ACORDO COM STATUS ESCOLHIDO
@@ -87,6 +85,7 @@ class ProviderQueries extends ChangeNotifier {
   }
 
   Future<void> initialValues({required int id, required String address}) async {
+    _listQueries.clear();
     Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
         status: _statusQuery, id: id, addressServer: address);
 
