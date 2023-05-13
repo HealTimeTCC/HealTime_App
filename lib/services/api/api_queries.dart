@@ -32,12 +32,10 @@ class ApiQueries {
   static Future<Map<String, dynamic>> getInfoQueries(
       {required int status,
       required int id,
-      required BuildContext context}) async {
+      required String addressServer}) async {
     try {
-      final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
-
       Uri uriApi = Uri.parse(
-          '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/ListaAgendamentosPacientes');
+          '${addressServer}ConsultaMedica/ListaAgendamentosPacientes');
 
       Map<String, dynamic> data = {
         "pacienteId": id,

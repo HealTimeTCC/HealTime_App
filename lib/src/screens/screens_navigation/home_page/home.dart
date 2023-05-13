@@ -6,10 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/buttom_gesture_detector.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/screen_select_patient.dart';
+
 import '../screens_medical/screen_doctor/screen_add_doctor.dart';
 import '../screens_medical/screen_doctor/screen_list_doctor.dart';
-import '../screens_medical/screen_medicine/screen_include_medicine.dart';
 import '../screens_queries/logics/logic_type_user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -24,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    var personId;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -32,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       ),
       //#region DRAWER
       drawer: Drawer(
+        elevation: 0,
         child: ListView(children: [
           ListTile(
             title: const Text('Consultas'),
@@ -79,11 +78,11 @@ class _HomePageState extends State<HomePage> {
 
           ListView(
             physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()
-            ),
+                parent: BouncingScrollPhysics()),
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Column(
                   children: [
                     //#region Widget superior
@@ -127,7 +126,8 @@ class _HomePageState extends State<HomePage> {
                                 Container(
                                   width: size.width * .5,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Paciente 1',
@@ -137,10 +137,12 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Text('Seg [Static]',
                                           style: FontGoogle.textSubTitleGoogle(
-                                              size: size, colorText: Colors.black)),
+                                              size: size,
+                                              colorText: Colors.black)),
                                       Text('Mes, ano',
                                           style: FontGoogle.textSubTitleGoogle(
-                                              size: size, colorText: Colors.black)),
+                                              size: size,
+                                              colorText: Colors.black)),
                                       Text(
                                         'Ultima dose sendo aplicada em [Static] ',
                                         style: GoogleFonts.poppins(
@@ -161,10 +163,13 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     //#endregion
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF14D8D5).withAlpha((0.5 * 255).round()),
+                        color: const Color(0xFF14D8D5)
+                            .withAlpha((0.5 * 255).round()),
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
@@ -186,9 +191,14 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10,),
-                    Text("Meus Remedios", style: FontGoogle.textTitleGoogle(size: size, colorText: Colors.black),),
-
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Meus Remedios",
+                      style: FontGoogle.textTitleGoogle(
+                          size: size, colorText: Colors.black),
+                    ),
                   ],
                 ),
               )

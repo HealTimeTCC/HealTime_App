@@ -36,20 +36,21 @@ class ProviderQueries extends ChangeNotifier {
     notifyListeners();
   }
 
-  void alterStatusQuery(int queryId, int statusId) {
+  Future<void> alterStatusQuery(
+      int queryId, int statusId, int personId, String address) async {
     _listQueries
         .where((element) => element.consultasAgendadasId == queryId)
         .first
         .statusConsultaId = statusId;
-
-    notifyListeners();
+    _statusQuery = statusId;
+    initialValues(id: personId, address: address);
   }
 
   //ALTERAR O STATUS DA CONSULTA E OBTER NOVOS VALORES DE ACORDO COM STATUS ESCOLHIDO
   void alterListQueries(
-      {required int status, required BuildContext context, required int id}) {
+      {required int status, required String address, required int id}) {
     _statusQuery = status;
-    initialValues(id: id, context: context, status: _statusQuery);
+    initialValues(id: id, address: address);
     notifyListeners();
   }
 
@@ -58,54 +59,53 @@ class ProviderQueries extends ChangeNotifier {
   DtoQuery? get detailsQueryGet => _detailsQuery;
 
   String _nameEspecialidadeGet = '';
+
   String get nameEspecialidadeGet => _nameEspecialidadeGet;
 
   String? _namePersonGet;
+
   String? get namePersonGet => _namePersonGet;
 
   String? _nameDoctorGet;
+
   String? get nameDoctorGet => _nameDoctorGet;
 
-  Future<void> addDetailsQuery(DtoQuery newDetailsQuery) async => _detailsQuery = newDetailsQuery;
+  Future<void> addDetailsQuery(DtoQuery newDetailsQuery) async =>
+      _detailsQuery = newDetailsQuery;
 
-  Future<void> addSpecialty(String specialty)     async => _nameEspecialidadeGet = specialty;
-  Future<void> addPerson(String namePerson)       async  => _namePersonGet = namePerson;
-  Future<void> addNameDoctor(String nameDoctor)   async => _nameDoctorGet = nameDoctor;
+  Future<void> addSpecialty(String specialty) async =>
+      _nameEspecialidadeGet = specialty;
+
+  Future<void> addPerson(String namePerson) async =>
+      _namePersonGet = namePerson;
+
+  Future<void> addNameDoctor(String nameDoctor) async =>
+      _nameDoctorGet = nameDoctor;
 
   void disposeDetailsQuery() {
     _detailsQuery = null;
     notifyListeners();
   }
 
-  Future<void> initialValues(
-      {required int id,
-      required BuildContext context,
-      required int status}) async {
-    //LIMPANDO LISTAS PARA RECEBER OS VALORES ATUALIZADOS DA API
-    if (_listSpecialties.isEmpty) {
-      await getSpecialties(context);
-    }else {
-      _listSpecialties.clear();
-      await getSpecialties(context);
+  Future<void> initialValues({required int id, required String address}) async {
+    _listQueries.clear();
+    Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
+        status: _statusQuery, id: id, addressServer: address);
+
+    if (mapData['statusCode'] == 200) {
+      List<dynamic> listData = mapData['body'];
+
+      _listQueries =
+          listData.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
+      _statusCode = mapData['statusCode'];
+    } else {
+      _statusCode = 0;
     }
-
-    /* OBTER OS DADOS BÁSICOS DA CONSULTA MÉDICA */
-    if (context.mounted) {
-      Map<String, dynamic> mapData = await ApiQueries.getInfoQueries(
-          status: status, id: id, context: context);
-
-      if (mapData['statusCode'] != 0) {
-        List<dynamic> listd = mapData['body'];
-
-        _listQueries = listd.map((e) => DtoInfoBasicQueries.fromJson(e)).toList();
-        _statusCode = mapData['statusCode'];
-      } else {
-        _statusCode = 0;
-      }
-    }
+    notifyListeners();
   }
 
   Future<void> getSpecialties(BuildContext context) async {
+    _listSpecialties.clear();
     Map<String, dynamic> response = await ApiQueries.getEspecialidades(context);
     _listSpecialties.addAll(response['body']);
   }
@@ -147,17 +147,18 @@ class ProviderQueries extends ChangeNotifier {
 
     scaffold.clearSnackBars();
     if (response['statusCode'] == 200) {
-      Navigator.of(context).pop();
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          content: const LoadingData(
-              textLoading: 'Agendamento cadastrado com sucesso!',
-              permissCircula: false),
-          actions: [
-            Align(
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            content: const LoadingData(
+                textLoading: 'Agendamento cadastrado com sucesso!',
+                permissCircula: false),
+            actions: [
+              Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: () {
@@ -182,23 +183,28 @@ class ProviderQueries extends ChangeNotifier {
                         fontSize: size.width * .05,
                         fontWeight: FontWeight.w400),
                   ),
-                ))
-          ],
-        ),
-      );
-    } else {
-      scaffold.showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.redAccent,
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          duration: const Duration(seconds: 2),
-          content: Text(
-            response['body'],
+                ),
+              )
+            ],
           ),
-        ),
-      );
+        );
+      }
+    } else {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        scaffold.showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            duration: const Duration(seconds: 2),
+            content: Text(
+              response['body'],
+            ),
+          ),
+        );
+      }
     }
   }
 

@@ -9,70 +9,59 @@ import '../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../shared/models/maps/enum_status_consulta.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 import '../register_queries/screen_register_queries.dart';
+import 'logic/list_queries.dart';
 
-class ListQueries extends StatefulWidget {
+class ListQueries extends StatelessWidget {
   const ListQueries({Key? key, required this.pessoa}) : super(key: key);
 
   final Pessoa pessoa;
 
   @override
-  State<ListQueries> createState() => _ListQueriesState();
-}
-
-class _ListQueriesState extends State<ListQueries> {
-
-  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final provider = Provider.of<ProviderQueries>(context);
 
-    return RefreshIndicator(
-      onRefresh: () async => setState(() {}),
-      color: const Color(0xff1AE8E4),
-      child: FutureBuilder(
-        future: provider.initialValues(
-          id: widget.pessoa.pessoaId!,
-          context: context,
-          status: provider.statusQuery,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              {
-                return Stack(
-                  children: [
-                    const BackgroundPage(),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const CircularProgressIndicator(
-                            color: Color(0xff18CDCA),
-                          ),
-                          SizedBox(height: size.height * .05),
-                          Text(
-                            'Obtendo os dados necessários',
-                            style: FontGoogle.textNormaleGoogle(size: size),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                );
-              }
-            default:
-              {
-                return Scaffold(
+    return FutureBuilder(
+      future: LogicListQueries.logicListQueries(
+          context: context, personId: pessoa.pessoaId!),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            {
+              return Stack(
+                children: [
+                  const BackgroundPage(),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const CircularProgressIndicator(
+                          color: Color(0xff18CDCA),
+                        ),
+                        SizedBox(height: size.height * .05),
+                        Text(
+                          'Obtendo os dados necessários',
+                          style: FontGoogle.textNormaleGoogle(size: size),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              );
+            }
+          default:
+            {
+              return Consumer<ProviderQueries>(
+                builder: (context, valueProvider, child) => Scaffold(
                   floatingActionButton: FloatingActionButton(
                     elevation: 1,
                     onPressed: () {
-                      provider.disposeEncaminhamento();
+                      valueProvider.disposeEncaminhamento();
 
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              RegisterQueries(dataPessoa: widget.pessoa),
+                              RegisterQueries(dataPessoa: pessoa),
                         ),
                       );
                     },
@@ -127,28 +116,29 @@ class _ListQueriesState extends State<ListQueries> {
                                       PopupMenuButton(
                                         elevation: 2,
                                         shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(15)),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
                                         itemBuilder: (context) =>
-                                            StatusConsulta.keys
-                                                .map((int value) {
-                                              return PopupMenuItem(
-                                                value: value,
-                                                onTap: () {
-                                                  provider.alterListQueries(
-                                                      status: value,
+                                            StatusConsulta.keys.map(
+                                          (int value) {
+                                            return PopupMenuItem(
+                                              value: value,
+                                              onTap: () => LogicListQueries
+                                                  .logicAlterStatus(
                                                       context: context,
-                                                      id: widget
-                                                          .pessoa.pessoaId!);
-                                                },
-                                                child: Text(
-                                                  StatusConsulta[value],
-                                                  style: FontGoogle
-                                                      .textNormaleGoogle(
-                                                      size: size),
-                                                ),
-                                              );
-                                            }).toList(),
+                                                      personId:
+                                                          pessoa.pessoaId!,
+                                                      statusId: value),
+                                              child: Text(
+                                                StatusConsulta[value],
+                                                style: FontGoogle
+                                                    .textNormaleGoogle(
+                                                        size: size),
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
                                         child: Icon(
                                           Icons.filter_alt_outlined,
                                           color: const Color(0xff1AE8E4),
@@ -163,17 +153,16 @@ class _ListQueriesState extends State<ListQueries> {
                           ),
                         ),
                       ),
-                      provider.statusCode != 200
+                      valueProvider.statusCode != 200
                           ? const NullContentQueries()
-                          : ListContentQueries(
-                          idPerson: widget.pessoa.pessoaId!),
+                          : ListContentQueries(idPerson: pessoa.pessoaId!),
                     ],
                   ),
-                );
-              }
-          }
-        },
-      ),
+                ),
+              );
+            }
+        }
+      },
     );
   }
 }
