@@ -32,6 +32,12 @@ class DataPreferencesPessoa {
     }
   }
 
+  static Future<void> removeDataUser() async {
+    await _initPreferences();
+
+    await _sharedPreferences.remove(ConstsPreferences.keyUser);
+  }
+
   static Future<void> removeUser(BuildContext context) async {
     await _initPreferences();
 

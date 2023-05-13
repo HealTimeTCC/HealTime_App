@@ -7,7 +7,7 @@ class DataPreferences {
       _sharedPreferences = await SharedPreferences.getInstance();
 
   /* Salvar um dado do tipo string */
-  static void savedDataString(String data, String key) async {
+  static Future<void> savedDataString(String data, String key) async {
     await _initPreferences();
     _sharedPreferences.setString(key, data);
   }
