@@ -93,11 +93,13 @@ class ApiPessoa {
     try {
       Uri uriApi = Uri.parse('${addressServer}Pessoa/AlteraSenha');
 
-      http.Response response = await http.put(uriApi,
-          body: jsonEncode(newPassword.toJson()),
-          headers: {
-            'Content-Type': 'application/json'
-          }).timeout(const Duration(seconds: 15));
+      final Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      http.Response response = await http
+          .put(uriApi, body: jsonEncode(newPassword.toJson()), headers: header)
+          .timeout(
+            const Duration(seconds: 15),
+          );
 
       return response.statusCode;
     } on TimeoutException catch (_) {

@@ -128,9 +128,14 @@ class _AlterPasswordState extends State<AlterPassword> {
       SnackBarError.snackBarError(
           context: context, msg: 'Nova senha inválida');
     } else {
-      await LogicAlterPassword.alterPassword(context: context,
-          oldPassword: _textNewPassword.text,
-          newPassword: _textOldPassword.text);
+      bool success = await LogicAlterPassword.alterPassword(context: context,
+          oldPassword: _textOldPassword.text,
+          newPassword: _textNewPassword.text);
+
+      if (success) {
+        _textNewPassword.clear();
+        _textOldPassword.clear();
+      }
     }
   }
 }
