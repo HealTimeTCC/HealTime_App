@@ -241,7 +241,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   color: Colors.grey.shade200,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Colors.grey.shade100,
+                                    color: const Color(0xff333333),
                                   ),
                                 ),
                                 child: Align(

@@ -193,7 +193,6 @@ class ApiQueries {
         uriApi,
         headers: header,
       );
-
       Map<String, dynamic> mapResponse = jsonDecode(response.body);
 
       person = Pessoa.fromJson(mapResponse);

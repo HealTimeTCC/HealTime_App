@@ -144,8 +144,8 @@ class DetailsQuery extends StatelessWidget {
                       default:
                         {
                           String nameSpecialty = providerQueries.nameEspecialidadeGet;
-                          DtoQuery detailsQuery = providerQueries.detailsQueryGet!;
                           String namePerson = providerQueries.namePersonGet!;
+                          DtoQuery detailsQuery = providerQueries.detailsQueryGet!;
                           String nameDoctor = providerQueries.nameDoctorGet!;
 
                           return Padding(
