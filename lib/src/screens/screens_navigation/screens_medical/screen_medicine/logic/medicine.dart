@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/shared/models/model_type_medicine.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../services/api/api_medicine.dart';
@@ -90,6 +91,38 @@ class LogicMedicine {
           content: Text(ex.toString()),
         ),
       );
+    }
+  }
+
+  static Future<List<TypeMedicine>> getListMedicine(
+      {required BuildContext context}) async {
+    try {
+      final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+      Pessoa? person = await DataPreferencesPessoa.getDataUser();
+
+      if (person == null) {
+        throw Exception('Não foi possível obter os dados do usuário.');
+      }
+
+      return await ApiMedicine.getListTypeMedicine(
+          address: providerLogin.addressServer);
+    } catch (ex) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.redAccent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          closeIconColor: Colors.white,
+          showCloseIcon: true,
+          content: Text(
+            ex.toString(),
+          ),
+        ),
+      );
+      return [];
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:healtime/shared/models/model_medicacao.dart';
 
 import '../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../shared/decorations/screen_background.dart';
+import '../../../../../shared/models/model_type_medicine.dart';
 import 'Widget/model_text_field.dart';
 import 'logic/medicine.dart';
 
@@ -20,7 +21,14 @@ class _IncludeMedicationState extends State<IncludeMedication> {
   final TextEditingController _textComposedController = TextEditingController();
   final TextEditingController _textLaboratoryController =
       TextEditingController();
-  final TextEditingController _textGenericController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textNameController.dispose();
+    _textComposedController.dispose();
+    _textLaboratoryController.dispose();
+    super.dispose();
+  }
 
   final List<String> _optionsMedicineGeneric = [
     'Sim, este medicamento é genérico.',
@@ -28,6 +36,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
   ];
 
   String _selectMedicineGeneric = 'N';
+  int _selectMedicineType = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +91,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                     ModelTextField(
                         textFieldController: _textComposedController),
                     Text(
-                      'Laboratorio',
+                      'Laboratorio*',
                       style: FontGoogle.textSubTitleGoogle(size: size * .85),
                     ),
                     ModelTextField(
@@ -91,9 +100,10 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                       'Genérico*',
                       style: FontGoogle.textSubTitleGoogle(size: size * .85),
                     ),
-                    SizedBox(height: size.height * .02),
+                    SizedBox(height: size.height * .01),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * .02),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * .02),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
@@ -104,6 +114,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                       child: DropdownButton(
                         value: _selectMedicineGeneric,
                         style: FontGoogle.textNormaleGoogle(size: size * .68),
+                        isExpanded: true,
                         underline: Container(),
                         borderRadius: BorderRadius.circular(15),
                         icon: const Icon(Icons.keyboard_arrow_down_rounded),
@@ -124,6 +135,61 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                         },
                       ),
                     ),
+                    SizedBox(height: size.height * .02),
+                    Text(
+                      'Genérico*',
+                      style: FontGoogle.textSubTitleGoogle(size: size * .85),
+                    ),
+                    FutureBuilder(
+                      future: LogicMedicine.getListMedicine(context: context),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            {
+                              return Container();
+                            }
+                          default:
+                            {
+                              List<TypeMedicine> listTypesMedicine = snapshot.data ?? [];
+
+                              return Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * .02),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: const Color(0xff333333),
+                                  ),
+                                ),
+                                child: DropdownButton(
+                                  value: _selectMedicineType,
+                                  isExpanded: true,
+                                  style: FontGoogle.textNormaleGoogle(
+                                      size: size * .68),
+                                  underline: Container(),
+                                  borderRadius: BorderRadius.circular(15),
+                                  icon: const Icon(
+                                      Icons.keyboard_arrow_down_rounded),
+                                  items: listTypesMedicine
+                                      .map(
+                                        (e) => DropdownMenuItem(
+                                          value: (e.typeMedicineId),
+                                          child: Text(e.titleTypeMedicine),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectMedicineType = value!;
+                                    });
+                                  },
+                                ),
+                              );
+                            }
+                        }
+                      },
+                    ),
                     SizedBox(height: size.height * .04),
                     ElevatedButton(
                       onPressed: () async {
@@ -135,7 +201,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                                 _textLaboratoryController.text,
                             nomeMedicacao: _textNameController.text,
                             statusMedicacaoId: StatusMedicacao.ativo,
-                            tipoMedicacaoId: 1);
+                            tipoMedicacaoId: _selectMedicineType);
 
                         LogicMedicine.includeMedicine(
                             context: context, medicine: medicine);
