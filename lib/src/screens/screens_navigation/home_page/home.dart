@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     //#region Widget superior
-                     IntialDetails(),
+                     const IntialDetails(),
                     //#endregion
                     const SizedBox(
                       height: 10,
