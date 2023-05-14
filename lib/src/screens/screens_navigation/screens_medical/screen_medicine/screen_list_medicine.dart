@@ -34,7 +34,20 @@ class ListaRemedios extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
               {
-                return Container();
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CircularProgressIndicator(
+                        color: Color(0xff00BCB9),
+                      ),
+                      Text(
+                        'Obtendo medicações...',
+                        style: FontGoogle.textNormaleGoogle(size: size),
+                      )
+                    ],
+                  ),
+                );
               }
             default:
               {

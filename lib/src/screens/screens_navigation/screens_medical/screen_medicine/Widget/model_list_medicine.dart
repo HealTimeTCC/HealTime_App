@@ -12,62 +12,67 @@ class ModelListMedicine extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: size.width * .1, vertical: size.height * .01),
-      padding: EdgeInsets.symmetric(
-          vertical: size.height * .02, horizontal: size.width * .04),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(blurRadius: 1, offset: Offset(1, 2), color: Colors.black12)
-        ],
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
+    return GestureDetector(
+      onLongPress: () {
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: size.width * .1, vertical: size.height * .01),
+        padding: EdgeInsets.symmetric(
+            vertical: size.height * .02, horizontal: size.width * .04),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 1, offset: Offset(1, 2), color: Colors.black12)
+          ],
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  medicine.nomeMedicacao,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    medicine.nomeMedicacao,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormaleGoogle(size: size * .8),
+                  ),
+                ),
+                Text(
+                  (medicine.generico == 'S' ? 'Genérico' : ''),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: FontGoogle.textNormaleGoogle(size: size * .8),
+                )
+              ],
+            ),
+            SizedBox(width: size.width * .01),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    medicine.compostoAtivoMedicacao,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormaleGoogle(size: size * .7),
+                  ),
                 ),
-              ),
-              Text(
-                (medicine.generico == 'S' ? 'Genérico' : ''),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: FontGoogle.textNormaleGoogle(size: size * .8),
-              )
-            ],
-          ),
-          SizedBox(width: size.width * .01),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  medicine.compostoAtivoMedicacao,
+                Text(
+                  medicine.statusMedicacaoId.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: FontGoogle.textNormaleGoogle(size: size * .7),
-                ),
-              ),
-              Text(
-                medicine.statusMedicacaoId.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: FontGoogle.textNormaleGoogle(size: size * .7),
-              )
-            ],
-          )
-        ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
