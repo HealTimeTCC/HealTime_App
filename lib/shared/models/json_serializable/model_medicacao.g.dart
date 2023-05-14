@@ -22,13 +22,11 @@ ModelMedicacao _$ModelMedicacaoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ModelMedicacaoToJson(ModelMedicacao instance) =>
     <String, dynamic>{
-      'medicacaoId': instance.medicacaoId,
-      'statusMedicacaoId':
-          _$StatusMedicacaoEnumMap[instance.statusMedicacaoId]!,
+      'statusMedicacaoId': instance.statusMedicacaoId.index,
       'tipoMedicacaoId': instance.tipoMedicacaoId,
       'nomeMedicacao': instance.nomeMedicacao,
       'compostoAtivoMedicacao': instance.compostoAtivoMedicacao,
-      'laboratorioMedicacao': instance.laboratorioMedicacao,
+      'LaboratorioMedicaocao': instance.laboratorioMedicacao,
       'generico': instance.generico,
       'codPessoaAlter': instance.codPessoaAlter
     };

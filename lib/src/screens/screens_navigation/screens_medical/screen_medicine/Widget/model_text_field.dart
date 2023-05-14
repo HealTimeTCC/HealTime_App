@@ -21,6 +21,7 @@ class ModelTextField extends StatelessWidget {
         ],
       ),
       child: TextField(
+        controller: textFieldController,
         style: FontGoogle.textNormaleGoogle(size: size),
         cursorColor: Colors.black12,
         decoration: InputDecoration(

@@ -9,17 +9,30 @@ class ApiMedicine {
 
   static Future<List<ModelMedicacao>> getMedineUser(
       {required int personId, String? address}) async {
-
     final Uri uriApi = Uri.parse('${address ?? uriApiBase}'
         'Medicacoes/ListaMedicamentos/$personId');
 
-    http.Response response = await http.get(uriApi,
-        headers: {'Content-Type': 'application/json'});
+    http.Response response =
+        await http.get(uriApi, headers: {'Content-Type': 'application/json'});
 
-    List<dynamic> responseListDynamic = (jsonDecode(response.body) ?? []) as List<dynamic>;
-
-    print(responseListDynamic[0]);
+    List<dynamic> responseListDynamic =
+        (jsonDecode(response.body) ?? []) as List<dynamic>;
 
     return responseListDynamic.map((e) => ModelMedicacao.fromJson(e)).toList();
+  }
+
+  static Future<int> postMedicineUser(
+      {required List<ModelMedicacao> listModelMedicine,
+      String? address}) async {
+    final Uri uriApi = Uri.parse('${address ?? uriApiBase}'
+        'Medicacoes/IncluirMedicacoes');
+
+    http.Response response = await http.post(
+      uriApi,
+      body: jsonEncode(listModelMedicine),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    return response.statusCode;
   }
 }

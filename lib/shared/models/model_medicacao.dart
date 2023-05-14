@@ -9,13 +9,13 @@ class ModelMedicacao {
       {required this.compostoAtivoMedicacao,
       required this.generico,
       required this.laboratorioMedicacao,
-      required this.medicacaoId,
+      this.medicacaoId,
       required this.nomeMedicacao,
       required this.statusMedicacaoId,
       required this.tipoMedicacaoId,
       this.codPessoaAlter});
 
-  int medicacaoId;
+  int? medicacaoId;
   StatusMedicacao statusMedicacaoId;
   int tipoMedicacaoId;
   String nomeMedicacao;
