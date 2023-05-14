@@ -50,8 +50,7 @@ class _HomePageState extends State<HomePage> {
           ListTile(
             title: const Text('Medicamentos'),
             trailing: const Icon(Icons.keyboard_arrow_right),
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ListaRemedios())),
+            onTap: () => Navigator.of(context).pushNamed('/ListMedicine'),
           ),
           ListTile(
               title: const Text('Pacientes'),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/services/api/api_pessoa.dart';
-import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
-import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
-
-import '../presentation_screens/screen_choose_profile.dart';
 import 'package:healtime/services/data_locale/data_preferences_pessoa.dart';
+import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
+import '../presentation_screens/screen_choose_profile.dart';
 import '../screens_navigation/navbar/screen_default.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,7 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         /* Verificando se o usuário está logado */
         if (dataUser != null) {
-
           DtoPessoa dtoPessoa = DtoPessoa(
               emailContato: dataUser.contact!.email,
               passwordString: dataUser.passwordString);
@@ -43,9 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
           if (mounted) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                    builder: (context) => responseApi['statusCode'] == 200
-                        ? DefaultScreen()
-                        : const Apresentacao()),
+                  builder: (context) => responseApi['statusCode'] == 200
+                      ? const DefaultScreen()
+                      : const Apresentacao(),
+                ),
                 (route) => false);
           }
         } else {

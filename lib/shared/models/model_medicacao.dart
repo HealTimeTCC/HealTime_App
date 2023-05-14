@@ -9,19 +9,23 @@ class ModelMedicacao {
       {required this.compostoAtivoMedicacao,
       required this.generico,
       required this.laboratorioMedicacao,
-      required this.medicacaoId,
+      this.medicacaoId,
       required this.nomeMedicacao,
       required this.statusMedicacaoId,
-      required this.tipoMedicacaoId});
+      required this.tipoMedicacaoId,
+      this.codPessoaAlter});
 
-  int medicacaoId;
+  int? medicacaoId;
   StatusMedicacao statusMedicacaoId;
   int tipoMedicacaoId;
   String nomeMedicacao;
   String compostoAtivoMedicacao;
   String laboratorioMedicacao;
   String generico;
+  int? codPessoaAlter;
 
-  factory ModelMedicacao.fromJson(Map<String, dynamic> json) => _$ModelMedicacaoFromJson(json);
+  factory ModelMedicacao.fromJson(Map<String, dynamic> json) =>
+      _$ModelMedicacaoFromJson(json);
+
   Map<String, dynamic> toJson() => _$ModelMedicacaoToJson(this);
 }
