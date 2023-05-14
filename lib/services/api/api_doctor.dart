@@ -25,8 +25,6 @@ class ApiMedico {
       List<dynamic> listDynamicDoctor =
           jsonDecode(response.body) as List<dynamic>;
 
-      print(listDynamicDoctor[0]);
-
       return listDynamicDoctor.map((e) => Medico.fromJson(e)).toList();
     } else {
       return [];
@@ -44,10 +42,6 @@ class ApiMedico {
     http.Response response = await http.post(uriApi,
         body: json.encode(medico),
         headers: {'Content-Type': 'application/json'});
-
-    print(response.statusCode);
-    print(response.body);
-    print(uriApi);
 
     return response.statusCode;
   }

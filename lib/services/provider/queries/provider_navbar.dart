@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../src/screens/screens_navigation/home_page/home.dart';
 import '../../../src/screens/screens_navigation/screen_profile/screen_profile.dart';
 import '../../../src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
-import '../../../src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
-import '../../../src/screens/screens_navigation/screens_queries/screens/list_queries/screen_list_queries.dart';
 
 class NavbarProvider with ChangeNotifier {
   List<NavbarDTO> items = [
