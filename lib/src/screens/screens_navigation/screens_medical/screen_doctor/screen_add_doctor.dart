@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/widget/custom_field.dart';
 
 import '../../../../../services/api/api_doctor.dart';
 import '../../../../../shared/models/model_doctor.dart';
@@ -64,10 +65,6 @@ class _IncluirMedicoState extends State<IncluirMedico> {
           left: 0,
           child: Container(
             margin: EdgeInsets.all(7),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-              Radius.circular(7),
-            )),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -134,32 +131,5 @@ class _IncluirMedicoState extends State<IncluirMedico> {
         ),
       ],
     ));
-  }
-}
-
-class CustomField extends StatelessWidget {
-  final String label;
-  TextEditingController textController = TextEditingController();
-
-  CustomField(
-      {super.key,
-      required this.label,
-      required this.textController,
-      required TextInputType keyboardType});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: textController,
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: GoogleFonts.getFont(
-          'Poppins',
-          decoration: TextDecoration.none,
-        ),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-      ),
-    );
   }
 }
