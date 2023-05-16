@@ -9,7 +9,7 @@ import '../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
 import 'logic/details_query.dart';
 
-class DetailsQuery extends StatelessWidget {
+class DetailsQuery extends StatefulWidget {
   const DetailsQuery(
       {super.key,
       required this.queryId,
@@ -21,9 +21,15 @@ class DetailsQuery extends StatelessWidget {
   final int statusQuery;
 
   @override
+  State<DetailsQuery> createState() => _DetailsQueryState();
+}
+
+class _DetailsQueryState extends State<DetailsQuery> {
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final ProviderQueries providerQueries = Provider.of<ProviderQueries>(context, listen: false);
+    final ProviderQueries providerQueries =
+        Provider.of<ProviderQueries>(context, listen: false);
 
     return Scaffold(
       body: Stack(
@@ -40,7 +46,10 @@ class DetailsQuery extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () async {
+                          await providerQueries.addQueryDispose();
+                          if (context.mounted) Navigator.of(context).pop();
+                        },
                         icon: Icon(
                           Icons.arrow_back_ios,
                           size: size.width * .08,
@@ -56,7 +65,7 @@ class DetailsQuery extends StatelessWidget {
                           style: FontGoogle.textTitleGoogle(size: size * .9),
                         ),
                       ),
-                      if (statusQuery == 1) ...[
+                      if (widget.statusQuery == 1) ...[
                         PopupMenuButton(
                           elevation: 1,
                           shape: RoundedRectangleBorder(
@@ -70,16 +79,16 @@ class DetailsQuery extends StatelessWidget {
                                       context: context,
                                       statusId: value,
                                       motivo: 'Encerramento de consulta.',
-                                      personId: personId,
-                                      queryId: queryId);
+                                      personId: widget.personId,
+                                      queryId: widget.queryId);
                                 }
                                 break;
                               default:
                                 {
                                   AlertCancelCloseQuery.alertCancelCloneQuery(
                                       context: context,
-                                      personId: personId,
-                                      queryId: queryId,
+                                      personId: widget.personId,
+                                      queryId: widget.queryId,
                                       status: value);
                                 }
                                 break;
@@ -134,7 +143,9 @@ class DetailsQuery extends StatelessWidget {
 
                 FutureBuilder(
                   future: LogicDetailsQuery.initialDetailsQuery(
-                      context: context, personId: personId, queryId: queryId),
+                      context: context,
+                      personId: widget.personId,
+                      queryId: widget.queryId),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
@@ -143,10 +154,14 @@ class DetailsQuery extends StatelessWidget {
                         }
                       default:
                         {
-                          String nameSpecialty = providerQueries.nameEspecialidadeGet;
-                          String namePerson = providerQueries.namePersonGet!;
-                          DtoQuery detailsQuery = providerQueries.detailsQueryGet!;
-                          String nameDoctor = providerQueries.nameDoctorGet!;
+                          final String nameSpecialty =
+                              providerQueries.nameEspecialidadeGet;
+                          final String namePerson =
+                              providerQueries.namePersonGet!;
+                          final DtoQuery detailsQuery =
+                              providerQueries.detailsQueryGet!;
+                          final String nameDoctor =
+                              providerQueries.nameDoctorGet!;
 
                           return Padding(
                             padding: EdgeInsets.symmetric(
@@ -154,13 +169,12 @@ class DetailsQuery extends StatelessWidget {
                                 vertical: size.height * .02),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.stretch,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Text(
                                   'Paciente ',
-                                  style: FontGoogle.textSubTitleGoogle(
-                                      size: size),
+                                  style:
+                                      FontGoogle.textSubTitleGoogle(size: size),
                                 ),
                                 Container(
                                   margin: EdgeInsets.symmetric(
@@ -181,8 +195,8 @@ class DetailsQuery extends StatelessWidget {
                                 SizedBox(height: size.height * .02),
                                 Text(
                                   'Seu médico ',
-                                  style: FontGoogle.textSubTitleGoogle(
-                                      size: size),
+                                  style:
+                                      FontGoogle.textSubTitleGoogle(size: size),
                                 ),
                                 Container(
                                   margin: EdgeInsets.symmetric(
@@ -192,8 +206,7 @@ class DetailsQuery extends StatelessWidget {
                                       Expanded(
                                         child: Text(
                                           nameDoctor,
-                                          style:
-                                          FontGoogle.textNormaleGoogle(
+                                          style: FontGoogle.textNormaleGoogle(
                                               size: size * .85),
                                         ),
                                       ),
@@ -208,16 +221,15 @@ class DetailsQuery extends StatelessWidget {
                                 SizedBox(height: size.height * .02),
                                 Text(
                                   'Data da consulta ',
-                                  style: FontGoogle.textSubTitleGoogle(
-                                      size: size),
+                                  style:
+                                      FontGoogle.textSubTitleGoogle(size: size),
                                 ),
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: size.width * .02),
                                   child: Text(
                                     DateFormat('dd/MM/yyyy HH:mm').format(
-                                      DateTime.parse(
-                                          detailsQuery.dataConsulta),
+                                      DateTime.parse(detailsQuery.dataConsulta),
                                     ),
                                     style: FontGoogle.textNormaleGoogle(
                                         size: size * .85),
@@ -226,16 +238,16 @@ class DetailsQuery extends StatelessWidget {
                                 SizedBox(height: size.height * .02),
                                 Text(
                                   'Data da solicitação ',
-                                  style: FontGoogle.textSubTitleGoogle(
-                                      size: size),
+                                  style:
+                                      FontGoogle.textSubTitleGoogle(size: size),
                                 ),
                                 Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: size.width * .02),
                                   child: Text(
                                     DateFormat('dd/MM/yyyy').format(
-                                      DateTime.parse(detailsQuery
-                                          .dataSolicitacaoConsulta),
+                                      DateTime.parse(
+                                          detailsQuery.dataSolicitacaoConsulta),
                                     ),
                                     style: FontGoogle.textNormaleGoogle(
                                         size: size * .85),
