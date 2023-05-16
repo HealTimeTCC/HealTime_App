@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,6 +32,18 @@ class ProviderQueries extends ChangeNotifier {
   Medico? _doctor;
 
   Medico? get doctor => _doctor;
+
+  DtoQuery? _dtoQuery;
+  DtoQuery? get dtoQuery => _dtoQuery;
+
+  void addDtoQuery(DtoQuery? newDtoQuery) {
+    _dtoQuery = newDtoQuery;
+    notifyListeners();
+  }
+  Future<void> addQueryDispose() async {
+    _dtoQuery = null;
+    notifyListeners();
+  }
 
   void addDoctor(Medico newDoctor) {
     _doctor = newDoctor;

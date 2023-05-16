@@ -46,27 +46,31 @@ class LogicDetailsQuery {
       required int personId,
       required int queryId}) async {
     final ProviderQueries providerQueries =
-        Provider.of<ProviderQueries>(context);
+        Provider.of<ProviderQueries>(context, listen: false);
 
-    DtoQuery? dtoQuery =
-        await ApiQueries.detailsQuery(personId: personId, queryId: queryId);
+    if (providerQueries.dtoQuery == null) {
+      DtoQuery? dtoQuery =
+      await ApiQueries.detailsQuery(personId: personId, queryId: queryId);
 
-    if (dtoQuery != null) {
-      int doctorId = dtoQuery.medicoId;
-      int specialtyId = dtoQuery.especialidadeId;
+      providerQueries.addDtoQuery(dtoQuery);
 
-      ModelEspecialidades specialty =
-          await ApiQueries.getDetailsSpecialty(specialtyId);
-      await providerQueries.addSpecialty(specialty.descEspecialidade);
+      if (dtoQuery != null) {
+        int doctorId = dtoQuery.medicoId;
+        int specialtyId = dtoQuery.especialidadeId;
 
-      Pessoa? person = await ApiQueries.getDetailsPerson(personId);
-      await providerQueries
-          .addPerson('${person!.nomePessoa} ${person.sobreNomePessoa}');
+        ModelEspecialidades specialty =
+        await ApiQueries.getDetailsSpecialty(specialtyId);
+        await providerQueries.addSpecialty(specialty.descEspecialidade);
 
-      Medico? doctor = await ApiQueries.getDetailsDoctor(doctorId);
-      await providerQueries.addNameDoctor(doctor!.NmMedico);
+        Pessoa? person = await ApiQueries.getDetailsPerson(personId);
+        await providerQueries
+            .addPerson('${person!.nomePessoa} ${person.sobreNomePessoa}');
 
-      await providerQueries.addDetailsQuery(dtoQuery);
+        Medico? doctor = await ApiQueries.getDetailsDoctor(doctorId);
+        await providerQueries.addNameDoctor(doctor!.NmMedico);
+
+        await providerQueries.addDetailsQuery(dtoQuery);
+      }
     }
   }
 }

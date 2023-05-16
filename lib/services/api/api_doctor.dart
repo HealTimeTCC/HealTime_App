@@ -15,11 +15,15 @@ class ApiMedico {
   static Future<List<Medico>> obterMedicosAsync(BuildContext context) async {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
-    final Uri uriApi = Uri.parse(
-        '${providerLogin.addressServer ?? uriApiBase}'
-            'Medicacoes/ListarMedicos');
+    final Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
+        'Medicacoes/ListarMedicos');
 
-    http.Response response = await http.get(uriApi);
+    Map<String, String>? header = await ConstsRequired.headRequisit();
+
+    http.Response response = await http.get(
+      uriApi,
+      headers: header,
+    );
 
     if (response.statusCode == 200) {
       List<dynamic> listDynamicDoctor =
@@ -39,9 +43,13 @@ class ApiMedico {
     final Uri uriApi = Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
         'ConsultaMedica/IncluiMedico');
 
-    http.Response response = await http.post(uriApi,
-        body: json.encode(medico),
-        headers: {'Content-Type': 'application/json'});
+    Map<String, String>? header = await ConstsRequired.headRequisit();
+
+    http.Response response = await http.post(
+      uriApi,
+      body: json.encode(medico),
+      headers: header,
+    );
 
     return response.statusCode;
   }
