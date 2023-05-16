@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/src/screens/screens_login_register/widgets/text_form_model.dart';
-import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../services/api/api_pessoa.dart';
 import '../../../../services/provider/login/provider_login.dart';
 import '../../../../shared/decorations/screen_background.dart';
 import '../../../../shared/dto/dto_pessoa_auth.dart';
+import '../../screens_navigation/start_view_widget.dart';
 import '../widgets/loading_sending_data.dart';
 
 class ScreenLogin extends StatefulWidget {
@@ -35,7 +35,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
           const BackgroundPageV2 (),
           Container(
             margin: EdgeInsets.only(top: size.height * .2 - 60),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               color: Colors.white,
@@ -169,7 +169,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
 
         if (mapResponseApi['statusCode'] == 200) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => const StartWidgetView()),
               (route) => false);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

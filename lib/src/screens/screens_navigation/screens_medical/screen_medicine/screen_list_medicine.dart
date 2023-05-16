@@ -14,6 +14,7 @@ class ListaRemedios extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
         elevation: 1,
         onPressed: () => Navigator.of(context).pushNamed('/IncludeMedicine'),

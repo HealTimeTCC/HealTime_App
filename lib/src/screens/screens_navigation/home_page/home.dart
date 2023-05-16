@@ -2,18 +2,15 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/apresentation_initial_details.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/buttom_gesture_detector.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
 
-import '../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../../../../shared/models/model_pessoa.dart';
 import '../screens_medical/screen_doctor/screen_add_doctor.dart';
 import '../screens_medical/screen_doctor/screen_list_doctor.dart';
 import '../screens_queries/logics/logic_type_user.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,49 +23,10 @@ class _HomePageState extends State<HomePage> {
   Pessoa? pessoa;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: const Color(0xFF14D8D5),
-      ),
-      //#region DRAWER
-      drawer: Drawer(
-        elevation: 0,
-        child: ListView(children: [
-          ListTile(
-            title: const Text('Consultas'),
-            trailing: const Icon(Icons.keyboard_arrow_right),
-            onTap: () => TypeUser.typeUserNavigator(context),
-          ),
-          ListTile(
-            title: const Text('Medicamentos'),
-            trailing: const Icon(Icons.keyboard_arrow_right),
-            onTap: () => Navigator.of(context).pushNamed('/ListMedicine'),
-          ),
-          ListTile(
-              title: const Text('Pacientes'),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: () => null),
-          ListTile(
-              title: const Text('Medico'),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => IncluirMedico()))),
-          ListTile(
-              title: const Text('Listar Medico'),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ListarMedico()))),
-        ]),
-      ),
-      //#endregion
+
       body: Stack(
         children: [
           //#region Parte AZUL embaixao da appbar
@@ -95,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     //#region Widget superior
-                     const IntialDetails(),
+                    const IntialDetails(),
                     //#endregion
                     const SizedBox(
                       height: 10,
@@ -137,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );

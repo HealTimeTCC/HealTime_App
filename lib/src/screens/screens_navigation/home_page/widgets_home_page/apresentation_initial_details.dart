@@ -4,10 +4,8 @@ import 'package:healtime/services/provider/provider_home_page.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../shared/models/enuns/enum_status_code.dart';
-import '../../../../../shared/models/model_pessoa.dart';
 import '../../../../../shared/utility/util_format.dart';
 
 class IntialDetails extends StatefulWidget {

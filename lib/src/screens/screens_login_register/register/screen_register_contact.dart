@@ -5,7 +5,7 @@ import 'package:healtime/src/screens/screens_login_register/register/screen_regi
 
 import '../../../../services/api/api_pessoa.dart';
 import '../../../../shared/dto/dto_pessoa_register.dart';
-import '../../screens_navigation/home_page/home.dart';
+import '../../screens_navigation/start_view_widget.dart';
 import '../widgets/loading_sending_data.dart';
 import '../widgets/text_form_model.dart';
 
@@ -210,7 +210,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
               if (mounted) {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const HomePage(),
+                    builder: (context) => const StartWidgetView(),
                   ),
                 );
               }

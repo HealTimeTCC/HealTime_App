@@ -11,10 +11,10 @@ class NavbarProvider with ChangeNotifier {
         label: 'Medicação',
         widget: const PrescricaoMedicamento(),
         iconData: Icons.medication_rounded),
-    // NavbarDTO(
-    //     label: 'Consulta',
-    //     widget: TypeUser.typeUserNavigator(context),
-    //     iconData: Icons.queue_play_next_rounded),
+    NavbarDTO(
+        label: 'Prescrições',
+        widget:  PrescricaoMedicamento() ,
+        iconData: Icons.medical_information_rounded),
     NavbarDTO(
         label: 'Perfil', widget: const ScreenProfile(), iconData: Icons.person),
   ];

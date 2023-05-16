@@ -5,7 +5,7 @@ import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
 import '../presentation_screens/screen_choose_profile.dart';
-import '../screens_navigation/navbar/screen_default.dart';
+import '../screens_navigation/start_view_widget.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -34,14 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
               passwordString: dataUser.passwordString);
 
           /* Autenticar o usuário novamente */
-          Map<String, dynamic> responseApi =
-              await ApiPessoa.authUser(pessoa: dtoPessoa, context: context);
+          Map<String, dynamic> responseApi = await ApiPessoa.authUser(pessoa: dtoPessoa, context: context);
 
           if (mounted) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => responseApi['statusCode'] == 200
-                      ? const DefaultScreen()
+                      ? const StartWidgetView()
                       : const Apresentacao(),
                 ),
                 (route) => false);
@@ -55,8 +54,6 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       }
     } catch (ex) {
-      print('Entrou Aqui');
-
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const Apresentacao(),
