@@ -8,7 +8,6 @@ import '../src/screens/screens_navigation/screens_medical/screen_doctor/screen_l
 import '../src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
 import '../src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
 import '../src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
-import '../src/screens/screens_navigation/screens_queries/screens/details_query/cancel_close_query.dart';
 import '../src/screens/splash/splash_screen.dart';
 
 class Routes {
