@@ -137,7 +137,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                     ),
                     SizedBox(height: size.height * .02),
                     Text(
-                      'Genérico*',
+                      'Tipo*',
                       style: FontGoogle.textSubTitleGoogle(size: size * .85),
                     ),
                     FutureBuilder(
@@ -150,7 +150,8 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                             }
                           default:
                             {
-                              List<TypeMedicine> listTypesMedicine = snapshot.data ?? [];
+                              final List<TypeMedicine> listTypesMedicine =
+                                  snapshot.data ?? [];
 
                               return Container(
                                 padding: EdgeInsets.symmetric(
@@ -180,9 +181,11 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                                       )
                                       .toList(),
                                   onChanged: (value) {
-                                    setState(() {
-                                      _selectMedicineType = value!;
-                                    });
+                                    setState(
+                                      () {
+                                        _selectMedicineType = value!;
+                                      },
+                                    );
                                   },
                                 ),
                               );

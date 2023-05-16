@@ -42,7 +42,7 @@ class ListaRemedios extends StatelessWidget {
                         color: Color(0xff00BCB9),
                       ),
                       Text(
-                        'Obtendo medicações...',
+                        'Obtendo medicamentos...',
                         style: FontGoogle.textNormaleGoogle(size: size),
                       )
                     ],
@@ -51,7 +51,7 @@ class ListaRemedios extends StatelessWidget {
               }
             default:
               {
-                List<ModelMedicacao> listMedicine = snapshot.data ?? [];
+                final List<ModelMedicacao> listMedicine = snapshot.data ?? [];
 
                 return Stack(
                   children: [
