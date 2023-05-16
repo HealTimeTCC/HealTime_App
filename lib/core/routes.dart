@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/src/screens/screens_navigation/start_view_widget.dart';
 
 import '../src/screens/presentation_screens/screen_choose_profile.dart';
-import '../src/screens/screens_navigation/navbar/legacy_screen_default.dart';
 import '../src/screens/screens_navigation/screen_alter_password/alter_password.dart';
 import '../src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import '../src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
@@ -16,7 +16,7 @@ class Routes {
       '/SplashScreen': (_) => const SplashScreen(),
       '/Apresentacao': (_) => const Apresentacao(),
       '/PrescricaoMedica': (_) => const PrescricaoMedicamento(),
-      '/PaginaInicial': (_) => const DefaultScreen(),
+      '/PaginaInicial': (_) => const StartWidgetView(),
       '/AddDoctor': (_) => const IncluirMedico(),
       '/ListDoctors': (_) => const ListarMedico(),
       '/AlterPassword': (_) => const AlterPassword(),
