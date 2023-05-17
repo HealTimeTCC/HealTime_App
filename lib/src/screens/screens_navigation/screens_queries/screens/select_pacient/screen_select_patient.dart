@@ -6,6 +6,7 @@ import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 import '../list_queries/screen_list_queries.dart';
+import 'add_patient/screen_add_patient.dart';
 
 class SelectPatient extends StatelessWidget {
   const SelectPatient({Key? key, required this.personId}) : super(key: key);
@@ -17,7 +18,11 @@ class SelectPatient extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AddPatient(personId: personId),
+          ),
+        ),
         backgroundColor: const Color(0xff18CDCA),
         elevation: 1,
         shape: RoundedRectangleBorder(
