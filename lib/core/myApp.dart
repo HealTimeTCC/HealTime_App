@@ -8,27 +8,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
 
-      /* Linguagens suportadas pelo app, usado apenas no calendario */
-      supportedLocales: const [
-        Locale('en'), // Inglês
-        Locale('pt_BR'), // Português Brasileiro
-      ],
-
-      theme: ThemeData(
-        primaryColor: const Color(0xff1AE8E4),
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          secondary: const Color(0xff1AE8E4),
+        /* Linguagens suportadas pelo app, usado apenas no calendario */
+        supportedLocales: const [
+          Locale('en'), // Inglês
+          Locale('pt_BR'), // Português Brasileiro
+        ],
+        theme: ThemeData(
+          primaryColor: const Color(0xff1AE8E4),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: const Color(0xff1AE8E4),
+          ),
         ),
-      ),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/SplashScreen',
-      routes: Routes.mapRoutes()
-    );
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/SplashScreen',
+        routes: Routes.mapRoutes());
   }
 }
