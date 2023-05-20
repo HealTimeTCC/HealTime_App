@@ -1,3 +1,5 @@
+import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
+
 import '../../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../../../../../shared/models/model_pessoa.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +19,15 @@ class TypeUser {
           ),
         );
       } else {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => SelectPatient(personId: pessoa.pessoaId!),
-          ),
-        );
+        if (context.mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SelectPatient(
+                  personId: pessoa.pessoaId!,
+                  typeOperation: TypeOperation.select),
+            ),
+          );
+        }
       }
     }
   }

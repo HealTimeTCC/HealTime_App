@@ -4,12 +4,18 @@ import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/
 
 import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
+import '../../../../../../shared/models/enuns/enum_type_operation.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 import '../list_queries/screen_list_queries.dart';
+import 'add_patient/screen_add_patient.dart';
 
 class SelectPatient extends StatelessWidget {
-  const SelectPatient({Key? key, required this.personId}) : super(key: key);
+  const SelectPatient(
+      {Key? key, required this.personId, required this.typeOperation})
+      : super(key: key);
   final int personId;
+
+  final TypeOperation typeOperation;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,11 @@ class SelectPatient extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AddPatient(personId: personId),
+          ),
+        ),
         backgroundColor: const Color(0xff18CDCA),
         elevation: 1,
         shape: RoundedRectangleBorder(
@@ -73,12 +83,15 @@ class SelectPatient extends StatelessWidget {
                                   Pessoa patient = listPatient[index];
 
                                   return GestureDetector(
-                                    onTap: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ListQueries(pessoa: patient),
-                                      ),
-                                    ),
+                                    onTap: () => typeOperation ==
+                                            TypeOperation.view
+                                        ? null
+                                        : Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ListQueries(pessoa: patient),
+                                            ),
+                                          ),
                                     child: ModelPatient(person: patient),
                                   );
                                 },

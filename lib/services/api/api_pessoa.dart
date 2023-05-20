@@ -12,12 +12,13 @@ import 'package:provider/provider.dart';
 import '../../shared/consts/consts_required.dart';
 import '../../shared/dto/dto_alter_password.dart';
 import '../../shared/dto/dto_pessoa_register.dart';
+import '../../shared/dto/dto_post_associate_responsible.dart';
 import '../provider/login/provider_login.dart';
 
 class ApiPessoa {
   static String get uriApiBase => ConstsRequired.urlBaseApi;
 
-  /* Autenticar usuário */
+  //#region autenticar usuário
   static Future<Map<String, dynamic>> authUser(
       {required DtoPessoa pessoa, required BuildContext context}) async {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
@@ -26,9 +27,13 @@ class ApiPessoa {
     Uri uriApi = Uri.parse(
         '${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
-    http.Response response = await http.post(uriApi,
-        body: json.encode(pessoa),
-        headers: {'Content-Type': 'application/json'});
+    Map<String, String>? header = await ConstsRequired.headRequisit();
+
+    http.Response response = await http.post(
+      uriApi,
+      body: json.encode(pessoa),
+      headers: header,
+    );
 
     if (response.statusCode == 200) {
       statusCode = response.statusCode;
@@ -51,7 +56,9 @@ class ApiPessoa {
     return responseApi;
   }
 
-  /* Registrar usuário */
+  //#endregion
+
+  //#region Registrar usuário
   static Future<int> registerUser(
       {required DtoPessoaRegister pessoa,
       required BuildContext context}) async {
@@ -61,11 +68,15 @@ class ApiPessoa {
       Uri uriApi = Uri.parse(
           '${providerLogin.addressServer ?? uriApiBase}Pessoa/Registro');
 
-      http.Response response = await http.post(uriApi,
-          body: jsonEncode(pessoa),
-          headers: {
-            'Content-Type': 'application/json'
-          }).timeout(const Duration(seconds: 15));
+      Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      http.Response response = await http
+          .post(
+            uriApi,
+            body: jsonEncode(pessoa),
+            headers: header,
+          )
+          .timeout(const Duration(seconds: 15));
 
       if (response.statusCode == 200) {
         DtoPessoa dtoPessoa = DtoPessoa(
@@ -87,6 +98,9 @@ class ApiPessoa {
     }
   }
 
+  //#endregion
+
+  //#region Alterar senha
   static Future<int> alterPassword(
       {required DtoAlterPassword newPassword,
       required String addressServer}) async {
@@ -108,4 +122,31 @@ class ApiPessoa {
       return 0;
     }
   }
+
+  //#endregion
+
+  //#region Associar um responsavel a um paciente
+  static Future<int> associateResponsible({
+    required DtoPostAssociateResponsible associateResponsible,
+    required String addressServer,
+  }) async {
+    try {
+      Uri uriApi = Uri.parse('${addressServer}Paciente/AssociarResponsavel');
+
+      final Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      http.Response response = await http
+          .post(uriApi, body: jsonEncode(associateResponsible.toJson()), headers: header)
+          .timeout(
+            const Duration(seconds: 15),
+          );
+
+      return response.statusCode;
+    } on TimeoutException catch (_) {
+      return 1;
+    } catch (ex) {
+      return 0;
+    }
+  }
+//#endregion
 }

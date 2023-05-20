@@ -61,7 +61,7 @@ class _IntialDetailsState extends State<IntialDetails> {
                     SizedBox(
                       width: size.width * 0.9,
                       child: Text(
-                        "Olá ${value.getDataPerson?.nomePessoa == null ? 'erro' : value.getDataPerson!.nomePessoa}",
+                        "Olá ${value.getDataPerson?.nomePessoa ?? 'erro'}",
                         style: FontGoogle.textNormaleGoogle(
                             size: size, colorText: Colors.white),
                       ),

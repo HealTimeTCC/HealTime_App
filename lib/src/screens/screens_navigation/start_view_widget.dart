@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 import 'package:healtime/src/screens/screens_navigation/screen_profile/screen_profile.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/screen_select_patient.dart';
+import 'package:provider/provider.dart';
+
+import '../../../shared/decorations/fonts_google.dart';
 
 class StartWidgetView extends StatefulWidget {
   const StartWidgetView({Key? key}) : super(key: key);
@@ -52,36 +57,55 @@ class _StartWidgetViewState extends State<StartWidgetView> {
           : null,
       //#region DRAWER
       drawer: _selectedIndex == 0
-          ? Drawer(
-              elevation: 0,
-              child: ListView(
-                children: [
-                  ListTile(
-                    title: const Text('Consultas'),
-                    trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () => TypeUser.typeUserNavigator(context),
-                  ),
-                  ListTile(
-                    title: const Text('Medicamentos'),
-                    trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () =>
-                        Navigator.of(context).pushNamed('/ListMedicine'),
-                  ),
-                  ListTile(
-                      title: const Text('Pacientes'),
+          ? Consumer<ProviderHomePage>(
+              builder: (context, value, child) => Drawer(
+                elevation: 0,
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: const Text('Consultas'),
                       trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () => null),
-                  ListTile(
+                      onTap: () => TypeUser.typeUserNavigator(context),
+                    ),
+                    ListTile(
+                      title: const Text('Medicamentos'),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () =>
+                          Navigator.of(context).pushNamed('/ListMedicine'),
+                    ),
+                    if (value.getDataPerson?.tipoPessoa != 1) ...[
+                      ListTile(
+                        title: const Text('Pacientes'),
+                        trailing: const Icon(Icons.keyboard_arrow_right),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SelectPatient(
+                                typeOperation: TypeOperation.view,
+                                personId: value.getDataPerson?.pessoaId ?? 1),
+                          ),
+                        ),
+                      ),
+                    ],
+                    ListTile(
                       title: const Text('Medico'),
                       trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => IncluirMedico()))),
-                  ListTile(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const IncluirMedico(),
+                        ),
+                      ),
+                    ),
+                    ListTile(
                       title: const Text('Listar Medico'),
                       trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ListarMedico()))),
-                ],
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ListarMedico(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           : null,
