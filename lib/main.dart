@@ -25,7 +25,10 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => ProviderDetailsQuery(),
-        )
+        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => ProviderPrescriptionMedic(),
+        // )
       ],
       child: const MyApp(),
     ),

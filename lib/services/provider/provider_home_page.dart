@@ -20,7 +20,6 @@ class ProviderHomePage extends ChangeNotifier {
 
   void chargeDataPerson(BuildContext context) async {
     _statusCodeChargeHome = TypeChargeView.awaitCharge;
-    notifyListeners();
     await obterCodApplicator();
     if (_dataPerson == null) {
       _statusCodeChargeHome = TypeChargeView.notFound;

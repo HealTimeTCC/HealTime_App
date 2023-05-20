@@ -5,10 +5,8 @@ import 'package:healtime/src/screens/screens_navigation/screen_profile/screen_pr
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
-
-import '../../../shared/decorations/fonts_google.dart';
 
 class StartWidgetView extends StatefulWidget {
   const StartWidgetView({Key? key}) : super(key: key);
@@ -37,6 +35,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
     List<Widget> _widgetOptions = [
       const HomePage(),
       const IncludeMedication(),
+      const PrescricaoMedicamento(),
       const ScreenProfile(),
     ];
     List<String> _listTitleAppBar = ["", "Medicamentos", "Profile"];
@@ -52,37 +51,40 @@ class _StartWidgetViewState extends State<StartWidgetView> {
             )
           : null,
       //#region DRAWER
-      drawer: _selectedIndex == 0 ? Drawer(
-        elevation: 0,
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text('Consultas'),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: () => TypeUser.typeUserNavigator(context),
-            ),
-            ListTile(
-              title: const Text('Medicamentos'),
-              trailing: const Icon(Icons.keyboard_arrow_right),
-              onTap: () => Navigator.of(context).pushNamed('/ListMedicine'),
-            ),
-            ListTile(
-                title: const Text('Pacientes'),
-                trailing: const Icon(Icons.keyboard_arrow_right),
-                onTap: () => null),
-            ListTile(
-                title: const Text('Medico'),
-                trailing: const Icon(Icons.keyboard_arrow_right),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => IncluirMedico()))),
-            ListTile(
-                title: const Text('Listar Medico'),
-                trailing: const Icon(Icons.keyboard_arrow_right),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ListarMedico()))),
-          ],
-        ),
-      ) : null,
+      drawer: _selectedIndex == 0
+          ? Drawer(
+              elevation: 0,
+              child: ListView(
+                children: [
+                  ListTile(
+                    title: const Text('Consultas'),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () => TypeUser.typeUserNavigator(context),
+                  ),
+                  ListTile(
+                    title: const Text('Medicamentos'),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () =>
+                        Navigator.of(context).pushNamed('/ListMedicine'),
+                  ),
+                  ListTile(
+                      title: const Text('Pacientes'),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () => null),
+                  ListTile(
+                      title: const Text('Medico'),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => IncluirMedico()))),
+                  ListTile(
+                      title: const Text('Listar Medico'),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ListarMedico()))),
+                ],
+              ),
+            )
+          : null,
       //#endregion
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: Container(
@@ -104,22 +106,42 @@ class _StartWidgetViewState extends State<StartWidgetView> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: Duration(milliseconds: 400),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,
               tabs: const [
                 GButton(
+                  backgroundColor: Color(0xFF14D8D5),
                   icon: Icons.home,
+                  iconColor: Colors.grey,
+                  iconActiveColor: Colors.white,
                   text: 'Home',
+                  textColor: Colors.white,
                 ),
                 GButton(
+                  backgroundColor: Color(0xFF14D8D5),
+                  iconColor: Colors.grey,
                   icon: Icons.list_alt,
-                  text: 'Likes',
+                  iconActiveColor: Colors.white,
+                  text: 'Medicamentos',
+                  textColor: Colors.white,
                 ),
                 GButton(
+                  backgroundColor: Color(0xFF14D8D5),
+                  icon: Icons.list_alt,
+                  iconActiveColor: Colors.white,
+                  iconColor: Colors.grey,
+                  text: 'Presc. Médica',
+                  textColor: Colors.white,
+                ),
+                GButton(
+                  backgroundColor: Color(0xFF14D8D5),
                   icon: Icons.person,
-                  text: 'Search',
+                  iconActiveColor: Colors.white,
+                  text: 'Perfil',
+                  iconColor: Colors.grey,
+                  textColor: Colors.white,
                 ),
               ],
               selectedIndex: _selectedIndex,

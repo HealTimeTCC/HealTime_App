@@ -37,10 +37,10 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
           const BackgroundPageV2(),
           Container(
             margin: EdgeInsets.only(top: size.height * .2 - 60),
-           
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft : Radius.circular(30), topRight: Radius.circular(30)),
-               color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              color: Colors.white,
             ),
           ),
           SingleChildScrollView(
@@ -78,7 +78,7 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                         )
                       ],
                     ),
-                    SizedBox(height: size.height * .05 ),
+                    SizedBox(height: size.height * .05),
                     Text(
                       'Crie sua conta de forma rápida e fácil agora mesmo!',
                       style: GoogleFonts.getFont('Poppins',
@@ -128,7 +128,8 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                               onPressed: () => _validateForm(context),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
-                                backgroundColor: Color.fromARGB(255, 51, 51, 51),
+                                backgroundColor:
+                                    Color.fromARGB(255, 51, 51, 51),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(45)),
                                 padding: EdgeInsets.symmetric(
@@ -145,7 +146,8 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                                         : 'Proximo',
                                     style: GoogleFonts.getFont('Poppins',
                                         decoration: TextDecoration.none,
-                                        color: Color.fromARGB(255, 255, 255, 255),
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
                                         fontSize: 17,
                                         fontWeight: FontWeight.w400),
                                   ),
@@ -216,8 +218,9 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
               }
             } else {
               messageError(
-                  context: context,
-                  text: 'Não foi possível realizar o cadastro');
+                context: context,
+                text: 'Não foi possível realizar o cadastro',
+              );
             }
           }
         }

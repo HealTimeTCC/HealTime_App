@@ -4,8 +4,8 @@ import 'package:healtime/services/api/api_doctor.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/shared/models/model_doctor.dart';
-import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/widget/model_doctor_list.dart';
+import 'package:healtime/src/screens/screens_navigation/start_view_widget.dart';
 
 class ListarMedico extends StatefulWidget {
   const ListarMedico({super.key});
@@ -21,7 +21,7 @@ class _ListarMedicoState extends State<ListarMedico> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: ()  => Navigator.of(context).pushNamed('/AddDoctor'),
+        onPressed: () => Navigator.of(context).pushNamed('/AddDoctor'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(size.width * .05),
         ),
@@ -65,11 +65,7 @@ class _ListarMedicoState extends State<ListarMedico> {
                         Row(
                           children: [
                             IconButton(
-                              onPressed: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
-                                ),
-                              ),
+                              onPressed: () => Navigator.pop(context),
                               icon: Icon(Icons.arrow_back_ios_new,
                                   color: const Color(0xff18CDCA),
                                   size: size.width * .07),
