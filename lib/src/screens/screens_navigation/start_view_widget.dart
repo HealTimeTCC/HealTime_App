@@ -7,10 +7,12 @@ import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_d
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/screen_select_patient.dart';
 import 'package:provider/provider.dart';
 
+import '../../../services/provider/provider_home_page.dart';
 import '../../../shared/decorations/fonts_google.dart';
 
 class StartWidgetView extends StatefulWidget {
