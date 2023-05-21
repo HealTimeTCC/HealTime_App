@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
+import 'package:provider/provider.dart';
 
 import '../../screens_medical/screen_doctor/screen_list_doctor.dart';
 import '../../screens_medical/screen_medicine/screen_list_medicine.dart';
+import '../widgets/doctor_option.dart';
+import '../widgets/medicine_option.dart';
+import '../widgets/patient_option.dart';
 
 class PrescricaoMedicamento extends StatefulWidget {
   const PrescricaoMedicamento({Key? key}) : super(key: key);
@@ -16,6 +21,8 @@ class PrescricaoMedicamento extends StatefulWidget {
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
   String textButtonDoctor = 'Medico';
   String textButtonPaciente = 'Paciente';
+  late ProviderPrescriptionMedical providerPrescriptionMedical =
+      Provider.of(context);
 
   @override
   Widget build(BuildContext context) {
@@ -57,37 +64,11 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       height: size.height * .02,
                     ),
                     Bounceable(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: size.height * .01,
-                          horizontal: size.height * .01,
-                        ),
-                        height: size.height * .09,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(size.height * .5)),
-                          color: Colors.grey.shade100,
-                        ),
-                        child: Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Selecione o paciente",
-                                  style: FontGoogle.textNormaleGoogle(
-                                    size: size * .7,
-                                  ),
-                                ),
-                                Icon(Icons.arrow_forward_ios)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                        onTap: () {},
+                        //todo pegar esse true do provider
+                        child: PatientOption(
+                          selectPatient: providerPrescriptionMedical.getSelectPacienteOption,
+                        )),//todo falta o paciente
                     SizedBox(
                       height: size.height * .02,
                     ),
@@ -101,34 +82,9 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           ),
                         );
                       },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: size.height * .01,
-                          horizontal: size.height * .01,
-                        ),
-                        height: size.height * .09,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(size.height * .5)),
-                          color: Colors.grey.shade100,
-                        ),
-                        child: Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Selecione o Medico responsável",
-                                  style: FontGoogle.textNormaleGoogle(
-                                    size: size * .7,
-                                  ),
-                                ),
-                                Icon(Icons.arrow_forward_ios)
-                              ],
-                            ),
-                          ),
-                        ),
+                      child: DoctorOption(
+                        doctorSelect:
+                            providerPrescriptionMedical.getSelectDoctorOption,
                       ),
                     ),
                     SizedBox(
@@ -145,35 +101,7 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           ),
                         );
                       },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: size.height * .01,
-                          horizontal: size.height * .01,
-                        ),
-                        height: size.height * .09,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(size.height * .5)),
-                          color: Colors.grey.shade100,
-                        ),
-                        child: Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Selecione o Medicamento",
-                                  style: FontGoogle.textNormaleGoogle(
-                                    size: size * .7,
-                                  ),
-                                ),
-                                Icon(Icons.arrow_forward_ios)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: MedicineOption(selectMedicine: providerPrescriptionMedical.getSelectMedicineOption),
                     ),
                     Align(
                       alignment: Alignment.centerLeft,

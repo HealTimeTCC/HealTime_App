@@ -105,7 +105,8 @@ class _ListaRemediosState extends State<ListaRemedios> {
                               ? ModelListMedicine(medicine: medicine)
                               : Bounceable(
                                   onTap: () {
-                                    providerPrescriptionMedical.setMedicacaoSelect = medicine;
+                                    providerPrescriptionMedical.selectMedicine(medicine);
+                                    providerPrescriptionMedical.updateStateMedicineOption(true);
                                     Navigator.pop(context);
                                   },
                                   child: ModelListMedicine(medicine: medicine),

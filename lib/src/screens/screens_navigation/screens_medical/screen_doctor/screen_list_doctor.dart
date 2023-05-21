@@ -109,7 +109,8 @@ class _ListarMedicoState extends State<ListarMedico> {
                                   Navigator.of(context).pop(doctor);
                                 }
                                 else{
-                                  providerPrescriptionMedical.setMedicoSelect = doctor;
+                                  providerPrescriptionMedical.selectMedic(doctor);
+                                  providerPrescriptionMedical.updateStateDoctorOption(true);
                                   Navigator.of(context).pop();
                                 }
                               },

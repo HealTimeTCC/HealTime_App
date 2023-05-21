@@ -27,10 +27,16 @@ class FontGoogle {
           fontSize: size.width * .06,
           fontWeight: FontWeight.w400);
 
-  static TextStyle? textNormalGreyGoogle({required Size size, Color? colorText}) =>
-      GoogleFonts.getFont('Poppins',
-          decoration: TextDecoration.none,
-          color: colorText ?? const Color(0xff6A6A6A),
-          fontSize: size.width * .05,
-          fontWeight: FontWeight.w400);
+  static TextStyle? textNormalGreyGoogle({
+    required Size size,
+    Color? colorText,
+    FontWeight? fontWeight,
+  }) =>
+      GoogleFonts.getFont(
+        'Poppins',
+        decoration: TextDecoration.none,
+        color: colorText ?? const Color(0xff6A6A6A),
+        fontSize: size.width * .05,
+        fontWeight: fontWeight ?? FontWeight.w400,
+      );
 }
