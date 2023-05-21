@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 
-import '../../../../../shared/models/model_doctor.dart';
 import '../../screens_medical/screen_doctor/screen_list_doctor.dart';
+import '../../screens_medical/screen_medicine/screen_list_medicine.dart';
 
 class PrescricaoMedicamento extends StatefulWidget {
   const PrescricaoMedicamento({Key? key}) : super(key: key);
@@ -93,7 +92,15 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       height: size.height * .02,
                     ),
                     Bounceable(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListarMedico(
+                                includePrescricaoMedica: true),
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           vertical: size.height * .01,
@@ -128,7 +135,16 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       height: size.height * .02,
                     ),
                     Bounceable(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListaRemedios(
+                              includePrescriptionMedicine: true,
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           vertical: size.height * .01,

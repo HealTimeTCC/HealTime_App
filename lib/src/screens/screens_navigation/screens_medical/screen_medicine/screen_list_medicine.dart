@@ -1,20 +1,34 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/models/model_medicacao.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../shared/decorations/screen_background.dart';
 import 'Widget/model_list_medicine.dart';
 import 'logic/medicine.dart';
 
-class ListaRemedios extends StatelessWidget {
-  const ListaRemedios({super.key});
+class ListaRemedios extends StatefulWidget {
+  const ListaRemedios({Key? key, this.includePrescriptionMedicine});
+
+  final bool? includePrescriptionMedicine;
+
+  @override
+  State<ListaRemedios> createState() => _ListaRemediosState();
+}
+
+class _ListaRemediosState extends State<ListaRemedios> {
+  late ProviderPrescriptionMedical providerPrescriptionMedical;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    providerPrescriptionMedical = Provider.of(context, listen: false);
 
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
         elevation: 1,
         onPressed: () => Navigator.of(context).pushNamed('/IncludeMedicine'),
@@ -53,7 +67,6 @@ class ListaRemedios extends StatelessWidget {
             default:
               {
                 final List<ModelMedicacao> listMedicine = snapshot.data ?? [];
-
                 return Stack(
                   children: [
                     const BackgroundPage(),
@@ -87,7 +100,16 @@ class ListaRemedios extends StatelessWidget {
                         itemCount: listMedicine.length,
                         itemBuilder: (context, index) {
                           ModelMedicacao medicine = listMedicine[index];
-                          return ModelListMedicine(medicine: medicine);
+                          return widget.includePrescriptionMedicine == null ||
+                                  widget.includePrescriptionMedicine == false
+                              ? ModelListMedicine(medicine: medicine)
+                              : Bounceable(
+                                  onTap: () {
+                                    providerPrescriptionMedical.setMedicacaoSelect = medicine;
+                                    Navigator.pop(context);
+                                  },
+                                  child: ModelListMedicine(medicine: medicine),
+                                );
                         },
                       ),
                     ),

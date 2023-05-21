@@ -1,22 +1,34 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/services/api/api_doctor.dart';
+import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/shared/models/model_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/widget/model_doctor_list.dart';
-import 'package:healtime/src/screens/screens_navigation/start_view_widget.dart';
+import 'package:provider/provider.dart';
 
 class ListarMedico extends StatefulWidget {
-  const ListarMedico({super.key});
+  const ListarMedico({
+    Key? key,
+    this.includePrescricaoMedica,
+  });
+
+  final bool? includePrescricaoMedica;
 
   @override
   State<ListarMedico> createState() => _ListarMedicoState();
 }
 
 class _ListarMedicoState extends State<ListarMedico> {
+  late ProviderPrescriptionMedical providerPrescriptionMedical;
+
   @override
   Widget build(BuildContext context) {
+    providerPrescriptionMedical = Provider.of(context);
+
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -92,7 +104,15 @@ class _ListarMedicoState extends State<ListarMedico> {
                           itemBuilder: (context, index) {
                             Medico doctor = snapshot.data![index];
                             return GestureDetector(
-                              onTap: () => Navigator.of(context).pop(doctor),
+                              onTap: () {
+                                if(widget.includePrescricaoMedica == null || widget.includePrescricaoMedica == false){
+                                  Navigator.of(context).pop(doctor);
+                                }
+                                else{
+                                  providerPrescriptionMedical.setMedicoSelect = doctor;
+                                  Navigator.of(context).pop();
+                                }
+                              },
                               child: ModelDoctorList(doctor: doctor),
                             );
                           },

@@ -28,7 +28,7 @@ class ApiMedicinePrescription {
       uriBase += 'IncluiPrescricao';
       var response = await http.post(
         Uri.parse(uriBase),
-        headers: {'Content-Type': 'application/json'},
+        headers: await ConstsRequired.headRequisit(),
         body: jsonEncode(prescriptionMedical),
       );
       if(response.statusCode == 200){
