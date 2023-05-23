@@ -214,7 +214,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         backgroundColor: const Color(0xff333333),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: Text(
