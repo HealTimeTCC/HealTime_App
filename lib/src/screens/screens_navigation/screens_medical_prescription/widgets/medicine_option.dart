@@ -32,69 +32,92 @@ class _MedicineOptionState extends State<MedicineOption> {
     if (widget.selectMedicine) {
       ModelMedicacao? medicamento = providerPrescriptionMedical.getMedicacaoSelect;
       return Container(
+        height: size.height * .1,
         width: size.width * .95,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
           color: Colors.grey.shade100,
         ),
-        padding: EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        padding: const EdgeInsets.all(12),
+        child: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  medicamento?.nomeMedicacao ?? "Erro ao obter nome",
-                  style: FontGoogle.textNormalGreyGoogle(
-                    size: size * .7,
-                    fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        medicamento?.nomeMedicacao ?? "Erro ao obter nome",
+                        style: FontGoogle.textNormalGreyGoogle(
+                          size: size * .7,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        "Cód: ${medicamento?.medicacaoId ?? "Erro ao obter id"}",
+                        style: FontGoogle.textNormalGreyGoogle(
+                          size: size * .7,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Text(
-                  "Id: ${medicamento?.medicacaoId ?? "Erro ao obter id"}",
-                  style: FontGoogle.textNormalGreyGoogle(
-                    size: size * .7,
-                    fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text('Composto Ativo',
+                          style: FontGoogle.textNormalGreyGoogle(size: size * .7, fontWeight: FontWeight.w700,),),
+                      Text(
+                        medicamento == null ? "Falha ao obter composto" : medicamento.compostoAtivoMedicacao,
+                        style: FontGoogle.textNormalGreyGoogle(
+                          size: size * .7,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ],
             ),
-            Column(
-              children: [
-                Text('CompostoAtivo',
-                    style: FontGoogle.textNormalGreyGoogle(size: size * .6)),
-                Text(
-                  medicamento == null ? "Falha ao obter composto" : medicamento.compostoAtivoMedicacao,
-                  style: FontGoogle.textNormalGreyGoogle(
-                    size: size * .7,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
+            Positioned(
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
+              ),
             ),
           ],
         ),
       );
     } else {
       return Container(
-        height: size.height * .09,
+        height: size.height * .1,
         width: size.width * .95,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
           color: Colors.grey.shade100,
         ),
-        padding: EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.all(12),
+        child: Stack(
           children: [
-            Text(
-              "Selecione o medicamento",
-              style: FontGoogle.textNormaleGoogle(
-                size: size * .7,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Selecione o medicamento",
+                style: FontGoogle.textNormaleGoogle(
+                  size: size * .7,
+                ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios)
+            Positioned(
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
+              ),
+            ),
           ],
         ),
       );
