@@ -9,7 +9,7 @@ import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_m
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/screen_select_patient.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/provider/provider_home_page.dart';
@@ -93,7 +93,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                       trailing: const Icon(Icons.keyboard_arrow_right),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const IncluirMedico(),
+                          builder: (context) => const ListarMedico(),
                         ),
                       ),
                     ),

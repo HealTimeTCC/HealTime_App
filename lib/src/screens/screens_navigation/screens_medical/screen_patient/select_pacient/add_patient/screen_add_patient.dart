@@ -13,19 +13,6 @@ class AddPatient extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AddPatient(personId: personId),
-          ),
-        ),
-        backgroundColor: const Color(0xff18CDCA),
-        elevation: 1,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: const Icon(Icons.add_rounded, color: Colors.white),
-      ),
       body: Stack(
         children: [
           const BackgroundPage(),

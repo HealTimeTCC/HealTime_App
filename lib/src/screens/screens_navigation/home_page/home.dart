@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                       height: 10,
                     ),
                     Text(
-                      "Meus Remedios",
+                      "Minhas consultas",
                       style: FontGoogle.textTitleGoogle(
                           size: size, colorText: Colors.black),
                     ),

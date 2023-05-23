@@ -34,11 +34,7 @@ class _IncluirMedicoState extends State<IncluirMedico> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ListarMedico(),
-                    ),
-                  ),
+                  onPressed: () => Navigator.of(context).pop(),
                   icon: Icon(Icons.arrow_back_ios_new,
                       color: const Color(0xff18CDCA), size: size.width * .08),
                 ),
