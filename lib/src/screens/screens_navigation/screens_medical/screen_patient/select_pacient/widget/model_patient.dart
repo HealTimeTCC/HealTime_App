@@ -52,9 +52,14 @@ class ModelPatient extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(size: size * .7),
+                  ),
+                  Text(person.cpfPessoa,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormalGreyGoogle(size: size * .7),
                   )
                 ],
-              ),
+              )
             ),
           ),
           Container(

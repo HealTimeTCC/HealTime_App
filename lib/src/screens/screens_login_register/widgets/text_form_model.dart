@@ -17,6 +17,7 @@ class ModelTextForm {
         controller: textController,
         obscureText: obscure,
         keyboardType: typeKeyboard,
+        
         style: const TextStyle(
             letterSpacing: 1,
             color: Color(0xff1c1c1c),
@@ -46,6 +47,7 @@ class ModelTextForm {
           //     borderSide: BorderSide(
           //         color: const Color(0xff1c1c1c), width: size.width * 0.004)),
           floatingLabelBehavior: FloatingLabelBehavior.never,
+          hintText: textLabel,
           filled: true,
           fillColor: Color(0x394EE1E1),
           border: OutlineInputBorder(

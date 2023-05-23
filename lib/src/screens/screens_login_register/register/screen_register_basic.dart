@@ -108,14 +108,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: size,
                               textLabel: 'Nome',
                               typeKeyboard: TextInputType.text,
-                              obscure: false),
+                              obscure: false
+                              ),
                           ModelTextForm.modelTextForm(
                               textController: lastNameController,
                               validator: true,
                               size: size,
                               textLabel: 'Sobrenome',
                               typeKeyboard: TextInputType.text,
-                              obscure: false),
+                              obscure: false, ),
                           ModelTextForm.modelTextForm(
                               textController: cpfController,
                               validator: true,
