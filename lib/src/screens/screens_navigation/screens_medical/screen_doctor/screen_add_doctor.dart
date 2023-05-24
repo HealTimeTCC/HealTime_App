@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 
 import '../../../../../services/api/api_doctor.dart';
 import '../../../../../shared/models/model_doctor.dart';
@@ -149,7 +148,8 @@ class CustomField extends StatelessWidget {
       {super.key,
       required this.label,
       required this.textController,
-      required TextInputType keyboardType});
+      required TextInputType keyboardType,
+      });
 
   @override
   Widget build(BuildContext context) {

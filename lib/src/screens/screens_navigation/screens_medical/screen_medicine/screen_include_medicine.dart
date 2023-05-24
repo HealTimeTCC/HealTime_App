@@ -46,30 +46,6 @@ class _IncludeMedicationState extends State<IncludeMedication> {
       body: Stack(
         children: [
           const BackgroundPage(),
-          // Positioned(
-          //   top: 0,
-          //   right: 20,
-          //   left: 0,
-          //   child: SafeArea(
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         IconButton(
-          //           onPressed: () => Navigator.of(context).pop(),
-          //           icon: Icon(Icons.arrow_back_ios_new,
-          //               color: const Color(0xff18CDCA), size: size.width * .08),
-          //         ),
-          //         SizedBox(width: size.width * .02),
-          //         Expanded(
-          //           child: Text(
-          //             'Incluir medicamento',
-          //             style: FontGoogle.textTitleGoogle(size: size * .9),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
           SafeArea(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: size.width * .1),
@@ -78,6 +54,16 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    Text(
+                        'Incluir medicamento',
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.getFont('Poppins',
+                            decoration: TextDecoration.none,
+                            color: const Color(0xff1c1c1c),
+                            fontSize: 20,
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w600),
+                    ),
                     SizedBox(height: size.height * .07),
                     Text(
                       'Nome*',

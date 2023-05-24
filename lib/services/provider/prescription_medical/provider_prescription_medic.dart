@@ -54,7 +54,8 @@ class ProviderPrescriptionMedical extends ChangeNotifier{
   bool get getSelectPacienteOption => _selectPacienteOption;
 
   void updateStatePacienteOption (bool value){
-    _selectDoctorOption = value;
+    _selectPacienteOption = value;
+    notifyListeners();
   }
 
   Pessoa? _PacienteSelect;

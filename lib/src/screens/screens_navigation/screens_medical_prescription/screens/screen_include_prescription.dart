@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
+import 'package:healtime/services/provider/provider_home_page.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
+import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
 import 'package:provider/provider.dart';
 
 import '../../screens_medical/screen_doctor/screen_list_doctor.dart';
 import '../../screens_medical/screen_medicine/screen_list_medicine.dart';
+import '../../screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
 import '../widgets/doctor_option.dart';
 import '../widgets/medicine_option.dart';
 import '../widgets/patient_option.dart';
@@ -19,10 +22,11 @@ class PrescricaoMedicamento extends StatefulWidget {
 }
 
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
-  String textButtonDoctor = 'Medico';
-  String textButtonPaciente = 'Paciente';
-  late ProviderPrescriptionMedical providerPrescriptionMedical =
-      Provider.of(context);
+  // String textButtonDoctor = 'Medico';
+  // String textButtonPaciente = 'Paciente';
+  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(
+      context);
+  late ProviderHomePage providerHomePage = Provider.of(context);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
             ),
             children: [
               Padding(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(size.width * 0.07),
                 child: Column(
                   children: [
                     Text(
@@ -64,27 +68,22 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       height: size.height * .02,
                     ),
                     Bounceable(
-                        onTap: () {},
-                        //todo pegar esse true do provider
-                        child: PatientOption(
-                          selectPatient: providerPrescriptionMedical.getSelectPacienteOption,
-                        )),//todo falta o paciente
-                    SizedBox(
-                      height: size.height * .02,
-                    ),
-                    Bounceable(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ListarMedico(
-                                includePrescricaoMedica: true),
+                            builder: (context) =>
+                                SelectPatient(
+                                    typeOperation: TypeOperation.select,
+                                    personId: providerHomePage.getDataPerson?.pessoaId ?? 0,
+                                    incluiPrescricaoMedica: true,
+                                ),
                           ),
                         );
                       },
-                      child: DoctorOption(
-                        doctorSelect:
-                            providerPrescriptionMedical.getSelectDoctorOption,
+                      //todo pegar esse true do provider
+                      child: PatientOption(
+                        selectPatient: providerPrescriptionMedical.getSelectPacienteOption,
                       ),
                     ),
                     SizedBox(
@@ -95,13 +94,35 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ListaRemedios(
+                            builder: (context) =>
+                            const ListarMedico(
+                                includePrescricaoMedica: true),
+                          ),
+                        );
+                      },
+                      child: DoctorOption(
+                        doctorSelect:
+                        providerPrescriptionMedical.getSelectDoctorOption,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * .02,
+                    ),
+                    Bounceable(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const ListaRemedios(
                               includePrescriptionMedicine: true,
                             ),
                           ),
                         );
                       },
-                      child: MedicineOption(selectMedicine: providerPrescriptionMedical.getSelectMedicineOption),
+                      child: MedicineOption(
+                          selectMedicine: providerPrescriptionMedical
+                              .getSelectMedicineOption),
                     ),
                     Align(
                       alignment: Alignment.centerLeft,

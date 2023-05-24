@@ -82,21 +82,14 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => SelectPatient(
-                                typeOperation: TypeOperation.view,
-                                personId: value.getDataPerson?.pessoaId ?? 1),
+                              incluiPrescricaoMedica: false,
+                              typeOperation: TypeOperation.view,
+                              personId: value.getDataPerson?.pessoaId ?? 1,
+                            ),
                           ),
                         ),
                       ),
                     ],
-                    // ListTile(
-                    //   title: const Text('Medico'),
-                    //   trailing: const Icon(Icons.keyboard_arrow_right),
-                    //   onTap: () => Navigator.of(context).push(
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const IncluirMedico(),
-                    //     ),
-                    //   ),
-                    // ),
                     ListTile(
                       title: const Text('Listar Medico'),
                       trailing: const Icon(Icons.keyboard_arrow_right),
