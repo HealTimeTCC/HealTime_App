@@ -21,9 +21,6 @@ class LogicMedicine {
 
       return await ApiMedicine.getMedineUser(
           personId: person.pessoaId ?? 0, address: providerLogin.addressServer);
-
-
-
     } catch (ex) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
