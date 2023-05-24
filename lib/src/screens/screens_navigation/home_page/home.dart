@@ -8,7 +8,6 @@ import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_p
 
 import '../../../../shared/models/model_pessoa.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-
       body: Stack(
         children: [
           //#region Parte AZUL embaixao da appbar
@@ -84,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                       height: 10,
                     ),
                     Text(
-                      "Meus Remedios",
+                      "Minhas consultas",
                       style: FontGoogle.textTitleGoogle(
                           size: size, colorText: Colors.black),
                     ),

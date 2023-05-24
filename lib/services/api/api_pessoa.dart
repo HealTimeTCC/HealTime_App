@@ -27,12 +27,12 @@ class ApiPessoa {
     Uri uriApi = Uri.parse(
         '${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
-    Map<String, String>? header = await ConstsRequired.headRequisit();
+
 
     http.Response response = await http.post(
       uriApi,
       body: json.encode(pessoa),
-      headers: header,
+      headers: {"Content-Type": "application/json",},
     );
 
     if (response.statusCode == 200) {
@@ -68,13 +68,12 @@ class ApiPessoa {
       Uri uriApi = Uri.parse(
           '${providerLogin.addressServer ?? uriApiBase}Pessoa/Registro');
 
-      Map<String, String>? header = await ConstsRequired.headRequisit();
 
       http.Response response = await http
           .post(
             uriApi,
             body: jsonEncode(pessoa),
-            headers: header,
+            headers: {"Content-Type": "application/json",},
           )
           .timeout(const Duration(seconds: 15));
 

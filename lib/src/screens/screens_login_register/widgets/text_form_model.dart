@@ -52,6 +52,7 @@ class ModelTextForm {
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide.none,
           ),
+          hintText: textLabel,
           labelText: textLabel,
           labelStyle: GoogleFonts.getFont('Poppins',
               decoration: TextDecoration.none,
