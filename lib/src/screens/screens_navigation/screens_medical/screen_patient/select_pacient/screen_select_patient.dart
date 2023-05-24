@@ -1,6 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_patient.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
@@ -9,23 +14,33 @@ import '../../../../../../shared/models/model_pessoa.dart';
 import '../../../screens_queries/screens/list_queries/screen_list_queries.dart';
 import 'add_patient/screen_add_patient.dart';
 
-class SelectPatient extends StatelessWidget {
-  const SelectPatient(
-      {Key? key, required this.personId, required this.typeOperation})
-      : super(key: key);
+class SelectPatient extends StatefulWidget {
+  const SelectPatient({
+    Key? key,
+    required this.personId,
+    required this.typeOperation,
+    required this.incluiPrescricaoMedica,
+  }) : super(key: key);
   final int personId;
+  final bool incluiPrescricaoMedica;
 
   final TypeOperation typeOperation;
 
   @override
-  Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+  State<SelectPatient> createState() => _SelectPatientState();
+}
 
+class _SelectPatientState extends State<SelectPatient> {
+  @override
+  Widget build(BuildContext context) {
+    late ProviderPrescriptionMedical providerPrescriptionMedical =
+        Provider.of(context, listen: false);
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AddPatient(personId: personId),
+            builder: (context) => AddPatient(personId: widget.personId),
           ),
         ),
         backgroundColor: const Color(0xff18CDCA),
@@ -39,7 +54,7 @@ class SelectPatient extends StatelessWidget {
         children: [
           const BackgroundPage(),
           FutureBuilder<List<Pessoa>?>(
-            future: ApiQueries.getPatient(personId),
+            future: ApiQueries.getPatient(widget.personId),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -81,17 +96,27 @@ class SelectPatient extends StatelessWidget {
                                 itemCount: listPatient.length,
                                 itemBuilder: (context, index) {
                                   Pessoa patient = listPatient[index];
-
-                                  return GestureDetector(
-                                    onTap: () => typeOperation ==
-                                            TypeOperation.view
-                                        ? null
-                                        : Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ListQueries(pessoa: patient),
-                                            ),
-                                          ),
+                                  return Bounceable(
+                                    onTap: () {
+                                      if (widget.incluiPrescricaoMedica) {
+                                        providerPrescriptionMedical
+                                            .selectPaciente(patient);
+                                        providerPrescriptionMedical
+                                            .updateStatePacienteOption(true);
+                                        Navigator.pop(context);
+                                      } else {
+                                        widget.typeOperation ==TypeOperation.view
+                                            ? null
+                                            : Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ListQueries(
+                                                    pessoa: patient,
+                                                  ),
+                                                ),
+                                              );
+                                      }
+                                    },
                                     child: ModelPatient(person: patient),
                                   );
                                 },
