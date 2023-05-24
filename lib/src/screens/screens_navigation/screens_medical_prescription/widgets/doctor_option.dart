@@ -39,63 +39,56 @@ class _DoctorOptionState extends State<DoctorOption> {
           color: Colors.grey.shade100,
         ),
         padding: const EdgeInsets.all(12),
-        child: Stack(
+        child: Row(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        medico?.NmMedico ?? "Erro ao obter nome",
-                        style: FontGoogle.textNormalGreyGoogle(
-                          size: size * .7,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        "Cód: ${medico?.MedicoId ?? "Erro ao obter nome"}",
-                        style: FontGoogle.textNormalGreyGoogle(
-                          size: size * .7,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    medico?.NmMedico ?? "Erro ao obter nome",
+                    style: FontGoogle.textNormalGreyGoogle(
+                      size: size * .7,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    children: [
-                      Text(
-                        'CRM',
-                        style: FontGoogle.textNormalGreyGoogle(
-                          size: size * .6,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        medico == null
-                            ? "Falha ao obter CRM"
-                            : medico.CrmMedico,
-                        style: FontGoogle.textNormalGreyGoogle(
-                          size: size * .7,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )
-                    ],
+                  Text(
+                    "Cód: ${medico?.MedicoId ?? "Erro ao obter nome"}",
+                    style: FontGoogle.textNormalGreyGoogle(
+                      size: size * .7,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Positioned(
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Icon(Icons.arrow_forward_ios),
+                ],
               ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  Text(
+                    'CRM',
+                    style: FontGoogle.textNormalGreyGoogle(
+                      size: size * .6,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    medico == null
+                        ? "Falha ao obter CRM"
+                        : medico.CrmMedico,
+                    style: FontGoogle.textNormalGreyGoogle(
+                      size: size * .7,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
             ),
           ],
         ),
@@ -109,24 +102,25 @@ class _DoctorOptionState extends State<DoctorOption> {
           color: Colors.grey.shade100,
         ),
         padding: const EdgeInsets.all(12),
-        child: Stack(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Align(
-            alignment: Alignment.centerLeft,
-              child: Text(
-                "Selecione o Medico responsável",
-                style: FontGoogle.textNormaleGoogle(
-                  size: size * .7,
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  "Selecione o Médico responsável",
+                  style: FontGoogle.textNormaleGoogle(
+                    size: size * .7,
+                  ),
                 ),
               ),
             ),
-            Positioned(
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
-              ),
-            )
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
+            ),
           ],
         ),
       );

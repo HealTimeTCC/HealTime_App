@@ -100,8 +100,7 @@ class _ListaRemediosState extends State<ListaRemedios> {
                         itemCount: listMedicine.length,
                         itemBuilder: (context, index) {
                           ModelMedicacao medicine = listMedicine[index];
-                          return widget.includePrescriptionMedicine == null ||
-                                  widget.includePrescriptionMedicine == false
+                          return widget.includePrescriptionMedicine == null || widget.includePrescriptionMedicine == false
                               ? ModelListMedicine(medicine: medicine)
                               : Bounceable(
                                   onTap: () {
