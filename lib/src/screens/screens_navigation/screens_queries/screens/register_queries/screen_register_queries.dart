@@ -75,7 +75,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     horizontal: size.width * .05),
                                 height: size.height * .07,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
+                                  color: const Color(0xffF3F6F8),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                     color: const Color(0xff333333),
@@ -121,7 +121,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
+                                        color: const Color(0xffF3F6F8),
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                           color: const Color(0xff333333),
@@ -159,7 +159,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       padding: const EdgeInsets.all(8.0),
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
+                                        color: const Color(0xffF3F6F8),
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                           color: const Color(0xff333333),
@@ -238,7 +238,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     horizontal: size.width * .05),
                                 height: size.height * .07,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
+                                  color: const Color(0xffF3F6F8),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                     color: const Color(0xff333333),
@@ -278,16 +278,17 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     offset: Offset(1, 2),
                                   )
                                 ],
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(size.width * .02),
                               ),
                               child: DropdownButton(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(size.width * .02),
                                 isExpanded: true,
                                 icon: Icon(
                                   Icons.arrow_drop_down_sharp,
                                   color: Colors.grey,
                                   size: size.width * .08,
                                 ),
+                                menuMaxHeight: size.height * .5,
                                 underline: Container(),
                                 items: providerQuery.listSpecialties
                                     .map((ModelEspecialidades element) {
@@ -311,7 +312,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             //#region Selecionar se foi encaminhado
                             SizedBox(height: size.height * .04),
                             Text(
-                              'Encaminhamento',
+                              'Obrigatório acompanhante?',
                               style: FontGoogle.textSubTitleGoogle(size: size),
                             ),
                             SizedBox(height: size.height * .005),
@@ -321,7 +322,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
-                                  activeColor: const Color(0xff1AE8E4),
+                                  activeColor: const Color(0xff333333),
                                   value: providerQuery.flagEncaminhado == 0,
                                   onChanged: (value) {
                                     int? valueInt = value! ? 0 : null;
@@ -343,7 +344,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
-                                  activeColor: const Color(0xff1AE8E4),
+                                  activeColor: const Color(0xff333333),
                                   value: providerQuery.flagEncaminhado == 1,
                                   onChanged: (value) {
                                     int? valueInt = value! ? 1 : null;

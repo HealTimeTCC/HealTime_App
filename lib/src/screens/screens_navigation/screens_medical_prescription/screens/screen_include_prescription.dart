@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
+import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../../shared/models/model_doctor.dart';
 import '../../screens_medical/screen_doctor/screen_list_doctor.dart';
-import '../screens_auxiliaries/screen_doctor.dart';
-
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import '../../screens_medical/screen_medicine/screen_list_medicine.dart';
+import '../widgets/doctor_option.dart';
+import '../widgets/medicine_option.dart';
+import '../widgets/patient_option.dart';
 
 class PrescricaoMedicamento extends StatefulWidget {
   const PrescricaoMedicamento({Key? key}) : super(key: key);
@@ -18,151 +21,138 @@ class PrescricaoMedicamento extends StatefulWidget {
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
   String textButtonDoctor = 'Medico';
   String textButtonPaciente = 'Paciente';
+  late ProviderPrescriptionMedical providerPrescriptionMedical =
+      Provider.of(context);
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Stack(
         children: [
           const BackgroundPage(),
-          Positioned(
-            top: 0,
-            right: 0,
-            left: 0,
-            child: SafeArea(
-                child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_back_ios_new,
-                      color: Color(0xff18CDCA), size: 35),
-                ),
-                Expanded(
-                  child: Text(
-                    'Prescrição Medicamento',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: const Color(0xff1c1c1c),
-                        fontSize: 20,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w600),
-                  ),
-                )
-              ],
-            )),
-          ),
-          Positioned(
-            top: size.height * 0.12,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  TextField(
-                    cursorColor: const Color(0xff1c1c1c),
-                    decoration: InputDecoration(
-                        labelText: 'Descricão',
-                        labelStyle: GoogleFonts.getFont('Poppins',
-                            decoration: TextDecoration.none,
-                            color: const Color(0xff1c1c1c),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff1c1c1c),
-                          ),
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xff1c1c1c),
-                          ),
-                        ),
-                        border: const OutlineInputBorder()),
-                  ),
-                  SizedBox(height: size.height * 0.02),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () async {
-                            final scaffold = ScaffoldMessenger.of(context);
-
-                            scaffold.clearSnackBars();
-                            Medico? dadosMedicos =
-                                await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>  ListarMedico() /*Medicos*/ ,
-                              ),
-                            );
-
-                            if (dadosMedicos != null) {
-                              setState(() {
-                                textButtonDoctor = dadosMedicos.NmMedico;
-                              });
-                            } else {
-                              scaffold.clearSnackBars();
-                              scaffold.showSnackBar(
-                                const SnackBar(
-                                  content: Text('Ação cancelada!'),
-                                  backgroundColor: Color(0xff18CDCA),
-                                ),
-                              );
-                            }
-                          },
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: const Color(0xff18CDCA),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                          child: Text(
-                            textButtonDoctor,
-                            style: GoogleFonts.getFont('Poppins',
-                                decoration: TextDecoration.none,
-                                color: const Color(0xff1c1c1c),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: size.width * 0.02),
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            // CalendarDatePicker2(
-                            //   config: CalendarDatePicker2Config(),
-                            //   onValueChanged: (date) {
-                            //     print(date);
-                            //   }, value: [],
-                            // );
-                          },
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: const Color(0xff18CDCA),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                          child: Text(
-                            textButtonPaciente,
-                            style: GoogleFonts.getFont('Poppins',
-                                decoration: TextDecoration.none,
-                                color: const Color(0xff1c1c1c),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                ],
-              ),
+          ListView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
             ),
-          ),
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  children: [
+                    Text(
+                      'Incluir Prescrição',
+                      style: FontGoogle.textTitleGoogle(
+                        size: size,
+                        colorText: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * .02,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Informações",
+                        style: FontGoogle.textTitleGoogle(
+                          size: size * .7,
+                          colorText: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * .02,
+                    ),
+                    Bounceable(
+                        onTap: () {},
+                        //todo pegar esse true do provider
+                        child: PatientOption(
+                          selectPatient: providerPrescriptionMedical.getSelectPacienteOption,
+                        )),//todo falta o paciente
+                    SizedBox(
+                      height: size.height * .02,
+                    ),
+                    Bounceable(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListarMedico(
+                                includePrescricaoMedica: true),
+                          ),
+                        );
+                      },
+                      child: DoctorOption(
+                        doctorSelect:
+                            providerPrescriptionMedical.getSelectDoctorOption,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * .02,
+                    ),
+                    Bounceable(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListaRemedios(
+                              includePrescriptionMedicine: true,
+                            ),
+                          ),
+                        );
+                      },
+                      child: MedicineOption(selectMedicine: providerPrescriptionMedical.getSelectMedicineOption),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Descrição",
+                        style: FontGoogle.textTitleGoogle(
+                          size: size * .7,
+                          colorText: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: Colors.black26)),
+                      padding: const EdgeInsets.all(16),
+                      child: TextField(
+                        maxLines: null,
+                        decoration: InputDecoration(border: InputBorder.none),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * .02,
+                    ),
+                    Bounceable(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        height: size.height * .065,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(size.height * .5)),
+                          color: Colors.blue,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Adicionar",
+                            style: FontGoogle.textNormaleGoogle(
+                              colorText: Colors.white,
+                              size: size * .9,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

@@ -19,24 +19,27 @@ class ApiHomePage {
     return uriApi;
   }
 
-  static Future<LastDosageDto?> UltimaDosage(BuildContext context,
-      int applicator) async {
+  static Future<LastDosageDto?> UltimaDosage(
+      BuildContext context, int applicator) async {
     String uriBase = obterUri(context);
     uriBase += 'UltimaDosagem/$applicator';
     late LastDosageDto lastDosageDto; //talve de erro
     try {
-      var response = await http.get(Uri.parse(uriBase));
+      var response = await http.get(
+        Uri.parse(uriBase),
+        headers: await ConstsRequired.headRequisit(),
+      );
       switch (response.statusCode) {
         case 200:
-          lastDosageDto = LastDosageDto.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+          lastDosageDto = LastDosageDto.fromJson(
+              jsonDecode(response.body) as Map<String, dynamic>);
           return lastDosageDto;
         case 404:
           return null;
         default:
           return null;
       }
-    }
-    catch (e) {
+    } catch (e) {
       return null;
     }
   }

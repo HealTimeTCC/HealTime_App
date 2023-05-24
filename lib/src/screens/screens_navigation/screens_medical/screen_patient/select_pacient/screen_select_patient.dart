@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/select_pacient/widget/model_patient.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_patient.dart';
 
 import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../shared/models/enuns/enum_type_operation.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
-import '../list_queries/screen_list_queries.dart';
+import '../../../screens_queries/screens/list_queries/screen_list_queries.dart';
 import 'add_patient/screen_add_patient.dart';
 
 class SelectPatient extends StatelessWidget {

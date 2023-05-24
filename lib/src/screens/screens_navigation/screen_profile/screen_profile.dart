@@ -15,18 +15,24 @@ class ScreenProfile extends StatelessWidget {
       body: Stack(
         children: [
           const BackgroundPage(),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: size.width * .1, vertical: size.height * .04),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const InfoProfile(),
-                SizedBox(height: size.height * .05),
-                const OptionsProfile(),
-              ],
+          ListView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics()
             ),
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * .1, vertical: size.height * .07),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const InfoProfile(),
+                    SizedBox(height: size.height * .05),
+                    const OptionsProfile(),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -34,11 +34,7 @@ class _IncluirMedicoState extends State<IncluirMedico> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ListarMedico(),
-                    ),
-                  ),
+                  onPressed: () => Navigator.of(context).pop(),
                   icon: Icon(Icons.arrow_back_ios_new,
                       color: const Color(0xff18CDCA), size: size.width * .08),
                 ),
@@ -118,12 +114,12 @@ class _IncluirMedicoState extends State<IncluirMedico> {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
-                          horizontal: size.width * .20,
+                          horizontal: size.width * .30,
                           vertical: size.height * .02),
                       backgroundColor: const Color(0xff333333),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(45),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(

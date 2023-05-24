@@ -2,15 +2,12 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/apresentation_initial_details.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/buttom_gesture_detector.dart';
 
 import '../../../../shared/models/model_pessoa.dart';
-import '../screens_medical/screen_doctor/screen_add_doctor.dart';
-import '../screens_medical/screen_doctor/screen_list_doctor.dart';
-import '../screens_queries/logics/logic_type_user.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

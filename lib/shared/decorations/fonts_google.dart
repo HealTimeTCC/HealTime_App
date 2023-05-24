@@ -20,17 +20,28 @@ class FontGoogle {
           fontWeight: FontWeight.w500);
 
 //FONTE VOLTADA PARA TITULO
-  static TextStyle? textTitleGoogle({required Size size, Color? colorText}) =>
-      GoogleFonts.getFont('Poppins',
-          decoration: TextDecoration.none,
-          color: colorText ?? const Color(0xff1c1c1c),
-          fontSize: size.width * .06,
-          fontWeight: FontWeight.w400);
+  static TextStyle? textTitleGoogle(
+          {required Size size,
+          Color? colorText,
+          FontWeight? fontWeightGoogle}) =>
+      GoogleFonts.getFont(
+        'Poppins',
+        decoration: TextDecoration.none,
+        color: colorText ?? const Color(0xff1c1c1c),
+        fontSize: size.width * .06,
+        fontWeight: fontWeightGoogle ?? FontWeight.w400,
+      );
 
-  static TextStyle? textNormalGreyGoogle({required Size size, Color? colorText}) =>
-      GoogleFonts.getFont('Poppins',
-          decoration: TextDecoration.none,
-          color: colorText ?? const Color(0xff6A6A6A),
-          fontSize: size.width * .05,
-          fontWeight: FontWeight.w400);
+  static TextStyle? textNormalGreyGoogle({
+    required Size size,
+    Color? colorText,
+    FontWeight? fontWeight,
+  }) =>
+      GoogleFonts.getFont(
+        'Poppins',
+        decoration: TextDecoration.none,
+        color: colorText ?? const Color(0xff6A6A6A),
+        fontSize: size.width * .05,
+        fontWeight: fontWeight ?? FontWeight.w400,
+      );
 }
