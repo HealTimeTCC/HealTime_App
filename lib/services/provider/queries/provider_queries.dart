@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,12 +32,19 @@ class ProviderQueries extends ChangeNotifier {
   Medico? get doctor => _doctor;
 
   DtoQuery? _dtoQuery;
+
   DtoQuery? get dtoQuery => _dtoQuery;
+
+  void disposeDoctor() {
+    _doctor = null;
+    notifyListeners();
+  }
 
   void addDtoQuery(DtoQuery? newDtoQuery) {
     _dtoQuery = newDtoQuery;
     notifyListeners();
   }
+
   Future<void> addQueryDispose() async {
     _dtoQuery = null;
     notifyListeners();
@@ -124,8 +129,10 @@ class ProviderQueries extends ChangeNotifier {
     _listSpecialties.addAll(response['body']);
   }
 
-  Future<void> postQuery(
-      {required PostQuery postQuery, required BuildContext context}) async {
+  Future<void> postQuery({
+    required PostQuery postQuery,
+    required BuildContext context,
+  }) async {
     final scaffold = ScaffoldMessenger.of(context);
     final Size size = MediaQuery.of(context).size;
 
@@ -169,8 +176,9 @@ class ProviderQueries extends ChangeNotifier {
             elevation: 0,
             backgroundColor: Colors.transparent,
             content: const LoadingData(
-                textLoading: 'Agendamento cadastrado com sucesso!',
-                permissCircula: false),
+              textLoading: 'Agendamento cadastrado com sucesso!',
+              permissCircula: false,
+            ),
             actions: [
               Align(
                 alignment: Alignment.center,
@@ -182,11 +190,11 @@ class ProviderQueries extends ChangeNotifier {
                   style: ElevatedButton.styleFrom(
                     elevation: 1,
                     padding: EdgeInsets.symmetric(
-                        vertical: size.height * .02,
+                        vertical: size.height * .01,
                         horizontal: size.width * .2),
                     backgroundColor: const Color(0xff1AE8E4),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(45),
+                      borderRadius: BorderRadius.circular(size.width),
                     ),
                   ),
                   child: Text(

@@ -196,6 +196,22 @@ class _DetailsQueryState extends State<DetailsQuery> {
                                   ),
                                   SizedBox(height: size.height * .02),
                                   Text(
+                                    'Motivo consulta',
+                                    style: FontGoogle.textTitleGoogle(
+                                        size: size * .8,
+                                        fontWeightGoogle:
+                                        FontWeight.w600),
+                                  ),
+                                  SizedBox(height: size.height * .01),
+                                  Text(
+                                    detailsQuery.motivoConsulta,
+                                    style: FontGoogle.textTitleGoogle(
+                                        size: size * .7,
+                                        fontWeightGoogle: FontWeight.w500),
+                                  ),
+
+                                  SizedBox(height: size.height * .02),
+                                  Text(
                                     'Especialidade',
                                     style: FontGoogle.textTitleGoogle(
                                         size: size * .8,
@@ -277,7 +293,7 @@ class _DetailsQueryState extends State<DetailsQuery> {
                                           ),
                                         ),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ],
                               ),
