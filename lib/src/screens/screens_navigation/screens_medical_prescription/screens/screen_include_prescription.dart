@@ -26,14 +26,14 @@ class PrescricaoMedicamento extends StatefulWidget {
 
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
   late ProviderPrescriptionMedical providerPrescriptionMedical =
-  Provider.of(context);
+      Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
+  late TextEditingController descriptionController = TextEditingController();
+  String messageError = "";
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -75,20 +75,19 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                SelectPatient(
-                                  typeOperation: TypeOperation.select,
-                                  personId:
+                            builder: (context) => SelectPatient(
+                              typeOperation: TypeOperation.select,
+                              personId:
                                   providerHomePage.getDataPerson?.pessoaId ?? 0,
-                                  incluiPrescricaoMedica: true,
-                                ),
+                              incluiPrescricaoMedica: true,
+                            ),
                           ),
                         );
                       },
                       //todo pegar esse true do provider
                       child: PatientOption(
                         selectPatient:
-                        providerPrescriptionMedical.getSelectPacienteOption,
+                            providerPrescriptionMedical.getSelectPacienteOption,
                       ),
                     ),
                     SizedBox(
@@ -99,15 +98,14 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                            const ListarMedico(
+                            builder: (context) => const ListarMedico(
                                 includePrescricaoMedica: true),
                           ),
                         );
                       },
                       child: DoctorOption(
                         doctorSelect:
-                        providerPrescriptionMedical.getSelectDoctorOption,
+                            providerPrescriptionMedical.getSelectDoctorOption,
                       ),
                     ),
                     SizedBox(
@@ -118,8 +116,7 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                            const ListaRemedios(
+                            builder: (context) => const ListaRemedios(
                               includePrescriptionMedicine: true,
                             ),
                           ),
@@ -141,56 +138,75 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.black26)),
-                      padding: const EdgeInsets.all(16),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(size.width * .04),
+                        //border: Border.all(color: Colors.black26),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 1,
+                            offset: Offset(1, 2),
+                          )
+                        ],
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * .04),
                       child: TextField(
+                        controller: descriptionController,
                         maxLines: null,
-                        decoration: InputDecoration(border: InputBorder.none),
+                        decoration:
+                            const InputDecoration(border: InputBorder.none),
                       ),
                     ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: size.height * .01),
+                      child: Text(
+                        messageError,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: size.width * .04,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
             ],
           ),
-          Positioned(
-            bottom: 0,
-            width: size.width,
-            child: Bounceable(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                    const  DefineDataPrescription()
-                  ),
-                );
-              },
-              child: Container(
-                margin:
-                const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                padding: const EdgeInsets.all(8),
-                height: size.height * .065,
-                decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(size.height * .5)),
-                  color: Colors.blue,
-                ),
-                child: Center(
-                  child: Text(
-                    "Adicionar",
-                    style: FontGoogle.textNormaleGoogle(
-                      colorText: Colors.white,
-                      size: size * .9,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (!providerPrescriptionMedical.getSelectPacienteOption) {
+            setState(() {
+              messageError = "Selecione um paciente";
+            });
+          } else if (!providerPrescriptionMedical.getSelectDoctorOption) {
+            setState(() {
+              messageError = "Selecione um médico";
+            });
+          } else if (!providerPrescriptionMedical.getSelectMedicineOption) {
+            setState(() {
+              messageError = "Selecione uma medicação";
+            });
+          } else if (descriptionController.text.isEmpty) {
+            setState(() {
+              messageError = "Descrição Obrigatória";
+            });
+          } else {
+            setState(() {
+              messageError = "";
+            });
+            providerPrescriptionMedical.setDescriptionMedical =
+                descriptionController.text;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DefineDataPrescription()),
+            );
+          }
+        },
+        child: const Icon(Icons.arrow_forward_rounded),
       ),
     );
   }

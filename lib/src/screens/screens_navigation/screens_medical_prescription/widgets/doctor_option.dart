@@ -35,7 +35,15 @@ class _DoctorOptionState extends State<DoctorOption> {
         width: size.width * .95,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
-          color: Colors.grey.shade100,
+          color: Colors.white,
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 1,
+              offset: Offset(1, 2),
+            )
+          ],
+
         ),
         padding: const EdgeInsets.all(12),
         child: Row(
@@ -116,7 +124,7 @@ class _DoctorOptionState extends State<DoctorOption> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
-                  "Selecione o Médico responsável",
+                  "Médico responsável",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: FontGoogle.textNormaleGoogle(

@@ -1,9 +1,9 @@
-import 'dart:ffi';
+// ignore_for_file: avoid_print
+
 
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
-import '../../../shared/dto/prescription_medical_dto/prescription_medical_dto.dart';
 import '../../../shared/models/model_doctor.dart';
 import '../../../shared/models/model_medicacao.dart';
 
@@ -68,9 +68,19 @@ class ProviderPrescriptionMedical extends ChangeNotifier{
 
   //#endregion
 
+  //#region String Description Medical
 
-  PrescriptionMedicalDto? _prescriptionMedical;
-  PrescriptionMedicalDto? get _getPrescriptionMedical => _getPrescriptionMedical;
+  String _descriptionMedical = "";
+  String get getDescriptionMedical => _descriptionMedical;
+  set setDescriptionMedical (String value){
+    _descriptionMedical = value;
+  }
+
+  //#endregion
+
+
+  // PrescriptionMedicalDto? _prescriptionMedical;
+  // PrescriptionMedicalDto? get _getPrescriptionMedical => _getPrescriptionMedical;
 
 
 
