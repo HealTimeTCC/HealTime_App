@@ -52,7 +52,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const AppBarQueries(),
+                    AppBarQueries(providerQueries: providerQuery),
                     SizedBox(height: size.height * .02),
                     Form(
                       child: Padding(
@@ -76,7 +76,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                 height: size.height * .07,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffF3F6F8),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * .02),
                                   border: Border.all(
                                     color: const Color(0xff333333),
                                   ),
@@ -93,7 +94,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       ),
                                     ),
                                     const Icon(
-                                      Icons.calendar_month_rounded,
+                                      Icons.calendar_month_outlined,
                                       color: Color(0xff1c1c1c),
                                     )
                                   ],
@@ -122,7 +123,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
                                         color: const Color(0xffF3F6F8),
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(
+                                            size.width * .02),
                                         border: Border.all(
                                           color: const Color(0xff333333),
                                         ),
@@ -160,7 +162,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                       height: size.height * .07,
                                       decoration: BoxDecoration(
                                         color: const Color(0xffF3F6F8),
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius: BorderRadius.circular(
+                                            size.width * .02),
                                         border: Border.all(
                                           color: const Color(0xff333333),
                                         ),
@@ -170,17 +173,18 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                         child: Text(
                                           DateFormat('HH:mm').format(
                                             DateTime(
-                                                0,
-                                                0,
-                                                0,
-                                                providerQuery
-                                                    .timeConsulta!.hour,
-                                                providerQuery
-                                                    .timeConsulta!.minute),
+                                              0,
+                                              0,
+                                              0,
+                                              providerQuery.timeConsulta!.hour,
+                                              providerQuery
+                                                  .timeConsulta!.minute,
+                                            ),
                                           ),
                                           style:
                                               FontGoogle.textNormalGreyGoogle(
-                                                  size: size),
+                                            size: size,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -216,8 +220,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                         elevation: 1,
                                         behavior: SnackBarBehavior.floating,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
+                                          borderRadius: BorderRadius.circular(
+                                              size.width * .02),
                                         ),
                                         content: Text(
                                           'Ação cancelada',
@@ -239,7 +243,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                 height: size.height * .07,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffF3F6F8),
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * .02),
                                   border: Border.all(
                                     color: const Color(0xff333333),
                                   ),
@@ -278,13 +283,15 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                     offset: Offset(1, 2),
                                   )
                                 ],
-                                borderRadius: BorderRadius.circular(size.width * .02),
+                                borderRadius:
+                                    BorderRadius.circular(size.width * .02),
                               ),
                               child: DropdownButton(
-                                borderRadius: BorderRadius.circular(size.width * .02),
+                                borderRadius:
+                                    BorderRadius.circular(size.width * .02),
                                 isExpanded: true,
                                 icon: Icon(
-                                  Icons.arrow_drop_down_sharp,
+                                  Icons.keyboard_arrow_down_rounded,
                                   color: Colors.grey,
                                   size: size.width * .08,
                                 ),
@@ -320,7 +327,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                               children: [
                                 Checkbox(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
+                                    borderRadius:
+                                        BorderRadius.circular(size.width),
                                   ),
                                   activeColor: const Color(0xff333333),
                                   value: providerQuery.flagEncaminhado == 0,
@@ -342,7 +350,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                               children: [
                                 Checkbox(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100),
+                                    borderRadius:
+                                        BorderRadius.circular(size.width),
                                   ),
                                   activeColor: const Color(0xff333333),
                                   value: providerQuery.flagEncaminhado == 1,
@@ -370,18 +379,20 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             ),
                             SizedBox(height: size.height * .005),
                             Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: size.height * .01),
+                              padding:
+                                  EdgeInsets.only(bottom: size.height * .01),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 1,
-                                      offset: Offset(1, 2),
-                                    )
-                                  ]),
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.circular(size.width * .02),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 2),
+                                  )
+                                ],
+                              ),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: TextFormField(
@@ -390,14 +401,16 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                                   maxLines: null,
                                   keyboardType: TextInputType.multiline,
                                   decoration: InputDecoration(
-                                      hintText: 'Digite aqui',
-                                      hintStyle: FontGoogle.textNormaleGoogle(
-                                          size: size,
-                                          colorText: Colors.black12),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: size.width * .05),
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none),
+                                    hintText: 'Informe....',
+                                    hintStyle: FontGoogle.textNormaleGoogle(
+                                        size: size, colorText: Colors.black12),
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: size.width * .05,
+                                      vertical: size.height * .015,
+                                    ),
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                  ),
                                 ),
                               ),
                             )
@@ -410,31 +423,51 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                     SizedBox(height: size.height * .05),
                     ElevatedButton(
                       onPressed: () async {
+                        if (providerQuery.doctor == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              showCloseIcon: true,
+                              closeIconColor: Colors.white,
+                              backgroundColor: Colors.redAccent,
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(size.width * .02),
+                              ),
+                              content: const Text(
+                                'Selecione um médico para continuar.',
+                              ),
+                            ),
+                          );
+                          return;
+                        }
+
                         Iterable<ModelEspecialidades> selectSpecialty =
                             providerQuery.listSpecialties.where((element) =>
                                 element.descEspecialidade ==
                                 providerQuery.valueSelect);
 
-                        PostQuery postQuery = PostQuery(
+                        final PostQuery postQuery = PostQuery(
                             dataPerson: widget.dataPessoa,
                             doctorId: providerQuery.doctor?.MedicoId ?? 1,
                             flagForwarding: providerQuery.flagEncaminhado,
                             reasonConsultation: _textObsController.text,
                             specialtyId: selectSpecialty.first.especialidadeId);
 
-                        LogicQueries.postQuery(
+                        await LogicQueries.postQuery(
                             context: context, postQuery: postQuery);
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        padding:
+                            EdgeInsets.symmetric(vertical: size.height * .016),
                         backgroundColor: const Color(0xff333333),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(size.width * .02),
                         ),
                       ),
                       child: Text(
-                        'Adicionar consulta',
+                        'Adicionar',
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.none,
                             color: Colors.white,

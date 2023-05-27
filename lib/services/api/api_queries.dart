@@ -83,7 +83,6 @@ class ApiQueries {
       final Uri uriApi = Uri.parse(
           '${uriApiBase}Paciente/PacienteByCodRespOrCuidador/$idResponsibleCarer');
 
-      print(uriApi);
       http.Response response = await http.get(uriApi);
 
       List<dynamic> listResponse = jsonDecode(response.body) as dynamic;
@@ -120,6 +119,8 @@ class ApiQueries {
           '${uriApiBase}ConsultaMedica/ConsultaAgendadaConsultaCodPessoaCod/$personId/$queryId');
 
       final http.Response response = await http.get(uriApi);
+
+      print(response.body);
 
       if (response.statusCode == 200) {
         Map<String, dynamic> mapResponse = jsonDecode(response.body);
