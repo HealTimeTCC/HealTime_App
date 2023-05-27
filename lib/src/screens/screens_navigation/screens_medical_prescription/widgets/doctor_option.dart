@@ -32,7 +32,6 @@ class _DoctorOptionState extends State<DoctorOption> {
     if (widget.doctorSelect) {
       Medico? medico = providerPrescriptionMedical.getMedicoSelect;
       return Container(
-        height: size.height * .1,
         width: size.width * .95,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
@@ -48,6 +47,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                 children: [
                   Text(
                     medico?.NmMedico ?? "Erro ao obter nome",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .7,
                       fontWeight: FontWeight.w700,
@@ -55,6 +56,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                   ),
                   Text(
                     "Cód: ${medico?.MedicoId ?? "Erro ao obter nome"}",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .7,
                       fontWeight: FontWeight.w500,
@@ -69,6 +72,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                 children: [
                   Text(
                     'CRM',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .6,
                       fontWeight: FontWeight.w700,
@@ -78,6 +83,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                     medico == null
                         ? "Falha ao obter CRM"
                         : medico.CrmMedico,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .7,
                       fontWeight: FontWeight.w500,
@@ -95,7 +102,6 @@ class _DoctorOptionState extends State<DoctorOption> {
       );
     } else {
       return Container(
-        height: size.height * .1,
         width: size.width * .95,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
@@ -111,6 +117,8 @@ class _DoctorOptionState extends State<DoctorOption> {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   "Selecione o Médico responsável",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: FontGoogle.textNormaleGoogle(
                     size: size * .7,
                   ),

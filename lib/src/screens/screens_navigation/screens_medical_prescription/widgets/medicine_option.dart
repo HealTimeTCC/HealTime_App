@@ -48,6 +48,8 @@ class _MedicineOptionState extends State<MedicineOption> {
                 children: [
                   Text(
                     medicamento?.nomeMedicacao ?? "Erro ao obter nome",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .7,
                       fontWeight: FontWeight.w700,
@@ -55,6 +57,8 @@ class _MedicineOptionState extends State<MedicineOption> {
                   ),
                   Text(
                     "Cód: ${medicamento?.medicacaoId ?? "Erro ao obter id"}",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .7,
                       fontWeight: FontWeight.w500,
@@ -102,6 +106,8 @@ class _MedicineOptionState extends State<MedicineOption> {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   "Selecione o medicamento",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: FontGoogle.textNormaleGoogle(
                     size: size * .7,
                   ),

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
@@ -13,6 +15,7 @@ import '../../screens_medical/screen_patient/select_pacient/screen_select_patien
 import '../widgets/doctor_option.dart';
 import '../widgets/medicine_option.dart';
 import '../widgets/patient_option.dart';
+import 'define_data_prescription.dart';
 
 class PrescricaoMedicamento extends StatefulWidget {
   const PrescricaoMedicamento({Key? key}) : super(key: key);
@@ -22,15 +25,15 @@ class PrescricaoMedicamento extends StatefulWidget {
 }
 
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
-  // String textButtonDoctor = 'Medico';
-  // String textButtonPaciente = 'Paciente';
-  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(
-      context);
+  late ProviderPrescriptionMedical providerPrescriptionMedical =
+  Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       body: Stack(
         children: [
@@ -74,16 +77,18 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           MaterialPageRoute(
                             builder: (context) =>
                                 SelectPatient(
-                                    typeOperation: TypeOperation.select,
-                                    personId: providerHomePage.getDataPerson?.pessoaId ?? 0,
-                                    incluiPrescricaoMedica: true,
+                                  typeOperation: TypeOperation.select,
+                                  personId:
+                                  providerHomePage.getDataPerson?.pessoaId ?? 0,
+                                  incluiPrescricaoMedica: true,
                                 ),
                           ),
                         );
                       },
                       //todo pegar esse true do provider
                       child: PatientOption(
-                        selectPatient: providerPrescriptionMedical.getSelectPacienteOption,
+                        selectPatient:
+                        providerPrescriptionMedical.getSelectPacienteOption,
                       ),
                     ),
                     SizedBox(
@@ -145,34 +150,45 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         decoration: InputDecoration(border: InputBorder.none),
                       ),
                     ),
-                    SizedBox(
-                      height: size.height * .02,
-                    ),
-                    Bounceable(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        height: size.height * .065,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(size.height * .5)),
-                          color: Colors.blue,
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Adicionar",
-                            style: FontGoogle.textNormaleGoogle(
-                              colorText: Colors.white,
-                              size: size * .9,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
             ],
+          ),
+          Positioned(
+            bottom: 0,
+            width: size.width,
+            child: Bounceable(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                    const  DefineDataPrescription()
+                  ),
+                );
+              },
+              child: Container(
+                margin:
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: const EdgeInsets.all(8),
+                height: size.height * .065,
+                decoration: BoxDecoration(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(size.height * .5)),
+                  color: Colors.blue,
+                ),
+                child: Center(
+                  child: Text(
+                    "Adicionar",
+                    style: FontGoogle.textNormaleGoogle(
+                      colorText: Colors.white,
+                      size: size * .9,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           )
         ],
       ),

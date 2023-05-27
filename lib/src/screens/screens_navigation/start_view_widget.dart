@@ -3,17 +3,14 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 import 'package:healtime/src/screens/screens_navigation/screen_profile/screen_profile.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_list_medicine.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
 import 'package:provider/provider.dart';
 
 import '../../../services/provider/provider_home_page.dart';
-import '../../../shared/decorations/fonts_google.dart';
 
 class StartWidgetView extends StatefulWidget {
   const StartWidgetView({Key? key}) : super(key: key);

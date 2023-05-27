@@ -82,7 +82,7 @@ class _PatientOptionState extends State<PatientOption> {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Icon(Icons.arrow_forward_ios, size: size.width * 0.05),
+              child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
             ),
           ],
         ),
@@ -90,7 +90,6 @@ class _PatientOptionState extends State<PatientOption> {
     } else {
       return Container(
         width: size.width * .95,
-        height: size.height * .09,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
           color: Colors.grey.shade100,
@@ -107,7 +106,10 @@ class _PatientOptionState extends State<PatientOption> {
                     size: size * .7,
                   ),
                 ),
-                const Icon(Icons.arrow_forward_ios)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
+                ),
               ],
             ),
           ),
