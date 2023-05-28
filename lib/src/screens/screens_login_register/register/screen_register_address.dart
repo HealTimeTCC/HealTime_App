@@ -5,7 +5,7 @@ import 'package:healtime/shared/dto/dto_pessoa_register.dart';
 import 'package:healtime/shared/models/maps/model_uf.dart';
 
 import '../../../../services/api/api_pessoa.dart';
-import '../../screens_navigation/start_view_widget.dart';
+import '../../screens_navigation/home_page/widgets_home_page/start_view_widget.dart';
 import '../widgets/loading_sending_data.dart';
 import '../widgets/text_form_model.dart';
 

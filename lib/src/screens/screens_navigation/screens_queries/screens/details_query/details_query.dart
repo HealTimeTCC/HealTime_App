@@ -128,7 +128,7 @@ class _DetailsQueryState extends State<DetailsQuery> {
                               ),
                               child: ListView(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * .06,
+                                    horizontal: size.width * .08,
                                     vertical: size.height * .03),
                                 children: [
                                   Text(
