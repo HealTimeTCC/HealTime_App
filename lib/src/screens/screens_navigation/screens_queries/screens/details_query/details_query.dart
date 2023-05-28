@@ -116,7 +116,7 @@ class _DetailsQueryState extends State<DetailsQuery> {
                             ),
                           ),
                           SizedBox(
-                            height: size.height * .91,
+                            height: size.height * .892,
                             child: Container(
                               margin: EdgeInsets.only(top: size.height * .2),
                               decoration: BoxDecoration(
