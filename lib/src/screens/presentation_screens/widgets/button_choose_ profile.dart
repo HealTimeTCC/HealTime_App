@@ -27,8 +27,9 @@ class SelectProfile extends StatelessWidget {
     return Container(
       width: size.width * .75,
       decoration: BoxDecoration(
-          color: const Color(0xffFFE0B9),
-          borderRadius: BorderRadius.circular(size.width * .06)),
+        color: const Color(0xffFFE0B9),
+        borderRadius: BorderRadius.circular(size.width * .06),
+      ),
       child: Stack(
         children: [
           Align(
@@ -39,6 +40,7 @@ class SelectProfile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  SizedBox(height: size.height * .02),
                   Image.asset(
                     patchImage,
                     height: size.height * .3,
