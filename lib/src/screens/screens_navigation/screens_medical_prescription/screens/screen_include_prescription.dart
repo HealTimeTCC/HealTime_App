@@ -17,14 +17,14 @@ import '../widgets/medicine_option.dart';
 import '../widgets/patient_option.dart';
 import 'define_data_prescription.dart';
 
-class PrescricaoMedicamento extends StatefulWidget {
-  const PrescricaoMedicamento({Key? key}) : super(key: key);
+class IncludePrescriptionMedical extends StatefulWidget {
+  const IncludePrescriptionMedical({Key? key}) : super(key: key);
 
   @override
-  State<PrescricaoMedicamento> createState() => _PrescricaoMedicamentoState();
+  State<IncludePrescriptionMedical> createState() => _IncludePrescriptionMedicalState();
 }
 
-class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
+class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical> {
   late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
   late TextEditingController descriptionController = TextEditingController();

@@ -16,7 +16,7 @@ class Routes {
     return {
       '/SplashScreen': (_) => const SplashScreen(),
       '/Apresentacao': (_) => const Apresentacao(),
-      '/PrescricaoMedica': (_) => const PrescricaoMedicamento(),
+      '/PrescricaoMedica': (_) => const IncludePrescriptionMedical(),
       '/PaginaInicial': (_) => const StartWidgetView(),
       '/AddDoctor': (_) => const IncluirMedico(),
       '/ListDoctors': (_) => const ListarMedico(),

@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../shared/consts/consts_required.dart';
+import '../../shared/dto/prescriptions_list/prescription_information_result.dart';
+import '../../shared/dto/prescriptions_list/prescription_patient_dto.dart';
 import '../provider/login/provider_login.dart';
 
 class ApiMedicinePrescription {
@@ -26,7 +28,7 @@ class ApiMedicinePrescription {
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase = obterUri(context) + "IncluiPrescricao";
+      String uriBase = "${obterUri(context)}IncluiPrescricao";
       var response = await http.post(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
@@ -42,4 +44,30 @@ class ApiMedicinePrescription {
       return false;
     }
   }
+  static Future<PrescriptionInformationResult> listPrescriptionPatient ({
+    required BuildContext context,
+    required int codPaciente,
+  }) async {
+    //todo testar essa requisição
+    try {
+      String uriBase = "${obterUri(context)}ListarPrescricoesPacientes";
+      var response = await http.get(
+        Uri.parse(uriBase),
+        headers: await ConstsRequired.headRequisit(),
+      );
+      if(response.statusCode == 200){
+        PrescriptionInformationResult prescriptionInformationResult =
+        PrescriptionInformationResult(status: true);
+        prescriptionInformationResult.prescriptionPatient = jsonDecode(response.body).map((json) => PrescriptionPatient.fromJson(json)).toList();
+        return prescriptionInformationResult;
+      }
+      else{
+        PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: false);
+        return prescriptionInformationResult;
+      }
+    } catch (e) {
+      PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: false);
+      return prescriptionInformationResult;    }
+  }
+
 }
