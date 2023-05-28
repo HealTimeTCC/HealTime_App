@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
@@ -74,28 +77,104 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                         margin:
                             EdgeInsets.symmetric(vertical: size.height * .03),
                         child: CircleAvatar(
-                          backgroundColor: const Color(0xffD9D9D9),
-                          radius: size.width * .21,
-                          child: Align(
-                            alignment: Alignment(
-                                size.width * .001, size.height * .0012),
-                            child: Bounceable(
-                              onTap: () async {
-                                await LogicDrawer.addImageProfile(context);
-                              },
-                              child: Icon(
-                                Icons.camera_alt_rounded,
-                                size: size.height * .05,
-                                color: Colors.white,
-                                shadows: const [
-                                  Shadow(
-                                    blurRadius: 1,
-                                    offset: Offset(1, 2),
-                                    color: Colors.black12
-                                  )
-                                ],
-                              ),
-                            ),
+                          radius: size.width * .23,
+                          child: FutureBuilder<Uint8List?>(
+                            future: LogicDrawer.getImageProfile(context),
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  {
+                                    return Container(
+                                      width: size.width * .45,
+                                      height: size.height * .23,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            size.width),
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Carregando...',
+                                          style: FontGoogle.textTitleGoogle(
+                                            size: size * .7,
+                                            colorText: const Color(0xff333333)
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                default:
+                                  {
+                                    final Uint8List img = snapshot.data!;
+
+                                    return Stack(
+                                      children: [
+                                        if (img.isNotEmpty) ... [
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Container(
+                                              width: size.width * .46,
+                                              height: size.height * .23,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xffFFCC8C),                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  size.width),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: MemoryImage(img,
+                                                      scale: 0.7),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ]else ... [
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Container(
+                                              width: size.width * .45,
+                                              height: size.height * .23,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xffFFCC8C),                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  size.width),
+                                              ),
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: SvgPicture.asset(
+                                                  'assets/svg/user.svg',
+                                                  height: size.height * .1,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        Align(
+                                          alignment: Alignment(
+                                              size.width * .001,
+                                              size.height * .0012),
+                                          child: Bounceable(
+                                            onTap: () async => await LogicDrawer.addImageProfile(
+                                                context),
+                                            child: Icon(
+                                              Icons.camera_alt_rounded,
+                                              size: size.height * .05,
+                                              color: Colors.white,
+                                              shadows: const [
+                                                Shadow(
+                                                    blurRadius: 1,
+                                                    offset: Offset(1, 2),
+                                                    color: Colors.black12)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                              }
+                            },
                           ),
                         ),
                       ),
