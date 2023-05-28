@@ -47,80 +47,12 @@ class Apresentacao extends StatelessWidget {
                         parent: BouncingScrollPhysics()),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        width: size.width * .7,
-                        decoration: BoxDecoration(
-                            color: const Color(0xffFFE0B9),
-                            borderRadius:
-                                BorderRadius.circular(size.width * .06)),
-                        child: Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * .03),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      'Paciente',
-                                      style: FontGoogle.textTitleGoogle(
-                                          size: size,
-                                          colorText: const Color(0xff424242),
-                                          fontWeightGoogle: FontWeight.w600),
-                                    ),
-                                    Text(
-                                      'Teste',
-                                      style: FontGoogle.textSubTitleGoogle(
-                                        size: size,
-                                        colorText: const Color(0xff424242),
-                                        fontWeightText: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                width: size.width * .63,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: size.height * .02),
-                                padding: EdgeInsets.symmetric(
-                                  vertical: size.height * .015,
-                                  horizontal: size.width * .04,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(size.width * .02),
-                                  color: const Color(0xffFFFFFF),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Escolher este perfil',
-                                      style: FontGoogle.textNormaleGoogle(
-                                          size: size * .8),
-                                    ),
-                                    SizedBox(width: size.width * .01),
-                                    Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      size: size.width * .05,
-                                      color: const Color(0xffFF930E),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                      const SelectProfile(
+                        patchImage: 'assets/img/doente.png',
+                        titleCard: 'Paciente',
+                        subTitleCard:
+                            'Este é o perfil de Paciente, desenvolvido para seus próprios cuidados.',
+                        typeProfile: 2,
                       ),
                       SizedBox(width: size.width * .08),
                       SizedBox(width: size.width * .08),
