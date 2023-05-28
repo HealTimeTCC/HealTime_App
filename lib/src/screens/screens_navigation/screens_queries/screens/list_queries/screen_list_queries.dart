@@ -122,27 +122,25 @@ class ListQueries extends StatelessWidget {
                                           elevation: 2,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(15),
+                                                BorderRadius.circular(size.width * .02),
                                           ),
                                           itemBuilder: (context) =>
                                               StatusConsulta.keys.map(
-                                            (int value) {
-                                              return PopupMenuItem(
-                                                value: value,
-                                                onTap: () => LogicListQueries
-                                                    .logicAlterStatus(
-                                                        context: context,
-                                                        personId:
-                                                            pessoa.pessoaId!,
-                                                        statusId: value),
-                                                child: Text(
-                                                  StatusConsulta[value],
-                                                  style: FontGoogle
-                                                      .textNormaleGoogle(
-                                                          size: size),
-                                                ),
-                                              );
-                                            },
+                                            (int value) => PopupMenuItem(
+                                              value: value,
+                                              onTap: () => LogicListQueries
+                                                  .logicAlterStatus(
+                                                  context: context,
+                                                  personId:
+                                                  pessoa.pessoaId!,
+                                                  statusId: value),
+                                              child: Text(
+                                                StatusConsulta[value],
+                                                style: FontGoogle
+                                                    .textNormaleGoogle(
+                                                    size: size),
+                                              ),
+                                            ),
                                           ).toList(),
                                           child: Icon(
                                             Icons.filter_list_rounded,
