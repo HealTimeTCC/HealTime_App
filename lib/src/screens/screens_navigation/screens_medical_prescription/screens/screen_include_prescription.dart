@@ -25,8 +25,7 @@ class PrescricaoMedicamento extends StatefulWidget {
 }
 
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
-  late ProviderPrescriptionMedical providerPrescriptionMedical =
-      Provider.of(context);
+  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
   late TextEditingController descriptionController = TextEditingController();
   String messageError = "";
@@ -76,10 +75,8 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => SelectPatient(
-                              typeOperation: TypeOperation.select,
-                              personId:
-                                  providerHomePage.getDataPerson?.pessoaId ?? 0,
-                              incluiPrescricaoMedica: true,
+                              typeOperation: TypeOperation.selectIncludePrescription,
+                              personId:providerHomePage.getDataPerson?.pessoaId ?? 0,
                             ),
                           ),
                         );

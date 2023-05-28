@@ -19,11 +19,10 @@ class SelectPatient extends StatefulWidget {
     Key? key,
     required this.personId,
     required this.typeOperation,
-    required this.incluiPrescricaoMedica,
+    this.mensageAppBar,
   }) : super(key: key);
   final int personId;
-  final bool incluiPrescricaoMedica;
-
+  final String? mensageAppBar;
   final TypeOperation typeOperation;
 
   @override
@@ -81,8 +80,7 @@ class _SelectPatientState extends State<SelectPatient> {
                                   ),
                                 ),
                                 SizedBox(width: size.width * .03),
-                                Text(
-                                  'Lista de paciente',
+                                Text( widget.mensageAppBar ?? 'Lista de paciente',
                                   style: FontGoogle.textTitleGoogle(
                                       size: size * .8),
                                 ),
@@ -98,23 +96,27 @@ class _SelectPatientState extends State<SelectPatient> {
                                   Pessoa patient = listPatient[index];
                                   return Bounceable(
                                     onTap: () {
-                                      if (widget.incluiPrescricaoMedica) {
-                                        providerPrescriptionMedical
-                                            .selectPaciente(patient);
-                                        providerPrescriptionMedical
-                                            .updateStatePacienteOption(true);
-                                        Navigator.pop(context);
-                                      } else {
-                                        widget.typeOperation ==TypeOperation.view
-                                            ? null
-                                            : Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ListQueries(
-                                                    pessoa: patient,
-                                                  ),
-                                                ),
-                                              );
+                                      switch (widget.typeOperation) {
+                                        case TypeOperation.select:
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ListQueries(pessoa: patient),
+                                            ),
+                                          );
+                                          break;
+                                        case TypeOperation.view:
+                                          null;break;
+                                        case TypeOperation.selectIncludePrescription:
+                                          providerPrescriptionMedical.selectPaciente(patient);
+                                            providerPrescriptionMedical.updateStatePacienteOption(true);
+                                            Navigator.pop(context);
+                                          break;
+                                        case TypeOperation.selectDetailsPrescription:
+                                          providerPrescriptionMedical.selectPaciente(patient);
+                                          providerPrescriptionMedical.updateStatePacienteOption(true);
+                                          Navigator.pop(context);
+                                          break;
                                       }
                                     },
                                     child: ModelPatient(person: patient),

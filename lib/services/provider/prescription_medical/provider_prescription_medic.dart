@@ -7,6 +7,7 @@ import '../../../shared/dto/prescription_medical_dto/prescription_medical_dto.da
 import '../../../shared/dto/prescription_medical_dto/prescription_medicaments_dto.dart';
 import '../../../shared/models/model_doctor.dart';
 import '../../../shared/models/model_medicacao.dart';
+import '../../api/api_medicine_prescription.dart';
 
 class ProviderPrescriptionMedical extends ChangeNotifier {
   //#region Selecionar Medicacao
@@ -61,14 +62,14 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
     notifyListeners();
   }
 
-  Pessoa? _PacienteSelect;
+  Pessoa? _pacienteSelect;
 
   void selectPaciente(Pessoa value) {
-    _PacienteSelect = value;
+    _pacienteSelect = value;
     notifyListeners();
   }
 
-  Pessoa? get getPacienteSelect => _PacienteSelect;
+  Pessoa? get getPacienteSelect => _pacienteSelect;
 
   //#endregion
 
@@ -83,11 +84,6 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   }
 
   //#endregion
-
-  DateTime? _criadoEm = DateTime.now();
-
-  //DateTime? get getCriandoEm => _criadoEm;
-  //set setCriadoEm(DateTime value) => _criadoEm = value;
 
   DateTime? _emissaoEm = DateTime.now();
 
@@ -108,19 +104,44 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   }
 
   TimeOfDay _time = TimeOfDay.now();
+
   TimeOfDay get getTimeOfDay => _time;
 
   set setTime(TimeOfDay values) => _time = values;
 
 
-  void tempo() {}
+  Future<bool> includePrescription(
+      { required num qtdeDosagem, required int qtdeDias, required BuildContext context }) async {
+    try {
+      List<PrescriptionMedicaments> prescriptionMedicaments = [
+        PrescriptionMedicaments(
+            medicacaoId: _medicineSelect!.medicacaoId!,
+            qtde: qtdeDosagem,
+            intervalo: _time,
+            duracao: qtdeDias)
+      ];
+
+      PrescriptionMedicalDto prescriptionMedicalDto = PrescriptionMedicalDto(
+          medicoId: _medicoSelect!.MedicoId!,
+          pacienteId: _pacienteSelect!.pessoaId!,
+          emissao: _emissaoEm!,
+          validade: _validade!,
+          descFichaPessoa: _descriptionMedical,
+          prescricoesMedicacoesDto: prescriptionMedicaments
+      );
+
+      return ApiMedicinePrescription.incluirPrescricaoMedica(context: context, prescriptionMedical: prescriptionMedicalDto);
+    } catch (e) {
+      return false;
+    }
+  }
 
   void disposeNoNotifier() {
     _selectMedicineOption = false;
     _selectDoctorOption = false;
     _selectPacienteOption = false;
     _medicineSelect = null;
-    _PacienteSelect = null;
+    _pacienteSelect = null;
     _medicoSelect = null;
   }
 }

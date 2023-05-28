@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -24,12 +26,11 @@ class ApiMedicinePrescription {
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase = obterUri(context);
-      uriBase += 'IncluiPrescricao';
+      String uriBase = obterUri(context) + "IncluiPrescricao";
       var response = await http.post(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
-        body: jsonEncode(prescriptionMedical),
+        body: jsonEncode(prescriptionMedical.toJson()),
       );
       if(response.statusCode == 200){
         return true;

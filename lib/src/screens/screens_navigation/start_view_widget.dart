@@ -23,11 +23,6 @@ class _StartWidgetViewState extends State<StartWidgetView> {
   int _selectedIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     _selectedIndex = 0;
@@ -35,11 +30,16 @@ class _StartWidgetViewState extends State<StartWidgetView> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final ProviderHomePage providerHomePage = Provider.of(context, listen: false);
+
     List<Widget> _widgetOptions = [
       const HomePage(),
       const IncludeMedication(),
-      const PrescricaoMedicamento(),
+      SelectPatient(
+        personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
+        typeOperation: TypeOperation.selectDetailsPrescription,
+      ),
+      //const PrescricaoMedicamento(),
       const ScreenProfile(),
     ];
     List<String> _listTitleAppBar = ["", "Medicamentos", "Profile"];
@@ -79,7 +79,6 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => SelectPatient(
-                              incluiPrescricaoMedica: false,
                               typeOperation: TypeOperation.view,
                               personId: value.getDataPerson?.pessoaId ?? 1,
                             ),
