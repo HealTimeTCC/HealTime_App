@@ -11,16 +11,18 @@ class EscolherPerfil {
       required Color colorFontText,
       required int typeNavigator,
       required BuildContext context}) {
+
+    final Size size = MediaQuery.of(context).size;
+
     return ElevatedButton(
       onPressed: () {
         _checkNavigator(context: context, type: typeNavigator);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundButton,
-        padding: const EdgeInsets.all(16),
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(45),
+          borderRadius: BorderRadius.circular(size.width * .04),
         ),
       ),
       child: Text(
