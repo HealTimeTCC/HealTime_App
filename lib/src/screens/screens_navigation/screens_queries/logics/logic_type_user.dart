@@ -23,7 +23,6 @@ class TypeUser {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => SelectPatient(
-                incluiPrescricaoMedica: false,
                   personId: pessoa.pessoaId!,
                   typeOperation: TypeOperation.select),
             ),

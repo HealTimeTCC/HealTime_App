@@ -1,4 +1,6 @@
 enum TypeOperation {
  select,
- view
+ view,
+ selectIncludePrescription,
+ selectDetailsPrescription
 }

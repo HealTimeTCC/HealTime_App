@@ -41,11 +41,17 @@ class _StartWidgetViewState extends State<StartWidgetView> {
 
   @override
   Widget build(BuildContext context) {
+    final ProviderHomePage providerHomePage = Provider.of(context, listen: false);
+
     final Size size = MediaQuery.of(context).size;
     List<Widget> _widgetOptions = [
       const HomePage(),
       const IncludeMedication(),
-      const PrescricaoMedicamento(),
+        SelectPatient(
+              mensageAppBar: "Detalhes Prescrição",
+              personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
+              typeOperation: TypeOperation.selectDetailsPrescription,
+            ),
       const ScreenProfile(),
     ];
     List<String> _listTitleAppBar = ["", "Medicamentos", "Profile"];
@@ -230,10 +236,9 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => SelectPatient(
-                                    incluiPrescricaoMedica: false,
                                     typeOperation: TypeOperation.view,
-                                    personId:
-                                        value.getDataPerson?.pessoaId ?? 1,
+                                    personId: value.getDataPerson?.pessoaId ?? 1,
+
                                   ),
                                 ),
                               );

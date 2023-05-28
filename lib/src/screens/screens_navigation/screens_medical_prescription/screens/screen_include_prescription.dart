@@ -17,16 +17,15 @@ import '../widgets/medicine_option.dart';
 import '../widgets/patient_option.dart';
 import 'define_data_prescription.dart';
 
-class PrescricaoMedicamento extends StatefulWidget {
-  const PrescricaoMedicamento({Key? key}) : super(key: key);
+class IncludePrescriptionMedical extends StatefulWidget {
+  const IncludePrescriptionMedical({Key? key}) : super(key: key);
 
   @override
-  State<PrescricaoMedicamento> createState() => _PrescricaoMedicamentoState();
+  State<IncludePrescriptionMedical> createState() => _IncludePrescriptionMedicalState();
 }
 
-class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
-  late ProviderPrescriptionMedical providerPrescriptionMedical =
-      Provider.of(context);
+class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical> {
+  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
   late TextEditingController descriptionController = TextEditingController();
   String messageError = "";
@@ -76,10 +75,8 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => SelectPatient(
-                              typeOperation: TypeOperation.select,
-                              personId:
-                                  providerHomePage.getDataPerson?.pessoaId ?? 0,
-                              incluiPrescricaoMedica: true,
+                              typeOperation: TypeOperation.selectIncludePrescription,
+                              personId:providerHomePage.getDataPerson?.pessoaId ?? 0,
                             ),
                           ),
                         );

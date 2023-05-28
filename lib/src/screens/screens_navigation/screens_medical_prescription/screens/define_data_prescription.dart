@@ -27,6 +27,15 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
 
   @override
   Widget build(BuildContext context) {
+    final snackBar = SnackBar(
+      content: const Text('Yay! A SnackBar!'),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
     providerPrescriptionMedical = Provider.of(context, listen: false);
     final Size size = MediaQuery.of(context).size;
     return ScaffoldMessenger(
@@ -317,12 +326,63 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                               ],
                             ),
                             Bounceable(
-                              onTap: () {
-                                try{
-                                  num? qtdeDias = num.tryParse(controllerQtdeDias.text);
-                                }
-                                catch(e){
-
+                              onTap: () async {
+                                int? qtdeDias = int.tryParse(controllerQtdeDias.text);
+                                num? qtdeDosagem = num.tryParse(controllerQtdeDosagem.text);
+                                if (qtdeDias == null || qtdeDosagem == null) {
+                                  scaffoldMessengerKeyDataPrescription
+                                      .currentState
+                                      ?.showSnackBar(
+                                    const SnackBar(
+                                      duration: Duration(seconds: 3),
+                                      content: Text(
+                                        "Erro: Verifique os valores inseridos",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                } else {
+                                  if(await providerPrescriptionMedical.includePrescription(
+                                      context: context,
+                                      qtdeDosagem: qtdeDosagem,
+                                      qtdeDias: qtdeDias)){
+                                    Navigator.pop(context);
+                                    providerPrescriptionMedical.disposeNoNotifier();
+                                    // TODO INCLUIR A MENSAGEM DE SNACKBAR NA TELA DE LISTAGEM
+                                    scaffoldMessengerKeyDataPrescription
+                                        .currentState
+                                        ?.showSnackBar(
+                                      const SnackBar(
+                                        duration: Duration(seconds: 3),
+                                        content: Text(
+                                          "Prescrição incluida com sucesso!",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        backgroundColor: Color(0xff1AE8E4),
+                                      ),
+                                    );
+                                  }
+                                  else{
+                                    scaffoldMessengerKeyDataPrescription
+                                        .currentState
+                                        ?.showSnackBar(
+                                      const SnackBar(
+                                        duration: Duration(seconds: 3),
+                                        content: Text(
+                                          "Erro ao incluir prescrição!",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
                                 }
                               },
                               child: Container(
@@ -337,10 +397,9 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                     'Finalizar',
                                     textAlign: TextAlign.center,
                                     style: FontGoogle.textTitleGoogle(
-                                      size: size * .9,
-                                      colorText: Colors.white,
-                                      fontWeightGoogle: FontWeight.w500
-                                    ),
+                                        size: size * .9,
+                                        colorText: Colors.white,
+                                        fontWeightGoogle: FontWeight.w500),
                                   ),
                                 ),
                               ),
@@ -353,13 +412,6 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                 ],
               ),
             ),
-            // Positioned(
-            //   bottom: 0,
-            //     right: 0,
-            //
-            //     child: Bounceable(onTap: () {}, child: Text('data'),
-            //     ),
-            // )
           ],
         ),
       ),
