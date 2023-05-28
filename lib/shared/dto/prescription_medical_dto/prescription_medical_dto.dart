@@ -7,7 +7,6 @@ class PrescriptionMedicalDto {
   String emissao;
   String validade;
   String descFichaPessoa;
-  bool flagStatusAtivo;
   List<PrescriptionMedicaments> prescricoesMedicacoesDto;
 
   PrescriptionMedicalDto({
@@ -17,7 +16,6 @@ class PrescriptionMedicalDto {
     required this.emissao,
     required this.validade,
     required this.descFichaPessoa,
-    required this.flagStatusAtivo,
     required this.prescricoesMedicacoesDto,
   });
 }

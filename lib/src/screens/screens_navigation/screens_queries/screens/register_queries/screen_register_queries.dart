@@ -68,8 +68,7 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             ),
                             SizedBox(height: size.height * .005),
                             GestureDetector(
-                              onTap: () async =>
-                                  await DateTimeQuery.selectDate(context, true),
+                              onTap: () async => await DateTimeQuery.selectDate(context, true),
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * .05),

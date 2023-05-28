@@ -2,26 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../../services/provider/queries/provider_queries.dart';
-
-class DateTimeQuery {
+class DefineDatePrescriptionMedical {
   /* Selecionar a data */
-  /* Data Agendamento = True      Data Consulta = False  */
-  static Future<void> selectDate(
-      BuildContext context, bool typeAgendamento) async {
-    final providerQuery = Provider.of<ProviderQueries>(context, listen: false);
-
-    final DateTime initDate = typeAgendamento
-        ? providerQuery.dtAgendamento!
-        : providerQuery.dtConsulta!;
+  /* Data Emissao = True      Data Validade = False  */
+  static Future<void> selectDate({
+    required BuildContext context,
+    required typeEmissao,
+  }) async {
+    final ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context, listen: false);
 
     final DateTime? picker = await showDatePicker(
       cancelText: 'CANCELAR',
       confirmText: 'CONFIRMAR',
       context: context,
-      initialDate: initDate,
-      firstDate: typeAgendamento ? DateTime(2000, 01) : DateTime.now(),
-      lastDate: typeAgendamento ? DateTime.now() : DateTime(2050, 01),
+      initialDate: DateTime.now(),
+      firstDate: typeEmissao ? DateTime(2000, 01) : DateTime.now(),
+      lastDate: typeEmissao ? DateTime.now() : DateTime(2050, 01),
       helpText: '',
       locale: const Locale('pt', 'BR'),
       builder: (context, child) {
@@ -52,24 +48,25 @@ class DateTimeQuery {
     );
 
     if (picker != null) {
-      if (typeAgendamento) {
-        providerQuery.addDtAgendamento(picker);
+      if (typeEmissao) {
+        providerPrescriptionMedical.updateEmissaoEm(picker);
       } else {
-        providerQuery.addDateConsulta(picker);
+        providerPrescriptionMedical.updateValidade(picker);
       }
     }
   }
 
   /*Selecionar o horario*/
-  /* Data Agendamento = True      Data Consulta = False  */
-  static Future<void> selectTime(
-      BuildContext context, bool typeAgendamento) async {
-    final providerQuery = Provider.of<ProviderQueries>(context, listen: false);
+  /* Data Emissao = True      Data Validade = False  */
+  static Future<void> selectTime({
+    required BuildContext context,
+    required typeEmissao,
+  }) async {
+    final ProviderPrescriptionMedical providerPrescriptionMedical =
+        Provider.of(context, listen: false);
     final TimeOfDay? timeOfDay = await showTimePicker(
       context: context,
-      initialTime: typeAgendamento
-          ? providerQuery.timeAgendamento!
-          : providerQuery.timeConsulta!,
+      initialTime: TimeOfDay.now(),
       confirmText: 'CONFIRMAR',
       cancelText: 'CANCELAR',
       helpText: null,
@@ -101,10 +98,10 @@ class DateTimeQuery {
     );
 
     if (timeOfDay != null) {
-      if (typeAgendamento) {
-        providerQuery.addTimeAgendamento(timeOfDay);
+      if (typeEmissao) {
+        providerPrescriptionMedical.setTime = timeOfDay;
       } else {
-        providerQuery.addTimeConsulta(timeOfDay);
+        providerPrescriptionMedical.setTime = timeOfDay;
       }
     }
   }

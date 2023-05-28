@@ -140,7 +140,6 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(size.width * .04),
-                        //border: Border.all(color: Colors.black26),
                         boxShadow: const [
                           BoxShadow(
                             color: Colors.black12,
