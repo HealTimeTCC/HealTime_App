@@ -12,12 +12,12 @@ class FontGoogle {
 
 //FONTE VOLTADA PARA SUBTITULO
   static TextStyle? textSubTitleGoogle(
-          {required Size size, Color? colorText}) =>
+          {required Size size, Color? colorText, FontWeight? fontWeightText}) =>
       GoogleFonts.getFont('Poppins',
           decoration: TextDecoration.none,
           color: colorText ?? const Color(0xff1c1c1c),
           fontSize: size.width * .05,
-          fontWeight: FontWeight.w500);
+          fontWeight: fontWeightText ?? FontWeight.w500);
 
 //FONTE VOLTADA PARA TITULO
   static TextStyle? textTitleGoogle(

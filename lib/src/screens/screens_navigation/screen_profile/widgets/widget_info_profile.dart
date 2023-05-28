@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
-import '../../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../logic/profile.dart';
 
 class InfoProfile extends StatelessWidget {
