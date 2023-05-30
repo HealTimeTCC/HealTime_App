@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../shared/decorations/fonts_google.dart';
 import '../../../../shared/models/enuns/enum_tipo_pessoa.dart';
