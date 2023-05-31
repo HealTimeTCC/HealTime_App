@@ -5,7 +5,7 @@ import 'package:healtime/shared/dto/dto_pessoa_auth.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
 import '../presentation_screens/screen_choose_profile.dart';
-import '../screens_navigation/start_view_widget.dart';
+import '../screens_navigation/home_page/widgets_home_page/start_view_widget.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

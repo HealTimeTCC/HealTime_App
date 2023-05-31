@@ -29,8 +29,17 @@ class _PatientOptionState extends State<PatientOption> {
       return Container(
         width: size.width * .95,
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
-          borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(size.height * .5),
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 1,
+              offset: Offset(1, 2),
+            )
+          ],
         ),
         padding: const EdgeInsets.all(12),
         child: Row(
@@ -74,7 +83,8 @@ class _PatientOptionState extends State<PatientOption> {
                         ? "Falha ao obter Data"
                         : DateFormat("dd/MM/yyyy").format(pessoa!.dtNascPessoa),
                     style: FontGoogle.textNormalGreyGoogle(
-                      size: pessoa?.dtNascPessoa == null ? size * .6 : size * .7,
+                      size:
+                          pessoa?.dtNascPessoa == null ? size * .6 : size * .7,
                     ),
                   )
                 ],
@@ -90,7 +100,6 @@ class _PatientOptionState extends State<PatientOption> {
     } else {
       return Container(
         width: size.width * .95,
-        height: size.height * .09,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
           color: Colors.grey.shade100,
@@ -102,12 +111,15 @@ class _PatientOptionState extends State<PatientOption> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Selecione o paciente",
+                  "Paciente",
                   style: FontGoogle.textNormaleGoogle(
                     size: size * .7,
                   ),
                 ),
-                const Icon(Icons.arrow_forward_ios)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Icon(Icons.arrow_forward_ios, size: size.width * 0.05),
+                ),
               ],
             ),
           ),

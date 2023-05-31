@@ -12,6 +12,7 @@ Pessoa _$PessoaFromJson(Map<String, dynamic> json) => Pessoa(
       sobreNomePessoa: json['sobreNomePessoa'] as String,
       dtNascPessoa: DateTime.parse(json['dtNascPessoa'] as String),
       tipoPessoa: json['tipoPessoa'] as int,
+      imagePerson: (json['fotoUsuario'] ?? '') as String,
       passwordString: json['passwordString'] ?? '',
       contact: json['contatoPessoa'] == null
           ? null

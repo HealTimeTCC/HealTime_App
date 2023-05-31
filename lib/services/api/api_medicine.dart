@@ -20,6 +20,8 @@ class ApiMedicine {
       headers: header,
     );
 
+    if (response.statusCode == 404) return [];
+
     List<dynamic> responseListDynamic =
         (jsonDecode(response.body) ?? []) as List<dynamic>;
 

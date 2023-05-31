@@ -1,45 +1,118 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../shared/decorations/fonts_google.dart';
 import '../../../../shared/models/enuns/enum_tipo_pessoa.dart';
 import '../profile_presentation_screen.dart';
 
-class EscolherPerfil {
-  static ElevatedButton botaoEscolha(
-      {required Color backgroundButton,
-      required String textButton,
-      required Color colorFontText,
-      required int typeNavigator,
-      required BuildContext context}) {
-    return ElevatedButton(
-      onPressed: () {
-        _checkNavigator(context: context, type: typeNavigator);
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundButton,
-        padding: const EdgeInsets.all(16),
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(45),
-        ),
+class SelectProfile extends StatelessWidget {
+  const SelectProfile({
+    Key? key,
+    required this.patchImage,
+    required this.subTitleCard,
+    required this.titleCard,
+    required this.typeProfile,
+  }) : super(key: key);
+
+  final String titleCard;
+  final String subTitleCard;
+  final String patchImage;
+  final int typeProfile;
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Container(
+      width: size.width * .75,
+      decoration: BoxDecoration(
+        color: const Color(0xffFFE0B9),
+        borderRadius: BorderRadius.circular(size.width * .06),
       ),
-      child: Text(
-        textButton,
-        style: GoogleFonts.getFont('Poppins',
-            decoration: TextDecoration.none,
-            color: colorFontText,
-            fontSize: 16),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * .03),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: size.height * .02),
+                  Image.asset(
+                    patchImage,
+                    height: size.height * .3,
+                  ),
+                  Text(
+                    titleCard,
+                    style: FontGoogle.textTitleGoogle(
+                        size: size,
+                        colorText: const Color(0xff424242),
+                        fontWeightGoogle: FontWeight.w600),
+                  ),
+                  SizedBox(height: size.height * .01),
+                  Text(
+                    subTitleCard,
+                    style: FontGoogle.textSubTitleGoogle(
+                      size: size * .9,
+                      colorText: const Color(0xff424242),
+                      fontWeightText: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Bounceable(
+              onTap: () => _checkNavigator(context: context, type: typeProfile),
+              child: Container(
+                width: size.width * .63,
+                margin: EdgeInsets.symmetric(vertical: size.height * .02),
+                padding: EdgeInsets.symmetric(
+                  vertical: size.height * .015,
+                  horizontal: size.width * .04,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(size.width * .02),
+                  color: const Color(0xffFFFFFF),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Escolher este perfil',
+                      style: FontGoogle.textNormaleGoogle(size: size * .8),
+                    ),
+                    SizedBox(width: size.width * .01),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: size.width * .05,
+                      color: const Color(0xffFF930E),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
 
-  static void _checkNavigator(
-      {required int type, required BuildContext context}) {
+  static void _checkNavigator({
+    required int type,
+    required BuildContext context,
+  }) {
     switch (type) {
       case 1:
         {
-          String mensagem =
-              'Você escolheu um perfil do tipo cuidador! '
+          String mensagem = 'Você escolheu um perfil do tipo cuidador! '
               'Nele você será responsavel pelo cuidador de outra pessoa!';
 
           Navigator.of(context).push(
@@ -54,7 +127,8 @@ class EscolherPerfil {
         break;
       case 2:
         {
-          String mensagem = 'Você escolheu um perfil do tipo paciente autonomo! '
+          String mensagem =
+              'Você escolheu um perfil do tipo paciente autonomo! '
               'Onde você mesmo irá  gerenciar seus medicamentos!';
 
           Navigator.of(context).push(

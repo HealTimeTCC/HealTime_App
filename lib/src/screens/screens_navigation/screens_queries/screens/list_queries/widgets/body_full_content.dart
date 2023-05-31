@@ -21,7 +21,10 @@ class ListContentQueries extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.only(top: size.height * .07),
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.symmetric(
+        vertical: size.height * .01,
+        horizontal: size.width * .08,
+      ),
       child: AnimationLimiter(
         child: ListView.builder(
           physics: const AlwaysScrollableScrollPhysics(

@@ -9,11 +9,11 @@ class NavbarProvider with ChangeNotifier {
     NavbarDTO(label: 'Home', widget: const HomePage(), iconData: Icons.home),
     NavbarDTO(
         label: 'Medicação',
-        widget: const PrescricaoMedicamento(),
+        widget: const IncludePrescriptionMedical(),
         iconData: Icons.medication_rounded),
     NavbarDTO(
         label: 'Prescrições',
-        widget:  PrescricaoMedicamento() ,
+        widget:  IncludePrescriptionMedical() ,
         iconData: Icons.medical_information_rounded),
     NavbarDTO(
         label: 'Perfil', widget: const ScreenProfile(), iconData: Icons.person),

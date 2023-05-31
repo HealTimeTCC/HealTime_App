@@ -7,7 +7,7 @@ import '../../../../services/api/api_pessoa.dart';
 import '../../../../services/provider/login/provider_login.dart';
 import '../../../../shared/decorations/screen_background.dart';
 import '../../../../shared/dto/dto_pessoa_auth.dart';
-import '../../screens_navigation/start_view_widget.dart';
+import '../../screens_navigation/home_page/widgets_home_page/start_view_widget.dart';
 import '../widgets/loading_sending_data.dart';
 
 class ScreenLogin extends StatefulWidget {

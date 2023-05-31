@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,20 +16,20 @@ import '../../screens_medical/screen_patient/select_pacient/screen_select_patien
 import '../widgets/doctor_option.dart';
 import '../widgets/medicine_option.dart';
 import '../widgets/patient_option.dart';
+import 'define_data_prescription.dart';
 
-class PrescricaoMedicamento extends StatefulWidget {
-  const PrescricaoMedicamento({Key? key}) : super(key: key);
+class IncludePrescriptionMedical extends StatefulWidget {
+  const IncludePrescriptionMedical({Key? key}) : super(key: key);
 
   @override
-  State<PrescricaoMedicamento> createState() => _PrescricaoMedicamentoState();
+  State<IncludePrescriptionMedical> createState() => _IncludePrescriptionMedicalState();
 }
 
-class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
-  // String textButtonDoctor = 'Medico';
-  // String textButtonPaciente = 'Paciente';
-  late ProviderPrescriptionMedical providerPrescriptionMedical =
-      Provider.of(context);
+class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical> {
+  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
+  late TextEditingController descriptionController = TextEditingController();
+  String messageError = "";
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +76,8 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => SelectPatient(
-                              typeOperation: TypeOperation.select,
-                              personId:
-                                  providerHomePage.getDataPerson?.pessoaId ?? 0,
-                              incluiPrescricaoMedica: true,
+                              typeOperation: TypeOperation.selectIncludePrescription,
+                              personId:providerHomePage.getDataPerson?.pessoaId ?? 0,
                             ),
                           ),
                         );
@@ -136,13 +136,23 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.black26)),
-                      padding: const EdgeInsets.all(16),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(size.width * .04),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 1,
+                            offset: Offset(1, 2),
+                          )
+                        ],
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * .04),
                       child: TextField(
+                        controller: descriptionController,
                         maxLines: null,
-                        decoration: InputDecoration(border: InputBorder.none),
+                        decoration:
+                            const InputDecoration(border: InputBorder.none),
                       ),
                     ),
                     SizedBox(
@@ -169,13 +179,45 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                           ),
                         ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
             ],
-          )
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (!providerPrescriptionMedical.getSelectPacienteOption) {
+            setState(() {
+              messageError = "Selecione um paciente";
+            });
+          } else if (!providerPrescriptionMedical.getSelectDoctorOption) {
+            setState(() {
+              messageError = "Selecione um médico";
+            });
+          } else if (!providerPrescriptionMedical.getSelectMedicineOption) {
+            setState(() {
+              messageError = "Selecione uma medicação";
+            });
+          } else if (descriptionController.text.isEmpty) {
+            setState(() {
+              messageError = "Descrição Obrigatória";
+            });
+          } else {
+            setState(() {
+              messageError = "";
+            });
+            providerPrescriptionMedical.setDescriptionMedical =
+                descriptionController.text;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DefineDataPrescription()),
+            );
+          }
+        },
+        child: const Icon(Icons.arrow_forward_rounded),
       ),
     );
   }

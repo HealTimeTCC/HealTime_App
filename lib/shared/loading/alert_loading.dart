@@ -33,12 +33,14 @@ class LoadingData extends StatelessWidget {
                       color: Color(0xff128F8D),
                     ),
                   )
-                : const Align(
+                : Align(
                     alignment: Alignment.center,
                     child: Icon(
                       Icons.check_circle_rounded,
-                      color: Color(0xff128F8D),
-                    )),
+                      size: size.width * .13,
+                      color: const Color(0xff128F8D),
+                    ),
+                  ),
             SizedBox(height: size.height * .02),
             Text(
               textLoading,

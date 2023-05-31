@@ -46,6 +46,41 @@ class _IncludeMedicationState extends State<IncludeMedication> {
       body: Stack(
         children: [
           const BackgroundPage(),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: SafeArea(
+          //     child: Container(
+          //       margin: EdgeInsets.symmetric(horizontal: size.width * .02),
+          //       child: Row(
+          //         children: [
+          //           IconButton(
+          //             onPressed: () => Navigator.of(context).pop(),
+          //             icon: Icon(
+          //               Icons.arrow_back_ios,
+          //               size: size.width * .08,
+          //               color: const Color(0xff1AE8E4),
+          //             ),
+          //           ),
+          //           SizedBox(width: size.width * .03),
+          //           Expanded(
+          //             child: Text(
+          //               'Incluir medicamento',
+          //               textAlign: TextAlign.left,
+          //               style: GoogleFonts.getFont('Poppins',
+          //                   decoration: TextDecoration.none,
+          //                   color: const Color(0xff1c1c1c),
+          //                   fontSize: 20,
+          //                   letterSpacing: 1,
+          //                   fontWeight: FontWeight.w400),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SafeArea(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: size.width * .1),
@@ -92,7 +127,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                           EdgeInsets.symmetric(horizontal: size.width * .02),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(size.width * .02),
                         border: Border.all(
                           color: const Color(0xff333333),
                         ),
@@ -102,7 +137,7 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                         style: FontGoogle.textNormaleGoogle(size: size * .68),
                         isExpanded: true,
                         underline: Container(),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(size.width * .02),
                         icon: const Icon(Icons.keyboard_arrow_down_rounded),
                         items: _optionsMedicineGeneric
                             .map(
@@ -144,7 +179,8 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                                     horizontal: size.width * .02),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * .02),
                                   border: Border.all(
                                     color: const Color(0xff333333),
                                   ),
@@ -152,17 +188,25 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                                 child: DropdownButton(
                                   value: _selectMedicineType,
                                   isExpanded: true,
+                                  menuMaxHeight: size.height * .5,
                                   style: FontGoogle.textNormaleGoogle(
-                                      size: size * .68),
+                                    size: size * .68,
+                                  ),
                                   underline: Container(),
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * .02),
                                   icon: const Icon(
                                       Icons.keyboard_arrow_down_rounded),
                                   items: listTypesMedicine
                                       .map(
                                         (e) => DropdownMenuItem(
                                           value: (e.typeMedicineId),
-                                          child: Text(e.titleTypeMedicine),
+                                          child: Text(
+                                            e.titleTypeMedicine,
+                                            style: FontGoogle.textNormaleGoogle(
+                                              size: size * .75,
+                                            ),
+                                          ),
                                         ),
                                       )
                                       .toList(),

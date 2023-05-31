@@ -1,17 +1,29 @@
+// ignore_for_file: avoid_print
+
+import 'package:flutter/material.dart';
+
 class PrescriptionMedicaments {
   int medicacaoId;
-  int qtde;
-  String intervalo;
+  num qtde;
+  TimeOfDay intervalo;
   int duracao;
-  bool statusMedicacaoFlag;
-  bool horariosDefinidos;
 
   PrescriptionMedicaments({
     required this.medicacaoId,
     required this.qtde,
     required this.intervalo,
-    required this.duracao,
-    required this.statusMedicacaoFlag,
-    required this.horariosDefinidos,
+    required this.duracao
   });
+  Map<String, dynamic> toJson() {
+    return {
+      'medicacaoId': medicacaoId,
+      'qtde': qtde,
+      'intervalo': definirHorario(intervalo) + ":00", // Convert TimeOfDay to string
+      'duracao': duracao,
+    };
+  }
+
+  String definirHorario(TimeOfDay value){
+    return value.toString().replaceAll(RegExp(r'[^0-9:]'), '');
+  }
 }

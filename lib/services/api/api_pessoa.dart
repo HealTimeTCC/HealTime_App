@@ -27,12 +27,12 @@ class ApiPessoa {
     Uri uriApi = Uri.parse(
         '${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
-
-
     http.Response response = await http.post(
       uriApi,
       body: json.encode(pessoa),
-      headers: {"Content-Type": "application/json",},
+      headers: {
+        "Content-Type": "application/json",
+      },
     );
 
     if (response.statusCode == 200) {
@@ -68,14 +68,13 @@ class ApiPessoa {
       Uri uriApi = Uri.parse(
           '${providerLogin.addressServer ?? uriApiBase}Pessoa/Registro');
 
-
-      http.Response response = await http
-          .post(
-            uriApi,
-            body: jsonEncode(pessoa),
-            headers: {"Content-Type": "application/json",},
-          )
-          .timeout(const Duration(seconds: 15));
+      http.Response response = await http.post(
+        uriApi,
+        body: jsonEncode(pessoa),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ).timeout(const Duration(seconds: 15));
 
       if (response.statusCode == 200) {
         DtoPessoa dtoPessoa = DtoPessoa(
@@ -135,7 +134,8 @@ class ApiPessoa {
       final Map<String, String>? header = await ConstsRequired.headRequisit();
 
       http.Response response = await http
-          .post(uriApi, body: jsonEncode(associateResponsible.toJson()), headers: header)
+          .post(uriApi,
+              body: jsonEncode(associateResponsible.toJson()), headers: header)
           .timeout(
             const Duration(seconds: 15),
           );
@@ -147,5 +147,34 @@ class ApiPessoa {
       return 0;
     }
   }
+
 //#endregion
+
+  /* Adicionar imagem */
+
+  static Future<int> includeImage(
+      {required Map<String, dynamic> dataMap,
+      required String addressServer}) async {
+    try {
+      final Uri uriApi = Uri.parse('${addressServer}Pessoa/IncluirFoto');
+
+      final Map<String, String>? header = await ConstsRequired.headRequisit();
+
+      final http.Response response = await http
+          .post(
+            uriApi,
+            body: jsonEncode(dataMap),
+            headers: header,
+          )
+          .timeout(
+            const Duration(seconds: 15),
+          );
+
+      return response.statusCode;
+    } on TimeoutException catch (_) {
+      return 1;
+    } catch (ex) {
+      return 0;
+    }
+  }
 }

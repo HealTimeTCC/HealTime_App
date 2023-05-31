@@ -1,30 +1,33 @@
-import 'dart:ffi';
+// ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
 import '../../../shared/dto/prescription_medical_dto/prescription_medical_dto.dart';
+import '../../../shared/dto/prescription_medical_dto/prescription_medicaments_dto.dart';
 import '../../../shared/models/model_doctor.dart';
 import '../../../shared/models/model_medicacao.dart';
+import '../../api/api_medicine_prescription.dart';
 
-class ProviderPrescriptionMedical extends ChangeNotifier{
+class ProviderPrescriptionMedical extends ChangeNotifier {
   //#region Selecionar Medicacao
   bool _selectMedicineOption = false;
 
   bool get getSelectMedicineOption => _selectMedicineOption;
 
-  void updateStateMedicineOption (bool value){
+  void updateStateMedicineOption(bool value) {
     _selectMedicineOption = value;
   }
 
   ModelMedicacao? _medicineSelect;
 
-  void selectMedicine(ModelMedicacao values)async{
+  void selectMedicine(ModelMedicacao values) async {
     _medicineSelect = values;
     notifyListeners();
   }
 
   ModelMedicacao? get getMedicacaoSelect => _medicineSelect;
+
   //#endregion
 
   //#region Selecionar medico
@@ -33,16 +36,17 @@ class ProviderPrescriptionMedical extends ChangeNotifier{
 
   bool get getSelectDoctorOption => _selectDoctorOption;
 
-  void updateStateDoctorOption (bool value){
+  void updateStateDoctorOption(bool value) {
     _selectDoctorOption = value;
   }
 
   Medico? _medicoSelect;
 
-  void selectMedic(Medico values){
+  void selectMedic(Medico values) {
     _medicoSelect = values;
     notifyListeners();
   }
+
   Medico? get getMedicoSelect => _medicoSelect;
 
   //#endregion
@@ -53,33 +57,91 @@ class ProviderPrescriptionMedical extends ChangeNotifier{
 
   bool get getSelectPacienteOption => _selectPacienteOption;
 
-  void updateStatePacienteOption (bool value){
+  void updateStatePacienteOption(bool value) {
     _selectPacienteOption = value;
     notifyListeners();
   }
 
-  Pessoa? _PacienteSelect;
+  Pessoa? _pacienteSelect;
 
-  void selectPaciente(Pessoa value){
-    _PacienteSelect = value;
+  void selectPaciente(Pessoa value) {
+    _pacienteSelect = value;
     notifyListeners();
   }
-  Pessoa? get getPacienteSelect => _PacienteSelect;
+
+  Pessoa? get getPacienteSelect => _pacienteSelect;
 
   //#endregion
 
+  //#region String Description Medical
 
-  PrescriptionMedicalDto? _prescriptionMedical;
-  PrescriptionMedicalDto? get _getPrescriptionMedical => _getPrescriptionMedical;
+  String _descriptionMedical = "";
+
+  String get getDescriptionMedical => _descriptionMedical;
+
+  set setDescriptionMedical(String value) {
+    _descriptionMedical = value;
+  }
+
+  //#endregion
+
+  DateTime? _emissaoEm = DateTime.now();
+
+  DateTime? get getEmissaoEm => _emissaoEm;
+
+  void updateEmissaoEm(DateTime value) {
+    _emissaoEm = value;
+    notifyListeners();
+  }
+
+  DateTime? _validade = DateTime.now();
+
+  DateTime? get getValidade => _validade;
+
+  void updateValidade(DateTime value) {
+    _validade = value;
+    notifyListeners();
+  }
+
+  TimeOfDay _time = TimeOfDay.now();
+
+  TimeOfDay get getTimeOfDay => _time;
+
+  set setTime(TimeOfDay values) => _time = values;
 
 
+  Future<bool> includePrescription(
+      { required num qtdeDosagem, required int qtdeDias, required BuildContext context }) async {
+    try {
+      List<PrescriptionMedicaments> prescriptionMedicaments = [
+        PrescriptionMedicaments(
+            medicacaoId: _medicineSelect!.medicacaoId!,
+            qtde: qtdeDosagem,
+            intervalo: _time,
+            duracao: qtdeDias)
+      ];
 
-  void disposeNoNotifier(){
+      PrescriptionMedicalDto prescriptionMedicalDto = PrescriptionMedicalDto(
+          medicoId: _medicoSelect!.MedicoId!,
+          pacienteId: _pacienteSelect!.pessoaId!,
+          emissao: _emissaoEm!,
+          validade: _validade!,
+          descFichaPessoa: _descriptionMedical,
+          prescricoesMedicacoesDto: prescriptionMedicaments
+      );
+
+      return ApiMedicinePrescription.incluirPrescricaoMedica(context: context, prescriptionMedical: prescriptionMedicalDto);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  void disposeNoNotifier() {
     _selectMedicineOption = false;
     _selectDoctorOption = false;
     _selectPacienteOption = false;
     _medicineSelect = null;
-    _PacienteSelect = null;
+    _pacienteSelect = null;
     _medicoSelect = null;
   }
 }

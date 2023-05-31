@@ -1,8 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
-import '../../../../../services/data_locale/data_preferences_pessoa.dart';
+import '../logic/profile.dart';
 
 class InfoProfile extends StatelessWidget {
   const InfoProfile({Key? key}) : super(key: key);
@@ -11,21 +13,36 @@ class InfoProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return FutureBuilder<Pessoa?>(
-      future: DataPreferencesPessoa.getDataUser(),
+    return FutureBuilder<Map<String, dynamic>>(
+      future: LogicProfile.getDataProfile(context),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Column(
+                children: [
+                  const Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xff333333),
+                    ),
+                  ),
+                  SizedBox(height: size.height * .05,),
+                  Text(
+                    'Carregando perfil...',
+                    style: FontGoogle.textNormaleGoogle(
+                      size: size * .9,
+                      colorText: Color(0xff333333),
+                    ),
+                  )
+                ],
               );
             }
           default:
             {
               if (snapshot.data == null) return Container();
 
-              Pessoa person = snapshot.data!;
+              final Pessoa person = snapshot.data!['person'];
+              final Uint8List img = snapshot.data!['img'];
 
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: size.width * .03),
@@ -50,10 +67,21 @@ class InfoProfile extends StatelessWidget {
                           radius: size.width * .15,
                           child: Align(
                             alignment: Alignment.center,
-                            child: Icon(
-                              Icons.person,
-                              color: const Color(0xff6A6A6A),
-                              size: size.width * .25,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: size.width * .46,
+                                height: size.height * .23,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffFFCC8C),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: MemoryImage(img, scale: 0.7),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),

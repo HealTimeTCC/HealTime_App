@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../../shared/decorations/fonts_google.dart';
 
 class AppBarQueries extends StatelessWidget {
-  const AppBarQueries({super.key});
+  const AppBarQueries({
+    super.key,
+    required this.providerQueries,
+  });
+
+  final ProviderQueries providerQueries;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,10 @@ class AppBarQueries extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            providerQueries.disposeDoctor();
+            Navigator.of(context).pop();
+          },
           icon: Icon(
             Icons.arrow_back_ios,
             size: size.width * .08,

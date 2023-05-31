@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../../../services/api/api_queries.dart';
 import '../../../../../../../shared/dto/dto_info_basic_queries.dart';
 import '../../../../../../../shared/models/maps/enum_status_consulta.dart';
 import '../../../../../../../shared/models/model_especialidades.dart';
+import '../../../../../../../shared/models/model_pessoa.dart';
 
 class CardListQueries {
   static Container modelCardList(
@@ -12,24 +16,30 @@ class CardListQueries {
       required DtoInfoBasicQueries infoBasic,
       required Iterable<ModelEspecialidades> especialidade}) {
     final Size size = MediaQuery.of(context).size;
-    double borderRadius = 10.0;
 
     /* Container que vai ficar atrás para dar a cor de fundo do card */
     return Container(
       margin: EdgeInsets.only(bottom: size.width * .05),
       decoration: BoxDecoration(
         color: const Color(0xff278F8E),
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(size.width * .02),
+        boxShadow: const [
+          BoxShadow(
+            blurRadius: 1,
+            offset: Offset(1, 2),
+            color: Colors.black12,
+          )
+        ],
       ),
 
       /* Container que vai ficar na frente, responsavel pelo conteúdo do card */
       child: Container(
         padding: EdgeInsets.symmetric(
-            vertical: size.height * .01, horizontal: size.width * .07),
-        margin: EdgeInsets.only(bottom: size.width * .01),
+            vertical: size.height * .02, horizontal: size.width * .05),
+        margin: EdgeInsets.only(bottom: size.width * .006),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(size.width * .02),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -78,15 +88,83 @@ class CardListQueries {
                   fontWeight: FontWeight.w400),
             ),
             SizedBox(height: size.height * .03),
-            Text(
-              StatusConsulta[infoBasic.statusConsultaId],
-              style: GoogleFonts.getFont('Poppins',
-                  decoration: TextDecoration.none,
-                  color: const Color(0xff1c1c1c),
-                  fontSize: size.width * .045,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.w600),
-            ),
+            Row(
+              children: [
+                FutureBuilder<Pessoa?>(
+                  future: ApiQueries.getDetailsPerson(infoBasic.pacienteId),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: size.height * .005,
+                                horizontal: size.width * .03),
+                            decoration: BoxDecoration(
+                              color: const Color(0xffFFCC8C),
+                              borderRadius:
+                                  BorderRadius.circular(size.width * .03),
+                            ),
+                            child: Text(
+                              'Obtendo dados...',
+                              textAlign: TextAlign.center,
+                              style: FontGoogle.textSubTitleGoogle(
+                                size: size * .8,
+                              ),
+                            ),
+                          );
+                        }
+                        break;
+                      default:
+                        {
+                          if (snapshot.data == null) Container();
+
+                          final Pessoa person = snapshot.data!;
+
+                          return Expanded(
+                            flex: 2,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: size.height * .005,
+                                  horizontal: size.width * .03),
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffFFCC8C),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * .03)),
+                              child: Text(
+                                '${person.nomePessoa} ${person.sobreNomePessoa}',
+                                style: FontGoogle.textSubTitleGoogle(
+                                  size: size * .8,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        break;
+                    }
+                  },
+                ),
+                SizedBox(
+                  width: size.width * .02,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: size.height * .005),
+                    decoration: BoxDecoration(
+                        color: const Color(0xff58DAD8),
+                        borderRadius: BorderRadius.circular(size.width * .03)),
+                    child: Text(
+                      StatusConsulta[infoBasic.statusConsultaId],
+                      textAlign: TextAlign.center,
+                      style: FontGoogle.textSubTitleGoogle(
+                        size: size * .75,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
