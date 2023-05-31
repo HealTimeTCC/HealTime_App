@@ -55,14 +55,14 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                        'Incluir medicamento',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.getFont('Poppins',
-                            decoration: TextDecoration.none,
-                            color: const Color(0xff1c1c1c),
-                            fontSize: 20,
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w600),
+                      'Incluir medicamento',
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.getFont('Poppins',
+                          decoration: TextDecoration.none,
+                          color: const Color(0xff1c1c1c),
+                          fontSize: 20,
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w600),
                     ),
                     SizedBox(height: size.height * .07),
                     Text(

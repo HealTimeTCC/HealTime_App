@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/services/provider/provider_home_page.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
@@ -24,8 +25,8 @@ class PrescricaoMedicamento extends StatefulWidget {
 class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
   // String textButtonDoctor = 'Medico';
   // String textButtonPaciente = 'Paciente';
-  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(
-      context);
+  late ProviderPrescriptionMedical providerPrescriptionMedical =
+      Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
 
   @override
@@ -72,18 +73,19 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                SelectPatient(
-                                    typeOperation: TypeOperation.select,
-                                    personId: providerHomePage.getDataPerson?.pessoaId ?? 0,
-                                    incluiPrescricaoMedica: true,
-                                ),
+                            builder: (context) => SelectPatient(
+                              typeOperation: TypeOperation.select,
+                              personId:
+                                  providerHomePage.getDataPerson?.pessoaId ?? 0,
+                              incluiPrescricaoMedica: true,
+                            ),
                           ),
                         );
                       },
                       //todo pegar esse true do provider
                       child: PatientOption(
-                        selectPatient: providerPrescriptionMedical.getSelectPacienteOption,
+                        selectPatient:
+                            providerPrescriptionMedical.getSelectPacienteOption,
                       ),
                     ),
                     SizedBox(
@@ -94,15 +96,14 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                            const ListarMedico(
+                            builder: (context) => const ListarMedico(
                                 includePrescricaoMedica: true),
                           ),
                         );
                       },
                       child: DoctorOption(
                         doctorSelect:
-                        providerPrescriptionMedical.getSelectDoctorOption,
+                            providerPrescriptionMedical.getSelectDoctorOption,
                       ),
                     ),
                     SizedBox(
@@ -113,8 +114,7 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                            const ListaRemedios(
+                            builder: (context) => const ListaRemedios(
                               includePrescriptionMedicine: true,
                             ),
                           ),
@@ -146,25 +146,26 @@ class _PrescricaoMedicamentoState extends State<PrescricaoMedicamento> {
                       ),
                     ),
                     SizedBox(
-                      height: size.height * .02,
+                      height: size.height * .05,
                     ),
                     Bounceable(
                       onTap: () {},
                       child: Container(
                         padding: EdgeInsets.all(8),
                         height: size.height * .065,
+                        width: size.width * .9,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(size.height * .5)),
-                          color: Colors.blue,
+                          borderRadius: BorderRadius.all(Radius.circular(11)),
+                          color: const Color(0xff333333),
                         ),
                         child: Center(
                           child: Text(
-                            "Adicionar",
-                            style: FontGoogle.textNormaleGoogle(
-                              colorText: Colors.white,
-                              size: size * .9,
-                            ),
+                            'Adicionar',
+                            style: GoogleFonts.getFont('Poppins',
+                                decoration: TextDecoration.none,
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),

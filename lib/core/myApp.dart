@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/SplashScreen',
+        initialRoute: '/PaginaInicial',
         routes: Routes.mapRoutes());
   }
 }

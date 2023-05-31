@@ -125,7 +125,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 12),
               duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,
@@ -141,7 +141,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                 GButton(
                   backgroundColor: Color(0xFF14D8D5),
                   iconColor: Colors.grey,
-                  icon: Icons.list_alt,
+                  icon: Icons.medication_outlined,
                   iconActiveColor: Colors.white,
                   text: 'Medicamentos',
                   textColor: Colors.white,
