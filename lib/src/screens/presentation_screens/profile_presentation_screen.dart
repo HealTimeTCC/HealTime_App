@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtime/shared/decorations/fonts_google.dart';
 
 import '../screens_login_register/screen_login_register.dart';
 
@@ -38,12 +40,12 @@ class TelaPerfis extends StatelessWidget {
                 children: [
                   Text(
                     mensagemSuperior,
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400),
+                    style: FontGoogle.textNormaleGoogle(
+                      size: size * .9,
+                      colorText: Colors.white,
+                    ),
                   ),
+                  SizedBox(height: size.height * .015),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: size.height * 0.01),
                     height: size.height * 0.3,
@@ -55,12 +57,12 @@ class TelaPerfis extends StatelessWidget {
                   ),
                   Text(
                     'Veja o que você pode fazer nesse perfil',
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400),
+                    style: FontGoogle.textNormaleGoogle(
+                      size: size * .9,
+                      colorText: Colors.white,
+                    ),
                   ),
+                  SizedBox(height: size.height * .015),
                   editRow(
                       acess: true,
                       textAcess: 'Adicionar/Remover medicamentos',
@@ -89,15 +91,15 @@ class TelaPerfis extends StatelessWidget {
         Positioned(
           bottom: size.height * 0.02,
           left: size.width * 0.02,
-          child: GestureDetector(
+          child: Bounceable(
             onTap: () => Navigator.of(context).pop(),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 25,
               backgroundColor: Colors.white,
               child: Icon(
                 Icons.arrow_back,
-                size: 40,
-                color: Color(0xff18CDCA),
+                size: size.width * .1,
+                color: const Color(0xff18CDCA),
               ),
             ),
           ),
@@ -105,19 +107,19 @@ class TelaPerfis extends StatelessWidget {
         Positioned(
           bottom: size.height * 0.02,
           right: size.width * 0.02,
-          child: GestureDetector(
+          child: Bounceable(
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => LoginRegister(typeUser: typeUser),
               ),
             ),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 25,
               backgroundColor: Colors.white,
               child: Icon(
                 Icons.arrow_forward,
-                size: 40,
-                color: Color(0xff18CDCA),
+                size: size.width * .1,
+                color: const Color(0xff18CDCA),
               ),
             ),
           ),
@@ -139,15 +141,15 @@ class TelaPerfis extends StatelessWidget {
       child: Row(
         children: [
           acess
-              ? const Icon(
+              ? Icon(
                   Icons.check_circle_rounded,
-                  size: 25,
-                  color: Color(0xff1c1c1c),
+                  size: size.width * .06,
+                  color: const Color(0xff333333),
                 )
-              : const Icon(
+              : Icon(
                   Icons.cancel,
                   color: Colors.black26,
-                  size: 25,
+                  size: size.width * .06,
                 ),
           SizedBox(
             width: size.width * 0.03,
@@ -155,11 +157,10 @@ class TelaPerfis extends StatelessWidget {
           Expanded(
             child: Text(
               textAcess,
-              style: GoogleFonts.getFont('Poppins',
-                  decoration: TextDecoration.none,
-                  color: colorText,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400),
+              style: FontGoogle.textNormaleGoogle(
+                size: size * .9,
+                colorText: Colors.white,
+              ),
             ),
           )
         ],
