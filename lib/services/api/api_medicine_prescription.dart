@@ -22,6 +22,7 @@ class ApiMedicinePrescription {
     return uriApi;
   }
 
+  //#region Incluir prescrição
   static Future<bool> incluirPrescricaoMedica ({
     required BuildContext context,
     required PrescriptionMedicalDto prescriptionMedical,
@@ -44,6 +45,8 @@ class ApiMedicinePrescription {
       return false;
     }
   }
+  //#endregion
+  //#region listar prescrições
   static Future<PrescriptionInformationResult> listPrescriptionPatient ({
     required BuildContext context,
     required int codPaciente,
@@ -69,5 +72,5 @@ class ApiMedicinePrescription {
       PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: false);
       return prescriptionInformationResult;    }
   }
-
+  //#endregion
 }

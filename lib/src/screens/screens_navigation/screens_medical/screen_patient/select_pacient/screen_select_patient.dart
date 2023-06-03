@@ -74,9 +74,7 @@ class _SelectPatientState extends State<SelectPatient> {
                     {
                       List<Pessoa> listPatient = snapshot.data ?? [];
                       return SafeArea(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * .02),
+                        child: Padding(padding: EdgeInsets.symmetric(horizontal: size.width * .02),
                           child: Column(
                             children: [
                               SizedBox(height: size.height * .03),
@@ -114,36 +112,25 @@ class _SelectPatientState extends State<SelectPatient> {
                                           case TypeOperation.select:
                                             Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ListQueries(
-                                                        pessoa: patient),
+                                                builder: (context) => ListQueries(pessoa: patient),
                                               ),
                                             );
                                             break;
                                           case TypeOperation.view:
                                             null;
                                             break;
-                                          case TypeOperation
-                                              .selectIncludePrescription:
-                                            providerPrescriptionMedical
-                                                .selectPaciente(patient);
-                                            providerPrescriptionMedical
-                                                .updateStatePacienteOption(
-                                                    true);
+                                          case TypeOperation.selectIncludePrescription:
+                                            providerPrescriptionMedical.selectPaciente(patient);
+                                            providerPrescriptionMedical.updateStatePacienteOption(true);
                                             Navigator.pop(context);
                                             break;
-                                          case TypeOperation
-                                              .selectDetailsPrescription:
-                                            providerPrescriptionMedical
-                                                .selectPaciente(patient);
-                                            providerPrescriptionMedical
-                                                .updateStatePacienteOption(
-                                                    true);
+                                          case TypeOperation.selectDetailsPrescription:
+                                            providerPrescriptionMedical.selectPaciente(patient);
+                                            providerPrescriptionMedical.updateStatePacienteOption(true);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailsPrescription(),
+                                                  builder: (context) => const DetailsPrescription(),
                                                 ));
                                             break;
                                         }
