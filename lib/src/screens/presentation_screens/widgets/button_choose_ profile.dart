@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../shared/decorations/fonts_google.dart';
 import '../../../../shared/models/enuns/enum_tipo_pessoa.dart';
@@ -13,12 +12,14 @@ class SelectProfile extends StatelessWidget {
     required this.subTitleCard,
     required this.titleCard,
     required this.typeProfile,
+    required this.colorBackgroundCard,
   }) : super(key: key);
 
   final String titleCard;
   final String subTitleCard;
   final String patchImage;
   final int typeProfile;
+  final Color colorBackgroundCard;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,9 @@ class SelectProfile extends StatelessWidget {
     return Container(
       width: size.width * .75,
       decoration: BoxDecoration(
-          color: const Color(0xffFFE0B9),
-          borderRadius: BorderRadius.circular(size.width * .06)),
+        color: colorBackgroundCard,
+        borderRadius: BorderRadius.circular(size.width * .06),
+      ),
       child: Stack(
         children: [
           Align(
@@ -39,6 +41,7 @@ class SelectProfile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  SizedBox(height: size.height * .02),
                   Image.asset(
                     patchImage,
                     height: size.height * .3,
@@ -54,7 +57,7 @@ class SelectProfile extends StatelessWidget {
                   Text(
                     subTitleCard,
                     style: FontGoogle.textSubTitleGoogle(
-                      size: size * .9,
+                      size: size * .85,
                       colorText: const Color(0xff424242),
                       fontWeightText: FontWeight.w400,
                     ),

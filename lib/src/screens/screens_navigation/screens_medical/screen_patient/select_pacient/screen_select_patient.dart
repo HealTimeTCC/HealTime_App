@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_patient.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_text_field.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:provider/provider.dart';
 

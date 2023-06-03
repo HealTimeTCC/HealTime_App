@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/services/provider/provider_home_page.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
@@ -154,14 +155,28 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
                             const InputDecoration(border: InputBorder.none),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: size.height * .01),
-                      child: Text(
-                        messageError,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: size.width * .04,
+                    SizedBox(
+                      height: size.height * .05,
+                    ),
+                    Bounceable(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        height: size.height * .065,
+                        width: size.width * .9,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(11)),
+                          color: const Color(0xff333333),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Adicionar',
+                            style: GoogleFonts.getFont('Poppins',
+                                decoration: TextDecoration.none,
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ),
                     )

@@ -21,13 +21,13 @@ class Apresentacao extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: size.height * 0.05),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: size.height * 0.05),
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
                   child: Text(
                     textAlign: TextAlign.center,
                     'Selecione um tipo de perfil para começar',
@@ -38,29 +38,48 @@ class Apresentacao extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-                SizedBox(height: size.height * .08),
-                SizedBox(
-                  height: size.height * .6,
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics()),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      const SelectProfile(
-                        patchImage: 'assets/img/doente.png',
-                        titleCard: 'Paciente',
-                        subTitleCard:
-                            'Este é o perfil de Paciente, desenvolvido para seus próprios cuidados.',
-                        typeProfile: 2,
-                      ),
-                      SizedBox(width: size.width * .08),
-                      SizedBox(width: size.width * .08),
-                    ],
+              ),
+              SizedBox(height: size.height * .08),
+              SizedBox(
+                height: size.height * .6,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .03),
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
                   ),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    const SelectProfile(
+                      patchImage: 'assets/img/responsavel.png',
+                      titleCard: 'Responsável',
+                      colorBackgroundCard: Color(0xffBCEFEE),
+                      subTitleCard:
+                          'Este é o perfil do Responsável, criado para gerenciar e supervisionar os pacientes de maneira eficiente.',
+                      typeProfile: 3,
+                    ),
+                    SizedBox(width: size.width * .08),
+                    const SelectProfile(
+                      patchImage: 'assets/img/doente.png',
+                      titleCard: 'Paciente',
+                      colorBackgroundCard: Color(0xffFFE0B9),
+                      subTitleCard:
+                          'Este é o perfil de Paciente, desenvolvido para seus próprios cuidados.',
+                      typeProfile: 2,
+                    ),
+                    SizedBox(width: size.width * .08),
+                    const SelectProfile(
+                      patchImage: 'assets/img/drugstore.png',
+                      titleCard: 'Cuidador',
+                      colorBackgroundCard: Color(0xffE1F6D0),
+                      subTitleCard:
+                          'Este é o perfil de Cuidador, desenvolvido para cuidadores e prestadores de serviço médico.',
+                      typeProfile: 1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
