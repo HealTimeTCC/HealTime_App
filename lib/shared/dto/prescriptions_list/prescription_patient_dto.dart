@@ -22,14 +22,14 @@ class PrescriptionPatient {
 
   factory PrescriptionPatient.fromJson(Map<String, dynamic> json) {
     return PrescriptionPatient(
-      prescricaoPacienteId: json['prescricaoPacienteId'],
-      medicoId: json['medicoId'],
-      pacienteId: json['pacienteId'],
+      prescricaoPacienteId: json['prescricaoPacienteId'] as int,
+      medicoId: json['medicoId'] as int,
+      pacienteId: json['pacienteId'] as int,
       criadoEm: DateTime.parse(json['criadoEm']),
       emissao: DateTime.parse(json['emissao']),
       validade: DateTime.parse(json['validade']),
-      descFichaPessoa: json['descFichaPessoa'],
-      flagStatusAtivo: json['flagStatusAtivo'],
+      descFichaPessoa: json['descFichaPessoa'] as String,
+      flagStatusAtivo: json['flagStatusAtivo'] as bool,
     );
   }
 
