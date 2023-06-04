@@ -119,7 +119,8 @@ class SelectProfile extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => TelaPerfis(
-                  enderecoImagem: 'assets/img/imagemCuidador.png',
+                  enderecoImagem:
+                      'assets/img/Health-professional-team-cuate2.png',
                   mensagemSuperior: mensagem,
                   typeUser: TipoPessoa.cuidador.index),
             ),
@@ -135,7 +136,7 @@ class SelectProfile extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => TelaPerfis(
-                  enderecoImagem: 'assets/img/ImagemPaciente.png',
+                  enderecoImagem: 'assets/img/Diabetes-cuate2.png',
                   mensagemSuperior: mensagem,
                   typeUser: TipoPessoa.paciente.index),
             ),
@@ -150,7 +151,7 @@ class SelectProfile extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => TelaPerfis(
-                  enderecoImagem: 'assets/img/ImagemResponsavel.png',
+                  enderecoImagem: 'assets/img/Remedy-cuate2.png',
                   mensagemSuperior: mensagem,
                   typeUser: TipoPessoa.responsavel.index),
             ),
