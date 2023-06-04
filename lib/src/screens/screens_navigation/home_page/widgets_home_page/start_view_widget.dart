@@ -11,7 +11,6 @@ import 'package:healtime/src/screens/screens_navigation/screen_profile/screen_pr
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
 import 'package:provider/provider.dart';
 
@@ -236,7 +235,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => SelectPatient(
-                                    typeOperation: TypeOperation.view,
+                                    typeOperation: TypeOperation.select,
                                     personId: value.getDataPerson?.pessoaId ?? 1,
 
                                   ),

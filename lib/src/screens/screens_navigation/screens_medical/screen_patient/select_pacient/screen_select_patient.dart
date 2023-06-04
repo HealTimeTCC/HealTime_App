@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_patient.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_text_field.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:provider/provider.dart';
 
@@ -74,9 +74,7 @@ class _SelectPatientState extends State<SelectPatient> {
                     {
                       List<Pessoa> listPatient = snapshot.data ?? [];
                       return SafeArea(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * .02),
+                        child: Padding(padding: EdgeInsets.symmetric(horizontal: size.width * .02),
                           child: Column(
                             children: [
                               SizedBox(height: size.height * .03),
@@ -114,36 +112,25 @@ class _SelectPatientState extends State<SelectPatient> {
                                           case TypeOperation.select:
                                             Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ListQueries(
-                                                        pessoa: patient),
+                                                builder: (context) => ListQueries(pessoa: patient),
                                               ),
                                             );
                                             break;
                                           case TypeOperation.view:
                                             null;
                                             break;
-                                          case TypeOperation
-                                              .selectIncludePrescription:
-                                            providerPrescriptionMedical
-                                                .selectPaciente(patient);
-                                            providerPrescriptionMedical
-                                                .updateStatePacienteOption(
-                                                    true);
+                                          case TypeOperation.selectIncludePrescription:
+                                            providerPrescriptionMedical.selectPaciente(patient);
+                                            providerPrescriptionMedical.updateStatePacienteOption(true);
                                             Navigator.pop(context);
                                             break;
-                                          case TypeOperation
-                                              .selectDetailsPrescription:
-                                            providerPrescriptionMedical
-                                                .selectPaciente(patient);
-                                            providerPrescriptionMedical
-                                                .updateStatePacienteOption(
-                                                    true);
+                                          case TypeOperation.selectDetailsPrescription:
+                                            providerPrescriptionMedical.selectPaciente(patient);
+                                            providerPrescriptionMedical.updateStatePacienteOption(true);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailsPrescription(),
+                                                  builder: (context) => const DetailsPrescription(),
                                                 ));
                                             break;
                                         }

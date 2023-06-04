@@ -7,5 +7,5 @@ class PrescriptionInformationResult {
   });
 
   bool status;
-  PrescriptionPatient? prescriptionPatient;
+  List<PrescriptionPatient>? prescriptionPatient;
 }

@@ -3,10 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
+import '../../../shared/dto/medicines_on_prescription_dto/details_prescription.dart';
+import '../../../shared/dto/medicines_on_prescription_dto/prescription_medicine_dto.dart';
 import '../../../shared/dto/prescription_medical_dto/prescription_medical_dto.dart';
 import '../../../shared/dto/prescription_medical_dto/prescription_medicaments_dto.dart';
+import '../../../shared/dto/prescriptions_list/prescription_information_result.dart';
+import '../../../shared/dto/prescriptions_list/prescription_patient_dto.dart';
 import '../../../shared/models/model_doctor.dart';
 import '../../../shared/models/model_medicacao.dart';
+import '../../../src/screens/screens_navigation/screens_medical_prescription/logic_options/enum_type_state.dart';
 import '../../api/api_medicine_prescription.dart';
 
 class ProviderPrescriptionMedical extends ChangeNotifier {
@@ -109,9 +114,10 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
 
   set setTime(TimeOfDay values) => _time = values;
 
-
   Future<bool> includePrescription(
-      { required num qtdeDosagem, required int qtdeDias, required BuildContext context }) async {
+      {required num qtdeDosagem,
+      required int qtdeDias,
+      required BuildContext context}) async {
     try {
       List<PrescriptionMedicaments> prescriptionMedicaments = [
         PrescriptionMedicaments(
@@ -127,10 +133,10 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
           emissao: _emissaoEm!,
           validade: _validade!,
           descFichaPessoa: _descriptionMedical,
-          prescricoesMedicacoesDto: prescriptionMedicaments
-      );
+          prescricoesMedicacoesDto: prescriptionMedicaments);
 
-      return ApiMedicinePrescription.incluirPrescricaoMedica(context: context, prescriptionMedical: prescriptionMedicalDto);
+      return ApiMedicinePrescription.incluirPrescricaoMedica(
+          context: context, prescriptionMedical: prescriptionMedicalDto);
     } catch (e) {
       return false;
     }
@@ -143,5 +149,84 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
     _medicineSelect = null;
     _pacienteSelect = null;
     _medicoSelect = null;
+  }
+
+  TypeStateRequest _typeStateRequest = TypeStateRequest.init;
+
+  TypeStateRequest get getTypeStateRequest => _typeStateRequest;
+
+  PrescriptionInformationResult? _prescriptionInformationResult;
+
+  List<PrescriptionPatient> _listPrescriptionPatient = [];
+
+  List<PrescriptionPatient> get getListPrescriptionPatient =>
+      _listPrescriptionPatient;
+
+  PrescriptionInformationResult? get getPrescriptionInformationResult =>
+      _prescriptionInformationResult;
+
+  Future<void> listarPrescricoes(
+      {required BuildContext context, required int codPaciente}) async {
+    try {
+      _typeStateRequest = TypeStateRequest.awaitCharge;
+      notifyListeners();
+      _prescriptionInformationResult =
+          await ApiMedicinePrescription.listPrescriptionPatient(
+        context: context,
+        codPrescription: codPaciente,
+      );
+      if (_prescriptionInformationResult?.status == false ||
+          _prescriptionInformationResult == null) {
+        _typeStateRequest = TypeStateRequest.fail;
+        _prescriptionInformationResult?.prescriptionPatient = [];
+      } else {
+        _listPrescriptionPatient =
+            _prescriptionInformationResult?.prescriptionPatient ?? [];
+        _typeStateRequest = TypeStateRequest.success;
+      }
+      notifyListeners();
+    } catch (e) {
+      _typeStateRequest = TypeStateRequest.fail;
+      _prescriptionInformationResult?.prescriptionPatient = [];
+      notifyListeners();
+    }
+  }
+
+  TypeStateRequest _typeStateRequestPrescriptionMedicine =
+      TypeStateRequest.init;
+
+  TypeStateRequest get getTypeStateRequestPrescriptionMedicine =>
+      _typeStateRequestPrescriptionMedicine;
+
+  DetailsPrescriptionMedicineResult? detailsPrescriptionMedicineResult;
+
+  List<PrescriptionMedicine> _listPrescriptionMedicine = [];
+
+  List<PrescriptionMedicine> get getListPrescriptionMedicine =>
+      _listPrescriptionMedicine;
+
+  Future<void> listPrescriptionMedicines(
+      {required BuildContext context, required int codPrescription}) async {
+    try {
+      _typeStateRequest = TypeStateRequest.awaitCharge;
+      notifyListeners();
+      detailsPrescriptionMedicineResult =
+          await ApiMedicinePrescription.listPrescriptionMedicine(
+              context: context, codPrescription: codPrescription);
+      if (detailsPrescriptionMedicineResult?.status == false ||
+          detailsPrescriptionMedicineResult == null) {
+        _typeStateRequest = TypeStateRequest.fail;
+        detailsPrescriptionMedicineResult?.prescriptionMedicine = [];
+      } else {
+        _listPrescriptionMedicine =
+            detailsPrescriptionMedicineResult?.prescriptionMedicine ?? [];
+        _typeStateRequest = TypeStateRequest.success;
+      }
+      notifyListeners();
+    } catch (e) {
+      _typeStateRequest = TypeStateRequest.fail;
+      _listPrescriptionMedicine = [];
+      notifyListeners();
+    }
   }
 }

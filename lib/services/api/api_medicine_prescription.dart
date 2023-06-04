@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../shared/consts/consts_required.dart';
+import '../../shared/dto/medicines_on_prescription_dto/details_prescription.dart';
+import '../../shared/dto/medicines_on_prescription_dto/prescription_medicine_dto.dart';
 import '../../shared/dto/prescriptions_list/prescription_information_result.dart';
 import '../../shared/dto/prescriptions_list/prescription_patient_dto.dart';
 import '../provider/login/provider_login.dart';
@@ -22,43 +24,86 @@ class ApiMedicinePrescription {
     return uriApi;
   }
 
-  static Future<bool> incluirPrescricaoMedica ({
+  //#region Incluir prescrição
+  static Future<bool> incluirPrescricaoMedica({
     required BuildContext context,
     required PrescriptionMedicalDto prescriptionMedical,
   }) async {
     //todo testar essa requisição
     try {
+      print(prescriptionMedical.toJson().toString());
       String uriBase = "${obterUri(context)}IncluiPrescricao";
       var response = await http.post(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
         body: jsonEncode(prescriptionMedical.toJson()),
       );
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     } catch (e) {
       return false;
     }
   }
-  static Future<PrescriptionInformationResult> listPrescriptionPatient ({
+
+  //#endregion
+  //#region listar prescrições Medicacoes
+  static Future<DetailsPrescriptionMedicineResult> listPrescriptionMedicine({
     required BuildContext context,
-    required int codPaciente,
+    required int codPrescription,
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase = "${obterUri(context)}ListarPrescricoesPacientes";
+      String uriBase =
+          "${obterUri(context)}ListarPrescricaoMedicacaoByCodPrescricaoPaciente/$codPrescription";
+      var response = await http.get(
+        Uri.parse(uriBase),
+        headers: await ConstsRequired.headRequisit(),
+      );
+      if (response.statusCode == 200) {
+        DetailsPrescriptionMedicineResult detailsPrescriptionMedicineResult =
+            DetailsPrescriptionMedicineResult(status: true);
+
+        List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
+
+        List<PrescriptionMedicine> listPrescription = listDynamic
+            .map((json) => PrescriptionMedicine.fromJson(json))
+            .toList();
+        detailsPrescriptionMedicineResult.prescriptionMedicine = listPrescription;
+        return detailsPrescriptionMedicineResult;
+      } else {
+        return DetailsPrescriptionMedicineResult(status: false);
+      }
+    } catch (e) {
+      return DetailsPrescriptionMedicineResult(status: false);
+    }
+  }
+//#endregion
+
+  //#region listar prescrições
+  static Future<PrescriptionInformationResult> listPrescriptionPatient ({
+    required BuildContext context,
+    required int codPrescription,
+  }) async {
+    //todo testar essa requisição
+    try {
+      String uriBase = "${obterUri(context)}ListarPrescricoesPacientes/$codPrescription";
       var response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
       if(response.statusCode == 200){
-        PrescriptionInformationResult prescriptionInformationResult =
-        PrescriptionInformationResult(status: true);
-        prescriptionInformationResult.prescriptionPatient = jsonDecode(response.body).map((json) => PrescriptionPatient.fromJson(json)).toList();
+        PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: true);
+
+        List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
+
+        List<PrescriptionPatient> listPrescription = listDynamic
+            .map((json) => PrescriptionPatient.fromJson(json))
+            .toList();
+
+        prescriptionInformationResult.prescriptionPatient = listPrescription;
         return prescriptionInformationResult;
       }
       else{
@@ -69,5 +114,5 @@ class ApiMedicinePrescription {
       PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: false);
       return prescriptionInformationResult;    }
   }
-
+//#endregion
 }
