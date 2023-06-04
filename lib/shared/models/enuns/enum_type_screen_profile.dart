@@ -1,0 +1,4 @@
+enum TypeProfile {
+  typeDrawer,
+  typeScreenProfile
+}

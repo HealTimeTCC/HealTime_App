@@ -45,7 +45,7 @@ class ListQueries extends StatelessWidget {
                           ),
                           SizedBox(height: size.height * .05),
                           Text(
-                            'Obtendo os dados necessários',
+                            'Carregando...',
                             style: FontGoogle.textNormaleGoogle(size: size),
                           )
                         ],

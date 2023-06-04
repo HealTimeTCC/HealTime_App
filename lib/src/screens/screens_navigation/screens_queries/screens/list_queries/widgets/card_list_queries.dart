@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../services/api/api_queries.dart';
+import '../../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../../shared/dto/dto_info_basic_queries.dart';
 import '../../../../../../../shared/models/maps/enum_status_consulta.dart';
 import '../../../../../../../shared/models/model_especialidades.dart';
 import '../../../../../../../shared/models/model_pessoa.dart';
 
 class CardListQueries {
-  static Container modelCardList(
-      {required BuildContext context,
-      required DtoInfoBasicQueries infoBasic,
-      required Iterable<ModelEspecialidades> especialidade}) {
+  static Container modelCardList({
+    required BuildContext context,
+    required DtoInfoBasicQueries infoBasic,
+  }) {
     final Size size = MediaQuery.of(context).size;
+    final ProviderQueries providerQueries =
+        Provider.of<ProviderQueries>(context, listen: false);
+
+    final Iterable<ModelEspecialidades> specialties =
+        providerQueries.listSpecialties.where(
+      (element) => element.especialidadeId == infoBasic.especialidadeId,
+    );
+
+    final ModelEspecialidades specialty = specialties.first;
 
     /* Container que vai ficar atrás para dar a cor de fundo do card */
     return Container(
@@ -48,13 +58,15 @@ class CardListQueries {
               children: [
                 Expanded(
                   child: Text(
-                    especialidade.first.descEspecialidade,
+                    specialty.descEspecialidade,
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.getFont('Poppins',
-                        decoration: TextDecoration.none,
-                        color: const Color(0xff1c1c1c),
-                        fontSize: size.width * .04,
-                        fontWeight: FontWeight.w600),
+                    style: GoogleFonts.getFont(
+                      'Poppins',
+                      decoration: TextDecoration.none,
+                      color: const Color(0xff1c1c1c),
+                      fontSize: size.width * .04,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 Icon(
@@ -114,7 +126,6 @@ class CardListQueries {
                             ),
                           );
                         }
-                        break;
                       default:
                         {
                           if (snapshot.data == null) Container();
@@ -140,7 +151,6 @@ class CardListQueries {
                             ),
                           );
                         }
-                        break;
                     }
                   },
                 ),

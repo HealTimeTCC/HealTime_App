@@ -13,11 +13,13 @@ class TypeUser {
 
     if (pessoa != null) {
       if (pessoa.tipoPessoa == 1) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ListQueries(pessoa: pessoa),
-          ),
-        );
+        if (context.mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ListQueries(pessoa: pessoa),
+            ),
+          );
+        }
       } else {
         if (context.mounted) {
           Navigator.of(context).push(

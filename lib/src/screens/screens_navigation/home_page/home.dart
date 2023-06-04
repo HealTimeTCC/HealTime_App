@@ -2,11 +2,9 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/apresentation_initial_details.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/buttom_gesture_detector.dart';
-
-import '../../../../shared/models/model_pessoa.dart';
+import 'package:healtime/src/screens/screens_navigation/home_page/widgets_home_page/next_querie.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Pessoa? pessoa;
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -78,14 +74,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: size.height * .05,
                     ),
-                    Text(
-                      "Minhas consultas",
-                      style: FontGoogle.textTitleGoogle(
-                          size: size, colorText: Colors.black),
-                    ),
+                    const NextQuery(),
                   ],
                 ),
               )
