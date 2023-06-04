@@ -41,17 +41,18 @@ class _StartWidgetViewState extends State<StartWidgetView> {
 
   @override
   Widget build(BuildContext context) {
-    final ProviderHomePage providerHomePage = Provider.of(context, listen: false);
+    final ProviderHomePage providerHomePage =
+        Provider.of(context, listen: false);
 
     final Size size = MediaQuery.of(context).size;
     List<Widget> _widgetOptions = [
       const HomePage(),
       const IncludeMedication(),
-        SelectPatient(
-              mensageAppBar: "Detalhes Prescrição",
-              personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
-              typeOperation: TypeOperation.selectDetailsPrescription,
-            ),
+      SelectPatient(
+        mensageAppBar: "Detalhes Prescrição",
+        personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
+        typeOperation: TypeOperation.selectDetailsPrescription,
+      ),
       const ScreenProfile(),
     ];
     List<String> _listTitleAppBar = ["", "Medicamentos", "Profile"];
@@ -96,17 +97,16 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
-                                        BorderRadius.circular(
-                                            size.width),
+                                            BorderRadius.circular(size.width),
                                       ),
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
                                           'Carregando...',
                                           style: FontGoogle.textTitleGoogle(
-                                            size: size * .7,
-                                            colorText: const Color(0xff333333)
-                                          ),
+                                              size: size * .7,
+                                              colorText:
+                                                  const Color(0xff333333)),
                                         ),
                                       ),
                                     );
@@ -117,16 +117,17 @@ class _StartWidgetViewState extends State<StartWidgetView> {
 
                                     return Stack(
                                       children: [
-                                        if (img.isNotEmpty) ... [
+                                        if (img.isNotEmpty) ...[
                                           Align(
                                             alignment: Alignment.center,
                                             child: Container(
                                               width: size.width * .46,
                                               height: size.height * .23,
                                               decoration: BoxDecoration(
-                                                color: const Color(0xffFFCC8C),                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  size.width),
+                                                color: const Color(0xffFFCC8C),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        size.width),
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: MemoryImage(img,
@@ -135,16 +136,17 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                                               ),
                                             ),
                                           ),
-                                        ]else ... [
+                                        ] else ...[
                                           Align(
                                             alignment: Alignment.center,
                                             child: Container(
                                               width: size.width * .45,
                                               height: size.height * .23,
                                               decoration: BoxDecoration(
-                                                color: const Color(0xffFFCC8C),                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  size.width),
+                                                color: const Color(0xffFFCC8C),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        size.width),
                                               ),
                                               child: Align(
                                                 alignment: Alignment.center,
@@ -161,8 +163,8 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                                               size.width * .001,
                                               size.height * .0012),
                                           child: Bounceable(
-                                            onTap: () async => await LogicDrawer.addImageProfile(
-                                                context),
+                                            onTap: () async => await LogicDrawer
+                                                .addImageProfile(context),
                                             child: Icon(
                                               Icons.camera_alt_rounded,
                                               size: size.height * .05,
@@ -237,8 +239,8 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                                 MaterialPageRoute(
                                   builder: (context) => SelectPatient(
                                     typeOperation: TypeOperation.view,
-                                    personId: value.getDataPerson?.pessoaId ?? 1,
-
+                                    personId:
+                                        value.getDataPerson?.pessoaId ?? 1,
                                   ),
                                 ),
                               );
@@ -284,7 +286,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: .9, vertical: 8),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
@@ -307,7 +309,7 @@ class _StartWidgetViewState extends State<StartWidgetView> {
                 GButton(
                   backgroundColor: Color(0xFF14D8D5),
                   iconColor: Colors.grey,
-                  icon: Icons.list_alt,
+                  icon: Icons.medication_outlined,
                   iconActiveColor: Colors.white,
                   text: 'Medicamentos',
                   textColor: Colors.white,
