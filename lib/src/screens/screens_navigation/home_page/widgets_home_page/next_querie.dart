@@ -8,6 +8,7 @@ import '../../../../../services/provider/provider_home_page.dart';
 import '../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../shared/models/model_pessoa.dart';
+import '../../../../../shared/widgets/loading_queries.dart';
 import '../../screens_queries/logics/logic_type_user.dart';
 import '../../screens_queries/screens/details_query/details_query.dart';
 import '../../screens_queries/screens/list_queries/widgets/screens_query.dart';
@@ -54,36 +55,37 @@ class NextQuery extends StatelessWidget {
           ],
         ),
         Consumer<ProviderHomePage>(builder: (context, value, child) {
-          return FutureBuilder(
-            future: value.getQuery(context),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  {
-                    return Container();
-                  }
-                default:
-                  {
-                    final DtoInfoBasicQueries? query = value.nextQuery;
+          return Container(
+            margin: EdgeInsets.symmetric(
+              vertical: size.height * .025,
+              horizontal: size.width * .04,
+            ),
+            child: FutureBuilder(
+              future: value.getQuery(context),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    {
+                      return const LoadingQueries();
+                    }
+                  default:
+                    {
+                      final DtoInfoBasicQueries? query = value.nextQuery;
 
-                    final Pessoa? person = value.getDataPerson;
+                      final Pessoa? person = value.getDataPerson;
 
-                    if (query == null || person == null) {
-                      String msg = 'Desculpe, não conseguimos obter as informações do usuário.';
+                      if (query == null || person == null) {
+                        String msg =
+                            'Desculpe, não conseguimos obter as informações do usuário.';
 
-                      if (query == null) {
-                        msg = 'No momento, não há consultas pendentes.';
+                        if (query == null) {
+                          msg = 'No momento, não há consultas pendentes.';
+                        }
+
+                        return QueryPersonNotFound(msgUser: msg);
                       }
 
-                      return QueryPersonNotFound(msgUser: msg);
-                    }
-
-                    return Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: size.height * .025,
-                        horizontal: size.width * .03,
-                      ),
-                      child: Bounceable(
+                      return Bounceable(
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => DetailsQuery(
@@ -97,11 +99,11 @@ class NextQuery extends StatelessWidget {
                           context: context,
                           infoBasic: query,
                         ),
-                      ),
-                    );
-                  }
-              }
-            },
+                      );
+                    }
+                }
+              },
+            ),
           );
         }),
       ],

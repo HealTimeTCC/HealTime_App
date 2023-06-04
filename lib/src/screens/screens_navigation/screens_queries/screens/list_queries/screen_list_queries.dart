@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healtime/shared/widgets/loading_queries.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/list_queries/widgets/body_full_content.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/list_queries/widgets/body_null_content.dart';
 import 'package:provider/provider.dart';
@@ -33,24 +34,9 @@ class ListQueries extends StatelessWidget {
             case ConnectionState.waiting:
               {
                 return Stack(
-                  children: [
-                    const BackgroundPage(),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const CircularProgressIndicator(
-                            color: Color(0xff18CDCA),
-                          ),
-                          SizedBox(height: size.height * .05),
-                          Text(
-                            'Carregando...',
-                            style: FontGoogle.textNormaleGoogle(size: size),
-                          )
-                        ],
-                      ),
-                    )
+                  children: const [
+                    BackgroundPage(),
+                    LoadingQueries()
                   ],
                 );
               }
