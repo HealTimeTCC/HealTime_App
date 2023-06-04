@@ -18,6 +18,7 @@ class Apresentacao extends StatelessWidget {
               child: Image.asset(
                 'assets/img/background.jpeg',
                 fit: BoxFit.cover,
+                
               ),
             ),
           ),
@@ -51,7 +52,7 @@ class Apresentacao extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                     const SelectProfile(
-                      patchImage: 'assets/img/responsavel.png',
+                      patchImage: 'assets/img/Remedy-cuate.png',
                       titleCard: 'Responsável',
                       colorBackgroundCard: Color(0xffBCEFEE),
                       subTitleCard:
@@ -60,7 +61,7 @@ class Apresentacao extends StatelessWidget {
                     ),
                     SizedBox(width: size.width * .08),
                     const SelectProfile(
-                      patchImage: 'assets/img/doente.png',
+                      patchImage: 'assets/img/Diabetes-cuate.png',
                       titleCard: 'Paciente',
                       colorBackgroundCard: Color(0xffFFE0B9),
                       subTitleCard:
@@ -69,7 +70,8 @@ class Apresentacao extends StatelessWidget {
                     ),
                     SizedBox(width: size.width * .08),
                     const SelectProfile(
-                      patchImage: 'assets/img/drugstore.png',
+                      patchImage:
+                          'assets/img/Health professional team-cuate.png',
                       titleCard: 'Cuidador',
                       colorBackgroundCard: Color(0xffE1F6D0),
                       subTitleCard:

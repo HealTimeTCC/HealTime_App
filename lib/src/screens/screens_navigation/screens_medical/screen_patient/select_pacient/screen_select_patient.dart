@@ -37,7 +37,8 @@ class SelectPatient extends StatefulWidget {
 class _SelectPatientState extends State<SelectPatient> {
   @override
   Widget build(BuildContext context) {
-    late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context, listen: false);
+    late ProviderPrescriptionMedical providerPrescriptionMedical =
+        Provider.of(context, listen: false);
     final Size size = MediaQuery.of(context).size;
     return ScaffoldMessenger(
       key: SelectPatient.selectPatientScaffoldKey,
@@ -82,7 +83,8 @@ class _SelectPatientState extends State<SelectPatient> {
                               SizedBox(height: size.height * .03),
                               Row(
                                 children: [
-                                  if (widget.typeOperation != TypeOperation
+                                  if (widget.typeOperation !=
+                                      TypeOperation
                                           .selectDetailsPrescription) ...[
                                     GestureDetector(
                                       onTap: () => Navigator.of(context).pop(),
@@ -124,7 +126,7 @@ class _SelectPatientState extends State<SelectPatient> {
                                             null;
                                             break;
                                           case TypeOperation
-                                              .selectIncludePrescription:
+                                                .selectIncludePrescription:
                                             providerPrescriptionMedical
                                                 .selectPaciente(patient);
                                             providerPrescriptionMedical
@@ -133,7 +135,7 @@ class _SelectPatientState extends State<SelectPatient> {
                                             Navigator.pop(context);
                                             break;
                                           case TypeOperation
-                                              .selectDetailsPrescription:
+                                                .selectDetailsPrescription:
                                             providerPrescriptionMedical
                                                 .selectPaciente(patient);
                                             providerPrescriptionMedical
@@ -143,7 +145,7 @@ class _SelectPatientState extends State<SelectPatient> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      DetailsPrescription(),
+                                                      const DetailsPrescription(),
                                                 ));
                                             break;
                                         }

@@ -158,28 +158,6 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
                     SizedBox(
                       height: size.height * .05,
                     ),
-                    Bounceable(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        height: size.height * .065,
-                        width: size.width * .9,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(11)),
-                          color: const Color(0xff333333),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Adicionar',
-                            style: GoogleFonts.getFont('Poppins',
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),

@@ -13,7 +13,8 @@ class LoadingSendingData extends StatelessWidget {
         width: size.width * .5,
         height: size.width * .3,
         decoration: BoxDecoration(
-            color: const Color(0xffE4FFFF), borderRadius: BorderRadius.circular(10)),
+            color: const Color(0xffE4FFFF),
+            borderRadius: BorderRadius.circular(10)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

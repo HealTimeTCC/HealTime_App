@@ -18,12 +18,12 @@ class PrescriptionMedicaments {
     return {
       'medicacaoId': medicacaoId,
       'qtde': qtde,
-      'intervalo': definirHorario(intervalo) + ":00", // Convert TimeOfDay to string
+      'intervalo': definirHorario(intervalo), // Convert TimeOfDay to string
       'duracao': duracao,
     };
   }
 
   String definirHorario(TimeOfDay value){
-    return value.toString().replaceAll(RegExp(r'[^0-9:]'), '');
+    return value.toString().replaceAll(RegExp(r'[^0-9:]'), '') + ":00";
   }
 }

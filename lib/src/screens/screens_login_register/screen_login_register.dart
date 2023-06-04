@@ -39,12 +39,12 @@ class LoginRegister extends StatelessWidget {
               left: 0,
               child: Container(
                 margin: EdgeInsets.symmetric(
-                    vertical: size.height * 0.05,
-                    horizontal: size.width * 0.05),
-                height: size.height * .5,
-                width: size.width * .15,
+                    vertical: size.height * 0.01,
+                    horizontal: size.width * 0.02),
+                height: size.height * .6,
+                width: size.width * .17,
                 child: const Image(
-                    image: AssetImage('assets/img/ImagemLoginRegister.png'),
+                    image: AssetImage('assets/img/Doctor-cuate.png'),
                     fit: BoxFit.contain),
               ),
             ),
@@ -64,7 +64,8 @@ class LoginRegister extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => RegisterScreen(typeUser: typeUser),
+                            builder: (context) =>
+                                RegisterScreen(typeUser: typeUser),
                           ),
                         ),
                         child: Text(
@@ -85,7 +86,7 @@ class LoginRegister extends StatelessWidget {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff172331),
+                        backgroundColor: const Color(0xff18CDCA),
                         padding: EdgeInsets.symmetric(
                             vertical: size.height * .02,
                             horizontal: size.width * .17),
@@ -98,7 +99,7 @@ class LoginRegister extends StatelessWidget {
                         'Entrar',
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.none,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 15,
                             fontWeight: FontWeight.w400),
                       ),
