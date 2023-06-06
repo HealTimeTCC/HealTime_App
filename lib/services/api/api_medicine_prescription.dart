@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:healtime/shared/dto/generate_schedules_dto.dart';
 import 'package:healtime/shared/dto/prescription_medical_dto/prescription_medical_dto.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +50,7 @@ class ApiMedicinePrescription {
   }
 
   //#endregion
-  //#region listar prescrições Medicacoes
+  //#region listar prescrições Medicacoes by cod Prescription
   static Future<DetailsPrescriptionMedicineResult> listPrescriptionMedicine({
     required BuildContext context,
     required int codPrescription,
@@ -71,7 +72,8 @@ class ApiMedicinePrescription {
         List<PrescriptionMedicine> listPrescription = listDynamic
             .map((json) => PrescriptionMedicine.fromJson(json))
             .toList();
-        detailsPrescriptionMedicineResult.prescriptionMedicine = listPrescription;
+        detailsPrescriptionMedicineResult.prescriptionMedicine =
+            listPrescription;
         return detailsPrescriptionMedicineResult;
       } else {
         return DetailsPrescriptionMedicineResult(status: false);
@@ -80,21 +82,71 @@ class ApiMedicinePrescription {
       return DetailsPrescriptionMedicineResult(status: false);
     }
   }
-//#endregion
 
+//#endregion
   //#region listar prescrições
-  static Future<PrescriptionInformationResult> listPrescriptionPatient ({
+  static Future<PrescriptionInformationResult> listPrescriptionPatient({
     required BuildContext context,
     required int codPrescription,
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase = "${obterUri(context)}ListarPrescricoesPacientes/$codPrescription";
+      String uriBase =
+          "${obterUri(context)}ListarPrescricoesPacientes/$codPrescription";
       var response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
+        PrescriptionInformationResult prescriptionInformationResult =
+            PrescriptionInformationResult(status: true);
+
+        List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
+
+        List<PrescriptionPatient> listPrescription = listDynamic
+            .map((json) => PrescriptionPatient.fromJson(json))
+            .toList();
+
+        prescriptionInformationResult.prescriptionPatient = listPrescription;
+        return prescriptionInformationResult;
+      } else {
+        PrescriptionInformationResult prescriptionInformationResult =
+            PrescriptionInformationResult(status: false);
+        return prescriptionInformationResult;
+      }
+    } catch (e) {
+      PrescriptionInformationResult prescriptionInformationResult =
+          PrescriptionInformationResult(status: false);
+      return prescriptionInformationResult;
+    }
+  }
+
+//#endregion
+
+//#region Gerar horarios
+
+  static Future<PrescriptionInformationResult> generateSchedules({
+    required BuildContext context,
+    required int prescricaoPacienteId,
+    required int prescricaoMedicamentoId,
+    required int medicamentoId,
+  }) async {
+    //todo testar essa requisição
+    try {
+      String uriBase = "${obterUri(context)}GerarHorarios";
+      //Objeto a ser enviado
+      GenerateSchedules generateSchedules = GenerateSchedules(
+        prescricaoPacienteId: prescricaoPacienteId,
+        prescricaoMedicamentoId: prescricaoMedicamentoId,
+        medicamentoId: medicamentoId,
+      );
+
+      var response = await http.post(
+        Uri.parse(uriBase),
+        headers: await ConstsRequired.headRequisit(),
+      );
+
+      if (response.statusCode == 200) {
         PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: true);
 
         List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
@@ -105,14 +157,16 @@ class ApiMedicinePrescription {
 
         prescriptionInformationResult.prescriptionPatient = listPrescription;
         return prescriptionInformationResult;
-      }
-      else{
-        PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: false);
+      } else {
+        PrescriptionInformationResult prescriptionInformationResult =
+            PrescriptionInformationResult(status: false);
         return prescriptionInformationResult;
       }
     } catch (e) {
-      PrescriptionInformationResult prescriptionInformationResult = PrescriptionInformationResult(status: false);
-      return prescriptionInformationResult;    }
+      PrescriptionInformationResult prescriptionInformationResult =
+          PrescriptionInformationResult(status: false);
+      return prescriptionInformationResult;
+    }
   }
 //#endregion
 }
