@@ -12,12 +12,16 @@ import '../../../../../services/api/api_queries.dart';
 import '../../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../../../../../services/provider/login/provider_login.dart';
 import '../../../../../shared/consts/consts_required.dart';
+import '../../../../../shared/models/enuns/enum_type_screen_profile.dart';
 import '../../../../../shared/models/model_pessoa.dart';
 
 class LogicDrawer {
   static String get uriApiBase => ConstsRequired.urlBaseApi;
 
-  static Future<void> addImageProfile(BuildContext context) async {
+  static Future<void> addImageProfile({
+    required BuildContext context,
+    required TypeProfile typeOperation,
+  }) async {
     try {
       final ProviderLogin providerLogin =
           Provider.of<ProviderLogin>(context, listen: false);
@@ -53,7 +57,9 @@ class LogicDrawer {
 
         if (responseServer == 200) {
           if (context.mounted) {
-            Navigator.of(context).pop();
+            if (typeOperation == TypeProfile.typeDrawer) {
+              Navigator.of(context).pop();
+            }
             final Size size = MediaQuery.of(context).size;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -91,10 +97,12 @@ class LogicDrawer {
         throw Exception('Não foi possível obter os dados do usuário.');
       }
 
-      Pessoa? personGet = await ApiQueries.getDetailsPerson(person.pessoaId ?? 0);
+      Pessoa? personGet =
+          await ApiQueries.getDetailsPerson(person.pessoaId ?? 0);
 
       if (personGet == null) {
-        throw Exception('Não foi possível obter os dados do usuário no servidor.');
+        throw Exception(
+            'Não foi possível obter os dados do usuário no servidor.');
       }
 
       return base64Decode(personGet.imagePerson ?? '');
@@ -102,5 +110,4 @@ class LogicDrawer {
       print(ex);
     }
   }
-
 }

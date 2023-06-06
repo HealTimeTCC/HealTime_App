@@ -36,11 +36,6 @@ class ListContentQueries extends StatelessWidget {
             final DtoInfoBasicQueries infoBasicQueries =
                 providerQueries.listQueries[index];
 
-            final Iterable<ModelEspecialidades> specialties =
-                providerQueries.listSpecialties.where((element) =>
-                    element.especialidadeId ==
-                    infoBasicQueries.especialidadeId);
-
             return AnimationConfiguration.staggeredList(
               position: index,
               duration: const Duration(milliseconds: 375),
@@ -59,7 +54,6 @@ class ListContentQueries extends StatelessWidget {
                     child: CardListQueries.modelCardList(
                       context: context,
                       infoBasic: infoBasicQueries,
-                      especialidade: specialties,
                     ),
                   ),
                 ),

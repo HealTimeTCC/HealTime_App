@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 
 import '../screens_login_register/screen_login_register.dart';
@@ -64,25 +63,30 @@ class TelaPerfis extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * .015),
                   editRow(
-                      acess: true,
-                      textAcess: 'Adicionar/Remover medicamentos',
-                      context: context),
+                    access: true,
+                    textAccess: 'Adicionar/Remover medicamentos',
+                    context: context,
+                  ),
                   editRow(
-                      acess: true,
-                      textAcess: 'Gerenciar suas configurações',
-                      context: context),
+                    access: true,
+                    textAccess: 'Gerenciar suas configurações',
+                    context: context,
+                  ),
                   editRow(
-                      acess: true,
-                      textAcess: 'Gerenciar calendário',
-                      context: context),
+                    access: true,
+                    textAccess: 'Gerenciar calendário',
+                    context: context,
+                  ),
                   editRow(
-                      acess: typeUser == 2 || typeUser == 1 ? false : true,
-                      textAcess: 'Adicionar/Remover cuidador',
-                      context: context),
+                    access: typeUser == 2 || typeUser == 1 ? false : true,
+                    textAccess: 'Adicionar/Remover cuidador',
+                    context: context,
+                  ),
                   editRow(
-                      acess: typeUser == 2 || typeUser == 1 ? false : true,
-                      textAcess: 'Vincular outros pacientes',
-                      context: context),
+                    access: typeUser == 2 || typeUser == 1 ? false : true,
+                    textAccess: 'Vincular outros pacientes',
+                    context: context,
+                  ),
                 ],
               ),
             ),
@@ -128,22 +132,21 @@ class TelaPerfis extends StatelessWidget {
     );
   }
 
-  Container editRow(
-      {required bool acess,
-      required String textAcess,
-      required BuildContext context}) {
-    final size = MediaQuery.of(context).size;
-
-    final Color colorText = acess ? Colors.white : Colors.white30;
+  Container editRow({
+    required bool access,
+    required String textAccess,
+    required BuildContext context,
+  }) {
+    final Size size = MediaQuery.of(context).size;
 
     return Container(
       margin: EdgeInsets.only(bottom: size.height * 0.02),
       child: Row(
         children: [
-          acess
+          access
               ? Icon(
                   Icons.check_circle_rounded,
-                  size: size.width * .06,
+                  size: size.width * .05,
                   color: const Color(0xff333333),
                 )
               : Icon(
@@ -152,13 +155,13 @@ class TelaPerfis extends StatelessWidget {
                   size: size.width * .06,
                 ),
           SizedBox(
-            width: size.width * 0.03,
+            width: size.width * 0.05,
           ),
           Expanded(
             child: Text(
-              textAcess,
+              textAccess,
               style: FontGoogle.textNormaleGoogle(
-                size: size * .9,
+                size: size * .8,
                 colorText: Colors.white,
               ),
             ),

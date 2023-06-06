@@ -37,7 +37,8 @@ class SelectPatient extends StatefulWidget {
 class _SelectPatientState extends State<SelectPatient> {
   @override
   Widget build(BuildContext context) {
-    late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context, listen: false);
+    late ProviderPrescriptionMedical providerPrescriptionMedical =
+        Provider.of(context, listen: false);
     final Size size = MediaQuery.of(context).size;
     return ScaffoldMessenger(
       key: SelectPatient.selectPatientScaffoldKey,
@@ -74,13 +75,16 @@ class _SelectPatientState extends State<SelectPatient> {
                     {
                       List<Pessoa> listPatient = snapshot.data ?? [];
                       return SafeArea(
-                        child: Padding(padding: EdgeInsets.symmetric(horizontal: size.width * .02),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * .02),
                           child: Column(
                             children: [
                               SizedBox(height: size.height * .03),
                               Row(
                                 children: [
-                                  if (widget.typeOperation != TypeOperation
+                                  if (widget.typeOperation !=
+                                      TypeOperation
                                           .selectDetailsPrescription) ...[
                                     GestureDetector(
                                       onTap: () => Navigator.of(context).pop(),
@@ -112,25 +116,36 @@ class _SelectPatientState extends State<SelectPatient> {
                                           case TypeOperation.select:
                                             Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                builder: (context) => ListQueries(pessoa: patient),
+                                                builder: (context) =>
+                                                    ListQueries(
+                                                        pessoa: patient),
                                               ),
                                             );
                                             break;
                                           case TypeOperation.view:
                                             null;
                                             break;
-                                          case TypeOperation.selectIncludePrescription:
-                                            providerPrescriptionMedical.selectPaciente(patient);
-                                            providerPrescriptionMedical.updateStatePacienteOption(true);
+                                          case TypeOperation
+                                                .selectIncludePrescription:
+                                            providerPrescriptionMedical
+                                                .selectPaciente(patient);
+                                            providerPrescriptionMedical
+                                                .updateStatePacienteOption(
+                                                    true);
                                             Navigator.pop(context);
                                             break;
-                                          case TypeOperation.selectDetailsPrescription:
-                                            providerPrescriptionMedical.selectPaciente(patient);
-                                            providerPrescriptionMedical.updateStatePacienteOption(true);
+                                          case TypeOperation
+                                                .selectDetailsPrescription:
+                                            providerPrescriptionMedical
+                                                .selectPaciente(patient);
+                                            providerPrescriptionMedical
+                                                .updateStatePacienteOption(
+                                                    true);
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => const DetailsPrescription(),
+                                                  builder: (context) =>
+                                                      const DetailsPrescription(),
                                                 ));
                                             break;
                                         }
