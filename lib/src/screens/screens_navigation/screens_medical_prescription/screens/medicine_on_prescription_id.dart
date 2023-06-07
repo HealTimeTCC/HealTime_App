@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +21,14 @@ class ListMedicinesOnPrescription extends StatefulWidget {
   final int idPrescription;
 
   @override
-  State<ListMedicinesOnPrescription> createState() => _ListMedicinesOnPrescriptionState();
+  State<ListMedicinesOnPrescription> createState() =>
+      _ListMedicinesOnPrescriptionState();
 }
 
-class _ListMedicinesOnPrescriptionState extends State<ListMedicinesOnPrescription> {
+class _ListMedicinesOnPrescriptionState
+    extends State<ListMedicinesOnPrescription> {
   bool search = false;
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -48,7 +54,7 @@ class _ListMedicinesOnPrescriptionState extends State<ListMedicinesOnPrescriptio
                         ),
                       ),
                       Text(
-                        'Lista de Prescrições',
+                        'Medicações associadas (cód: ${widget.idPrescription})',
                         style: FontGoogle.textTitleGoogle(size: size * .8),
                       ),
                     ],
@@ -69,7 +75,7 @@ class _ListMedicinesOnPrescriptionState extends State<ListMedicinesOnPrescriptio
                         return Container();
                       case TypeStateRequest.awaitCharge:
                         return const Center(
-                          child: LinearProgressIndicator(),
+                          child: CircularProgressIndicator(),
                         );
                       case TypeStateRequest.fail:
                         return Expanded(
@@ -84,7 +90,7 @@ class _ListMedicinesOnPrescriptionState extends State<ListMedicinesOnPrescriptio
                               Text(
                                 "Nada encontrado",
                                 style:
-                                FontGoogle.textSubTitleGoogle(size: size),
+                                    FontGoogle.textSubTitleGoogle(size: size),
                               ),
                             ],
                           ),
@@ -96,111 +102,97 @@ class _ListMedicinesOnPrescriptionState extends State<ListMedicinesOnPrescriptio
                           itemCount: value.getPrescriptionInformationResult
                               ?.prescriptionPatient!.length,
                           itemBuilder: (context, index) {
-                            return Bounceable(
-                              onTap: () {
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                    right: size.width * .02,
-                                    left: size.width * .02,
-                                    bottom: size.width * .02),
-                                padding: EdgeInsets.all(size.width * .02),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 1,
-                                        offset: Offset(1, 2),
+                            return Container(
+                              height: size.height * .2,
+                              margin: EdgeInsets.only(
+                                right: size.width * .02,
+                                left: size.width * .02,
+                                bottom: size.width * .02,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 1,
+                                      offset: Offset(1, 2),
+                                    )
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.circular(size.height * .02)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //todo para as linhas inferiores colcar uma flag
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        "Nome Medicacao",
+                                        style: FontGoogle.textSubTitleGoogle(
+                                          size: size * .5,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Iniciado/NaoIniciado",
+                                        style: FontGoogle.textSubTitleGoogle(
+                                          size: size * .5,
+                                        ),
                                       )
                                     ],
-                                    borderRadius: BorderRadius.circular(
-                                        size.height * .02)),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "Cód. Prescrição: ${value.getListPrescriptionPatient[index].prescricaoPacienteId}",
-                                          style:
-                                          FontGoogle.textSubTitleGoogle(
-                                            size: size * .5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                  size.height * .02),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Icon(Icons.alarm_add),
+                                                Text("Iniciado")
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        Text(
-                                          "Cód médico: ${value.getListPrescriptionPatient[index].medicoId}",
-                                          style:
-                                          FontGoogle.textSubTitleGoogle(
-                                            size: size * .5,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.only(
+                                              bottomRight: Radius.circular(
+                                                  size.height * .02),
+                                            ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          value
-                                              .getListPrescriptionPatient[
-                                          index]
-                                              .descFichaPessoa,
-                                          textAlign: TextAlign.left,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: FontGoogle.textTitleGoogle(
-                                              size: size * .7,
-                                              fontWeightGoogle:
-                                              FontWeight.w500),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.alarm_add),
+                                                Text("Iniciado")
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                        Icon(
-                                          value
-                                              .getListPrescriptionPatient[
-                                          index]
-                                              .flagStatusAtivo
-                                              ? Icons.open_in_new
-                                              : CupertinoIcons.clock_solid,
-                                          color: value
-                                              .getListPrescriptionPatient[
-                                          index]
-                                              .flagStatusAtivo
-                                              ? Colors.green
-                                              : Colors.red,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "Emitido em: ${DateFormat("dd/MM/yyyy").format(value.getListPrescriptionPatient[index].emissao)}",
-                                          textAlign: TextAlign.left,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: FontGoogle.textTitleGoogle(
-                                              size: size * .5,
-                                              fontWeightGoogle:
-                                              FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "Válido até: ${DateFormat("dd/MM/yyyy").format(value.getListPrescriptionPatient[index].validade)}",
-                                          textAlign: TextAlign.left,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: FontGoogle.textTitleGoogle(
-                                              size: size * .5,
-                                              fontWeightGoogle:
-                                              FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             );
                           },
@@ -214,6 +206,5 @@ class _ListMedicinesOnPrescriptionState extends State<ListMedicinesOnPrescriptio
         ],
       ),
     );
-
   }
 }

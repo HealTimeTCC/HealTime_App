@@ -205,26 +205,21 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   List<PrescriptionMedicine> get getListPrescriptionMedicine =>
       _listPrescriptionMedicine;
 
-  Future<void> listPrescriptionMedicines(
-      {required BuildContext context, required int codPrescription}) async {
+  Future<void> listPrescriptionMedicines({required BuildContext context, required int codPrescription}) async {
     try {
-      _typeStateRequest = TypeStateRequest.awaitCharge;
+      _typeStateRequestPrescriptionMedicine = TypeStateRequest.awaitCharge;
       notifyListeners();
-      detailsPrescriptionMedicineResult =
-          await ApiMedicinePrescription.listPrescriptionMedicine(
-              context: context, codPrescription: codPrescription);
-      if (detailsPrescriptionMedicineResult?.status == false ||
-          detailsPrescriptionMedicineResult == null) {
-        _typeStateRequest = TypeStateRequest.fail;
+      detailsPrescriptionMedicineResult = await ApiMedicinePrescription.listPrescriptionMedicine(context: context, codPrescription: codPrescription);
+      if (detailsPrescriptionMedicineResult?.status == false || detailsPrescriptionMedicineResult == null) {
+        _typeStateRequestPrescriptionMedicine = TypeStateRequest.fail;
         detailsPrescriptionMedicineResult?.prescriptionMedicine = [];
       } else {
-        _listPrescriptionMedicine =
-            detailsPrescriptionMedicineResult?.prescriptionMedicine ?? [];
-        _typeStateRequest = TypeStateRequest.success;
+        _listPrescriptionMedicine = detailsPrescriptionMedicineResult?.prescriptionMedicine ?? [];
+        _typeStateRequestPrescriptionMedicine = TypeStateRequest.success;
       }
       notifyListeners();
     } catch (e) {
-      _typeStateRequest = TypeStateRequest.fail;
+      _typeStateRequestPrescriptionMedicine = TypeStateRequest.fail;
       _listPrescriptionMedicine = [];
       notifyListeners();
     }

@@ -78,7 +78,7 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                           return Container();
                         case TypeStateRequest.awaitCharge:
                           return const Center(
-                            child: LinearProgressIndicator(),
+                            child: CircularProgressIndicator(),
                           );
                         case TypeStateRequest.fail:
                           return Expanded(

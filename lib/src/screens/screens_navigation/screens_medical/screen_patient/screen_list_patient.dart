@@ -17,40 +17,43 @@ class _ListaPacienteState extends State<ListaPaciente> {
 
     return Scaffold(
       body: Stack(
-        // ignore: prefer_const_literals_to_create_immutables
         children: [
           const BackgroundPage(),
           FutureBuilder<List<Pessoa>>(
-              future: ApiPaciente.listarPaciente(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.none:
-                    return Center(child: CircularProgressIndicator());
+            future: ApiPaciente.listarPaciente(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
 
-                  default:
-                    List<Pessoa> listPessoa = snapshot.data ?? [];
-                    return ListView.builder(
-                        itemCount: listPessoa.length,
-                        itemBuilder: (context, index) {
-                          Pessoa paciente = snapshot.data![index];
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {});
-                            },
-                            child: Card(
-                              color: Color.fromARGB(229, 206, 206, 206),
-                              margin: EdgeInsets.all(12),
-                              child: ListTile(
-                                title: Text(paciente.nomePessoa.toString() +
-                                    paciente.sobreNomePessoa.toString()),
-                                subtitle: Text(paciente.cpfPessoa.toString()),
-                              ),
-                            ),
-                          );
-                        });
-                }
-              })
+                default:
+                  List<Pessoa> listPessoa = snapshot.data ?? [];
+                  return ListView.builder(
+                    itemCount: listPessoa.length,
+                    itemBuilder: (context, index) {
+                      Pessoa paciente = snapshot.data![index];
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {});
+                        },
+                        child: Card(
+                          color: const Color.fromARGB(229, 206, 206, 206),
+                          margin: const EdgeInsets.all(12),
+                          child: ListTile(
+                            title: Text(paciente.nomePessoa.toString() +
+                                paciente.sobreNomePessoa.toString()),
+                            subtitle: Text(paciente.cpfPessoa.toString()),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+              }
+            },
+          )
         ],
       ),
     );

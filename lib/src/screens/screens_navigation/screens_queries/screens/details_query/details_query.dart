@@ -78,8 +78,6 @@ class _DetailsQueryState extends State<DetailsQuery> {
                   personId: widget.personId,
                   queryId: widget.queryId),
               builder: (context, snapshot) {
-
-
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
                     {
@@ -199,8 +197,7 @@ class _DetailsQueryState extends State<DetailsQuery> {
                                     'Motivo consulta',
                                     style: FontGoogle.textTitleGoogle(
                                         size: size * .8,
-                                        fontWeightGoogle:
-                                        FontWeight.w600),
+                                        fontWeightGoogle: FontWeight.w600),
                                   ),
                                   SizedBox(height: size.height * .01),
                                   Text(
@@ -209,7 +206,6 @@ class _DetailsQueryState extends State<DetailsQuery> {
                                         size: size * .7,
                                         fontWeightGoogle: FontWeight.w500),
                                   ),
-
                                   SizedBox(height: size.height * .02),
                                   Text(
                                     'Especialidade',
@@ -232,13 +228,13 @@ class _DetailsQueryState extends State<DetailsQuery> {
                                           child: GestureDetector(
                                             onTap: () async =>
                                                 await LogicDetailsQuery
-                                                    .alterStatusQuery(
+                                                    .checkCancelQuery(
                                                         context: context,
-                                                        statusId: 2,
-                                                        motivo:
-                                                            'Encerramento de consulta.',
                                                         personId:
                                                             widget.personId,
+                                                        dateStringQuery:
+                                                            detailsQuery
+                                                                .dataConsulta,
                                                         queryId:
                                                             widget.queryId),
                                             child: Container(
@@ -270,6 +266,7 @@ class _DetailsQueryState extends State<DetailsQuery> {
                                                     context: context,
                                                     personId: widget.personId,
                                                     queryId: widget.queryId,
+                                                    textTitle: 'Motivo do do cancelamento',
                                                     status: 3),
                                             child: Container(
                                               padding: EdgeInsets.symmetric(

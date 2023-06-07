@@ -4,11 +4,13 @@ import 'package:healtime/shared/decorations/fonts_google.dart';
 import '../logic/details_query.dart';
 
 class AlertCancelCloseQuery {
-  static void alertCancelCloneQuery(
-      {required BuildContext context,
-      required int personId,
-      required int queryId,
-      required int status}) {
+  static void alertCancelCloneQuery({
+    required BuildContext context,
+    required int personId,
+    required int queryId,
+    required int status,
+    required String textTitle,
+  }) {
     final Size size = MediaQuery.of(context).size;
     final TextEditingController textController = TextEditingController();
 
@@ -18,7 +20,7 @@ class AlertCancelCloseQuery {
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         title: Text(
-          'Motivo do do cancelamento',
+          textTitle,
           style: FontGoogle.textTitleGoogle(size: size * .7),
         ),
         content: Column(
@@ -66,11 +68,12 @@ class AlertCancelCloseQuery {
               if (textController.text.isNotEmpty ||
                   textController.text.length > 15) {
                 await LogicDetailsQuery.alterStatusQuery(
-                    context: context,
-                    statusId: status,
-                    motivo: textController.text,
-                    personId: personId,
-                    queryId: queryId);
+                  context: context,
+                  statusId: status,
+                  motivo: textController.text,
+                  personId: personId,
+                  queryId: queryId,
+                );
 
                 if (context.mounted) Navigator.of(context).pop();
               }
