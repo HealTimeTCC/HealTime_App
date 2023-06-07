@@ -69,22 +69,22 @@ class AddPatient extends StatelessWidget {
                             keyboardType: TextInputType.text),
                         SizedBox(height: size.height * .04),
                         //ajustar
-                        GestureDetector(
-                          onTap: () async =>
-                              await DateTimeQuery.selectDate(context, true),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * .05),
-                            height: size.height * .07,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: const Color(0xff333333),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () async =>
+                        //       await DateTimeQuery.selectDate(context, true),
+                        //   child: Container(
+                        //     padding: EdgeInsets.symmetric(
+                        //         horizontal: size.width * .05),
+                        //     height: size.height * .07,
+                        //     decoration: BoxDecoration(
+                        //       color: const Color.fromARGB(255, 255, 255, 255),
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       border: Border.all(
+                        //         color: const Color(0xff333333),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         
                         SizedBox(
                           height: size.height * .01,
