@@ -40,10 +40,10 @@ class AddPatient extends StatelessWidget {
                           color: Color(0xff1AE8E4),
                         ),
                       ),
-                      SizedBox(width: size.width * .03),
+                      SizedBox(width: size.width * .05),
                       Text(
                         'Cadastrar paciente',
-                        textAlign: TextAlign.left,
+                        textAlign: TextAlign.justify,
                         style: GoogleFonts.getFont('Poppins',
                             decoration: TextDecoration.none,
                             color: const Color(0xff1c1c1c),
@@ -53,73 +53,76 @@ class AddPatient extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: size.height * .04),
-                  Positioned(
-                      child: Column(
-                    children: [
-                      CustomField(
-                          label: 'Nome',
-                          textController: textNomeController,
-                          keyboardType: TextInputType.text),
-                      SizedBox(height: size.height * .04),
-                      CustomField(
-                          label: 'Sobrenome',
-                          textController: textSobrenomeController,
-                          keyboardType: TextInputType.text),
-                      SizedBox(height: size.height * .04),
-                      SizedBox(height: size.height * .04),
-                     GestureDetector(
-                              onTap: () async =>
-                                  await DateTimeQuery.selectDate(context, true),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * .05),
-                                height: size.height * .07,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: const Color(0xff333333),
-                                  ),
-                                ),
-                              ),
+                  SizedBox(height: size.height * .05),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 13, right: 13),
+                    child: Column(
+                      children: [
+                        CustomField(
+                            label: 'Nome',
+                            textController: textNomeController,
+                            keyboardType: TextInputType.text),
+                        SizedBox(height: size.height * .04),
+                        CustomField(
+                            label: 'Sobrenome',
+                            textController: textSobrenomeController,
+                            keyboardType: TextInputType.text),
+                        SizedBox(height: size.height * .04),
+                        //ajustar
+                        // GestureDetector(
+                        //   onTap: () async =>
+                        //       await DateTimeQuery.selectDate(context, true),
+                        //   child: Container(
+                        //     padding: EdgeInsets.symmetric(
+                        //         horizontal: size.width * .05),
+                        //     height: size.height * .07,
+                        //     decoration: BoxDecoration(
+                        //       color: const Color.fromARGB(255, 255, 255, 255),
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       border: Border.all(
+                        //         color: const Color(0xff333333),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        
+                        SizedBox(
+                          height: size.height * .01,
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            Pessoa paciente = Pessoa(
+                                cpfPessoa: textCpfController.text,
+                                nomePessoa: textNomeController.text,
+                                sobreNomePessoa: textSobrenomeController.text,
+                                tipoPessoa: personId,
+                                dtNascPessoa: DateTime.now(),
+                                passwordString: '');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * .30,
+                                vertical: size.height * .02),
+                            backgroundColor: const Color(0xff333333),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                      SizedBox(
-                        height: size.height * .05,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          Pessoa paciente = Pessoa(
-                              cpfPessoa: textCpfController.text,
-                              nomePessoa: textNomeController.text,
-                              sobreNomePessoa: textSobrenomeController.text,
-                              tipoPessoa: personId,
-                              dtNascPessoa: DateTime.now(),
-                              passwordString: '');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * .30,
-                              vertical: size.height * .02),
-                          backgroundColor: const Color(0xff333333),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
                           ),
-                        ),
-                        child: Text(
-                          'Adicionar',
-                          style: GoogleFonts.getFont('Poppins',
-                              decoration: TextDecoration.none,
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      )
-                    ],
-                  ))
+                          child: Text(
+                            'Adicionar',
+                            style: GoogleFonts.getFont('Poppins',
+                                decoration: TextDecoration.none,
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
-              ), 
+              ),
             ),
           ),
         ],
