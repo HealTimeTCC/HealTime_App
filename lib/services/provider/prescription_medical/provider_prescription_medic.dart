@@ -202,8 +202,7 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
 
   List<PrescriptionMedicine> _listPrescriptionMedicine = [];
 
-  List<PrescriptionMedicine> get getListPrescriptionMedicine =>
-      _listPrescriptionMedicine;
+  List<PrescriptionMedicine> get getListPrescriptionMedicine => _listPrescriptionMedicine;
 
   Future<void> listPrescriptionMedicines({required BuildContext context, required int codPrescription}) async {
     try {
@@ -224,4 +223,9 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+
+
+
+
 }

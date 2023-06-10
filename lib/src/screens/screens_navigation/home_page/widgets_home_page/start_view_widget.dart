@@ -29,11 +29,6 @@ class _StartWidgetViewState extends State<StartWidgetView> {
   int _selectedIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     _selectedIndex = 0;

@@ -99,11 +99,10 @@ class _ListMedicinesOnPrescriptionState
                         return ListView.builder(
                           physics: const AlwaysScrollableScrollPhysics(
                               parent: BouncingScrollPhysics()),
-                          itemCount: value.getPrescriptionInformationResult
-                              ?.prescriptionPatient!.length,
+                          itemCount: value.getListPrescriptionMedicine.length,
                           itemBuilder: (context, index) {
                             return Container(
-                              height: size.height * .2,
+                              height: size.height * .22,
                               margin: EdgeInsets.only(
                                 right: size.width * .02,
                                 left: size.width * .02,
@@ -131,67 +130,93 @@ class _ListMedicinesOnPrescriptionState
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        "Nome Medicacao",
+                                        value.getListPrescriptionMedicine[index]
+                                            .medicacao.nomeMedicacao,
                                         style: FontGoogle.textSubTitleGoogle(
                                           size: size * .5,
                                         ),
                                       ),
-                                      Text(
-                                        "Iniciado/NaoIniciado",
-                                        style: FontGoogle.textSubTitleGoogle(
-                                          size: size * .5,
-                                        ),
-                                      )
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(
-                                                  size.height * .02),
+
+                                  if (value.getListPrescriptionMedicine[index]
+                                      .horariosDefinidos) ...[
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: size.height * .01),
+                                            decoration: BoxDecoration(
+                                              color: Color(0xff18CDCA),borderRadius: BorderRadius.only(bottomLeft: Radius.circular(size.height * .02),
+                                              ),
                                             ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Icon(Icons.alarm_add),
-                                                Text("Iniciado")
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius: BorderRadius.only(
-                                              bottomRight: Radius.circular(
-                                                  size.height * .02),
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                Icon(Icons.alarm_add),
-                                                Text("Iniciado")
-                                              ],
+                                            child: Bounceable(
+                                              onTap: () {
+                                                //todo colocar metodo para iniciar
+                                                // Aqui é para colocar metodo provider para executar procedure
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.alarm_add,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    "Iniciar",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  )
+                                      ],
+                                    )
+                                  ] else ...[
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: size.height * .01),
+                                            decoration: BoxDecoration(
+                                              color: Color(0xffFFCC8C),
+                                              borderRadius: BorderRadius.only(
+                                                bottomRight: Radius.circular(
+                                                    size.height * .02),
+                                              ),
+                                            ),
+                                            child: Bounceable(
+                                              onTap: () {
+                                                //todo metodo para concluir
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Concluir",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.check_outlined,
+                                                    color: Colors.black,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ],
                               ),
                             );
