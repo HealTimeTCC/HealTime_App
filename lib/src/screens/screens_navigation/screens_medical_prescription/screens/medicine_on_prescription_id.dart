@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_list_progress_medication.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class ListMedicinesOnPrescription extends StatefulWidget {
   final int idPrescription;
 
   static GlobalKey<ScaffoldMessengerState> medicineOnPrescription =
-      GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<ScaffoldMessengerState>();
 
   @override
   State<ListMedicinesOnPrescription> createState() =>
@@ -31,18 +32,12 @@ class ListMedicinesOnPrescription extends StatefulWidget {
 class _ListMedicinesOnPrescriptionState
     extends State<ListMedicinesOnPrescription> {
   bool search = false;
-  late ProviderPrescriptionMedical providerDispose;
-
-  // @override
-  // void dispose(){
-  //   super.dispose();
-  //   providerDispose.set
-  // }
 
   @override
   Widget build(BuildContext context) {
-    providerDispose = Provider.of(context, listen: false);
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery
+        .of(context)
+        .size;
     return ScaffoldMessenger(
       key: ListMedicinesOnPrescription.medicineOnPrescription,
       child: Scaffold(
@@ -67,7 +62,8 @@ class _ListMedicinesOnPrescriptionState
                           ),
                         ),
                         Text(
-                          'Medicações associadas (cód: ${widget.idPrescription})',
+                          'Medicações associadas (cód: ${widget
+                              .idPrescription})',
                           style: FontGoogle.textTitleGoogle(size: size * .8),
                         ),
                       ],
@@ -103,7 +99,7 @@ class _ListMedicinesOnPrescriptionState
                                 Text(
                                   "Nada encontrado",
                                   style:
-                                      FontGoogle.textSubTitleGoogle(size: size),
+                                  FontGoogle.textSubTitleGoogle(size: size),
                                 ),
                               ],
                             ),
@@ -135,16 +131,16 @@ class _ListMedicinesOnPrescriptionState
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
                                           value
                                               .getListPrescriptionMedicine[
-                                                  index]
+                                          index]
                                               .medicacao
                                               .nomeMedicacao,
                                           style: FontGoogle.textSubTitleGoogle(
@@ -157,38 +153,49 @@ class _ListMedicinesOnPrescriptionState
                                     if (!value
                                         .getListPrescriptionMedicine[index]
                                         .horariosDefinidos) ...[
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: size.height * .01),
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xff18CDCA),
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(
-                                                      size.height * .02),
+                                      Bounceable(
+                                        onTap: () async {
+                                          await value.gerarHorarios(
+                                            context: context,
+                                            prescricaoMedicamentoId: value
+                                                .getListPrescriptionMedicine[index]
+                                                .prescricaoMedicacaoId,
+                                            medicamentoId: value
+                                                .getListPrescriptionMedicine[index]
+                                                .medicacaoId,
+                                            prescricaoPatientId: widget
+                                                .idPrescription,
+                                            sizeText: size.width * .05,
+                                          );
+                                          if (value.getHorariosGerado) {
+                                            if (context.mounted) {
+                                              await value
+                                                  .listPrescriptionMedicines(
+                                                  context: context,
+                                                  codPrescription: widget
+                                                      .idPrescription);
+                                            }
+                                          }
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: size.height *
+                                                        .01),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(
+                                                      0xff18CDCA),
+                                                  borderRadius: BorderRadius
+                                                      .only(
+                                                    bottomLeft: Radius.circular(
+                                                        size.height * .02),
+                                                  ),
                                                 ),
-                                              ),
-                                              child: Bounceable(
-                                                onTap: () async {
-                                                  await value.gerarHorarios(
-                                                    context: context,
-                                                    prescricaoMedicamentoId: value.getListPrescriptionMedicine[index].prescricaoMedicacaoId,
-                                                    medicamentoId: value.getListPrescriptionMedicine[index].medicacaoId,
-                                                    prescricaoPatientId:widget.idPrescription,
-                                                    sizeText: size.width * .05,
-                                                  );
-                                                  if(value.getHorariosGerado){
-                                                    if(context.mounted){
-                                                      await value.listPrescriptionMedicines(
-                                                          context: context,
-                                                          codPrescription: widget.idPrescription);
-                                                    }
-                                                  }
-                                                },
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .center,
                                                   children: const [
                                                     Icon(
                                                       Icons.alarm_add,
@@ -204,49 +211,59 @@ class _ListMedicinesOnPrescriptionState
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       )
-                                    ] else ...[
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: size.height * .01),
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xffFFCC8C),
-                                                borderRadius: BorderRadius.only(
-                                                  bottomRight: Radius.circular(
-                                                      size.height * .02),
+                                    ] else
+                                      ...[
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: size.height *
+                                                        .01),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(
+                                                      0xffFFCC8C),
+                                                  borderRadius: BorderRadius
+                                                      .only(
+                                                    bottomRight: Radius
+                                                        .circular(
+                                                        size.height * .02),
+                                                  ),
                                                 ),
-                                              ),
-                                              child: Bounceable(
-                                                onTap: () {
-                                                  //TODO LISTAR ANDAMENTOS MEDICACAO
-                                                },
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: const [
-                                                    Text(
-                                                      "Visualizar andamento",
-                                                      style: TextStyle(
+                                                child: Bounceable(
+                                                  onTap: () {
+                                                    Navigator.push(context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ListProgressMedication(
+                                                                codPrescription: value.getListPrescriptionMedicine[index].prescricaoPacienteId
+                                                                , codMedicine: value.getListPrescriptionMedicine[index].medicacaoId),),);
+                                                  },
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: const [
+                                                      Text(
+                                                        "Visualizar andamento",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        Icons.check_outlined,
                                                         color: Colors.black,
                                                       ),
-                                                    ),
-                                                    Icon(
-                                                      Icons.check_outlined,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
                                   ],
                                 ),
                               );

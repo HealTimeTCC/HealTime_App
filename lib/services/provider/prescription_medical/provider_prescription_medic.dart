@@ -328,29 +328,5 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-
-
-  Future<void> listOfMedicationProgressDto({
-    required BuildContext context
-    , required int codPrescriptionPatient
-    , required int codMedicine
-  }) async{
-
-    try{
-      ProgressMedicationInformationDto progressMedicationInformationDto =
-      await ApiMedicinePrescription.listProgressMedication(
-          context: context
-          , codPrescription: codPrescriptionPatient
-          , codMedicine: codMedicine);
-
-
-
-    }
-    catch(e){
-      throw Exception(e.toString());
-    }
-
-  }
   //#endregion
 }

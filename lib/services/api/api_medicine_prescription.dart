@@ -132,7 +132,6 @@ class ApiMedicinePrescription {
     required int prescricaoMedicamentoId,
     required int medicamentoId,
   }) async {
-    //todo testar essa requisição
     try {
       String uriBase = "${obterUri(context)}GerarHorarios";
       //Objeto a ser enviado
