@@ -108,15 +108,16 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                               return Bounceable(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ListMedicinesOnPrescription(
-                                                idPrescription: value
-                                                    .getListPrescriptionPatient[
-                                                        index]
-                                                    .prescricaoPacienteId),
-                                      ));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ListMedicinesOnPrescription(
+                                              idPrescription: value
+                                                  .getListPrescriptionPatient[
+                                                      index]
+                                                  .prescricaoPacienteId),
+                                    ),
+                                  );
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(
