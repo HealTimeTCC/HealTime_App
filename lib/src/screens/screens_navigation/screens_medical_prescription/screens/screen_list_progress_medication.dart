@@ -18,6 +18,7 @@ class ListProgressMedication extends StatefulWidget {
   final int codMedicine;
   @override
   State<ListProgressMedication> createState() => _ListProgressMedicationState();
+  static GlobalKey<ScaffoldMessengerState> progressMedicationKeyScaffold = GlobalKey<ScaffoldMessengerState>();
 }
 
 class _ListProgressMedicationState extends State<ListProgressMedication> {
@@ -32,6 +33,7 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return ScaffoldMessenger(
+      key: ListProgressMedication.progressMedicationKeyScaffold,
       child: Scaffold(
         body: Stack(
           children: [
@@ -98,47 +100,65 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                             ),
                           );
                         case TypeStateRequest.success:
-                          print('AQUIII ${value.getMedicationProgressDto.length}');
-                          return ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(
-                                parent: BouncingScrollPhysics()),
-                            itemCount: value.getMedicationProgressDto.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                height: size.height * .22,
-                                margin: EdgeInsets.only(
-                                  right: size.width * .02,
-                                  left: size.width * .02,
-                                  bottom: size.width * .02,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 1,
-                                        offset: Offset(1, 2),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(
-                                        size.height * .02)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "${value.getMedicationProgressDto[index].criadoEm}",
-                                          style: FontGoogle.textSubTitleGoogle(
-                                            size: size * .5,
-                                          ),
-                                        ),
-                                      ],
+                          if(value.getMedicationProgressDto.isEmpty){
+                            return Expanded(
+                              child: Column(
+                                children: [
+                                  Center(
+                                    child: Lottie.asset(
+                                      'assets/json/notfound.json',
+                                      height: size.height * .8,
                                     ),
+                                  ),
+                                  Text(
+                                    "Nada encontrado",
+                                    style:
+                                    FontGoogle.textSubTitleGoogle(size: size),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }else{
+                            return ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(
+                                  parent: BouncingScrollPhysics()),
+                              itemCount: value.getMedicationProgressDto.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  height: size.height * .22,
+                                  margin: EdgeInsets.only(
+                                    right: size.width * .02,
+                                    left: size.width * .02,
+                                    bottom: size.width * .02,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 1,
+                                          offset: Offset(1, 2),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(
+                                          size.height * .02)),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            "${value.getMedicationProgressDto[index].criadoEm}",
+                                            style: FontGoogle.textSubTitleGoogle(
+                                              size: size * .5,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Row(
                                         children: [
                                           Expanded(
@@ -152,36 +172,32 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                                                       size.height * .02),
                                                 ),
                                               ),
-                                              child: Bounceable(
-                                                onTap: () {
-                                                  //TODO LISTAR ANDAMENTOS MEDICACAO
-                                                },
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  children: const [
-                                                    Text(
-                                                      "Visualizar andamento",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
-                                                    Icon(
-                                                      Icons.check_outlined,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: const [
+                                                  Text(
+                                                    "Visualizar andamento",
+                                                    style: TextStyle(
                                                       color: Colors.black,
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.check_outlined,
+                                                    color: Colors.black,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }
                       }
                     },
                   ),

@@ -23,15 +23,16 @@ class MedicationProgressDto {
 
   factory MedicationProgressDto.fromJson(Map<String, dynamic> json) {
     return MedicationProgressDto(
-      andamentoMedicacaoId: json['andamentoMedicacaoId'],
+      andamentoMedicacaoId: json['andamentoMedicacaoId'] as num,
       mtAndamentoMedicacao: DateTime.parse(json['mtAndamentoMedicacao']),
-      prescricaoPacienteId: json['prescricaoPacienteId'],
-      medicacaoId: json['medicacaoId'],
-      qtdeMedicao: json['qtdeMedicao'],
+      prescricaoPacienteId: json['prescricaoPacienteId'] as num,
+      medicacaoId: json['medicacaoId'] as num,
+      qtdeMedicao: json['qtdeMedicao'] as num,
       criadoEm: DateTime.parse(json['criadoEm']),
-      baixaAndamentoMedicacao: json['baixaAndamentoMedicacao'],
-      mtBaixaMedicacao: json['mtBaixaMedicacao'] != null ? DateTime.parse(json['mtBaixaMedicacao']) : null,
-      codAplicadorMedicacao: json['codAplicadorMedicacao'] != null ? num.parse(json['codAplicadorMedicacao']) : null,
+      baixaAndamentoMedicacao: json['baixaAndamentoMedicacao'] as bool,
+      mtBaixaMedicacao: json['mtBaixaMedicacao'] == null ? null : DateTime.parse(json['mtBaixaMedicacao']) ,
+      codAplicadorMedicacao: json['codAplicadorMedicacao'] as num?,
+
     );
   }
 

@@ -21,8 +21,7 @@ class ListMedicinesOnPrescription extends StatefulWidget {
   }) : super(key: key);
   final int idPrescription;
 
-  static GlobalKey<ScaffoldMessengerState> medicineOnPrescription =
-  GlobalKey<ScaffoldMessengerState>();
+  static GlobalKey<ScaffoldMessengerState> medicineOnPrescription = GlobalKey<ScaffoldMessengerState>();
 
   @override
   State<ListMedicinesOnPrescription> createState() =>

@@ -15,6 +15,7 @@ import '../../shared/dto/prescriptions_list/prescription_information_result.dart
 import '../../shared/dto/prescriptions_list/prescription_patient_dto.dart';
 import '../../shared/dto/progress_medicines_archives_dto/medication_progress_dto.dart';
 import '../../shared/dto/progress_medicines_archives_dto/progress_medication_information_dto.dart';
+import '../../src/screens/screens_navigation/screens_medical_prescription/screens/screen_list_progress_medication.dart';
 import '../provider/login/provider_login.dart';
 
 class ApiMedicinePrescription {
@@ -143,12 +144,12 @@ class ApiMedicinePrescription {
 
       var response = await http.post(
         Uri.parse(uriBase),
-        body: json.encode(generateSchedules.toJson()) ,
+        body: json.encode(generateSchedules.toJson()),
         headers: await ConstsRequired.headRequisit(),
       );
 
       if (response.statusCode == 200) {
-          return true;
+        return true;
       } else {
         return false;
       }
@@ -156,21 +157,24 @@ class ApiMedicinePrescription {
       throw Exception("Erro ${e.toString()}");
     }
   }
+
 //#endregion
   //#region Listar Andamento Medicacões
-  static Future<ProgressMedicationInformationDto> listProgressMedication({
-    required BuildContext context
-    , required int codPrescription
-    , required int codMedicine
-  }) async {
+  static Future<ProgressMedicationInformationDto> listProgressMedication(
+      {required BuildContext context,
+      required int codPrescription,
+      required int codMedicine}) async {
     try {
-      String uriBase = "${obterUri(context)}ListarAndamentosMedicacao/$codMedicine/$codPrescription";
+      String uriBase =
+          "${obterUri(context)}ListarAndamentosMedicacao/$codMedicine/$codPrescription";
+      //print("${obterUri(context)}ListarAndamentosMedicacao/$codMedicine/$codPrescription");
       var response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
       if (response.statusCode == 200) {
-        ProgressMedicationInformationDto progressMedicationInformationDto = ProgressMedicationInformationDto (status: true);
+        ProgressMedicationInformationDto progressMedicationInformationDto =
+            ProgressMedicationInformationDto(status: true);
 
         List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
 
@@ -178,17 +182,30 @@ class ApiMedicinePrescription {
             .map((json) => MedicationProgressDto.fromJson(json))
             .toList();
 
-        progressMedicationInformationDto.listMedicationProgressDto = listMedicationProgressDto;
+        progressMedicationInformationDto.listMedicationProgressDto =
+            listMedicationProgressDto;
         return progressMedicationInformationDto;
       } else {
-        ProgressMedicationInformationDto progressMedicationInformationDto = ProgressMedicationInformationDto(status: false);
+        ProgressMedicationInformationDto progressMedicationInformationDto =
+            ProgressMedicationInformationDto(status: false);
         return progressMedicationInformationDto;
       }
     } catch (e) {
-      ProgressMedicationInformationDto progressMedicationInformationDto = ProgressMedicationInformationDto(status: false);
+      ListProgressMedication.progressMedicationKeyScaffold.currentState
+          ?.showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          closeIconColor: Colors.white,
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+      ProgressMedicationInformationDto progressMedicationInformationDto =
+          ProgressMedicationInformationDto(status: false);
       return progressMedicationInformationDto;
     }
   }
 
-  //#endregion
+//#endregion
 }
