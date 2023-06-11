@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../shared/models/enuns/enum_type_screen_medical.dart';
 import '../src/screens/presentation_screens/screen_choose_profile.dart';
 import '../src/screens/screens_navigation/home_page/widgets_home_page/start_view_widget.dart';
 import '../src/screens/screens_navigation/screen_alter_password/alter_password.dart';
@@ -21,8 +22,9 @@ class Routes {
       '/ListDoctors': (_) => const ListarMedico(),
       '/AlterPassword': (_) => const AlterPassword(),
       '/ListMedicine': (_) => const ListaRemedios(),
-      '/IncludeMedicine': (_) => const IncludeMedication(),
-
+      '/IncludeMedicine': (_) => const IncludeMedication(
+            typeOperation: TypeScreenMedical.notHomePage,
+          ),
     };
   }
 }

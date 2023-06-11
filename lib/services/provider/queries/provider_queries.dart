@@ -57,12 +57,15 @@ class ProviderQueries extends ChangeNotifier {
 
   Future<void> alterStatusQuery(
       int queryId, int statusId, int personId, String address) async {
-    _listQueries
-        .where((element) => element.consultasAgendadasId == queryId)
-        .first
-        .statusConsultaId = statusId;
-    _statusQuery = statusId;
-    initialValues(id: personId, address: address);
+
+    if (_listQueries.isNotEmpty) {
+      _listQueries
+          .where((element) => element.consultasAgendadasId == queryId)
+          .first
+          .statusConsultaId = statusId;
+      _statusQuery = statusId;
+    }
+    await initialValues(id: personId, address: address);
   }
 
   //ALTERAR O STATUS DA CONSULTA E OBTER NOVOS VALORES DE ACORDO COM STATUS ESCOLHIDO
@@ -212,21 +215,7 @@ class ProviderQueries extends ChangeNotifier {
         );
       }
     } else {
-      if (context.mounted) {
-        Navigator.of(context).pop();
-        scaffold.showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            behavior: SnackBarBehavior.floating,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            duration: const Duration(seconds: 2),
-            content: Text(
-              response['body'],
-            ),
-          ),
-        );
-      }
+      throw Exception(response['body']);
     }
   }
 

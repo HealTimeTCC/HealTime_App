@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healtime/services/provider/login/provider_login.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
@@ -12,18 +11,17 @@ import '../../../../../../../services/api/api_queries.dart';
 import '../../../../../../../services/provider/queries/provider_queries.dart';
 import '../../../../../../../shared/consts/consts_required.dart';
 import '../../../../../../../shared/models/model_doctor.dart';
-import '../widgets/alert_cancel_close_query.dart';
 
 class LogicDetailsQuery {
   static String get uriApiBase => ConstsRequired.urlBaseApi;
 
-  static Future<void> alterStatusQuery(
-      {required BuildContext context,
-      required int queryId,
-      required statusId,
-      required String motivo,
-      required int personId}) async {
-    final NavigatorState navigator = Navigator.of(context);
+  static Future<void> alterStatusQuery({
+    required BuildContext context,
+    required int queryId,
+    required statusId,
+    required String motivo,
+    required int personId,
+  }) async {
     final ProviderQueries providerList =
         Provider.of<ProviderQueries>(context, listen: false);
     final ProviderLogin providerLogin =
@@ -40,13 +38,16 @@ class LogicDetailsQuery {
     await ApiQueries.encerrarQuery(query);
     await providerList.alterStatusQuery(queryId, 1, personId, address);
 
-    navigator.pop();
+    if (context.mounted) {
+      Navigator.of(context).pop();
+    }
   }
 
-  static Future<void> initialDetailsQuery(
-      {required BuildContext context,
-      required int personId,
-      required int queryId}) async {
+  static Future<void> initialDetailsQuery({
+    required BuildContext context,
+    required int personId,
+    required int queryId,
+  }) async {
     final ProviderQueries providerQueries =
         Provider.of<ProviderQueries>(context, listen: false);
 
@@ -103,8 +104,7 @@ class LogicDetailsQuery {
           SnackBar(
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(size.width * .02)
-            ),
+                borderRadius: BorderRadius.circular(size.width * .02)),
             backgroundColor: Colors.redAccent,
             duration: const Duration(seconds: 4),
             content: Text(
@@ -119,7 +119,7 @@ class LogicDetailsQuery {
         );
       }
     } catch (ex) {
-      print('Ixi');
+      print(ex);
     }
   }
 }
