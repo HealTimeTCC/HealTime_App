@@ -10,8 +10,7 @@ PrescricaoMedicacao _$PrescricaoMedicacaoFromJson(Map<String, dynamic> json) =>
     PrescricaoMedicacao(
       duracao: json['duracao'] as int,
       intervalo: json['intervalo'] as int,
-      medicacao:
-          ModelMedicacao.fromJson(json['medicacao'] as Map<String, dynamic>),
+      medicacao: ModelMedicacao.fromJson(json['medicacao'] as Map<String, dynamic>),
       prescricaoPaciente: json['prescricaoPaciente'] == null
           ? null
           : PrescricaoPaciente.fromJson(

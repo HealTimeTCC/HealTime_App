@@ -1,12 +1,15 @@
+import 'package:healtime/shared/dto/medicines_on_prescription_dto/type_medicines.dart';
+
 class Medicine {
   int medicacaoId;
   int statusMedicacao;
   int tipoMedicacaoId;
   String nomeMedicacao;
   String compostoAtivoMedicacao;
-  String laboratorioMedicaocao;
+  String laboratorioMedicacao;
   String generico;
   int codPessoaAlter;
+  MedicationType medicationType;
 
   Medicine({
     required this.medicacaoId,
@@ -14,9 +17,10 @@ class Medicine {
     required this.tipoMedicacaoId,
     required this.nomeMedicacao,
     required this.compostoAtivoMedicacao,
-    required this.laboratorioMedicaocao,
+    required this.laboratorioMedicacao,
     required this.generico,
     required this.codPessoaAlter,
+    required this.medicationType
   });
 
   factory Medicine.fromJson(Map<String, dynamic> json) {
@@ -26,9 +30,11 @@ class Medicine {
       tipoMedicacaoId: json['tipoMedicacaoId'],
       nomeMedicacao: json['nomeMedicacao'],
       compostoAtivoMedicacao: json['compostoAtivoMedicacao'],
-      laboratorioMedicaocao: json['laboratorioMedicaocao'],
+      laboratorioMedicacao: json['laboratorioMedicacao'],
       generico: json['generico'],
-      codPessoaAlter: json['codPessoaAlter'],
+      codPessoaAlter: json['codPessoaAlter'], 
+      medicationType: MedicationType.fromJson(json['tipoMedicacao']),
+      
     );
   }
 }

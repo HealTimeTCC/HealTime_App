@@ -18,7 +18,9 @@ ModelMedicacao _$ModelMedicacaoFromJson(Map<String, dynamic> json) =>
           (json['statusMedicacao'] == 1 ? 'ativo' : 'inativo'),
         ),
         tipoMedicacaoId: json['tipoMedicacaoId'] as int,
-        codPessoaAlter: json['codPessoaAlter']);
+        codPessoaAlter: json['codPessoaAlter'],
+        medicationType: MedicationType.fromJson(json['tipoMedicacao'])
+    );
 
 Map<String, dynamic> _$ModelMedicacaoToJson(ModelMedicacao instance) =>
     <String, dynamic>{
