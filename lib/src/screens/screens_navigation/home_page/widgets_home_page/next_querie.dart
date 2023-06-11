@@ -40,7 +40,7 @@ class NextQuery extends StatelessWidget {
                   horizontal: size.width * .04,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xff25D8D5),
+                  color: const Color(0xff101E1E),
                   borderRadius: BorderRadius.circular(size.width * .04),
                 ),
                 child: Text(
@@ -70,7 +70,7 @@ class NextQuery extends StatelessWidget {
                     }
                   default:
                     {
-                      final DtoInfoBasicQueries? query = value.nextQuery;
+                      DtoInfoBasicQueries? query = value.nextQuery;
 
                       final Pessoa? person = value.getDataPerson;
 

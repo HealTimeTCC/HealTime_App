@@ -5,12 +5,18 @@ import 'package:healtime/shared/models/model_medicacao.dart';
 
 import '../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../shared/decorations/screen_background.dart';
+import '../../../../../shared/models/enuns/enum_type_screen_medical.dart';
 import '../../../../../shared/models/model_type_medicine.dart';
 import 'Widget/model_text_field.dart';
 import 'logic/medicine.dart';
 
 class IncludeMedication extends StatefulWidget {
-  const IncludeMedication({Key? key}) : super(key: key);
+  const IncludeMedication({
+    Key? key,
+    required this.typeOperation,
+  }) : super(key: key);
+
+  final TypeScreenMedical typeOperation;
 
   @override
   State<IncludeMedication> createState() => _IncludeMedicationState();
@@ -54,15 +60,21 @@ class _IncludeMedicationState extends State<IncludeMedication> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(Icons.arrow_back_ios_new,
-                        color: const Color(0xff18CDCA), size: size.width * .08),
+                  SizedBox(
+                    height: size.height * .06,
                   ),
+                  if (widget.typeOperation == TypeScreenMedical.notHomePage)
+                    IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: Icon(Icons.arrow_back_ios_new,
+                          color: const Color(0xff18CDCA),
+                          size: size.width * .08),
+                    ),
                   SizedBox(width: size.width * .02),
                   Expanded(
                     child: Text(
-                      'Incluir medicamento',
+                      'Adicionar medicamento',
+                      textAlign: TextAlign.center,
                       style: FontGoogle.textTitleGoogle(size: size * .9),
                     ),
                   )

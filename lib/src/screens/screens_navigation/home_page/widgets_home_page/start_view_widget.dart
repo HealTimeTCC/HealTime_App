@@ -16,6 +16,7 @@ import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/l
 import 'package:provider/provider.dart';
 
 import '../../../../../services/provider/provider_home_page.dart';
+import '../../../../../shared/models/enuns/enum_type_screen_medical.dart';
 import '../logic/drawer.dart';
 
 class StartWidgetView extends StatefulWidget {
@@ -42,7 +43,9 @@ class _StartWidgetViewState extends State<StartWidgetView> {
     final Size size = MediaQuery.of(context).size;
     List<Widget> _widgetOptions = [
       const HomePage(),
-      const IncludeMedication(),
+      const IncludeMedication(
+        typeOperation: TypeScreenMedical.homePage,
+      ),
       SelectPatient(
         mensageAppBar: "Detalhes Prescrição",
         personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
