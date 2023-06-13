@@ -29,21 +29,6 @@ class OptionsProfile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.settings_outlined,
-                color: Color(0xff494949),
-              ),
-              SizedBox(width: size.width * .02),
-              const Expanded(
-                child: Text('Configurações'),
-              )
-            ],
-          ),
-          const Divider(
-            color: Color(0xffE3DDDD),
-          ),
           GestureDetector(
             onTap: () => Navigator.of(context).pushNamed('/AlterPassword'),
             child: Row(

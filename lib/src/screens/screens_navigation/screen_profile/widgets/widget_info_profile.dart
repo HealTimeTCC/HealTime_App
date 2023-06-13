@@ -125,12 +125,6 @@ class _InfoProfileState extends State<InfoProfile> {
                             style:
                                 FontGoogle.textNormaleGoogle(size: size * .7),
                           ),
-                          SizedBox(height: size.height * .01),
-                          Text(
-                            'Editar informações',
-                            style: FontGoogle.textNormalGreyGoogle(
-                                size: size * .65),
-                          ),
                         ],
                       ),
                     )
