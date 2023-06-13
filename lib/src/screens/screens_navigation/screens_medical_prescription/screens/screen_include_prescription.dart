@@ -38,6 +38,36 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
       body: Stack(
         children: [
           const BackgroundPage(),
+          Positioned(
+            top: 0,
+            right: 0,
+            left: 0,
+            child: SafeArea(
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: Icon(Icons.arrow_back_ios_new,
+                        color: const Color(0xff18CDCA),
+                        size: size.width * .08),
+                  ),
+                  SizedBox(width: size.width * .025),
+                  Expanded(
+                    child: Text(
+                      'Incluir Prescrição',
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.getFont('Poppins',
+                          decoration: TextDecoration.none,
+                          color: const Color(0xff1c1c1c),
+                          fontSize: 20,
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           ListView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -47,15 +77,8 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
                 padding: EdgeInsets.all(size.width * 0.07),
                 child: Column(
                   children: [
-                    Text(
-                      'Incluir Prescrição',
-                      style: FontGoogle.textTitleGoogle(
-                        size: size,
-                        colorText: Colors.black,
-                      ),
-                    ),
                     SizedBox(
-                      height: size.height * .02,
+                      height: size.height * .05,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,

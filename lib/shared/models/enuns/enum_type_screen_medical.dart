@@ -1,0 +1,4 @@
+enum TypeScreenMedical {
+  homePage,
+  notHomePage
+}

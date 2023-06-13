@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../shared/decorations/fonts_google.dart';
+import '../../screens_medical/screen_patient/screen_list_patient.dart';
+import '../../screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
 import '../logic_options/define_dates.dart';
 
 class DefineDataPrescription extends StatefulWidget {
@@ -17,25 +19,13 @@ class DefineDataPrescription extends StatefulWidget {
 }
 
 class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
-  //este brinquedo eu uso para chamar a SnackBar caso seja necessário
-  static GlobalKey<ScaffoldMessengerState>
-      scaffoldMessengerKeyDataPrescription =
-      GlobalKey<ScaffoldMessengerState>();
+  static GlobalKey<ScaffoldMessengerState> scaffoldMessengerKeyDataPrescription = GlobalKey<ScaffoldMessengerState>();
   late ProviderPrescriptionMedical providerPrescriptionMedical;
   TextEditingController controllerQtdeDias = TextEditingController();
   TextEditingController controllerQtdeDosagem = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final snackBar = SnackBar(
-      content: const Text('Yay! A SnackBar!'),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
-    );
     providerPrescriptionMedical = Provider.of(context, listen: false);
     final Size size = MediaQuery.of(context).size;
     return ScaffoldMessenger(
@@ -350,9 +340,10 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                       qtdeDosagem: qtdeDosagem,
                                       qtdeDias: qtdeDias)){
                                     Navigator.pop(context);
+                                    Navigator.pop(context);
+
                                     providerPrescriptionMedical.disposeNoNotifier();
-                                    // TODO INCLUIR A MENSAGEM DE SNACKBAR NA TELA DE LISTAGEM
-                                    scaffoldMessengerKeyDataPrescription
+                                    SelectPatient.selectPatientScaffoldKey
                                         .currentState
                                         ?.showSnackBar(
                                       const SnackBar(
@@ -368,7 +359,7 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                     );
                                   }
                                   else{
-                                    scaffoldMessengerKeyDataPrescription
+                                    SelectPatient.selectPatientScaffoldKey
                                         .currentState
                                         ?.showSnackBar(
                                       const SnackBar(

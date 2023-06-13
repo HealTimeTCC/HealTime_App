@@ -47,6 +47,8 @@ class ProviderHomePage extends ChangeNotifier {
       _dataPerson = await DataPreferencesPessoa.getDataUser();
 
   Future<void> getQuery(BuildContext context) async {
+    _nextQuery = null;
+
     final ProviderLogin providerLogin =
     Provider.of<ProviderLogin>(context, listen: false);
     final ProviderQueries providerQuery =

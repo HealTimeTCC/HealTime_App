@@ -68,7 +68,8 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                             ),
                             SizedBox(height: size.height * .005),
                             GestureDetector(
-                              onTap: () async => await DateTimeQuery.selectDate(context, true),
+                              onTap: () async =>
+                                  await DateTimeQuery.selectDate(context, true),
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * .05),
@@ -441,20 +442,23 @@ class _RegisterQueriesState extends State<RegisterQueries> {
                           return;
                         }
 
-                        Iterable<ModelEspecialidades> selectSpecialty =
+                        final Iterable<ModelEspecialidades> selectSpecialty =
                             providerQuery.listSpecialties.where((element) =>
                                 element.descEspecialidade ==
                                 providerQuery.valueSelect);
 
                         final PostQuery postQuery = PostQuery(
-                            dataPerson: widget.dataPessoa,
-                            doctorId: providerQuery.doctor?.MedicoId ?? 1,
-                            flagForwarding: providerQuery.flagEncaminhado,
-                            reasonConsultation: _textObsController.text,
-                            specialtyId: selectSpecialty.first.especialidadeId);
+                          dataPerson: widget.dataPessoa,
+                          reasonConsultation: _textObsController.text,
+                          flagForwarding: providerQuery.flagEncaminhado,
+                          doctorId: providerQuery.doctor?.MedicoId ?? 1,
+                          specialtyId: selectSpecialty.first.especialidadeId,
+                        );
 
                         await LogicQueries.postQuery(
-                            context: context, postQuery: postQuery);
+                          context: context,
+                          postQuery: postQuery,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
