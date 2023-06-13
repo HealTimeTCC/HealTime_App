@@ -15,6 +15,7 @@ import '../../shared/dto/prescriptions_list/prescription_information_result.dart
 import '../../shared/dto/prescriptions_list/prescription_patient_dto.dart';
 import '../../shared/dto/progress_medicines_archives_dto/medication_progress_dto.dart';
 import '../../shared/dto/progress_medicines_archives_dto/progress_medication_information_dto.dart';
+import '../../src/screens/screens_navigation/screens_medical_prescription/screens/medicine_on_prescription_id.dart';
 import '../../src/screens/screens_navigation/screens_medical_prescription/screens/screen_list_progress_medication.dart';
 import '../provider/login/provider_login.dart';
 
@@ -82,11 +83,21 @@ class ApiMedicinePrescription {
         return DetailsPrescriptionMedicineResult(status: false);
       }
     } catch (e) {
+      ListMedicinesOnPrescription.medicineOnPrescription.currentState
+          ?.showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          closeIconColor: Colors.white,
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
       return DetailsPrescriptionMedicineResult(status: false);
     }
   }
 
-//#endregion
+  //#endregion
   //#region listar prescrições
   static Future<PrescriptionInformationResult> listPrescriptionPatient({
     required BuildContext context,
@@ -124,7 +135,7 @@ class ApiMedicinePrescription {
     }
   }
 
-//#endregion
+  //#endregion
   //#region Gerar horarios
 
   static Future<bool> generateSchedules({
@@ -158,7 +169,7 @@ class ApiMedicinePrescription {
     }
   }
 
-//#endregion
+  //#endregion
   //#region Listar Andamento Medicacões
   static Future<ProgressMedicationInformationDto> listProgressMedication(
       {required BuildContext context,

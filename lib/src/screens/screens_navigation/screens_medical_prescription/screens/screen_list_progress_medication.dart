@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -120,79 +122,112 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                             );
                           }else{
                             return ListView.builder(
-                              physics: const AlwaysScrollableScrollPhysics(
-                                  parent: BouncingScrollPhysics()),
+                              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                               itemCount: value.getMedicationProgressDto.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  height: size.height * .22,
-                                  margin: EdgeInsets.only(
-                                    right: size.width * .02,
-                                    left: size.width * .02,
-                                    bottom: size.width * .02,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 1,
-                                          offset: Offset(1, 2),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(
-                                          size.height * .02)),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Slidable(
+                                    endActionPane: ActionPane(
+                                        motion: const ScrollMotion(),
                                         children: [
-                                          Text(
-                                            "${value.getMedicationProgressDto[index].criadoEm}",
-                                            style: FontGoogle.textSubTitleGoogle(
-                                              size: size * .5,
-                                            ),
+                                          SlidableAction(
+                                              onPressed: (context) {},
+                                              icon: Icons.check_outlined,
+                                              backgroundColor: Colors.green,
+                                              label: "Baixa",
+                                              spacing: size.width * .05,
+                                            borderRadius:  BorderRadius.circular(size.height * .02)
                                           ),
                                         ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: size.height * .01),
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xffFFCC8C),
-                                                borderRadius: BorderRadius.only(
-                                                  bottomRight: Radius.circular(
-                                                      size.height * .02),
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: const [
-                                                  Text(
-                                                    "Visualizar andamento",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        height: size.height * .22,
+                                        width: size.width * .9,
+                                        padding: EdgeInsets.all(size.height * .01),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 1,
+                                                offset: Offset(1, 2),
+                                              )
+                                            ],
+                                            borderRadius: BorderRadius.circular(size.height * .02)),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                    "Cód. Medicação: ",
+                                                    style: FontGoogle.textSubTitleGoogle(
+                                                      fontWeightText: FontWeight.w700,
+                                                      size: size * .85,
                                                     ),
                                                   ),
-                                                  Icon(
-                                                    Icons.check_outlined,
-                                                    color: Colors.black,
+                                                    Text(
+                                                      "${value.getMedicationProgressDto[index].medicacaoId}",
+                                                      style: FontGoogle.textSubTitleGoogle(
+                                                        size: size * .85,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                padding: EdgeInsets.symmetric(horizontal: size.width * .01),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(size.width * .01),
+                                                    color: value.getMedicationProgressDto[index].baixaAndamentoMedicacao ?
+                                                         Colors.red :Colors.green ,
                                                   ),
-                                                ],
-                                              ),
+                                                  child: Text(value.getMedicationProgressDto[index].baixaAndamentoMedicacao ? "Fechada" : "Pendente",
+                                                    style: FontGoogle.textSubTitleGoogle(
+                                                    size: size * .7,
+                                                      colorText: Colors.white
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          ),
-                                        ],
+                                            Row(
+                                              children: [
+                                                Text("Aplicação em: ",
+                                                  style: FontGoogle.textSubTitleGoogle(
+                                                  fontWeightText: FontWeight.w700,
+                                                  size: size * .85,
+                                                  ),
+                                                ),
+                                                Text(DateFormat("dd/MM/yyyy hh:mm").format(value.getMedicationProgressDto[index].mtAndamentoMedicacao,),
+                                                  style: FontGoogle.textSubTitleGoogle(
+                                                  size: size * .85,
+                                                ),)
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text("Quantidade: ",
+                                                  style: FontGoogle.textSubTitleGoogle(
+                                                  fontWeightText: FontWeight.w700,
+                                                  size: size * .85,
+                                                  ),
+                                                ),
+                                                Text("${value.getMedicationProgressDto[index].qtdeMedicao} UN",
+                                                  style: FontGoogle.textSubTitleGoogle(
+                                                  size: size * .85,
+                                                ),)
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 );
                               },
