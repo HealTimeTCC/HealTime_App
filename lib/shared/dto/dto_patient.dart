@@ -14,7 +14,7 @@ class Patient {
 
   Patient.fromJson(Map<String, dynamic> json)
       : pessoaId = json['pessoaId'] as int,
-        tipoPessoa = json['tipoPessoa'] as int,
+        tipoPessoa = json['tipoPessoa'] ?? 2,
         cpfPessoa = json['cpfPessoa'] as String,
         nomePessoa = json['nomePessoa'] as String,
         sobreNomePessoa = json['sobreNomePessoa'] as String;
