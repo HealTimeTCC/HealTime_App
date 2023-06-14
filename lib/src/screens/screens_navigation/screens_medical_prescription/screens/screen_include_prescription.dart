@@ -5,14 +5,17 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/services/provider/provider_home_page.dart';
+import 'package:healtime/services/provider/provider_user.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
+import 'package:healtime/shared/models/model_pessoa.dart';
 import 'package:provider/provider.dart';
 
 import '../../screens_medical/screen_doctor/screen_list_doctor.dart';
 import '../../screens_medical/screen_medicine/screen_list_medicine.dart';
 import '../../screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
+import '../logic_options/medical_prescription_logic.dart';
 import '../widgets/doctor_option.dart';
 import '../widgets/medicine_option.dart';
 import '../widgets/patient_option.dart';
@@ -22,18 +25,29 @@ class IncludePrescriptionMedical extends StatefulWidget {
   const IncludePrescriptionMedical({Key? key}) : super(key: key);
 
   @override
-  State<IncludePrescriptionMedical> createState() => _IncludePrescriptionMedicalState();
+  State<IncludePrescriptionMedical> createState() =>
+      _IncludePrescriptionMedicalState();
 }
 
-class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical> {
-  late ProviderPrescriptionMedical providerPrescriptionMedical = Provider.of(context);
+class _IncludePrescriptionMedicalState
+    extends State<IncludePrescriptionMedical> {
+  late ProviderPrescriptionMedical providerPrescriptionMedical =
+      Provider.of(context);
   late ProviderHomePage providerHomePage = Provider.of(context);
   late TextEditingController descriptionController = TextEditingController();
   String messageError = "";
 
   @override
   Widget build(BuildContext context) {
+    final ProviderPerson providerPerson = Provider.of<ProviderPerson>(context);
     final Size size = MediaQuery.of(context).size;
+
+    if (providerPerson.person == null) {
+      return Container();
+    }
+
+    final Pessoa person = providerPerson.person!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -48,8 +62,7 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
                     icon: Icon(Icons.arrow_back_ios_new,
-                        color: const Color(0xff18CDCA),
-                        size: size.width * .08),
+                        color: const Color(0xff18CDCA), size: size.width * .08),
                   ),
                   SizedBox(width: size.width * .025),
                   Expanded(
@@ -93,27 +106,31 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
                     SizedBox(
                       height: size.height * .02,
                     ),
-                    Bounceable(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SelectPatient(
-                              typeOperation: TypeOperation.selectIncludePrescription,
-                              personId:providerHomePage.getDataPerson?.pessoaId ?? 0,
+                    if (person.tipoPessoa != 1) ... [
+                      Bounceable(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectPatient(
+                                typeOperation:
+                                TypeOperation.selectIncludePrescription,
+                                personId:
+                                providerHomePage.getDataPerson?.pessoaId ?? 0,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      //todo pegar esse true do provider
-                      child: PatientOption(
-                        selectPatient:
-                            providerPrescriptionMedical.getSelectPacienteOption,
+                          );
+                        },
+                        //todo pegar esse true do provider
+                        child: PatientOption(
+                          selectPatient:
+                          providerPrescriptionMedical.getSelectPacienteOption,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: size.height * .02,
-                    ),
+                      SizedBox(
+                        height: size.height * .02,
+                      ),
+                    ],
                     Bounceable(
                       onTap: () {
                         Navigator.push(
@@ -190,6 +207,12 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+
+          if (person.tipoPessoa != 1) {
+            providerPrescriptionMedical.selectPaciente(person);
+            providerPrescriptionMedical.updateStatePacienteOption(true);
+          }
+
           if (!providerPrescriptionMedical.getSelectPacienteOption) {
             setState(() {
               messageError = "Selecione um paciente";
@@ -214,7 +237,9 @@ class _IncludePrescriptionMedicalState extends State<IncludePrescriptionMedical>
                 descriptionController.text;
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const DefineDataPrescription()),
+              MaterialPageRoute(
+                builder: (context) => const DefineDataPrescription(),
+              ),
             );
           }
         },
