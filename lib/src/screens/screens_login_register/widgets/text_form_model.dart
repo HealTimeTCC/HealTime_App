@@ -53,7 +53,6 @@ class ModelTextForm {
             borderSide: BorderSide.none,
           ),
           hintText: textLabel,
-          labelText: textLabel,
           labelStyle: GoogleFonts.getFont('Poppins',
               decoration: TextDecoration.none,
               color: const Color(0xff1c1c1c),
