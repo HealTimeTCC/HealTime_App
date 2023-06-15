@@ -16,21 +16,21 @@ class ModelPatient extends StatelessWidget {
     return Container(
       height: size.height * .07,
       margin: EdgeInsets.symmetric(horizontal: size.width * .05),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(5),
-            topRight: Radius.circular(5),
+            bottomRight: Radius.circular(size.width * .02),
+            topRight: Radius.circular(size.width * .02),
           ),
           color: Colors.white),
       child: Row(
         children: [
           Container(
             width: size.width * .02,
-            decoration: const BoxDecoration(
-              color: Color(0xff02CCC9),
+            decoration: BoxDecoration(
+              color: const Color(0xff02CCC9),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(5),
-                topLeft: Radius.circular(5),
+                bottomLeft: Radius.circular(size.width * .02),
+                topLeft: Radius.circular(size.width * .02),
               ),
             ),
           ),
@@ -45,19 +45,14 @@ class ModelPatient extends StatelessWidget {
                     person.nomePessoa,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: FontGoogle.textNormaleGoogle(size: size * .8),
+                    style: FontGoogle.textNormaleGoogle(size: size * .85),
                   ),
                   Text(
                     person.sobreNomePessoa,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: FontGoogle.textNormalGreyGoogle(size: size * .7),
+                    style: FontGoogle.textNormalGreyGoogle(size: size * .6),
                   ),
-                  Text(person.cpfPessoa,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                    style: FontGoogle.textNormalGreyGoogle(size: size * .7),
-                  )
                 ],
               )
             ),
@@ -75,19 +70,6 @@ class ModelPatient extends StatelessWidget {
               ),
             ),
           ),
-          PopupMenuButton(
-            icon: Icon(
-              Icons.more_vert_outlined,
-              color: Colors.grey.shade400,
-            ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text('Teste'),
-              )
-            ],
-          )
         ],
       ),
     );
