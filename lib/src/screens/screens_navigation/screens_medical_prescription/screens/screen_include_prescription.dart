@@ -208,7 +208,7 @@ class _IncludePrescriptionMedicalState
       floatingActionButton: FloatingActionButton(
         onPressed: () {
 
-          if (person.tipoPessoa != 1) {
+          if (person.tipoPessoa == 1) {
             providerPrescriptionMedical.selectPaciente(person);
             providerPrescriptionMedical.updateStatePacienteOption(true);
           }
