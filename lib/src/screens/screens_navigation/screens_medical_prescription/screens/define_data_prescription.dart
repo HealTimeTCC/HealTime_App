@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../shared/decorations/fonts_google.dart';
-import '../../screens_medical/screen_patient/screen_list_patient.dart';
 import '../../screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
 import '../logic_options/define_dates.dart';
 
@@ -44,8 +43,7 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
                     icon: Icon(Icons.arrow_back_ios_new,
-                        color: const Color(0xff18CDCA),
-                        size: size.width * .08),
+                        color: const Color(0xff18CDCA), size: size.width * .08),
                   ),
                   SizedBox(width: size.width * .025),
                   Expanded(
@@ -95,8 +93,7 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                 onTap: () async {
                                   await DefineDatePrescriptionMedical
                                       .selectDate(
-                                          context: context,
-                                          typeEmissao: true);
+                                          context: context, typeEmissao: true);
                                   setState(() {});
                                 },
                                 child: Container(
@@ -141,8 +138,7 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                 onTap: () async {
                                   await DefineDatePrescriptionMedical
                                       .selectDate(
-                                          context: context,
-                                          typeEmissao: false);
+                                          context: context, typeEmissao: false);
                                   setState(() {});
                                 },
                                 child: Container(
@@ -320,6 +316,25 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                           ),
                           Bounceable(
                             onTap: () async {
+
+                              if (controllerQtdeDosagem.text.isEmpty ||
+                                  (int.tryParse(controllerQtdeDosagem.text) ??
+                                      0) <=
+                                      0) {
+                                _checkValuesMsg(
+                                    'Por favor, informe a quantidade de dias.');
+                                return;
+                              }
+
+                              if (controllerQtdeDias.text.isEmpty ||
+                                  (int.tryParse(controllerQtdeDias.text) ??
+                                          0) <=
+                                      0) {
+                                _checkValuesMsg(
+                                    'Por favor, informe a dosagem por hora');
+                                return;
+                              }
+
                               int? qtdeDias =
                                   int.tryParse(controllerQtdeDias.text);
                               num? qtdeDosagem =
@@ -371,28 +386,8 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                   );
                                 } else {
                                   if (context.mounted) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(
-                                      SnackBar(
-                                        elevation: 0,
-                                        showCloseIcon: true,
-                                        closeIconColor: Colors.white,
-                                        backgroundColor: Colors.redAccent,
-                                        behavior: SnackBarBehavior.floating,
-                                        duration: const Duration(seconds: 3),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              size.width * .02),
-                                        ),
-                                        content: Text(
-                                          'Erro ao incluir prescrição!',
-                                          style: FontGoogle.textNormaleGoogle(
-                                            size: size * .8,
-                                            colorText: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    _checkValuesMsg(
+                                        'Erro ao incluir prescrição!');
                                   }
 
                                   // SelectPatient.selectPatientScaffoldKey
@@ -448,6 +443,32 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _checkValuesMsg(String msg) {
+    final Size size = MediaQuery.of(context).size;
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        elevation: 0,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
+        backgroundColor: Colors.redAccent,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(size.width * .02),
+        ),
+        content: Text(
+          msg,
+          style: FontGoogle.textNormaleGoogle(
+            size: size * .8,
+            colorText: Colors.white,
+          ),
+        ),
       ),
     );
   }
