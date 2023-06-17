@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 
 class FontGoogle {
   //FONTE PARA TEXTO NORMAL
-  static TextStyle? textNormaleGoogle({required Size size, Color? colorText}) =>
-      GoogleFonts.getFont('Poppins',
-          decoration: TextDecoration.none,
-          color: colorText ?? const Color(0xff1c1c1c),
-          fontSize: size.width * .05,
-          fontWeight: FontWeight.w400);
+  static TextStyle? textNormaleGoogle({
+    required Size size,
+    Color? colorText,
+    FontWeight? fontWeightStyle,
+    double? letter,
+  }) =>
+      GoogleFonts.getFont(
+        'Poppins',
+        decoration: TextDecoration.none,
+        letterSpacing: letter ?? 0,
+        color: colorText ?? const Color(0xff1c1c1c),
+        fontSize: size.width * .05,
+        fontWeight: fontWeightStyle ?? FontWeight.w400,
+      );
 
 //FONTE VOLTADA PARA SUBTITULO
   static TextStyle? textSubTitleGoogle(
