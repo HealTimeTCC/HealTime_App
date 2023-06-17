@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:healtime/shared/dto/dto_patient.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 
 import 'package:http/http.dart' as http;
@@ -33,4 +34,8 @@ class ApiPaciente {
       );
     }
   }
+
+  // static String PostPaciente({required Patient paciente }){
+
+  // }
 }
