@@ -71,6 +71,12 @@ class _StartWidgetViewState extends State<StartWidgetView> {
               builder: (context, value, child) => Drawer(
                 elevation: 0,
                 backgroundColor: const Color(0xff18CDCA),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(size.width * .08),
+                    bottomRight: Radius.circular(size.width * .08),
+                  ),
+                ),
                 child: SafeArea(
                   child: ListView(
                     padding: EdgeInsets.symmetric(

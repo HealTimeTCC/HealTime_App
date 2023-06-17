@@ -316,10 +316,9 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                           ),
                           Bounceable(
                             onTap: () async {
-
                               if (controllerQtdeDosagem.text.isEmpty ||
                                   (int.tryParse(controllerQtdeDosagem.text) ??
-                                      0) <=
+                                          0) <=
                                       0) {
                                 _checkValuesMsg(
                                     'Por favor, informe a quantidade de dias.');
@@ -335,9 +334,9 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                 return;
                               }
 
-                              int? qtdeDias =
+                              final int? qtdeDias =
                                   int.tryParse(controllerQtdeDias.text);
-                              num? qtdeDosagem =
+                              final num? qtdeDosagem =
                                   num.tryParse(controllerQtdeDosagem.text);
                               if (qtdeDias == null || qtdeDosagem == null) {
                                 scaffoldMessengerKeyDataPrescription
@@ -390,6 +389,7 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                                         'Erro ao incluir prescrição!');
                                   }
 
+                                  // Rotina antiga par exibir a mensagem na tela para o usuário.
                                   // SelectPatient.selectPatientScaffoldKey
                                   //     .currentState
                                   //     ?.showSnackBar(
@@ -419,17 +419,20 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                               width: size.width * .9,
                               height: size.height * .07,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff1AE8E4),
-                                  borderRadius:
-                                      BorderRadius.circular(size.width * .1)),
+                                color: const Color(0xff1AE8E4),
+                                borderRadius: BorderRadius.circular(
+                                  size.width * .1,
+                                ),
+                              ),
                               child: Center(
                                 child: Text(
                                   'Finalizar',
                                   textAlign: TextAlign.center,
                                   style: FontGoogle.textTitleGoogle(
-                                      size: size * .9,
-                                      colorText: Colors.white,
-                                      fontWeightGoogle: FontWeight.w500),
+                                    size: size * .9,
+                                    colorText: Colors.white,
+                                    fontWeightGoogle: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
