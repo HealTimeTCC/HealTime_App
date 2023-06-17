@@ -106,7 +106,7 @@ class _IncludePrescriptionMedicalState
                     SizedBox(
                       height: size.height * .02,
                     ),
-                    if (person.tipoPessoa != 1) ... [
+                    if (person.tipoPessoa != 1) ...[
                       Bounceable(
                         onTap: () {
                           Navigator.push(
@@ -114,17 +114,18 @@ class _IncludePrescriptionMedicalState
                             MaterialPageRoute(
                               builder: (context) => SelectPatient(
                                 typeOperation:
-                                TypeOperation.selectIncludePrescription,
+                                    TypeOperation.selectIncludePrescription,
                                 personId:
-                                providerHomePage.getDataPerson?.pessoaId ?? 0,
+                                    providerHomePage.getDataPerson?.pessoaId ??
+                                        0,
                               ),
                             ),
                           );
                         },
                         //todo pegar esse true do provider
                         child: PatientOption(
-                          selectPatient:
-                          providerPrescriptionMedical.getSelectPacienteOption,
+                          selectPatient: providerPrescriptionMedical
+                              .getSelectPacienteOption,
                         ),
                       ),
                       SizedBox(
@@ -207,7 +208,6 @@ class _IncludePrescriptionMedicalState
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
           if (person.tipoPessoa == 1) {
             providerPrescriptionMedical.selectPaciente(person);
             providerPrescriptionMedical.updateStatePacienteOption(true);
@@ -217,18 +217,22 @@ class _IncludePrescriptionMedicalState
             setState(() {
               messageError = "Selecione um paciente";
             });
+            _responseError(messageError);
           } else if (!providerPrescriptionMedical.getSelectDoctorOption) {
             setState(() {
               messageError = "Selecione um médico";
             });
+            _responseError(messageError);
           } else if (!providerPrescriptionMedical.getSelectMedicineOption) {
             setState(() {
               messageError = "Selecione uma medicação";
             });
+            _responseError(messageError);
           } else if (descriptionController.text.isEmpty) {
             setState(() {
               messageError = "Descrição Obrigatória";
             });
+            _responseError(messageError);
           } else {
             setState(() {
               messageError = "";
@@ -244,6 +248,30 @@ class _IncludePrescriptionMedicalState
           }
         },
         child: const Icon(Icons.arrow_forward_rounded),
+      ),
+    );
+  }
+
+  void _responseError(String errorMsg) {
+    final Size size = MediaQuery.of(context).size;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        elevation: 0,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
+        backgroundColor: Colors.redAccent,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(size.width * .02),
+        ),
+        content: Text(
+          errorMsg,
+          style: FontGoogle.textNormaleGoogle(
+            size: size * .8,
+            colorText: Colors.white,
+          ),
+        ),
       ),
     );
   }
