@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../../../../services/api/api_medicine.dart';
 import '../../../../../../services/data_locale/data_preferences_pessoa.dart';
 import '../../../../../../services/provider/login/provider_login.dart';
+import '../../../../../../shared/models/enuns/enum_type_screen_medical.dart';
 import '../../../../../../shared/models/model_medicacao.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 
@@ -38,8 +39,11 @@ class LogicMedicine {
     }
   }
 
-  static Future<void> includeMedicine(
-      {required BuildContext context, required ModelMedicacao medicine}) async {
+  static Future<void> includeMedicine({
+    required BuildContext context,
+    required ModelMedicacao medicine,
+    required TypeScreenMedical typeOperation,
+  }) async {
     try {
       final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
       Pessoa? person = await DataPreferencesPessoa.getDataUser();
@@ -63,12 +67,13 @@ class LogicMedicine {
       }
 
       if (context.mounted) {
+        final Size size = MediaQuery.of(context).size;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             behavior: SnackBarBehavior.floating,
             backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(size.width * .02),
             ),
             closeIconColor: Colors.white,
             showCloseIcon: true,
@@ -76,7 +81,10 @@ class LogicMedicine {
           ),
         );
 
-        Navigator.of(context).pop();
+        if (typeOperation == TypeScreenMedical.notHomePage) {
+          Navigator.of(context).pop();
+        }
+
       }
     } catch (ex) {
       ScaffoldMessenger.of(context).clearSnackBars();
