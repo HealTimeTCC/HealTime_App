@@ -19,5 +19,5 @@ class ConstsRequired {
 
   /* URL DO LOCALTUNEL OU NGROK */
   static const String urlBaseApi =
-      'https://4e48-2804-14c-ba-91ba-8c5b-edd2-fd47-e37b.ngrok-free.app/';
+      'https://1ed9-2804-431-cfc8-4930-fd23-1a14-1866-225d.ngrok-free.app/';
 }
