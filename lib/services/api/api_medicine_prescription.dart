@@ -24,8 +24,7 @@ class ApiMedicinePrescription {
 
   static String obterUri(BuildContext context) {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
-    final String uriApi =
-        '${providerLogin.addressServer ?? uriApiBase}Medicacoes/';
+    final String uriApi = '${providerLogin.addressServer ?? uriApiBase}Medicacoes/';
     return uriApi;
   }
 
