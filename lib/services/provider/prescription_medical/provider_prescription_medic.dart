@@ -16,6 +16,7 @@ import '../../../shared/models/model_medicacao.dart';
 import '../../../src/screens/screens_navigation/screens_medical_prescription/logic_options/enum_type_state.dart';
 import '../../../src/screens/screens_navigation/screens_medical_prescription/screens/medicine_on_prescription_id.dart';
 import '../../api/api_medicine_prescription.dart';
+import '../../data_locale/data_preferences_pessoa.dart';
 
 class ProviderPrescriptionMedical extends ChangeNotifier {
   //#region Selecionar Medicacao
@@ -171,11 +172,22 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   PrescriptionInformationResult? get getPrescriptionInformationResult =>
       _prescriptionInformationResult;
 
-  Future<void> listarPrescricoes(
-      {required BuildContext context, required int codPaciente}) async {
+  Future<void> listarPrescricoes({
+    required BuildContext context,
+    required int codPaciente,
+  }) async {
     try {
+      if (codPaciente == 0) {
+        final Pessoa? person = await DataPreferencesPessoa.getDataUser();
+
+        if (person != null) {
+          if (person.pessoaId != null) {
+            codPaciente = person.pessoaId!;
+          }
+        }
+      }
+
       _typeStateRequest = TypeStateRequest.awaitCharge;
-      notifyListeners();
       _prescriptionInformationResult =
           await ApiMedicinePrescription.listPrescriptionPatient(
         context: context,
@@ -214,8 +226,10 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   List<PrescriptionMedicine> get getListPrescriptionMedicine =>
       _listPrescriptionMedicine;
 
-  Future<void> listPrescriptionMedicines(
-      {required BuildContext context, required int codPrescription}) async {
+  Future<void> listPrescriptionMedicines({
+    required BuildContext context,
+    required int codPrescription,
+  }) async {
     try {
       late DetailsPrescriptionMedicineResult prescriptionMedicineResult;
       _typeStateRequestPrescriptionMedicine = TypeStateRequest.awaitCharge;

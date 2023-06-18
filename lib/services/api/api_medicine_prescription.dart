@@ -61,12 +61,16 @@ class ApiMedicinePrescription {
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase =
+      final String uriBase =
           "${obterUri(context)}ListarPrescricaoMedicacaoByCodPrescricaoPaciente/$codPrescription";
       var response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
+      print(response.statusCode);
+      print(response.body);
+      print(uriBase);
+
       if (response.statusCode == 200) {
         DetailsPrescriptionMedicineResult detailsPrescriptionMedicineResult =
             DetailsPrescriptionMedicineResult(status: true);
@@ -105,12 +109,17 @@ class ApiMedicinePrescription {
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase =
+      final String uriBase =
           "${obterUri(context)}ListarPrescricoesPacientes/$codPrescription";
-      var response = await http.get(
+      final http.Response response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
+
+      print(uriBase);
+      print(response.statusCode);
+      print(response.body);
+
       if (response.statusCode == 200) {
         PrescriptionInformationResult prescriptionInformationResult =
             PrescriptionInformationResult(status: true);

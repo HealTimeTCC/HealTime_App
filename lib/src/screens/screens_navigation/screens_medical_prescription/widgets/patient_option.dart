@@ -30,8 +30,8 @@ class _PatientOptionState extends State<PatientOption> {
         width: size.width * .95,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(size.height * .5),
+          borderRadius: BorderRadius.circular(
+            size.width * .02,
           ),
           boxShadow: const [
             BoxShadow(
@@ -101,8 +101,13 @@ class _PatientOptionState extends State<PatientOption> {
       return Container(
         width: size.width * .95,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
-          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(
+            size.width * .02,
+          ),
+          border: Border.all(
+            color: const Color(0xff706F6F),
+          ),
+          color: Colors.white,
         ),
         child: Center(
           child: Padding(
@@ -111,9 +116,11 @@ class _PatientOptionState extends State<PatientOption> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Paciente",
+                  "Selecione o paciente",
                   style: FontGoogle.textNormaleGoogle(
                     size: size * .7,
+                    colorText: Colors.grey.shade500,
+                    fontWeightStyle: FontWeight.w500,
                   ),
                 ),
                 Padding(

@@ -34,7 +34,9 @@ class _DoctorOptionState extends State<DoctorOption> {
       return Container(
         width: size.width * .95,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
+          borderRadius: BorderRadius.circular(
+            size.width * .02,
+          ),
           color: Colors.white,
           boxShadow: const [
             BoxShadow(
@@ -112,32 +114,41 @@ class _DoctorOptionState extends State<DoctorOption> {
       return Container(
         width: size.width * .95,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
-          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(
+            size.width * .02,
+          ),
+          border: Border.all(
+            color: const Color(0xff706F6F),
+          ),
+          color: Colors.white,
         ),
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  "Médico responsável",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: FontGoogle.textNormaleGoogle(
-                    size: size * .7,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    "Selecione o médico",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormaleGoogle(
+                      size: size * .7,
+                      colorText: Colors.grey.shade500,
+                      fontWeightStyle: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
+              ),
+            ],
+          ),
         ),
       );
     }
