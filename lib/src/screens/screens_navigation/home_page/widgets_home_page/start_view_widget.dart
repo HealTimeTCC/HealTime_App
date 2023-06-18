@@ -36,11 +36,15 @@ class _StartWidgetViewState extends State<StartWidgetView> {
 
     final Size size = MediaQuery.of(context).size;
 
-    Widget widgetScreen = (providerHomePage.getDataPerson?.tipoPessoa ?? 1) != 1 ? SelectPatient(
-      mensageAppBar: "Detalhes Prescrição",
-      personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
-      typeOperation: TypeOperation.selectDetailsPrescription,
-    ) : const DetailsPrescription();
+    Widget widgetScreen = (providerHomePage.getDataPerson?.tipoPessoa ?? 1) != 1
+        ? SelectPatient(
+            mensageAppBar: "Detalhes Prescrição",
+            personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
+            typeOperation: TypeOperation.selectDetailsPrescription,
+          )
+        : const DetailsPrescription(
+            typeOperation: TypeScreenMedical.homePage,
+          );
 
     List<Widget> _widgetOptions = [
       const HomePage(),

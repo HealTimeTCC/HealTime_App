@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../../../../services/api/api_queries.dart';
 import '../../../../../../shared/decorations/screen_background.dart';
 import '../../../../../../shared/models/enuns/enum_type_operation.dart';
+import '../../../../../../shared/models/enuns/enum_type_screen_medical.dart';
 import '../../../../../../shared/models/model_pessoa.dart';
 import '../../../screens_medical_prescription/screens/details_prescription.dart';
 import '../../../screens_queries/screens/list_queries/screen_list_queries.dart';
@@ -167,7 +168,11 @@ class SelectPatient extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const DetailsPrescription(),
+                                                    const DetailsPrescription(
+                                                  typeOperation:
+                                                      TypeScreenMedical
+                                                          .notHomePage,
+                                                ),
                                               ),
                                             );
                                             break;

@@ -67,9 +67,6 @@ class ApiMedicinePrescription {
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
-      print(response.statusCode);
-      print(response.body);
-      print(uriBase);
 
       if (response.statusCode == 200) {
         DetailsPrescriptionMedicineResult detailsPrescriptionMedicineResult =

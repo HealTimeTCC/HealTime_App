@@ -2,19 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../shared/decorations/screen_background.dart';
+import '../../../../../shared/models/enuns/enum_type_screen_medical.dart';
 import '../logic_options/enum_type_state.dart';
 import 'medicine_on_prescription_id.dart';
 
 class DetailsPrescription extends StatefulWidget {
-  const DetailsPrescription({Key? key}) : super(key: key);
+  const DetailsPrescription({
+    Key? key,
+    required this.typeOperation,
+  }) : super(key: key);
   static GlobalKey<ScaffoldMessengerState> detailsScaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
+
+  final TypeScreenMedical typeOperation;
 
   @override
   State<DetailsPrescription> createState() => _DetailsPrescriptionState();
@@ -36,7 +43,11 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         backgroundColor: const Color(0xff333333),
-        onPressed: () {},
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const IncludePrescriptionMedical(),
+          ),
+        ),
         child: Icon(
           Icons.add_rounded,
           color: Colors.white,
@@ -53,16 +64,18 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                   height: size.height * .08,
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new_outlined,
-                            color: Color(0xff1AE8E4),
+                      if (widget.typeOperation == TypeScreenMedical.notHomePage)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).pop(),
+                            child: const Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              color: Color(0xff1AE8E4),
+                            ),
                           ),
                         ),
-                      ),
+                      SizedBox(width: size.width * .04),
                       Text(
                         'Lista de Prescrições',
                         style: FontGoogle.textTitleGoogle(size: size * .8),
@@ -118,18 +131,19 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         ListMedicinesOnPrescription(
-                                            idPrescription: value
-                                                .getListPrescriptionPatient[
-                                                    index]
-                                                .prescricaoPacienteId),
+                                      idPrescription: value
+                                          .getListPrescriptionPatient[index]
+                                          .prescricaoPacienteId,
+                                          createIn: value.getListPrescriptionPatient[index].criadoEm,
+                                    ),
                                   ),
                                 );
                               },
                               child: Container(
-                                margin: EdgeInsets.only(
-                                    right: size.width * .02,
-                                    left: size.width * .02,
-                                    bottom: size.width * .02),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: size.width * .06,
+                                  vertical: size.height * .015,
+                                ),
                                 padding: EdgeInsets.all(size.width * .02),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
