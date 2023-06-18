@@ -164,6 +164,9 @@ class ApiMedicinePrescription {
         headers: await ConstsRequired.headRequisit(),
       );
 
+      print(response.statusCode);
+      print(response.body);
+
       if (response.statusCode == 200) {
         return true;
       } else {

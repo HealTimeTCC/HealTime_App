@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -12,25 +13,28 @@ import '../logic_options/enum_type_state.dart';
 
 class ListProgressMedication extends StatefulWidget {
   const ListProgressMedication({
-    Key? key
-    , required this.codPrescription
-    , required this.codMedicine
+    Key? key,
+    required this.codPrescription,
+    required this.codMedicine,
   }) : super(key: key);
   final int codPrescription;
   final int codMedicine;
+
   @override
   State<ListProgressMedication> createState() => _ListProgressMedicationState();
-  static GlobalKey<ScaffoldMessengerState> progressMedicationKeyScaffold = GlobalKey<ScaffoldMessengerState>();
+  static GlobalKey<ScaffoldMessengerState> progressMedicationKeyScaffold =
+      GlobalKey<ScaffoldMessengerState>();
 }
 
 class _ListProgressMedicationState extends State<ListProgressMedication> {
   bool search = false;
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     search = false;
   }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -46,6 +50,7 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                   child: SizedBox(
                     height: size.height * .08,
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -57,9 +62,13 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                             ),
                           ),
                         ),
+                        SizedBox(width: size.width * .02),
                         Text(
-                          'Andamentos',
-                          style: FontGoogle.textTitleGoogle(size: size * .8),
+                          'Andamento da medicação',
+                          style: FontGoogle.textTitleGoogle(
+                            size: size * .85,
+                            fontWeightGoogle: FontWeight.w500,
+                          ),
                         ),
                       ],
                     ),
@@ -70,10 +79,9 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                     builder: (context, value, child) {
                       if (!search) {
                         value.listProgressMedication(
-                            context: context
-                            , codPrescription: widget.codPrescription
-                            , codMedicine: widget.codMedicine
-                        );
+                            context: context,
+                            codPrescription: widget.codPrescription,
+                            codMedicine: widget.codMedicine);
                         search = true;
                       }
                       switch (value.getTypeStateRequestPrescriptionMedicine) {
@@ -84,42 +92,34 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                             child: CircularProgressIndicator(),
                           );
                         case TypeStateRequest.fail:
-                          return Expanded(
-                            child: Column(
-                              children: [
-                                Center(
-                                  child: Lottie.asset(
-                                    'assets/json/notfound.json',
-                                    height: size.height * .8,
-                                  ),
-                                ),
-                                Text(
-                                  "Nada encontrado",
-                                  style:
-                                  FontGoogle.textSubTitleGoogle(size: size),
-                                ),
-                              ],
-                            ),
+                          return ListView(
+                            shrinkWrap: true,
+                            children: [
+                              Lottie.asset(
+                                'assets/json/notfound.json',
+                              ),
+                              Text(
+                                "Não foi possível obter o andamento da medicação.",
+                                style:
+                                    FontGoogle.textSubTitleGoogle(size: size),
+                              ),
+                            ],
                           );
                         case TypeStateRequest.success:
 
-                          if(value.getMedicationProgressDto.isEmpty){
-                            return Expanded(
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: Lottie.asset(
-                                      'assets/json/notfound.json',
-                                      height: size.height * .8,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Nada encontrado",
-                                    style:
-                                    FontGoogle.textSubTitleGoogle(size: size),
-                                  ),
-                                ],
-                              ),
+                          if (value.getMedicationProgressDto.isEmpty) {
+                            return ListView(
+                              shrinkWrap: true,
+                              children: [
+                                Lottie.asset(
+                                  'assets/json/notfound.json',
+                                ),
+                                Text(
+                                  "Por aqui está tudo certo!",
+                                  style:
+                                      FontGoogle.textSubTitleGoogle(size: size),
+                                ),
+                              ],
                             );
                           }else{
                             return Column(

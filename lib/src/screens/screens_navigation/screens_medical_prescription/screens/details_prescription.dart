@@ -43,6 +43,9 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         backgroundColor: const Color(0xff333333),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(size.width * .04)
+        ),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => const IncludePrescriptionMedical(),
