@@ -115,7 +115,8 @@ class _ListMedicinesOnPrescriptionState
                             child: ListView.builder(
                               physics: const AlwaysScrollableScrollPhysics(
                                   parent: BouncingScrollPhysics()),
-                              itemCount: value.getListPrescriptionMedicine.length,
+                              itemCount:
+                                  value.getListPrescriptionMedicine.length,
                               itemBuilder: (context, index) {
                                 return Bounceable(
                                   onTap: () {
@@ -126,10 +127,12 @@ class _ListMedicinesOnPrescriptionState
                                       builder: (context) {
                                         return ModalDetailsMedicationPrescription(
                                           medicine: value
-                                              .getListPrescriptionMedicine[index]
+                                              .getListPrescriptionMedicine[
+                                                  index]
                                               .medicacao,
                                           interavaloString: value
-                                              .getListPrescriptionMedicine[index]
+                                              .getListPrescriptionMedicine[
+                                                  index]
                                               .intervalo,
                                           createIn: widget.createIn,
                                         );
@@ -175,10 +178,11 @@ class _ListMedicinesOnPrescriptionState
                                                         index]
                                                     .medicacao
                                                     .nomeMedicacao,
-                                                style:
-                                                    FontGoogle.textSubTitleGoogle(
+                                                style: FontGoogle
+                                                    .textSubTitleGoogle(
                                                   size: size * .8,
-                                                  fontWeightText: FontWeight.w600,
+                                                  fontWeightText:
+                                                      FontWeight.w600,
                                                 ),
                                               ),
                                             ),
@@ -189,10 +193,11 @@ class _ListMedicinesOnPrescriptionState
                                               ),
                                               child: Text(
                                                 "Genérico: ${value.getListPrescriptionMedicine[index].medicacao.generico.toUpperCase() == 'S' ? "Sim" : "Não"}",
-                                                style:
-                                                    FontGoogle.textSubTitleGoogle(
+                                                style: FontGoogle
+                                                    .textSubTitleGoogle(
                                                   size: size * .8,
-                                                  fontWeightText: FontWeight.w600,
+                                                  fontWeightText:
+                                                      FontWeight.w600,
                                                 ),
                                               ),
                                             ),
@@ -232,12 +237,14 @@ class _ListMedicinesOnPrescriptionState
                                               children: [
                                                 Expanded(
                                                   child: Container(
-                                                    padding: EdgeInsets.symmetric(
-                                                        vertical:
-                                                            size.height * .01),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical:
+                                                                size.height *
+                                                                    .01),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          const Color(0xff18CDCA),
+                                                      color: const Color(
+                                                          0xff18CDCA),
                                                       borderRadius:
                                                           BorderRadius.only(
                                                         bottomLeft:
@@ -258,11 +265,12 @@ class _ListMedicinesOnPrescriptionState
                                                         Icon(
                                                           Icons.alarm_add,
                                                           color: Colors.white,
-                                                          size: size.width * .06,
+                                                          size:
+                                                              size.width * .06,
                                                         ),
                                                         SizedBox(
-                                                            width:
-                                                                size.width * .02),
+                                                            width: size.width *
+                                                                .02),
                                                         Text(
                                                           "Gerar horários",
                                                           style: FontGoogle
@@ -286,21 +294,22 @@ class _ListMedicinesOnPrescriptionState
                                               children: [
                                                 Expanded(
                                                   child: Container(
-                                                    padding: EdgeInsets.symmetric(
-                                                        vertical:
-                                                            size.height * .01),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical:
+                                                                size.height *
+                                                                    .01),
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          const Color(0xffFFCC8C),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              bottomRight:
-                                                                  Radius.circular(
-                                                                      size.height *
-                                                                          .02),
-                                                              bottomLeft: Radius
-                                                                  .circular(size
-                                                                          .height *
+                                                      color: const Color(
+                                                          0xffFFCC8C),
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  size.height *
+                                                                      .02),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  size.height *
                                                                       .02)),
                                                     ),
                                                     child: Bounceable(
@@ -324,16 +333,26 @@ class _ListMedicinesOnPrescriptionState
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .center,
-                                                        children: const [
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
                                                           Text(
                                                             "Visualizar andamento",
-                                                            style: TextStyle(
-                                                              color: Colors.black,
+                                                            style: FontGoogle
+                                                                .textNormaleGoogle(
+                                                              size: size * .75,
+                                                              colorText:
+                                                                  const Color(
+                                                                      0xff333333),
                                                             ),
                                                           ),
+                                                          SizedBox(width: size.width * .02),
                                                           Icon(
-                                                            Icons.check_outlined,
+                                                            Icons
+                                                                .arrow_forward_rounded,
                                                             color: Colors.black,
+                                                            size: size.width * .06,
                                                           ),
                                                         ],
                                                       ),
