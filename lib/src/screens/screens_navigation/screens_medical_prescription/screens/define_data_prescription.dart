@@ -350,10 +350,12 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
 
                       if (response) {
                         if (context.mounted) {
+                          await providerPrescriptionMedical.listarPrescricoes(
+                              codPaciente: providerPrescriptionMedical.getPacienteSelect?.pessoaId ?? 0,
+                              context: context);
                           Navigator.pop(context);
                           Navigator.pop(context);
                         }
-
                         providerPrescriptionMedical.disposeNoNotifier();
                         SelectPatient.selectPatientScaffoldKey.currentState
                             ?.showSnackBar(
@@ -372,30 +374,6 @@ class _DefineDataPrescriptionState extends State<DefineDataPrescription> {
                         if (context.mounted) {
                           _checkValuesMsg('Erro ao incluir prescrição!');
                         }
-
-                        // Rotina antiga par exibir a mensagem na tela para o usuário.
-                        // SelectPatient.selectPatientScaffoldKey
-                        //     .currentState
-                        //     ?.showSnackBar(
-                        //   SnackBar(
-                        //     elevation: 0,
-                        //     showCloseIcon: true,
-                        //     closeIconColor: Colors.white,
-                        //     backgroundColor: Colors.redAccent,
-                        //     behavior: SnackBarBehavior.floating,
-                        //     duration: const Duration(seconds: 3),
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(
-                        //           size.width * .02),
-                        //     ),
-                        //     content: Text(
-                        //       "Erro ao incluir prescrição!",
-                        //       style: TextStyle(
-                        //         fontSize: 16,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // );
                       }
                     }
                   },
