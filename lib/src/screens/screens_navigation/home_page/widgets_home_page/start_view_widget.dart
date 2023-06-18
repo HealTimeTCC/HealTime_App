@@ -1,23 +1,16 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/models/enuns/enum_type_operation.dart';
-import 'package:healtime/shared/models/enuns/enum_type_screen_profile.dart';
 import 'package:healtime/src/screens/screens_navigation/home_page/home.dart';
 import 'package:healtime/src/screens/screens_navigation/screen_profile/screen_profile.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_list_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_medicine/screen_include_medicine.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/screen_select_patient.dart';
-import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../services/provider/provider_home_page.dart';
 import '../../../../../shared/models/enuns/enum_type_screen_medical.dart';
-import '../logic/drawer.dart';
+import '../../screens_medical_prescription/screens/details_prescription.dart';
 import 'drawer.dart';
 
 class StartWidgetView extends StatefulWidget {
@@ -42,16 +35,19 @@ class _StartWidgetViewState extends State<StartWidgetView> {
         Provider.of(context, listen: false);
 
     final Size size = MediaQuery.of(context).size;
+
+    Widget widgetScreen = (providerHomePage.getDataPerson?.tipoPessoa ?? 1) != 1 ? SelectPatient(
+      mensageAppBar: "Detalhes Prescrição",
+      personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
+      typeOperation: TypeOperation.selectDetailsPrescription,
+    ) : const DetailsPrescription();
+
     List<Widget> _widgetOptions = [
       const HomePage(),
       const IncludeMedication(
         typeOperation: TypeScreenMedical.homePage,
       ),
-      SelectPatient(
-        mensageAppBar: "Detalhes Prescrição",
-        personId: providerHomePage.getDataPerson?.pessoaId ?? 1,
-        typeOperation: TypeOperation.selectDetailsPrescription,
-      ),
+      widgetScreen,
       const ScreenProfile(),
     ];
     List<String> _listTitleAppBar = ["", "Medicamentos", "Profile"];

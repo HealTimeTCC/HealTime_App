@@ -52,7 +52,9 @@ class _InfoProfileState extends State<InfoProfile> {
               if (snapshot.data == null) return Container();
 
               final Pessoa person = snapshot.data!['person'];
-              final Uint8List img = snapshot.data!['img'];
+              final Uint8List? img = snapshot.data?['img'];
+
+              if (img == null) return Container();
 
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: size.width * .03),
