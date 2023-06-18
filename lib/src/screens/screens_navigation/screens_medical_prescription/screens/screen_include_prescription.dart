@@ -32,7 +32,7 @@ class _IncludePrescriptionMedicalState
     extends State<IncludePrescriptionMedical> {
   late ProviderPrescriptionMedical providerPrescriptionMedical =
       Provider.of(context);
-  late ProviderHomePage providerHomePage = Provider.of(context);
+  late ProviderHomePage providerHomePage = Provider.of(context, listen: false);
   late TextEditingController descriptionController = TextEditingController();
   String messageError = "";
 

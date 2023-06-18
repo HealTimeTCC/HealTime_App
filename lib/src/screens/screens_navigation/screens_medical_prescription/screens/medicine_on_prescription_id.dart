@@ -3,9 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_list_progress_medication.dart';
-import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
