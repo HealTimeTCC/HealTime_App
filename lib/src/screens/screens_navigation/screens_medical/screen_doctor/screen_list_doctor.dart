@@ -37,7 +37,7 @@ class _ListarMedicoState extends State<ListarMedico> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(size.width * .05),
         ),
-        backgroundColor: const Color(0xff18CDCA),
+        backgroundColor: const Color(0xff333333),
         child: Icon(
           Icons.add,
           color: Colors.white,
