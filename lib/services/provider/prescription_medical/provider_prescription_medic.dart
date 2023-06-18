@@ -272,8 +272,7 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
         prescricaoMedicamentoId: prescricaoMedicamentoId,
         medicamentoId: medicamentoId)) {
       _horariosGerado = true;
-      ListMedicinesOnPrescription.medicineOnPrescription.currentState
-          ?.showSnackBar(
+      ListMedicinesOnPrescription.medicineOnPrescription.currentState?.showSnackBar(
         SnackBar(
           closeIconColor: Colors.white,
           duration: const Duration(seconds: 5),

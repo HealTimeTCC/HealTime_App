@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
+import 'package:healtime/services/provider/provider_home_page.dart';
+import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/modal_medical_prescription/modal_details_prescription_off.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical_prescription/screens/screen_include_prescription.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -19,7 +21,7 @@ class DetailsPrescription extends StatefulWidget {
     required this.typeOperation,
   }) : super(key: key);
   static GlobalKey<ScaffoldMessengerState> detailsScaffoldKey =
-      GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<ScaffoldMessengerState>();
 
   final TypeScreenMedical typeOperation;
 
@@ -29,28 +31,33 @@ class DetailsPrescription extends StatefulWidget {
 
 class _DetailsPrescriptionState extends State<DetailsPrescription> {
   bool search = false;
-
+  late ProviderHomePage providerHomePage; 
   @override
   void dispose() {
     super.dispose();
     search = false;
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    providerHomePage = Provider.of(context, listen: false);
+
+    final Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         backgroundColor: const Color(0xff333333),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(size.width * .04)
+            borderRadius: BorderRadius.circular(size.width * .04)
         ),
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const IncludePrescriptionMedical(),
-          ),
-        ),
+        onPressed: () =>
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const IncludePrescriptionMedical(),
+              ),
+            ),
         child: Icon(
           Icons.add_rounded,
           color: Colors.white,
@@ -129,18 +136,37 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                           itemBuilder: (context, index) {
                             return Bounceable(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ListMedicinesOnPrescription(
-                                      idPrescription: value
-                                          .getListPrescriptionPatient[index]
-                                          .prescricaoPacienteId,
-                                          createIn: value.getListPrescriptionPatient[index].criadoEm,
+                                if (value.getListPrescriptionPatient[index]
+                                    .flagStatusAtivo) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ListMedicinesOnPrescription(
+                                            idPrescription: value
+                                                .getListPrescriptionPatient[index]
+                                                .prescricaoPacienteId,
+                                            createIn: value
+                                                .getListPrescriptionPatient[index]
+                                                .criadoEm,
+                                          ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                }
+                                else {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (context) {
+                                      return ModalDetailsPrescriptionOff(
+                                        prescriptionMedicine: value
+                                            .getListPrescriptionPatient[index],
+                                        pacienteCapaz: providerHomePage.getDataPerson?.tipoPessoa == 1,
+                                      );
+                                    },
+                                  );
+                                }
                               },
                               child: Container(
                                 margin: EdgeInsets.symmetric(
@@ -164,16 +190,20 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
-                                          "Cód. Prescrição: ${value.getListPrescriptionPatient[index].prescricaoPacienteId}",
+                                          "Cód. Prescrição: ${value
+                                              .getListPrescriptionPatient[index]
+                                              .prescricaoPacienteId}",
                                           style: FontGoogle.textSubTitleGoogle(
                                             size: size * .5,
                                           ),
                                         ),
                                         Text(
-                                          "Cód médico: ${value.getListPrescriptionPatient[index].medicoId}",
+                                          "Cód médico: ${value
+                                              .getListPrescriptionPatient[index]
+                                              .medicoId}",
                                           style: FontGoogle.textSubTitleGoogle(
                                             size: size * .5,
                                           ),
@@ -182,7 +212,7 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
                                           value
@@ -194,47 +224,51 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
                                           style: FontGoogle.textTitleGoogle(
                                               size: size * .7,
                                               fontWeightGoogle:
-                                                  FontWeight.w500),
+                                              FontWeight.w500),
                                         ),
                                         Icon(
                                           value
-                                                  .getListPrescriptionPatient[
-                                                      index]
-                                                  .flagStatusAtivo
+                                              .getListPrescriptionPatient[index]
+                                              .flagStatusAtivo
                                               ? Icons.open_in_new
-                                              : CupertinoIcons.clock_solid,
+                                              : CupertinoIcons.check_mark,
                                           color: value
-                                                  .getListPrescriptionPatient[
-                                                      index]
-                                                  .flagStatusAtivo
+                                              .getListPrescriptionPatient[index]
+                                              .flagStatusAtivo
                                               ? Colors.green
                                               : Colors.red,
                                         ),
                                       ],
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceAround,
                                       children: [
                                         Text(
-                                          "Emitido em: ${DateFormat("dd/MM/yyyy").format(value.getListPrescriptionPatient[index].emissao)}",
+                                          "Emitido em: ${DateFormat(
+                                              "dd/MM/yyyy").format(value
+                                              .getListPrescriptionPatient[index]
+                                              .emissao)}",
                                           textAlign: TextAlign.left,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: FontGoogle.textTitleGoogle(
                                               size: size * .5,
                                               fontWeightGoogle:
-                                                  FontWeight.w500),
+                                              FontWeight.w500),
                                         ),
                                         Text(
-                                          "Válido até: ${DateFormat("dd/MM/yyyy").format(value.getListPrescriptionPatient[index].validade)}",
+                                          "Válido até: ${DateFormat(
+                                              "dd/MM/yyyy").format(value
+                                              .getListPrescriptionPatient[index]
+                                              .validade)}",
                                           textAlign: TextAlign.left,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: FontGoogle.textTitleGoogle(
                                               size: size * .5,
                                               fontWeightGoogle:
-                                                  FontWeight.w500),
+                                              FontWeight.w500),
                                         ),
                                       ],
                                     ),
