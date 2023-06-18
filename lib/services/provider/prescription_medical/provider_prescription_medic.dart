@@ -305,7 +305,6 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   }
 
   //#endregion
-
   //#region Listar Andamentos Medicacação
 
   TypeStateRequest _typeStateRequestProgressMedication = TypeStateRequest.init;
@@ -315,8 +314,10 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
 
   List<MedicationProgressDto> _listMedicationProgressDto = [];
 
-  List<MedicationProgressDto> get getMedicationProgressDto =>
-      _listMedicationProgressDto;
+  List<MedicationProgressDto> get getMedicationProgressDto{
+    return _listMedicationProgressDto;
+  }
+
 
   Future<void> listProgressMedication(
       {required BuildContext context,
@@ -346,5 +347,13 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
       notifyListeners();
     }
   }
-//#endregion
+  //#endregion
+  //#region
+
+  Future<void> BaixaAndamentoMedicacao({required int codAndamento}) async{
+  }
+
+  //#endregion
+
+
 }

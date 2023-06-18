@@ -102,6 +102,7 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                             ),
                           );
                         case TypeStateRequest.success:
+
                           if(value.getMedicationProgressDto.isEmpty){
                             return Expanded(
                               child: Column(
@@ -121,116 +122,134 @@ class _ListProgressMedicationState extends State<ListProgressMedication> {
                               ),
                             );
                           }else{
-                            return ListView.builder(
-                              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-                              itemCount: value.getMedicationProgressDto.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Slidable(
-                                    endActionPane: ActionPane(
-                                        motion: const ScrollMotion(),
-                                        children: [
-                                          SlidableAction(
-                                              onPressed: (context) {},
-                                              icon: Icons.check_outlined,
-                                              backgroundColor: Colors.green,
-                                              label: "Baixa",
-                                              spacing: size.width * .05,
-                                            borderRadius:  BorderRadius.circular(size.height * .02)
-                                          ),
-                                        ],
+                            return Column(
+                              children: [
+                                Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 8, right: 8),
+                                      child: Text("Total: ${value.getMedicationProgressDto.length} doses", style:  FontGoogle.textSubTitleGoogle(size: size * .8),),
                                     ),
-                                    child: Center(
-                                      child: Container(
-                                        height: size.height * .22,
-                                        width: size.width * .9,
-                                        padding: EdgeInsets.all(size.height * .01),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Colors.black12,
-                                                blurRadius: 1,
-                                                offset: Offset(1, 2),
-                                              )
-                                            ],
-                                            borderRadius: BorderRadius.circular(size.height * .02)),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                ),
+                                 Expanded(
+                                  child: ListView.builder(
+                                    physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                                    itemCount: value.getMedicationProgressDto.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Slidable(
+                                          endActionPane: ActionPane(
+                                              motion: const ScrollMotion(),
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                    "Cód. Medicação: ",
-                                                    style: FontGoogle.textSubTitleGoogle(
-                                                      fontWeightText: FontWeight.w700,
-                                                      size: size * .85,
-                                                    ),
-                                                  ),
-                                                    Text(
-                                                      "${value.getMedicationProgressDto[index].medicacaoId}",
-                                                      style: FontGoogle.textSubTitleGoogle(
-                                                        size: size * .85,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Container(
-                                                padding: EdgeInsets.symmetric(horizontal: size.width * .01),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(size.width * .01),
-                                                    color: value.getMedicationProgressDto[index].baixaAndamentoMedicacao ?
-                                                         Colors.red :Colors.green ,
-                                                  ),
-                                                  child: Text(value.getMedicationProgressDto[index].baixaAndamentoMedicacao ? "Fechada" : "Pendente",
-                                                    style: FontGoogle.textSubTitleGoogle(
-                                                    size: size * .7,
-                                                      colorText: Colors.white
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text("Aplicação em: ",
-                                                  style: FontGoogle.textSubTitleGoogle(
-                                                  fontWeightText: FontWeight.w700,
-                                                  size: size * .85,
-                                                  ),
-                                                ),
-                                                Text(DateFormat("dd/MM/yyyy hh:mm").format(value.getMedicationProgressDto[index].mtAndamentoMedicacao,),
-                                                  style: FontGoogle.textSubTitleGoogle(
-                                                  size: size * .85,
-                                                ),)
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text("Quantidade: ",
-                                                  style: FontGoogle.textSubTitleGoogle(
-                                                  fontWeightText: FontWeight.w700,
-                                                  size: size * .85,
-                                                  ),
-                                                ),
-                                                Text("${value.getMedicationProgressDto[index].qtdeMedicao} UN",
-                                                  style: FontGoogle.textSubTitleGoogle(
-                                                  size: size * .85,
-                                                ),)
-                                              ],
-                                            ),
+                                                SlidableAction(
+                                                    onPressed: (context) {
 
-                                          ],
+                                                    },
+                                                    icon: Icons.check_outlined,
+                                                    backgroundColor: Colors.green,
+                                                    label: "Baixa",
+                                                    spacing: size.width * .05,
+                                                  borderRadius:  BorderRadius.circular(size.height * .02)
+                                                ),
+                                              ],
+                                          ),
+                                          child: Center(
+                                            child: Container(
+                                              height: size.height * .22,
+                                              width: size.width * .9,
+                                              padding: EdgeInsets.all(size.height * .01),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius: 1,
+                                                      offset: Offset(1, 2),
+                                                    )
+                                                  ],
+                                                  borderRadius: BorderRadius.circular(size.height * .02)),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                          "Cód. Medicação: ",
+                                                          style: FontGoogle.textSubTitleGoogle(
+                                                            fontWeightText: FontWeight.w700,
+                                                            size: size * .85,
+                                                          ),
+                                                        ),
+                                                          Text(
+                                                            "${value.getMedicationProgressDto[index].medicacaoId}",
+                                                            style: FontGoogle.textSubTitleGoogle(
+                                                              size: size * .85,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                      padding: EdgeInsets.symmetric(horizontal: size.width * .01),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(size.width * .01),
+                                                          color: value.getMedicationProgressDto[index].baixaAndamentoMedicacao ?
+                                                               Colors.red :Colors.green ,
+                                                        ),
+                                                        child: Text(value.getMedicationProgressDto[index].baixaAndamentoMedicacao ? "Fechada" : "Pendente",
+                                                          style: FontGoogle.textSubTitleGoogle(
+                                                          size: size * .7,
+                                                            colorText: Colors.white
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text("Aplicação em: ",
+                                                        style: FontGoogle.textSubTitleGoogle(
+                                                        fontWeightText: FontWeight.w700,
+                                                        size: size * .85,
+                                                        ),
+                                                      ),
+                                                      Text(DateFormat("dd/MM/yyyy hh:mm").format(value.getMedicationProgressDto[index].mtAndamentoMedicacao,),
+                                                        style: FontGoogle.textSubTitleGoogle(
+                                                        size: size * .85,
+                                                      ),)
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text("Quantidade: ",
+                                                        style: FontGoogle.textSubTitleGoogle(
+                                                        fontWeightText: FontWeight.w700,
+                                                        size: size * .85,
+                                                        ),
+                                                      ),
+                                                      Text("${value.getMedicationProgressDto[index].qtdeMedicao} UN",
+                                                        style: FontGoogle.textSubTitleGoogle(
+                                                        size: size * .85,
+                                                      ),)
+                                                    ],
+                                                  ),
+                                                  Align(
+                                                    alignment: Alignment.centerRight,
+                                                    child: Text("Cód: ${value.getMedicationProgressDto[index].andamentoMedicacaoId}"),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
+                                ),
+                              ],
                             );
                           }
                       }
