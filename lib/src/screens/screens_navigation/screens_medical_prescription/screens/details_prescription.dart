@@ -37,7 +37,8 @@ class _DetailsPrescriptionState extends State<DetailsPrescription> {
     super.dispose();
     search = false;
   }
-  
+
+
   @override
   Widget build(BuildContext context) {
     providerHomePage = Provider.of(context, listen: false);
