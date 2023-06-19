@@ -25,8 +25,8 @@ class ApiMedicinePrescription {
 
   static String obterUri(BuildContext context) {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
-    final String uriApi = '${providerLogin.addressServer ??
-        uriApiBase}Medicacoes/';
+    final String uriApi =
+        '${providerLogin.addressServer ?? uriApiBase}Medicacoes/';
     return uriApi;
   }
 
@@ -61,8 +61,7 @@ class ApiMedicinePrescription {
     //todo testar essa requisição
     try {
       final String uriBase =
-          "${obterUri(
-          context)}ListarPrescricaoMedicacaoByCodPrescricaoPaciente/$codPrescription";
+          "${obterUri(context)}ListarPrescricaoMedicacaoByCodPrescricaoPaciente/$codPrescription";
       var response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
@@ -70,7 +69,7 @@ class ApiMedicinePrescription {
 
       if (response.statusCode == 200) {
         DetailsPrescriptionMedicineResult detailsPrescriptionMedicineResult =
-        DetailsPrescriptionMedicineResult(status: true);
+            DetailsPrescriptionMedicineResult(status: true);
 
         List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
 
@@ -119,7 +118,7 @@ class ApiMedicinePrescription {
 
       if (response.statusCode == 200) {
         PrescriptionInformationResult prescriptionInformationResult =
-        PrescriptionInformationResult(status: true);
+            PrescriptionInformationResult(status: true);
 
         List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
 
@@ -131,12 +130,12 @@ class ApiMedicinePrescription {
         return prescriptionInformationResult;
       } else {
         PrescriptionInformationResult prescriptionInformationResult =
-        PrescriptionInformationResult(status: false);
+            PrescriptionInformationResult(status: false);
         return prescriptionInformationResult;
       }
     } catch (e) {
       PrescriptionInformationResult prescriptionInformationResult =
-      PrescriptionInformationResult(status: false);
+          PrescriptionInformationResult(status: false);
       return prescriptionInformationResult;
     }
   }
@@ -182,12 +181,11 @@ class ApiMedicinePrescription {
   //#region Listar Andamento Medicacões
   static Future<ProgressMedicationInformationDto> listProgressMedication(
       {required BuildContext context,
-        required int codPrescription,
-        required int codMedicine}) async {
+      required int codPrescription,
+      required int codMedicine}) async {
     try {
       String uriBase =
-          "${obterUri(
-          context)}ListarAndamentosMedicacao/$codMedicine/$codPrescription";
+          "${obterUri(context)}ListarAndamentosMedicacao/$codMedicine/$codPrescription";
       //print("${obterUri(context)}ListarAndamentosMedicacao/$codMedicine/$codPrescription");
       var response = await http.get(
         Uri.parse(uriBase),
@@ -195,7 +193,7 @@ class ApiMedicinePrescription {
       );
       if (response.statusCode == 200) {
         ProgressMedicationInformationDto progressMedicationInformationDto =
-        ProgressMedicationInformationDto(status: true);
+            ProgressMedicationInformationDto(status: true);
 
         List<dynamic> listDynamic = jsonDecode(response.body) as List<dynamic>;
 
@@ -208,7 +206,7 @@ class ApiMedicinePrescription {
         return progressMedicationInformationDto;
       } else {
         ProgressMedicationInformationDto progressMedicationInformationDto =
-        ProgressMedicationInformationDto(status: false);
+            ProgressMedicationInformationDto(status: false);
         return progressMedicationInformationDto;
       }
     } catch (e) {
@@ -223,7 +221,7 @@ class ApiMedicinePrescription {
         ),
       );
       ProgressMedicationInformationDto progressMedicationInformationDto =
-      ProgressMedicationInformationDto(status: false);
+          ProgressMedicationInformationDto(status: false);
       return progressMedicationInformationDto;
     }
   }
@@ -245,15 +243,16 @@ class ApiMedicinePrescription {
       );
 
       var response = await http.post(
-          Uri.parse(uriBase),
-          headers: await ConstsRequired.headRequisit(),
-          body: jsonEncode(lowMedicationProgress.toJson())
-    ,);
-    if (response.statusCode == 200) {
-    return true;
-    } else {
-    return false;
-    }
+        Uri.parse(uriBase),
+        headers: await ConstsRequired.headRequisit(),
+        body: jsonEncode(lowMedicationProgress.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       throw Exception(e);
     }
