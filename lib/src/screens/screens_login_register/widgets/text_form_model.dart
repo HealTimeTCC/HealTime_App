@@ -49,7 +49,7 @@ class ModelTextForm {
           filled: true,
           fillColor: Color(0x394EE1E1),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(13),
             borderSide: BorderSide.none,
           ),
           hintText: textLabel,
