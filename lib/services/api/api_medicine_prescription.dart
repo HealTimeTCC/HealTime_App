@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../shared/consts/consts_required.dart';
+import '../../shared/dto/low_medication_progress.dart';
 import '../../shared/dto/medicines_on_prescription_dto/details_prescription.dart';
 import '../../shared/dto/medicines_on_prescription_dto/prescription_medicine_dto.dart';
 import '../../shared/dto/prescriptions_list/prescription_information_result.dart';
@@ -34,9 +35,7 @@ class ApiMedicinePrescription {
     required BuildContext context,
     required PrescriptionMedicalDto prescriptionMedical,
   }) async {
-    //todo testar essa requisição
     try {
-      print(prescriptionMedical.toJson().toString());
       String uriBase = "${obterUri(context)}IncluiPrescricao";
       var response = await http.post(
         Uri.parse(uriBase),
@@ -61,12 +60,13 @@ class ApiMedicinePrescription {
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase =
+      final String uriBase =
           "${obterUri(context)}ListarPrescricaoMedicacaoByCodPrescricaoPaciente/$codPrescription";
       var response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
+
       if (response.statusCode == 200) {
         DetailsPrescriptionMedicineResult detailsPrescriptionMedicineResult =
             DetailsPrescriptionMedicineResult(status: true);
@@ -105,12 +105,17 @@ class ApiMedicinePrescription {
   }) async {
     //todo testar essa requisição
     try {
-      String uriBase =
+      final String uriBase =
           "${obterUri(context)}ListarPrescricoesPacientes/$codPrescription";
-      var response = await http.get(
+      final http.Response response = await http.get(
         Uri.parse(uriBase),
         headers: await ConstsRequired.headRequisit(),
       );
+
+      print(uriBase);
+      print(response.statusCode);
+      print(response.body);
+
       if (response.statusCode == 200) {
         PrescriptionInformationResult prescriptionInformationResult =
             PrescriptionInformationResult(status: true);
@@ -158,6 +163,9 @@ class ApiMedicinePrescription {
         body: json.encode(generateSchedules.toJson()),
         headers: await ConstsRequired.headRequisit(),
       );
+
+      print(response.statusCode);
+      print(response.body);
 
       if (response.statusCode == 200) {
         return true;
@@ -215,6 +223,38 @@ class ApiMedicinePrescription {
       ProgressMedicationInformationDto progressMedicationInformationDto =
           ProgressMedicationInformationDto(status: false);
       return progressMedicationInformationDto;
+    }
+  }
+
+//#endregion
+  //#region
+
+  static Future<bool> baixaAndamentoMedicacao({
+    required BuildContext context,
+    required num codAndamentoMedicacao,
+    required num codAplicador,
+  }) async {
+    try {
+      String uriBase = "${obterUri(context)}BaixaAndamentoMedicacao";
+
+      LowMedicationProgress lowMedicationProgress = LowMedicationProgress(
+        codAplicador: codAplicador,
+        codAndamentoMedicacao: codAndamentoMedicacao,
+      );
+
+      var response = await http.post(
+        Uri.parse(uriBase),
+        headers: await ConstsRequired.headRequisit(),
+        body: jsonEncode(lowMedicationProgress.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      throw Exception(e);
     }
   }
 

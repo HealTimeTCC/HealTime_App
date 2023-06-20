@@ -36,8 +36,7 @@ class _ListaRemediosState extends State<ListaRemedios> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(size.width * .05),
         ),
-        foregroundColor: const Color(0xff1AE8E4),
-        backgroundColor: const Color(0xff1AE8E4),
+        backgroundColor: const Color(0xff333333),
         child: Icon(
           Icons.add,
           color: Colors.white,

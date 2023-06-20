@@ -14,17 +14,21 @@ import '../../shared/dto/dto_alter_password.dart';
 import '../../shared/dto/dto_pessoa_register.dart';
 import '../../shared/dto/dto_post_associate_responsible.dart';
 import '../provider/login/provider_login.dart';
+import '../provider/provider_user.dart';
 
 class ApiPessoa {
   static String get uriApiBase => ConstsRequired.urlBaseApi;
 
   //#region autenticar usuário
-  static Future<Map<String, dynamic>> authUser(
-      {required DtoPessoa pessoa, required BuildContext context}) async {
+  static Future<Map<String, dynamic>> authUser({
+    required DtoPessoa pessoa,
+    required BuildContext context,
+  }) async {
+    final ProviderPerson providerPerson = Provider.of<ProviderPerson>(context, listen: false);
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
     int statusCode = 400;
 
-    Uri uriApi = Uri.parse(
+    final Uri uriApi = Uri.parse(
         '${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
     final http.Response response = await http.post(
@@ -46,6 +50,8 @@ class ApiPessoa {
       String dataUser = jsonEncode(pessoaData);
 
       DataPreferences.savedDataString(dataUser, ConstsPreferences.keyUser);
+
+      await providerPerson.initialUser();
     }
 
     Map<String, dynamic> responseApi = {

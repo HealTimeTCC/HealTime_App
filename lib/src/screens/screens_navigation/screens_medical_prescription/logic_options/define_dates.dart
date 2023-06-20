@@ -66,6 +66,8 @@ class DefineDatePrescriptionMedical {
         Provider.of(context, listen: false);
     final TimeOfDay? timeOfDay = await showTimePicker(
       context: context,
+      hourLabelText: '',
+      anchorPoint: const Offset(1, 2),
       initialTime: TimeOfDay.now(),
       confirmText: 'CONFIRMAR',
       cancelText: 'CANCELAR',
@@ -76,7 +78,7 @@ class DefineDatePrescriptionMedical {
               textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                     foregroundColor:
-                        const Color(0xff172331) // cor do texto dos botões
+                        const Color(0xff172331), // cor do texto dos botões
                     ),
               ),
 

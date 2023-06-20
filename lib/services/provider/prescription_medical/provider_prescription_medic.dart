@@ -15,7 +15,9 @@ import '../../../shared/models/model_doctor.dart';
 import '../../../shared/models/model_medicacao.dart';
 import '../../../src/screens/screens_navigation/screens_medical_prescription/logic_options/enum_type_state.dart';
 import '../../../src/screens/screens_navigation/screens_medical_prescription/screens/medicine_on_prescription_id.dart';
+import '../../../src/screens/screens_navigation/screens_medical_prescription/screens/screen_list_progress_medication.dart';
 import '../../api/api_medicine_prescription.dart';
+import '../../data_locale/data_preferences_pessoa.dart';
 
 class ProviderPrescriptionMedical extends ChangeNotifier {
   //#region Selecionar Medicacao
@@ -117,10 +119,11 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
 
   set setTime(TimeOfDay values) => _time = values;
 
-  Future<bool> includePrescription(
-      {required num qtdeDosagem,
-      required int qtdeDias,
-      required BuildContext context}) async {
+  Future<bool> includePrescription({
+    required num qtdeDosagem,
+    required int qtdeDias,
+    required BuildContext context,
+  }) async {
     try {
       List<PrescriptionMedicaments> prescriptionMedicaments = [
         PrescriptionMedicaments(
@@ -170,11 +173,22 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   PrescriptionInformationResult? get getPrescriptionInformationResult =>
       _prescriptionInformationResult;
 
-
-  Future<void> listarPrescricoes({required BuildContext context, required int codPaciente}) async {
+  Future<void> listarPrescricoes({
+    required BuildContext context,
+    required int codPaciente,
+  }) async {
     try {
+      if (codPaciente == 0) {
+        final Pessoa? person = await DataPreferencesPessoa.getDataUser();
+
+        if (person != null) {
+          if (person.pessoaId != null) {
+            codPaciente = person.pessoaId!;
+          }
+        }
+      }
+
       _typeStateRequest = TypeStateRequest.awaitCharge;
-      notifyListeners();
       _prescriptionInformationResult =
           await ApiMedicinePrescription.listPrescriptionPatient(
         context: context,
@@ -213,13 +227,17 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   List<PrescriptionMedicine> get getListPrescriptionMedicine =>
       _listPrescriptionMedicine;
 
-  Future<void> listPrescriptionMedicines( {required BuildContext context, required int codPrescription}) async {
+  Future<void> listPrescriptionMedicines({
+    required BuildContext context,
+    required int codPrescription,
+  }) async {
     try {
       late DetailsPrescriptionMedicineResult prescriptionMedicineResult;
       _typeStateRequestPrescriptionMedicine = TypeStateRequest.awaitCharge;
       notifyListeners();
       prescriptionMedicineResult =
-          await ApiMedicinePrescription.listPrescriptionMedicine(context: context, codPrescription: codPrescription);
+          await ApiMedicinePrescription.listPrescriptionMedicine(
+              context: context, codPrescription: codPrescription);
       if (prescriptionMedicineResult.status == false) {
         _typeStateRequestPrescriptionMedicine = TypeStateRequest.fail;
         prescriptionMedicineResult.prescriptionMedicine = [];
@@ -236,9 +254,10 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
     }
   }
 
- //#endregion
+  //#endregion
   //#region Gerar Horários
   bool _horariosGerado = false;
+
   bool get getHorariosGerado => _horariosGerado;
 
   Future<void> gerarHorarios(
@@ -253,8 +272,7 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
         prescricaoMedicamentoId: prescricaoMedicamentoId,
         medicamentoId: medicamentoId)) {
       _horariosGerado = true;
-      ListMedicinesOnPrescription.medicineOnPrescription.currentState
-          ?.showSnackBar(
+      ListMedicinesOnPrescription.medicineOnPrescription.currentState?.showSnackBar(
         SnackBar(
           closeIconColor: Colors.white,
           duration: const Duration(seconds: 5),
@@ -287,38 +305,38 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
   }
 
   //#endregion
-
-
   //#region Listar Andamentos Medicacação
-
 
   TypeStateRequest _typeStateRequestProgressMedication = TypeStateRequest.init;
 
   TypeStateRequest get getTypeStateRequestProgressMedication =>
       _typeStateRequestProgressMedication;
 
-
   List<MedicationProgressDto> _listMedicationProgressDto = [];
-  List<MedicationProgressDto> get getMedicationProgressDto => _listMedicationProgressDto;
 
-  Future<void> listProgressMedication( {
-    required BuildContext context
-    , required int codPrescription
-    , required int codMedicine }) async {
+  List<MedicationProgressDto> get getMedicationProgressDto {
+    return _listMedicationProgressDto;
+  }
+
+  Future<void> listProgressMedication(
+      {required BuildContext context,
+      required int codPrescription,
+      required int codMedicine}) async {
     try {
       late ProgressMedicationInformationDto progressMedicationInformationDto;
       _typeStateRequestProgressMedication = TypeStateRequest.awaitCharge;
       notifyListeners();
-      progressMedicationInformationDto = await ApiMedicinePrescription.listProgressMedication(
-          context: context
-          , codPrescription: codPrescription
-          , codMedicine: codMedicine
-      );
+      progressMedicationInformationDto =
+          await ApiMedicinePrescription.listProgressMedication(
+              context: context,
+              codPrescription: codPrescription,
+              codMedicine: codMedicine);
       if (progressMedicationInformationDto.status == false) {
         _typeStateRequestProgressMedication = TypeStateRequest.fail;
         progressMedicationInformationDto.listMedicationProgressDto = [];
       } else {
-        _listMedicationProgressDto = progressMedicationInformationDto.listMedicationProgressDto ?? [];
+        _listMedicationProgressDto =
+            progressMedicationInformationDto.listMedicationProgressDto ?? [];
         _typeStateRequestProgressMedication = TypeStateRequest.success;
       }
       notifyListeners();
@@ -328,5 +346,56 @@ class ProviderPrescriptionMedical extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   //#endregion
+  //#region
+
+  TypeStateRequest _typeStateRequestLowProgressError = TypeStateRequest.init;
+
+  TypeStateRequest get getTypeStateRequestLowProgressError =>
+      _typeStateRequestLowProgressError;
+
+  Future<void> BaixaAndamentoMedicacao({
+    required num codAndamentoMedicacao,
+    required num codAplicador,
+    required BuildContext context,
+  }) async {
+    try {
+      _typeStateRequestLowProgressError = TypeStateRequest.awaitCharge;
+      notifyListeners();
+      if (await ApiMedicinePrescription.baixaAndamentoMedicacao(
+          context: context,
+          codAndamentoMedicacao: codAndamentoMedicacao,
+          codAplicador: codAplicador)) {
+        ListProgressMedication.progressMedicationKeyScaffold.currentState
+            ?.showSnackBar(const SnackBar(
+          content: Text("Andamento finalizado"),
+          backgroundColor: Colors.green,
+          closeIconColor: Colors.white,
+        ));
+        _typeStateRequestLowProgressError = TypeStateRequest.success;
+        notifyListeners();
+      } else {
+        ListProgressMedication.progressMedicationKeyScaffold.currentState
+            ?.showSnackBar(const SnackBar(
+          content: Text("Erro ao finalizar andamento"),
+          backgroundColor: Colors.red,
+          closeIconColor: Colors.white,
+        ));
+        _typeStateRequestLowProgressError = TypeStateRequest.init;
+        notifyListeners();
+      }
+    } catch (e) {
+      ListProgressMedication.progressMedicationKeyScaffold.currentState
+          ?.showSnackBar(SnackBar(
+        content: Text("Erro: ${e.toString()}"),
+        backgroundColor: Colors.red,
+        closeIconColor: Colors.white,
+      ));
+      _typeStateRequestLowProgressError = TypeStateRequest.init;
+      notifyListeners();
+    }
+  }
+
+//#endregion
 }

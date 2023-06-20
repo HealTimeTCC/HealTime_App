@@ -21,20 +21,24 @@ class _MedicineOptionState extends State<MedicineOption> {
   late ProviderPrescriptionMedical providerPrescriptionMedical;
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     providerPrescriptionMedical.disposeNoNotifier();
   }
+
   @override
   Widget build(BuildContext context) {
     providerPrescriptionMedical = Provider.of(context, listen: false);
     final Size size = MediaQuery.of(context).size;
     if (widget.selectMedicine) {
-      ModelMedicacao? medicamento = providerPrescriptionMedical.getMedicacaoSelect;
+      ModelMedicacao? medicamento =
+          providerPrescriptionMedical.getMedicacaoSelect;
       return Container(
         width: size.width * .95,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
+          borderRadius: BorderRadius.circular(
+            size.width * .02,
+          ),
           color: Colors.white,
           boxShadow: const [
             BoxShadow(
@@ -78,10 +82,17 @@ class _MedicineOptionState extends State<MedicineOption> {
               flex: 2,
               child: Column(
                 children: [
-                  Text('Composto Ativo',
-                    style: FontGoogle.textNormalGreyGoogle(size: size * .7, fontWeight: FontWeight.w700,),),
                   Text(
-                    medicamento == null ? "Falha ao obter composto" : medicamento.compostoAtivoMedicacao,
+                    'Composto Ativo',
+                    style: FontGoogle.textNormalGreyGoogle(
+                      size: size * .7,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    medicamento == null
+                        ? "Falha ao obter composto"
+                        : medicamento.compostoAtivoMedicacao,
                     style: FontGoogle.textNormalGreyGoogle(
                       size: size * .7,
                     ),
@@ -91,7 +102,7 @@ class _MedicineOptionState extends State<MedicineOption> {
             ),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
+              child: Icon(Icons.arrow_forward_ios, size: size.width * 0.05),
             ),
           ],
         ),
@@ -100,32 +111,41 @@ class _MedicineOptionState extends State<MedicineOption> {
       return Container(
         width: size.width * .95,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(size.height * .5)),
-          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(
+            size.width * .02,
+          ),
+          border: Border.all(
+            color: const Color(0xff706F6F),
+          ),
+          color: Colors.white,
         ),
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  "Medicamento",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: FontGoogle.textNormaleGoogle(
-                    size: size * .7,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    "Selecione o medicamento",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormaleGoogle(
+                      size: size * .7,
+                      colorText: Colors.grey.shade500,
+                      fontWeightStyle: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Icon(Icons.arrow_forward_ios, size: size.width *  0.05),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Icon(Icons.arrow_forward_ios, size: size.width * 0.05),
+              ),
+            ],
+          ),
         ),
       );
     }

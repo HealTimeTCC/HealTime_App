@@ -9,6 +9,7 @@ class ListaPaciente extends StatefulWidget {
 
   static GlobalKey<ScaffoldMessengerState> scaffoldMessengerScreenListPatient =
       GlobalKey<ScaffoldMessengerState>();
+
   @override
   State<ListaPaciente> createState() => _ListaPacienteState();
 }
@@ -56,6 +57,7 @@ class _ListaPacienteState extends State<ListaPaciente> {
 
                   default:
                     List<Pessoa> listPessoa = snapshot.data ?? [];
+
                     return ListView.builder(
                       itemCount: listPessoa.length,
                       itemBuilder: (context, index) {

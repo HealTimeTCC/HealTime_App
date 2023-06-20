@@ -2,34 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../shared/decorations/fonts_google.dart';
-import '../../../../../shared/dto/medicines_on_prescription_dto/medicines_dto.dart';
+import '../../../../../shared/dto/prescriptions_list/prescription_patient_dto.dart';
 
-class ModalDetailsMedicationPrescription extends StatelessWidget {
-  const ModalDetailsMedicationPrescription({
+class ModalDetailsPrescriptionOff extends StatelessWidget {
+  const ModalDetailsPrescriptionOff({
     Key? key,
-    required this.medicine,
-    required this.interavaloString,
-    required this.createIn,
+    required this.prescriptionMedicine,
+    required this.pacienteCapaz,
   }) : super(key: key);
-  final Medicine medicine;
-  final String interavaloString;
-  final DateTime createIn;
+  final PrescriptionPatient prescriptionMedicine;
+  final bool pacienteCapaz;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    bool medicineGen = medicine.generico.toUpperCase().trim() == 'S';
+    final Size size = MediaQuery.of(context).size;
+    final borderRadius = size.width * .05;
     return Container(
+      height: size.height * .6,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(size.width * .03),
-          topRight: Radius.circular(size.width * .03),
-        ),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(borderRadius), topRight: Radius.circular(borderRadius))
       ),
-      height: size.height * .6,
-      width: size.width,
-      child: Padding(
+      child:  Padding(
         padding: EdgeInsets.all(size.width * .03),
         child: Column(
           children: [
@@ -49,7 +43,7 @@ class ModalDetailsMedicationPrescription extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        medicine.nomeMedicacao,
+                        prescriptionMedicine.descFichaPessoa,
                         style: FontGoogle.textSubTitleGoogle(
                           size: size * .8,
                           fontWeightText: FontWeight.w600,
@@ -87,29 +81,53 @@ class ModalDetailsMedicationPrescription extends StatelessWidget {
                       padding: EdgeInsets.all(size.width * .02),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(size.width * .02),
-                        color: medicineGen ? Colors.red : Colors.green,
+                        color: Colors.red,
                       ),
                       child: Text(
-                        medicineGen ? "Genérico" : "Não genérico",
+                        prescriptionMedicine.flagStatusAtivo ? "Ativo" : "Inativo",
                         style: FontGoogle.textSubTitleGoogle(
                           size: size * .7,
                           colorText: Colors.white,
+                          fontWeightText: FontWeight.w600
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height * .02),
+                  if(!pacienteCapaz)...[
+                    SizedBox(height: size.height * .02),
+                    Row(
+                      children: [
+                        Text(
+                          "Cód paciente: ",
+                          style: FontGoogle.textSubTitleGoogle(
+                            size: size * .8,
+                            fontWeightText: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          prescriptionMedicine.pacienteId.toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.clip,
+                          style: FontGoogle.textSubTitleGoogle(
+                            size: size * .8,
+                            fontWeightText: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                  SizedBox(height: size.height * .015),
                   Row(
                     children: [
                       Text(
-                        "Tipo: ",
+                        "Criado em: ",
                         style: FontGoogle.textSubTitleGoogle(
                           size: size * .8,
                           fontWeightText: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        medicine.medicationType.classeAplicacao,
+                         DateFormat("dd/MM/yyyy - HH:mm:ss").format(prescriptionMedicine.criadoEm),
                         style: FontGoogle.textSubTitleGoogle(
                           size: size * .8,
                           fontWeightText: FontWeight.w400,
@@ -122,89 +140,20 @@ class ModalDetailsMedicationPrescription extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Composto Ativo: ",
+                        "Valido até: ",
                         style: FontGoogle.textSubTitleGoogle(
                           size: size * .8,
                           fontWeightText: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        medicine.compostoAtivoMedicacao,
-                        maxLines: 2,
-                        overflow: TextOverflow.clip,
+                        DateFormat("dd/MM/yyyy - HH:mm:ss").format(prescriptionMedicine.validade),
                         style: FontGoogle.textSubTitleGoogle(
                           size: size * .8,
                           fontWeightText: FontWeight.w400,
                         ),
                       ),
                     ],
-                  ),
-                  SizedBox(height: size.height * .015),
-                  Row(
-                    children: [
-                      Text(
-                        "Laboratório: ",
-                        style: FontGoogle.textSubTitleGoogle(
-                          size: size * .8,
-                          fontWeightText: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        medicine.laboratorioMedicacao,
-                        maxLines: 2,
-                        overflow: TextOverflow.clip,
-                        style: FontGoogle.textSubTitleGoogle(
-                          size: size * .8,
-                          fontWeightText: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: size.height * .015),
-                  Row(
-                    children: [
-                      Text(
-                        "Intervalo: ",
-                        style: FontGoogle.textSubTitleGoogle(
-                          size: size * .8,
-                          fontWeightText: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        interavaloString.replaceAll(':', "h").substring(0, 5),
-                        maxLines: 2,
-                        overflow: TextOverflow.clip,
-                        style: FontGoogle.textSubTitleGoogle(
-                          size: size * .8,
-                          fontWeightText: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: size.height * .1),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          "Iniciado: ",
-                          style: FontGoogle.textSubTitleGoogle(
-                            size: size * .8,
-                            fontWeightText: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          DateFormat('dd/MM/yyyy HH:mm').format(createIn),
-                          maxLines: 2,
-                          overflow: TextOverflow.clip,
-                          style: FontGoogle.textSubTitleGoogle(
-                            size: size * .8,
-                            fontWeightText: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),

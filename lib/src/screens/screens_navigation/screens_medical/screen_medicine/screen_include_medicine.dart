@@ -218,17 +218,19 @@ class _IncludeMedicationState extends State<IncludeMedication> {
                     ElevatedButton(
                       onPressed: () async {
                         ModelMedicacao medicine = ModelMedicacao(
-                            compostoAtivoMedicacao:
-                                _textComposedController.text,
-                            generico: _selectMedicineGeneric,
-                            laboratorioMedicacao:
-                                _textLaboratoryController.text,
-                            nomeMedicacao: _textNameController.text,
-                            statusMedicacaoId: StatusMedicacao.ativo,
-                            tipoMedicacaoId: _selectMedicineType);
+                          compostoAtivoMedicacao: _textComposedController.text,
+                          generico: _selectMedicineGeneric,
+                          laboratorioMedicacao: _textLaboratoryController.text,
+                          nomeMedicacao: _textNameController.text,
+                          statusMedicacaoId: StatusMedicacao.ativo,
+                          tipoMedicacaoId: _selectMedicineType,
+                        );
 
-                        LogicMedicine.includeMedicine(
-                            context: context, medicine: medicine);
+                        await LogicMedicine.includeMedicine(
+                          context: context,
+                          medicine: medicine,
+                          typeOperation: widget.typeOperation,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,

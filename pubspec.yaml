@@ -57,6 +57,7 @@ dependencies:
   flutter_bounceable: ^1.1.0
   image_picker: ^0.8.7+5
   flutter_slidable: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,12 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/img/logo.png"
+  adaptive_icon_background: "#18CDCA"
+  min_sdk_android: 21
 
 # The following section is specific to Flutter packages.
 flutter:

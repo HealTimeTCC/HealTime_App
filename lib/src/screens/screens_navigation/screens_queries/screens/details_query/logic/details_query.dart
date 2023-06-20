@@ -87,7 +87,7 @@ class LogicDetailsQuery {
       final Size size = MediaQuery.of(context).size;
       DateTime dateQuery = DateTime.parse(dateStringQuery);
 
-      bool checkDate = (DateTime.now().isBefore(dateQuery) ||
+      final bool checkDate = (DateTime.now().isAfter(dateQuery) ||
           dateQuery.isAtSameMomentAs(DateTime.now()));
 
       if (checkDate) {

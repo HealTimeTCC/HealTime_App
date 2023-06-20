@@ -52,7 +52,9 @@ class _InfoProfileState extends State<InfoProfile> {
               if (snapshot.data == null) return Container();
 
               final Pessoa person = snapshot.data!['person'];
-              final Uint8List img = snapshot.data!['img'];
+              final Uint8List? img = snapshot.data?['img'];
+
+              if (img == null) return Container();
 
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: size.width * .03),
@@ -124,12 +126,6 @@ class _InfoProfileState extends State<InfoProfile> {
                             person.contact!.email,
                             style:
                                 FontGoogle.textNormaleGoogle(size: size * .7),
-                          ),
-                          SizedBox(height: size.height * .01),
-                          Text(
-                            'Editar informações',
-                            style: FontGoogle.textNormalGreyGoogle(
-                                size: size * .65),
                           ),
                         ],
                       ),

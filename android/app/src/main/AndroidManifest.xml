@@ -6,10 +6,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
    <application
-        android:label="healtime"
+        android:label="HealTime"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true">
+        android:icon="@mipmap/launcher"
+        android:requestLegacyExternalStorage="true_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
