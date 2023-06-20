@@ -43,13 +43,16 @@ class _ListaPacienteState extends State<ListaPaciente> {
                           onTap: () {
                             setState(() {});
                           },
-                          child: Card(
-                            color: const Color.fromARGB(229, 206, 206, 206),
-                            margin: const EdgeInsets.all(12),
-                            child: ListTile(
-                              title: Text(paciente.nomePessoa.toString() +
-                                  paciente.sobreNomePessoa.toString()),
-                              subtitle: Text(paciente.cpfPessoa.toString()),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 15),
+                            child: Card(
+                              color: const Color.fromARGB(229, 206, 206, 206),
+                              margin: const EdgeInsets.all(12),
+                              child: ListTile(
+                                title: Text(paciente.nomePessoa.toString() +
+                                    paciente.sobreNomePessoa.toString()),
+                                subtitle: Text(paciente.cpfPessoa.toString()),
+                              ),
                             ),
                           ),
                         );
