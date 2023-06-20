@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/services/api/api_patient.dart';
 import 'package:healtime/shared/decorations/screen_background.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
@@ -21,6 +22,28 @@ class _ListaPacienteState extends State<ListaPaciente> {
         body: Stack(
           children: [
             const BackgroundPage(),
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: const Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    color: Color(0xff1AE8E4),
+                  ),
+                ),
+                SizedBox(),
+                Text(
+                  'Cadastrar paciente',
+                  textAlign: TextAlign.justify,
+                  style: GoogleFonts.getFont('Poppins',
+                      decoration: TextDecoration.none,
+                      color: const Color(0xff1c1c1c),
+                      fontSize: 20,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
             FutureBuilder<List<Pessoa>>(
               future: ApiPaciente.listarPaciente(),
               builder: (context, snapshot) {

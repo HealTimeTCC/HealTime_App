@@ -10,12 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DataPreferencesPessoa {
   static late SharedPreferences _sharedPreferences;
 
-  static Future<void> _initPreferences() async {
+  static Future<void> initPreferences() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
   static Future<Pessoa?> getDataUser() async {
-    await _initPreferences();
+    await initPreferences();
 
     try {
       String? data = _sharedPreferences.getString(ConstsPreferences.keyUser);
@@ -33,13 +33,13 @@ class DataPreferencesPessoa {
   }
 
   static Future<void> removeDataUser() async {
-    await _initPreferences();
+    await initPreferences();
 
     await _sharedPreferences.remove(ConstsPreferences.keyUser);
   }
 
   static Future<void> removeUser(BuildContext context) async {
-    await _initPreferences();
+    await initPreferences();
 
     await _sharedPreferences.remove(ConstsPreferences.keyUser);
 

@@ -27,7 +27,7 @@ class ApiPessoa {
     Uri uriApi = Uri.parse(
         '${providerLogin.addressServer ?? uriApiBase}Pessoa/Autenticar');
 
-    http.Response response = await http.post(
+    final http.Response response = await http.post(
       uriApi,
       body: json.encode(pessoa),
       headers: {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:healtime/services/provider/login/provider_login.dart';
 import 'package:healtime/shared/dto/dto_patient.dart';
+import 'package:healtime/shared/dto/dto_post_associate_carer.dart';
 import 'package:healtime/shared/models/enuns/enum_tipo_pessoa.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/logics/logic_type_user.dart';
@@ -38,23 +39,29 @@ class ApiPaciente {
       );
     }
   }
-   
 
-  static Future<int> PostPaciente({required BuildContext context, required Patient paciente, String? address}) async {
+  static Future<String> PostPaciente(
+      {required BuildContext context, required Pessoa paciente}) async {
+    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
-     final Uri urlPaciente = Uri.parse('${address ?? uriApiBase}'
-        'Pessoa/Registro');
+    final Uri urlPaciente =
+        Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
+            'Pessoa/Registro');
+    // Map<String, String>? header = await ConstsRequired.headRequisit();
+    http.Response response = await http.post(urlPaciente,
+        headers: await ConstsRequired.headRequisit(),
+        body: jsonEncode(paciente.toJson()));
 
-    Map<String, String>? header = await ConstsRequired.headRequisit();
+    if (response.statusCode == 200) {
+      print('Paciente criado com sucesso');
+    } else {
+      print('Falha ao criar paciente. Status code: ${response.statusCode}');
+    }
 
-    http.Response response = await http.post(
-      urlPaciente,
-      body: json.encode(paciente),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    );
-
-    return response.statusCode;
+    return PostPaciente(context: context, paciente: paciente);
   }
+
+  // static Future<bool> AssociarPacienteCuidador({required BuildContext, required DtoPostAssociateCarer associateCare}){
+
+  // }
 }

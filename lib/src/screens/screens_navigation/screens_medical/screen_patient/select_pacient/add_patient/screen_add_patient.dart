@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtime/services/api/api_patient.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
+import 'package:healtime/shared/dto/dto_patient.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_doctor/screen_add_doctor.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/register_queries/logic/date_time_query.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../../shared/decorations/screen_background.dart';
@@ -59,6 +64,11 @@ class AddPatient extends StatelessWidget {
                     child: Column(
                       children: [
                         CustomField(
+                            label: 'CPF',
+                            textController: textCpfController,
+                            keyboardType: TextInputType.text),
+                        SizedBox(height: size.height * .04),
+                        CustomField(
                             label: 'Nome',
                             textController: textNomeController,
                             keyboardType: TextInputType.text),
@@ -68,37 +78,48 @@ class AddPatient extends StatelessWidget {
                             textController: textSobrenomeController,
                             keyboardType: TextInputType.text),
                         SizedBox(height: size.height * .04),
-
                         //ajustar
-                        GestureDetector(
-                          onTap: () async =>
-                              await DateTimeQuery.selectDate(context, true),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * .05),
-                            height: size.height * .07,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: const Color(0xff333333),
-                              ),
-                            ),
-                          ),
-                        ),
-                        
+                        // GestureDetector(
+                        //   onTap: () async =>
+                        //       await DateTimeQuery.selectDate(context, true),
+                        //   child: Container(
+                        //     padding: EdgeInsets.symmetric(
+                        //         horizontal: size.width * .05),
+                        //     height: size.height * .07,
+                        //     decoration: BoxDecoration(
+                        //       color: const Color.fromARGB(255, 255, 255, 255),
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       border: Border.all(
+                        //         color: const Color(0xff333333),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
                         SizedBox(
                           height: size.height * .01,
                         ),
                         ElevatedButton(
                           onPressed: () async {
+                            print("tap");
                             Pessoa paciente = Pessoa(
-                                cpfPessoa: textCpfController.text,
-                                nomePessoa: textNomeController.text,
-                                sobreNomePessoa: textSobrenomeController.text,
-                                tipoPessoa: personId,
-                                dtNascPessoa: DateTime.now(),
-                                passwordString: '');
+                              cpfPessoa: textCpfController.text,
+                              nomePessoa: textNomeController.text,
+                              sobreNomePessoa: textSobrenomeController.text,
+                              dtNascPessoa: DateTime.now(),
+                              tipoPessoa: 2,
+                              passwordString: "",
+                            );
+
+                            String statusCode = await ApiPaciente.PostPaciente(
+                                context: context, paciente: paciente);
+
+                            if (statusCode == 200) {
+                              if (context.mounted) {
+                                Navigator.of(context).pop();
+                              }
+                              print("foi :) ");
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
