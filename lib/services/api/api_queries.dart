@@ -65,6 +65,9 @@ class ApiQueries {
           '${providerLogin.addressServer ?? uriApiBase}ConsultaMedica/GetEspecialidades');
       http.Response response = await http.get(uriApi);
 
+      print(response.statusCode);
+      print(response.body);
+
       List<dynamic> listResponse = jsonDecode(response.body) as List<dynamic>;
 
       return {

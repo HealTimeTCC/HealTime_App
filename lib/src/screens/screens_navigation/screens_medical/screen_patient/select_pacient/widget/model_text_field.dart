@@ -15,7 +15,10 @@ class ModelPatient extends StatelessWidget {
 
     return Container(
       height: size.height * .07,
-      margin: EdgeInsets.symmetric(horizontal: size.width * .05),
+      margin: EdgeInsets.symmetric(
+        horizontal: size.width * .05,
+        vertical: size.height * .01,
+      ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(size.width * .02),
@@ -64,7 +67,8 @@ class ModelPatient extends StatelessWidget {
             decoration: BoxDecoration(
                 color: const Color(0xffD9D9D9),
                 borderRadius: BorderRadius.circular(size.width)),
-            child: Text(UtilBrasilFields.obterCpf(person.cpfPessoa),
+            child: Text(
+              UtilBrasilFields.obterCpf(person.cpfPessoa),
               style: FontGoogle.textNormaleGoogle(
                 size: size * .6,
                 colorText: const Color(0xff172331),
