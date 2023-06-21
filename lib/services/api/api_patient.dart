@@ -17,56 +17,64 @@ import '../../shared/consts/consts_required.dart';
 class ApiPaciente {
   static String get uriApiBase => ConstsRequired.urlBaseApi;
 
-  static Future<List<Pessoa>> listarPaciente() async {
-    final Uri urlPaciente = Uri.parse('');
+  static Future<List<Pessoa>?> getPatient(int idResponsibleCarer) async {
+    try {
+      final Uri uriApi = Uri.parse(
+          '${uriApiBase}Paciente/PacienteByCodRespOrCuidador/$idResponsibleCarer');
 
-    Map<String, String>? header = await ConstsRequired.headRequisit();
+      http.Response response = await http.get(uriApi);
 
-    http.Response response = await http.get(
-      urlPaciente,
-      headers: header,
-    );
+      List<dynamic> listResponse = jsonDecode(response.body) as dynamic;
 
-    if (response.statusCode == 200) {
-      List<dynamic> listaPaciente = jsonDecode(response.body) as List<dynamic>;
-
-      return listaPaciente.map((p) => Pessoa.fromJson(p)).toList();
-    } else {
-      throw Exception(
-        const AlertDialog(
-          title: Text('Aviso!'),
-          content: Text('Erro: Pacientes não encontrados'),
-        ),
-      );
+      return listResponse.map((element) => Pessoa.fromJson(element)).toList();
+    } catch (ex) {
+      return null;
     }
   }
 
-  static Future<String> PostPaciente(
-      {required BuildContext context, required Pessoa paciente}) async {
+  static Future<int> PostPaciente(
+      {required BuildContext context, required Patient paciente}) async {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
     final Uri urlPaciente =
         Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
             'Pessoa/Registro');
     // Map<String, String>? header = await ConstsRequired.headRequisit();
-    http.Response response = await http.post(urlPaciente,
-        headers: await ConstsRequired.headRequisit(),
-        body: jsonEncode(paciente.toJson()));
-
+    http.Response response = await http.post(
+      urlPaciente,
+      headers: await ConstsRequired.headRequisit(),
+      body: jsonEncode(paciente.toJson()),
+    );
+    print(
+      jsonEncode(paciente.toJson()),
+    );
     if (response.statusCode == 200) {
       print('Paciente criado com sucesso');
     } else {
-      print('Falha ao criar paciente. Status code: ${response.statusCode}');
+      print('Falha ao criar paciente. Status code: ${response.body}');
     }
 
-    return PostPaciente(context: context, paciente: paciente);
+    return response.statusCode;
   }
 
-  // static Future<bool> AssociarPacienteCuidador({required BuildContext, required DtoPostAssociateCarer associateCare}){
+  //   static Future<String> PostPaciente(
+  //     {required BuildContext context, required Patient paciente}) async {
+  //   final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
-  // }
+  //   final Uri urlPaciente =
+  //       Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
+  //           'Pessoa/Registro');
+  //   // Map<String, String>? header = await ConstsRequired.headRequisit();
+  //   http.Response response = await http.post(urlPaciente,
+  //       headers: await ConstsRequired.headRequisit(),
+  //       body: jsonEncode(paciente.toJson()));
 
-  // static String PostPaciente({required Patient paciente }){
+  //   if (response.statusCode == 200) {
+  //     print('Paciente criado com sucesso');
+  //   } else {
+  //     print('Falha ao criar paciente. Status code: ${response.statusCode}');
+  //   }
 
+  //   return PostPaciente(context: context, paciente: paciente);
   // }
 }

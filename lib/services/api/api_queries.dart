@@ -78,20 +78,6 @@ class ApiQueries {
     }
   }
 
-  static Future<List<Pessoa>?> getPatient(int idResponsibleCarer) async {
-    try {
-      final Uri uriApi = Uri.parse(
-          '${uriApiBase}Paciente/PacienteByCodRespOrCuidador/$idResponsibleCarer');
-
-      http.Response response = await http.get(uriApi);
-
-      List<dynamic> listResponse = jsonDecode(response.body) as dynamic;
-
-      return listResponse.map((element) => Pessoa.fromJson(element)).toList();
-    } catch (ex) {
-      return null;
-    }
-  }
 
   static Future<int> encerrarQuery(EncerrarQuery query) async {
     try {

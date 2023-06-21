@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:healtime/services/api/api_patient.dart';
 import 'package:healtime/services/provider/prescription_medical/provider_prescription_medic.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_patient/select_pacient/widget/model_text_field.dart';
@@ -61,7 +62,7 @@ class SelectPatient extends StatelessWidget {
           children: [
             const BackgroundPage(),
             FutureBuilder<List<Pessoa>?>(
-              future: ApiQueries.getPatient(personId),
+              future: ApiPaciente.getPatient(personId),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
@@ -180,6 +181,7 @@ class SelectPatient extends StatelessWidget {
                                       },
                                       child: ModelPatient(person: patient),
                                     );
+                                    
                                   },
                                 ),
                               ),

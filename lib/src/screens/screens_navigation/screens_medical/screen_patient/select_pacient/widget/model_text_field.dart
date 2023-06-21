@@ -54,9 +54,10 @@ class ModelPatient extends StatelessWidget {
                     style: FontGoogle.textNormalGreyGoogle(size: size * .6),
                   ),
                 ],
-              )
-            ),
+              ),
+            ),         
           ),
+         
           Container(
             padding: EdgeInsets.symmetric(
                 vertical: size.height * .003, horizontal: size.width * .03),

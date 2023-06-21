@@ -14,16 +14,14 @@ import 'package:intl/intl.dart';
 import '../../../../../../../shared/decorations/screen_background.dart';
 
 class AddPatient extends StatelessWidget {
-  const AddPatient({Key? key, required this.personId}) : super(key: key);
+  AddPatient({Key? key, required this.personId}) : super(key: key);
 
   final int personId;
-
+  final TextEditingController textNomeController = TextEditingController();
+  final TextEditingController textSobrenomeController = TextEditingController();
+  final TextEditingController textCpfController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController textNomeController = TextEditingController();
-    TextEditingController textSobrenomeController = TextEditingController();
-    TextEditingController textCpfController = TextEditingController();
-
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -95,23 +93,23 @@ class AddPatient extends StatelessWidget {
                         //     ),
                         //   ),
                         // ),
-
                         SizedBox(
                           height: size.height * .01,
                         ),
                         ElevatedButton(
                           onPressed: () async {
                             print("tap");
-                            Pessoa paciente = Pessoa(
-                              cpfPessoa: textCpfController.text,
-                              nomePessoa: textNomeController.text,
-                              sobreNomePessoa: textSobrenomeController.text,
-                              dtNascPessoa: DateTime.now(),
-                              tipoPessoa: 2,
-                              passwordString: "",
-                            );
+                            Patient paciente = Patient(
+                                cpfPessoa: textCpfController.text,
+                                nomePessoa: textNomeController.text,
+                                sobreNomePessoa: textSobrenomeController.text,
+                                //dtNascPessoa: DateTime.now(),
+                                tipoPessoa: 2,
+                                pessoaId: personId
+                                //passwordString: "",
+                                );
 
-                            String statusCode = await ApiPaciente.PostPaciente(
+                            int statusCode = await ApiPaciente.PostPaciente(
                                 context: context, paciente: paciente);
 
                             if (statusCode == 200) {
@@ -119,6 +117,9 @@ class AddPatient extends StatelessWidget {
                                 Navigator.of(context).pop();
                               }
                               print("foi :) ");
+                            } else {
+                              print("noo ");
+                              return;
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -151,12 +152,4 @@ class AddPatient extends StatelessWidget {
       ),
     );
   }
-
-
-
-
-
-  
 }
-
-

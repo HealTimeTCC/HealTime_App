@@ -18,4 +18,13 @@ class Patient {
         cpfPessoa = json['cpfPessoa'] as String,
         nomePessoa = json['nomePessoa'] as String,
         sobreNomePessoa = json['sobreNomePessoa'] as String;
+
+  Map<String, dynamic> toJson() {
+    return {
+      "tipoPessoa": tipoPessoa,
+      "cpfPessoa": cpfPessoa,
+      "nomePessoa": nomePessoa,
+      "sobreNomePessoa": sobreNomePessoa
+    };
+  }
 }
