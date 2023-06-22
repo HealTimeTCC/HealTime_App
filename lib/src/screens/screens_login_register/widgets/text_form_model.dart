@@ -38,13 +38,6 @@ class ModelTextForm {
         },
         decoration: InputDecoration(
           suffixIcon: !obscure ? null : Icon(icon, color: iconColor),
-          // focusedBorder: OutlineInputBorder(
-          //     borderSide: BorderSide(
-          //         color: const Color(0xff1c1c1c), width: size.width * 0.004)),
-          // border: const OutlineInputBorder(),
-          // enabledBorder: OutlineInputBorder(
-          //     borderSide: BorderSide(
-          //         color: const Color(0xff1c1c1c), width: size.width * 0.004)),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           filled: true,
           fillColor: Color(0x394EE1E1),

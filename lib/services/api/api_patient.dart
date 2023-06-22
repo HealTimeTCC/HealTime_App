@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:healtime/services/data_locale/data_preferences_pessoa.dart';
 import 'package:healtime/services/provider/login/provider_login.dart';
+import 'package:healtime/shared/dto/dto_encerrar_cuidador_paciente.dart';
 import 'package:healtime/shared/dto/dto_patient.dart';
 import 'package:healtime/shared/dto/dto_post_associate_carer.dart';
 import 'package:healtime/shared/dto/dto_post_associate_responsible.dart';
@@ -115,6 +116,35 @@ class ApiPaciente {
         urlPaciente,
         headers: await ConstsRequired.headRequisit(),
         body: jsonEncode(postAssociateResponsible.toJson()),
+      );
+    }
+    return {'statusCode': http.Response, 'body': http.Response};
+  }
+
+  static Future<Map<String, dynamic>> DeleteCuidadorPaciente(
+      {required BuildContext context,
+      required EncerrarCuidadorPaciente patientId}) async {
+    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+
+    final Pessoa? person = await DataPreferencesPessoa.getDataUser();
+
+    if ((person?.tipoPessoa ?? 0) == 3) {
+      print("=" * 30);
+      print('Entrou no 3 AEEEEEEEEEEEEEEE');
+      print("=" * 30);
+      EncerrarCuidadorPaciente encerrarCuidadorPaciente = EncerrarCuidadorPaciente(
+        cuidadorId: (person?.pessoaId ?? 1),
+        pacienteId: patientId.pacienteId
+      );
+
+      final Uri urlPaciente =
+          Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
+              'Paciente/EncerrarCuidadorPaciente');
+
+      http.Response response = await http.post(
+        urlPaciente,
+        headers: await ConstsRequired.headRequisit(),
+        body: jsonEncode(encerrarCuidadorPaciente.toJson()),
       );
     }
     return {'statusCode': http.Response, 'body': http.Response};

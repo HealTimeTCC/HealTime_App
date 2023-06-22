@@ -40,21 +40,29 @@ class ModelPatient extends StatelessWidget {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: size.width * .02),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: Row(
                 children: [
-                  Text(
-                    person.nomePessoa,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: FontGoogle.textNormaleGoogle(size: size * .85),
-                  ),
-                  Text(
-                    person.sobreNomePessoa,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: FontGoogle.textNormalGreyGoogle(size: size * .6),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        person.nomePessoa,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: FontGoogle.textNormaleGoogle(size: size * .85),
+                      ),
+                      Text(
+                        person.sobreNomePessoa,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: FontGoogle.textNormalGreyGoogle(size: size * .6),
+                      ),
+                      IconButton(onPressed: () async{
+                        print("tap");
+                      }, 
+                      icon: Icon(Icons.delete_sweep)),
+                    ],
                   ),
                 ],
               ),
