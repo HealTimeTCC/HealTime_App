@@ -24,7 +24,8 @@ class ApiPessoa {
     required DtoPessoa pessoa,
     required BuildContext context,
   }) async {
-    final ProviderPerson providerPerson = Provider.of<ProviderPerson>(context, listen: false);
+    final ProviderPerson providerPerson =
+        Provider.of<ProviderPerson>(context, listen: false);
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
     int statusCode = 400;
 
@@ -47,7 +48,7 @@ class ApiPessoa {
 
       /* Adicionar a senha do usuario para salvar todos os dados do usuario de uma vez */
       pessoaData.passwordString = pessoa.passwordString;
-      String dataUser = jsonEncode(pessoaData);
+      String dataUser = jsonEncode(pessoaData.toJson());
 
       DataPreferences.savedDataString(dataUser, ConstsPreferences.keyUser);
 

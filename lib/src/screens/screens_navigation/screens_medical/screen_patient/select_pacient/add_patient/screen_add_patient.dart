@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtime/services/api/api_patient.dart';
+import 'package:healtime/services/provider/provider_home_page.dart';
+import 'package:healtime/services/provider/provider_user.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 import 'package:healtime/shared/dto/dto_patient.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
@@ -10,6 +10,7 @@ import 'package:healtime/src/screens/screens_navigation/screens_medical/screen_d
 import 'package:healtime/src/screens/screens_navigation/screens_queries/screens/register_queries/logic/date_time_query.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../shared/decorations/screen_background.dart';
 
@@ -20,9 +21,14 @@ class AddPatient extends StatelessWidget {
   final TextEditingController textNomeController = TextEditingController();
   final TextEditingController textSobrenomeController = TextEditingController();
   final TextEditingController textCpfController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    late ProviderHomePage providerHomePage =
+        Provider.of(context, listen: false);
+    final ProviderPerson providerPerson = Provider.of<ProviderPerson>(context);
+    final Pessoa person = providerPerson.person!;
 
     return Scaffold(
       body: Stack(
@@ -76,29 +82,13 @@ class AddPatient extends StatelessWidget {
                             textController: textSobrenomeController,
                             keyboardType: TextInputType.text),
                         SizedBox(height: size.height * .04),
-                        //ajustar
-                        // GestureDetector(
-                        //   onTap: () async =>
-                        //       await DateTimeQuery.selectDate(context, true),
-                        //   child: Container(
-                        //     padding: EdgeInsets.symmetric(
-                        //         horizontal: size.width * .05),
-                        //     height: size.height * .07,
-                        //     decoration: BoxDecoration(
-                        //       color: const Color.fromARGB(255, 255, 255, 255),
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       border: Border.all(
-                        //         color: const Color(0xff333333),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         SizedBox(
                           height: size.height * .01,
                         ),
                         ElevatedButton(
                           onPressed: () async {
                             print("tap");
+
                             Patient paciente = Patient(
                                 cpfPessoa: textCpfController.text,
                                 nomePessoa: textNomeController.text,
@@ -109,16 +99,22 @@ class AddPatient extends StatelessWidget {
                                 //passwordString: "",
                                 );
 
-                            int statusCode = await ApiPaciente.PostPaciente(
-                                context: context, paciente: paciente);
+                            Map<String, dynamic> statusCode =
+                                await ApiPaciente.PostPaciente(
+                                    context: context, paciente: paciente);
 
-                            if (statusCode == 200) {
+                            if (context.mounted) {
+                              await ApiPaciente.PostAssociateResponsibleCarer(
+                                  context: context, pessoa: statusCode['body']);
+                            }
+
+                            if (statusCode['statusCode'] == 200) {
                               if (context.mounted) {
                                 Navigator.of(context).pop();
                               }
                               print("foi :) ");
                             } else {
-                              print("noo ");
+                              print("noo");
                               return;
                             }
                           },

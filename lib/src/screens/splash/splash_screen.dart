@@ -29,6 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         /* Verificando se o usuário está logado */
         if (dataUser != null) {
+          print("=" * 30);
+    print(dataUser.pessoaId);
+    print("=" * 30);
           DtoPessoa dtoPessoa = DtoPessoa(
               emailContato: dataUser.contact!.email,
               passwordString: dataUser.passwordString);

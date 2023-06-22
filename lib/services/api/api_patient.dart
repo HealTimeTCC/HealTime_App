@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:healtime/services/data_locale/data_preferences_pessoa.dart';
 import 'package:healtime/services/provider/login/provider_login.dart';
 import 'package:healtime/shared/dto/dto_patient.dart';
 import 'package:healtime/shared/dto/dto_post_associate_carer.dart';
+import 'package:healtime/shared/dto/dto_post_associate_responsible.dart';
 import 'package:healtime/shared/models/enuns/enum_tipo_pessoa.dart';
 import 'package:healtime/shared/dto/dto_patient.dart';
 import 'package:healtime/shared/models/model_pessoa.dart';
@@ -32,49 +34,89 @@ class ApiPaciente {
     }
   }
 
-  static Future<int> PostPaciente(
+  static Future<Map<String, dynamic>> PostPaciente(
       {required BuildContext context, required Patient paciente}) async {
     final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
     final Uri urlPaciente =
         Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
             'Pessoa/Registro');
-    // Map<String, String>? header = await ConstsRequired.headRequisit();
+
     http.Response response = await http.post(
       urlPaciente,
       headers: await ConstsRequired.headRequisit(),
       body: jsonEncode(paciente.toJson()),
     );
-    print(
-      jsonEncode(paciente.toJson()),
-    );
+
+    Map<String, dynamic> mapResponse = jsonDecode(response.body);
+
+    print("=" * 80);
+    print(mapResponse);
+    print("=" * 80);
+
+    final Pessoa person = Pessoa.fromJson(mapResponse);
+
     if (response.statusCode == 200) {
       print('Paciente criado com sucesso');
     } else {
       print('Falha ao criar paciente. Status code: ${response.body}');
     }
 
-    return response.statusCode;
+    return {'statusCode': response.statusCode, 'body': person};
   }
 
-  //   static Future<String> PostPaciente(
-  //     {required BuildContext context, required Patient paciente}) async {
-  //   final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
+  static Future<Map<String, dynamic>> PostAssociateResponsibleCarer(
+      {required BuildContext context, required Pessoa pessoa}) async {
+    final providerLogin = Provider.of<ProviderLogin>(context, listen: false);
 
-  //   final Uri urlPaciente =
-  //       Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
-  //           'Pessoa/Registro');
-  //   // Map<String, String>? header = await ConstsRequired.headRequisit();
-  //   http.Response response = await http.post(urlPaciente,
-  //       headers: await ConstsRequired.headRequisit(),
-  //       body: jsonEncode(paciente.toJson()));
+    final Pessoa? person = await DataPreferencesPessoa.getDataUser();
 
-  //   if (response.statusCode == 200) {
-  //     print('Paciente criado com sucesso');
-  //   } else {
-  //     print('Falha ao criar paciente. Status code: ${response.statusCode}');
-  //   }
+    print("=" * 30);
+    print(person?.tipoPessoa);
+    print("=" * 30);
 
-  //   return PostPaciente(context: context, paciente: paciente);
-  // }
+    if ((person?.tipoPessoa ?? 0) == 4) {
+      print("=" * 30);
+      print('Entrou no 4 AEEEEEEEEEEEEEEE');
+      print("=" * 30);
+      DtoPostAssociateCarer postAssociateCarer = DtoPostAssociateCarer(
+        patientId: (pessoa.pessoaId ?? 1),
+        patientCPF: pessoa.cpfPessoa,
+        createdIn: DateTime.now(),
+        carerCPF: person!.cpfPessoa,
+        carerId: (person.pessoaId ?? 1),
+      );
+
+      final Uri urlPaciente =
+          Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
+              'Paciente/AssociarCuidador');
+
+      http.Response response = await http.post(
+        urlPaciente,
+        headers: await ConstsRequired.headRequisit(),
+        body: jsonEncode(postAssociateCarer.toJson()),
+      );
+    } else if ((person?.tipoPessoa ?? 0) == 3) {
+      DtoPostAssociateResponsible postAssociateResponsible =
+          DtoPostAssociateResponsible(
+        createdIn: DateTime.now(),
+        degreeOfKinshipId: 1,
+        patientId: (pessoa.pessoaId ?? 1),
+        patientCPF: pessoa.cpfPessoa,
+        responsible: (person?.pessoaId ?? 1),
+        responsibleCPF: person!.cpfPessoa,
+      );
+
+      final Uri urlPaciente =
+          Uri.parse('${providerLogin.addressServer ?? uriApiBase}'
+              'Paciente/AssociarResponsavel');
+
+      http.Response response = await http.post(
+        urlPaciente,
+        headers: await ConstsRequired.headRequisit(),
+        body: jsonEncode(postAssociateResponsible.toJson()),
+      );
+    }
+    return {'statusCode': http.Response, 'body': http.Response};
+  }
 }
