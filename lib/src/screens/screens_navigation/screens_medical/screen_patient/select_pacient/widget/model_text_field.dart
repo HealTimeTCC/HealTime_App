@@ -40,7 +40,6 @@ class ModelPatient extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              
               padding: EdgeInsets.symmetric(horizontal: size.width * .02),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -76,14 +75,14 @@ class ModelPatient extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-              onPressed: () async {
-                print("tap");
-                // EncerrarCuidadorPaciente cuidadorPaciente =
-                //     EncerrarCuidadorPaciente(
-                //         cuidadorId: cuidadorId, pacienteId: pacienteId);
-              },
-              icon: Icon(Icons.delete_sweep)),
+          // IconButton(
+          //     onPressed: () async {
+          //       print("tap");
+          //       // EncerrarCuidadorPaciente cuidadorPaciente =
+          //       //     EncerrarCuidadorPaciente(
+          //       //         cuidadorId: cuidadorId, pacienteId: pacienteId);
+          //     },
+          //     icon: Icon(Icons.delete_sweep)),
         ],
       ),
     );
