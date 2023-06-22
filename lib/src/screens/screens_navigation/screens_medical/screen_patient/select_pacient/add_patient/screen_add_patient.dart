@@ -88,6 +88,27 @@ class AddPatient extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () async {
                             print("tap");
+                            if (textCpfController.text.isEmpty) {
+                              _snackMsg(
+                                  context: context,
+                                  text:
+                                      'Por favor, informe o CPF do paciente.');
+                              return;
+                            }
+                            if (textNomeController.text.isEmpty) {
+                              _snackMsg(
+                                  context: context,
+                                  text:
+                                      'Por favor, informe o nome do paciente.');
+                              return;
+                            }
+                            if (textSobrenomeController.text.isEmpty) {
+                              _snackMsg(
+                                  context: context,
+                                  text:
+                                      'Por favor, informe o sobrenome do paciente.');
+                              return;
+                            }
 
                             Patient paciente = Patient(
                                 cpfPessoa: textCpfController.text,
@@ -145,6 +166,75 @@ class AddPatient extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+void _snackMsg({
+  required BuildContext context,
+  required String text,
+}) {
+  final Size size = MediaQuery.of(context).size;
+
+  ScaffoldMessenger.of(context).clearSnackBars();
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      showCloseIcon: true,
+      closeIconColor: Colors.white,
+      backgroundColor: Colors.redAccent,
+      behavior: SnackBarBehavior.floating,
+      duration: const Duration(seconds: 3),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(size.width * .02),
+      ),
+      content: Text(
+        text,
+        style: FontGoogle.textNormaleGoogle(
+          size: size * .7,
+          colorText: Colors.white,
+        ),
+      ),
+    ),
+  );
+}
+
+class CustomField extends StatelessWidget {
+  final String label;
+  TextEditingController textController = TextEditingController();
+
+  CustomField({
+    super.key,
+    required this.label,
+    required this.textController,
+    required TextInputType keyboardType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: size.width * .03),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(size.width * .02),
+        border: Border.all(color: const Color(0xff333333), width: 1),
+      ),
+      child: TextField(
+        controller: textController,
+        cursorColor: const Color(0xff333333),
+        style: FontGoogle.textNormaleGoogle(
+          size: size * .8,
+        ),
+        decoration: InputDecoration(
+            hintText: label,
+            hintStyle: FontGoogle.textNormaleGoogle(
+              size: size * .8,
+              colorText: Colors.grey.shade500,
+            ),
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none),
       ),
     );
   }

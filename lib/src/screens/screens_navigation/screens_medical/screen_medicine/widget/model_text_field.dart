@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:healtime/shared/decorations/fonts_google.dart';
 
 class ModelTextField extends StatelessWidget {
-  const ModelTextField({Key? key, required this.textFieldController}) : super(key: key);
+  const ModelTextField({Key? key, required this.textFieldController})
+      : super(key: key);
 
   final TextEditingController textFieldController;
 
@@ -14,8 +15,9 @@ class ModelTextField extends StatelessWidget {
       margin:
           EdgeInsets.only(bottom: size.height * .02, top: size.height * .005),
       decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xff333333), width: 1),
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(7),
         boxShadow: const [
           BoxShadow(blurRadius: 1, offset: Offset(1, 2), color: Colors.black12)
         ],
