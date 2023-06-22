@@ -35,20 +35,11 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
       body: Stack(
         children: [
           const BackgroundPageV2(),
-          Container(
-            margin: EdgeInsets.only(top: size.height * .2 - 60),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-              color: Colors.white,
-            ),
-          ),
-          SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: size.width * .05, vertical: size.height * .01),
-                child: Column(
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.width * .05, vertical: size.height * .01),
+              child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
@@ -78,97 +69,108 @@ class _RegisterContactScreenState extends State<RegisterContactScreen> {
                         )
                       ],
                     ),
-                    SizedBox(height: size.height * .05),
-                    Text(
-                      'Crie sua conta de forma rápida e fácil agora mesmo!',
-                      style: GoogleFonts.getFont('Poppins',
-                          decoration: TextDecoration.none,
-                          color: const Color(0xff706F6F),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(height: size.height * .03),
-                    Form(
-                      key: keyForm,
-                      child: Column(
-                        children: [
-                          ModelTextForm.modelTextForm(
-                              textController: emailController,
-
-                              /* Flag para verificar se é para validar o TExtField */
-                              validator: false,
-                              size: size,
-                              textLabel: 'E-Mail',
-                              typeKeyboard: TextInputType.emailAddress,
-                              obscure: false),
-                          ModelTextForm.modelTextForm(
-                              textController: phoneController,
-                              validator: true,
-                              size: size,
-                              textLabel: 'Celular',
-                              typeKeyboard: TextInputType.phone,
-                              obscure: false),
-                          ModelTextForm.modelTextForm(
-                              textController: passwordController,
-                              validator: true,
-                              size: size,
-                              textLabel: 'Senha',
-                              typeKeyboard: TextInputType.text,
-                              obscure: true),
-                          ModelTextForm.modelTextForm(
-                              textController: confirmedPasswordController,
-                              validator: true,
-                              size: size,
-                              textLabel: 'Confirmar senha',
-                              typeKeyboard: TextInputType.text,
-                              obscure: true),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: ElevatedButton(
-                              onPressed: () => _validateForm(context),
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                backgroundColor:
-                                    Color.fromARGB(255, 51, 51, 51),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * .08,
-                                    vertical: size.height * .02),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    widget.pessoa.tipoPessoaId == 2
-                                        ? 'Finalizar'
-                                        : 'Proximo',
-                                    style: GoogleFonts.getFont('Poppins',
-                                        decoration: TextDecoration.none,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  SizedBox(width: size.width * .01),
-                                  const Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 15,
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ]),
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 120),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              color: Colors.white,
+            ),
+            child: ListView(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              children: [
+                SizedBox(height: size.height * .05),
+                Text(
+                  'Crie sua conta de forma rápida e fácil agora mesmo!',
+                  style: GoogleFonts.getFont('Poppins',
+                      decoration: TextDecoration.none,
+                      color: const Color(0xff706F6F),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(height: size.height * .03),
+                Form(
+                  key: keyForm,
+                  child: Column(
+                    children: [
+                      ModelTextForm.modelTextForm(
+                          textController: emailController,
+
+                          /* Flag para verificar se é para validar o TExtField */
+                          validator: false,
+                          size: size,
+                          textLabel: 'E-Mail',
+                          typeKeyboard: TextInputType.emailAddress,
+                          obscure: false),
+                      ModelTextForm.modelTextForm(
+                          textController: phoneController,
+                          validator: true,
+                          size: size,
+                          textLabel: 'Celular',
+                          typeKeyboard: TextInputType.phone,
+                          obscure: false),
+                      ModelTextForm.modelTextForm(
+                          textController: passwordController,
+                          validator: true,
+                          size: size,
+                          textLabel: 'Senha',
+                          typeKeyboard: TextInputType.text,
+                          obscure: true),
+                      ModelTextForm.modelTextForm(
+                          textController: confirmedPasswordController,
+                          validator: true,
+                          size: size,
+                          textLabel: 'Confirmar senha',
+                          typeKeyboard: TextInputType.text,
+                          obscure: true),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          onPressed: () => _validateForm(context),
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: Color.fromARGB(255, 51, 51, 51),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(45)),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * .08,
+                                vertical: size.height * .02),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                widget.pessoa.tipoPessoaId == 2
+                                    ? 'Finalizar'
+                                    : 'Proximo',
+                                style: GoogleFonts.getFont('Poppins',
+                                    decoration: TextDecoration.none,
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(width: size.width * .01),
+                              const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

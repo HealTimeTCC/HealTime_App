@@ -1,5 +1,6 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:healtime/shared/dto/dto_encerrar_cuidador_paciente.dart';
 
 import '../../../../../../../shared/decorations/fonts_google.dart';
 import '../../../../../../../shared/models/model_pessoa.dart';
@@ -39,36 +40,28 @@ class ModelPatient extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              
               padding: EdgeInsets.symmetric(horizontal: size.width * .02),
-              child: Row(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        person.nomePessoa,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: FontGoogle.textNormaleGoogle(size: size * .85),
-                      ),
-                      Text(
-                        person.sobreNomePessoa,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: FontGoogle.textNormalGreyGoogle(size: size * .6),
-                      ),
-                      IconButton(onPressed: () async{
-                        print("tap");
-                      }, 
-                      icon: Icon(Icons.delete_sweep)),
-                    ],
+                  Text(
+                    person.nomePessoa,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormaleGoogle(size: size * .85),
+                  ),
+                  Text(
+                    person.sobreNomePessoa,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: FontGoogle.textNormalGreyGoogle(size: size * .6),
                   ),
                 ],
               ),
-            ),         
+            ),
           ),
-         
           Container(
             padding: EdgeInsets.symmetric(
                 vertical: size.height * .003, horizontal: size.width * .03),
@@ -83,6 +76,14 @@ class ModelPatient extends StatelessWidget {
               ),
             ),
           ),
+          IconButton(
+              onPressed: () async {
+                print("tap");
+                // EncerrarCuidadorPaciente cuidadorPaciente =
+                //     EncerrarCuidadorPaciente(
+                //         cuidadorId: cuidadorId, pacienteId: pacienteId);
+              },
+              icon: Icon(Icons.delete_sweep)),
         ],
       ),
     );

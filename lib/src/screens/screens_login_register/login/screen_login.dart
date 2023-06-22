@@ -32,105 +32,108 @@ class _ScreenLoginState extends State<ScreenLogin> {
     return Scaffold(
       body: Stack(
         children: [
-          const BackgroundPageV2 (),
+          const BackgroundPageV2(),
+          SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () => providerLogin.incrementScreen(context),
+                    child: Text(
+                      'Entre com a sua conta',
+                      style: GoogleFonts.getFont('Poppins',
+                          decoration: TextDecoration.none,
+                          color: Color(0xFFFFFFFF),
+                          fontSize: 26,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                ]),
+          )),
           Container(
-            margin: EdgeInsets.only(top: size.height * .2 - 60),
-            decoration: const BoxDecoration(
+            margin: EdgeInsets.only(top: 120),
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               color: Colors.white,
             ),
-          ),
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      onTap: () => providerLogin.incrementScreen(context),
-                      child: Text(
-                        'Entre com a sua conta',
-                        style: GoogleFonts.getFont('Poppins',
-                            decoration: TextDecoration.none,
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 26,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(height: size.height * .04 ),
-                    Text(
-                      'Não se preocupe! Seus dados estão completamente seguros com a '
-                      'equipe do HealTime.',
-                      style: GoogleFonts.getFont('Poppins',
-                          decoration: TextDecoration.none,
-                          color: Colors.black45,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(height: size.height * .06),
-                    Form(
-                      key: keyForm,
-                      child: Column(
-                        children: [
-                          ModelTextForm.modelTextForm(
-                              textController: _textEmail,
-                              validator: false,
-                              textLabel: 'Nome usuário/e-mail',
-                              typeKeyboard: TextInputType.emailAddress,
-                              size: size,
-                              obscure: false),
-                          ModelTextForm.modelTextForm(
-                              textController: _textPassword,
-                              validator: true,
-                              textLabel: 'Senha',
-                              typeKeyboard: TextInputType.text,
-                              size: size,
-                              icon: iconPassword,
-                              iconColor: colorIconPassword,
-                              obscure: true),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: size.height * .02),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        'Esqueceu a senha?',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.getFont('Poppins',
-                            decoration: TextDecoration.underline,
-                            color: Colors.black45,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                    SizedBox(height: size.height * .06),
-                    ElevatedButton(
-                      onPressed: _validateForm,
-                      style: ElevatedButton.styleFrom(
-                          padding:
-                              EdgeInsets.symmetric(vertical: size.height * .02),
-                          backgroundColor: Color(0xFF333333),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      child: Text(
-                        'Entrar',
-                        style: GoogleFonts.getFont('Poppins',
-                            decoration: TextDecoration.none,
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
+            child: ListView(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              children: [
+                SizedBox(height: size.height * .04),
+                Text(
+                  'Não se preocupe! Seus dados estão completamente seguros com a '
+                  'equipe do HealTime.',
+                  style: GoogleFonts.getFont('Poppins',
+                      decoration: TextDecoration.none,
+                      color: Colors.black45,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400),
                 ),
-              ),
+                SizedBox(height: size.height * .06),
+                Form(
+                  key: keyForm,
+                  child: Column(
+                    children: [
+                      ModelTextForm.modelTextForm(
+                          textController: _textEmail,
+                          validator: false,
+                          textLabel: 'Nome usuário/e-mail',
+                          typeKeyboard: TextInputType.emailAddress,
+                          size: size,
+                          obscure: false),
+                      ModelTextForm.modelTextForm(
+                          textController: _textPassword,
+                          validator: true,
+                          textLabel: 'Senha',
+                          typeKeyboard: TextInputType.text,
+                          size: size,
+                          icon: iconPassword,
+                          iconColor: colorIconPassword,
+                          obscure: true),
+                    ],
+                  ),
+                ),
+                SizedBox(height: size.height * .02),
+                // GestureDetector(
+                //   onTap: () {},
+                //   child: Text(
+                //     'Esqueceu a senha?',
+                //     textAlign: TextAlign.center,
+                //     style: GoogleFonts.getFont('Poppins',
+                //         decoration: TextDecoration.underline,
+                //         color: Colors.black45,
+                //         fontSize: 15,
+                //         fontWeight: FontWeight.w400),
+                //   ),
+                // ),
+                SizedBox(height: size.height * .01),
+                ElevatedButton(
+                  onPressed: _validateForm,
+                  style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(vertical: size.height * .02),
+                      backgroundColor: Color(0xFF333333),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: Text(
+                    'Entrar',
+                    style: GoogleFonts.getFont('Poppins',
+                        decoration: TextDecoration.none,
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
             ),
-          ),
+          )
         ],
       ),
     );
